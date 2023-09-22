@@ -1,0 +1,73 @@
+.main {
+    max-width: 1440px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.stepBar {
+    margin: 3rem;
+
+}
+
+.step {
+    display: flex;
+    max-width: 344px
+}
+
+.stepBox {
+    background: rgba(97, 97, 83, 1);
+    display: flex;
+    width: 6.25rem;
+    height: 6.34375rem;
+    transform: rotate(-45deg);
+    padding: 0.625rem;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.nowStep {
+    background: rgba(97, 97, 83, 1);
+}
+
+.otherStep {
+    opacity: 0.5;
+}
+
+.stepNum {
+    transform: rotate(45deg);
+    color: #FFFCF3;
+    text-align: center;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-size: 72px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.stepWords {
+    display: flex;
+    flex-direction: column;
+    margin-block: auto;
+    margin-left: 20px;
+    color: #616153;
+}
+
+.listTitle {
+    color: #fff;
+    display: flex;
+    background:#616153;
+    height: 70px;
+    padding: 0px 10px;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+.listTitle :first-child{
+    width: calc(100% - 23.281px);
+    justify-content: center;
+    display: flex;
+}
