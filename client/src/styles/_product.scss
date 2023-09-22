@@ -1,0 +1,13 @@
+// :root{
+//     --color-main:#616153;
+//     --color-vice:#FCFAF2;
+//     --color-emph:#B16464;
+// }
+$mainColor: #616153;
+$viceColor: #fcfaf2;
+$emphColor: #b16464;
+
+.public-nav {
+  color: $mainColor;
+  font-size: 20px;
+}
