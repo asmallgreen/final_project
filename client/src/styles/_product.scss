@@ -1,13 +1,144 @@
-// :root{
-//     --color-main:#616153;
-//     --color-vice:#FCFAF2;
-//     --color-emph:#B16464;
-// }
 $mainColor: #616153;
 $viceColor: #fcfaf2;
 $emphColor: #b16464;
 
-.public-nav {
-  color: $mainColor;
+* {
+  box-sizing: border-box;
+}
+// 桌機logo
+.logo-bar {
+  height: 72px;
+  background-color: $mainColor;
+}
+// 桌機nav
+.table-nav {
+  // width: 1440px;
+  background-color: $viceColor;
+  height: 90px;
+  .nav {
+    height: 90px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0;
+    li {
+      text-decoration: none;
+      margin-inline: 5px;
+      text-align: center;
+      a {
+        border-bottom: 4px solid transparent;
+        padding: 10px 15px;
+        text-decoration: none;
+        color: $mainColor;
+        font-size: 20px;
+        &:hover {
+          border-bottom: 4px solid $mainColor;
+          color: $mainColor;
+        }
+      }
+    }
+  }
+
+  .nav-fk {
+    height: 90px;
+    padding-inline: 10px;
+    li {
+      padding-inline: 10px;
+    }
+  }
+}
+// 手機logo
+.logo-bar {
+  // height: 57px;
+  img {
+    padding-inline: 10px;
+  }
+}
+// 電腦footer
+.footer {
+  padding: 50px 100px;
+  background-color: $mainColor;
+  height: 300px;
+  color: $viceColor;
   font-size: 20px;
+  .logo {
+    margin: 10px;
+  }
+  .button {
+    border-left: 3px solid $viceColor;
+    padding-left: 10px;
+    .btn {
+      height: 80px;
+      width: 80px;
+      color: $viceColor;
+      border: 2px solid $viceColor;
+      font-size: 16px;
+      padding: 15px;
+      margin: 10px;
+    }
+  }
+
+  ul {
+    margin: 10px;
+    li {
+    }
+  }
+}
+// 手機nav
+.phone-nav {
+  // width: 393px;
+  background-color: $viceColor;
+  height: 40px;
+  .nav {
+    height: 40px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0;
+    li {
+      text-decoration: none;
+      margin-inline: 10px;
+      text-align: center;
+      a {
+        // border-bottom: 2px solid transparent;
+        padding: 5px 10px;
+        text-decoration: none;
+        color: $mainColor;
+        font-size: 12px;
+        &:hover {
+          font-weight: bold;
+          // border-bottom: 2px solid $mainColor;
+          color: $mainColor;
+        }
+      }
+    }
+  }
+}
+
+//手機button
+.bottom-btn {
+  width: 393px;
+  height: 62px;
+  background-color: $viceColor;
+  .btn {
+    width: 78px;
+    border-radius: 0;  
+    color: $mainColor;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-inline: 15px;
+    // .home {
+    // .logo {
+    //   width: 38px;
+    //   height: 36px;
+    // }
+    // }
+    .notify {
+      background-color: $emphColor;
+      width: 20px;
+      height: 20px;
+      color: $viceColor;
+      right: 15px;
+    }
+  }
 }
