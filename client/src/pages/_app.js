@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'; // import bootstrap css
 
 import '../styles/_globals.scss';
 import '../styles/_public.scss';
+import '../styles/_product.scss';
 
 export default function MyApp({ Component, pageProps }) {
  
