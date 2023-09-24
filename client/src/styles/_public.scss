@@ -7,7 +7,7 @@ $emphColor: #b16464;
 }
 // 桌機logo
 .table-logo-bar {
-  img{
+  img {
     height: 45px;
     // padding-inline: 0px;
   }
@@ -48,6 +48,10 @@ $emphColor: #b16464;
     padding-inline: 10px;
     li {
       padding-inline: 10px;
+      .fa-magnifying-glass{
+        right: 110px;
+        // left: 60px;
+      }
     }
   }
 }
@@ -60,11 +64,11 @@ $emphColor: #b16464;
   font-size: 20px;
   .logo {
     margin: 10px;
-    .logo-img{
+    .logo-img {
       height: 85px;
       margin-bottom: 15px;
     }
-    .logo-text{
+    .logo-text {
       height: 54px;
     }
   }
@@ -95,14 +99,13 @@ $emphColor: #b16464;
   height: 57px;
   margin: 0;
   background-color: $mainColor;
-  .logo-img{
+  .logo-img {
     width: 38px;
     // padding-inline: 0px;
   }
-  .logo-text{
+  .logo-text {
     width: 105px;
   }
-  
 }
 // 手機nav
 .phone-nav {
@@ -133,26 +136,39 @@ $emphColor: #b16464;
     }
   }
 }
-//手機button
+// 手機button
 .bottom-btn {
   width: 393px;
   height: 62px;
   background-color: $viceColor;
   .btn {
     width: 78px;
-    border-radius: 0;  
+    border-radius: 0;
     color: $mainColor;
     font-size: 12px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding-inline: 15px;
-    // .home {
-    // .logo {
-    //   width: 38px;
-    //   height: 36px;
-    // }
-    // }
+    &:hover {
+      background-color: #616153;
+      color: $viceColor;
+      .logo-img2 {
+        display: none;
+        height: 0;
+      }
+      .logo-img {
+        height: 25px;
+        display: block;
+      }
+    }
+    .logo-img2 {
+      height: 25px;
+    }
+    .logo-img {
+      display: none;
+    }
+
     .notify {
       background-color: $emphColor;
       width: 20px;
@@ -162,42 +178,60 @@ $emphColor: #b16464;
     }
   }
 }
-
-.ham-login{
-  .opacity-50{
+// 手機ham
+.ham-login {
+  .opacity-50 {
     background-color: $mainColor;
     width: 75px;
   }
-  .btn{
+  .btns {
     border: 0;
     width: 318px;
-    .info{
+    .info {
       height: 78px;
       background-color: $mainColor;
       padding: 10px 20px;
       color: $viceColor;
-      .img{
+      
+      .img {
         width: 50px;
         height: 50px;
         border: 1px solid $viceColor;
         border-radius: 50%;
+        .img-edit {
+          display: none;
+        }
+        &:hover {
+          .img-edit {
+            display: block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: $viceColor;
+          }
+        }
+        
       }
-      .text{
+      .text {
         font-size: 16px;
         margin-inline: 10px 30px;
-
       }
-      .edit{
+      .edit {
         width: 118px;
         height: 26px;
         font-size: 13px;
         padding-inline: 10px;
-        // border-radius: 20%;
         border: 1px solid $viceColor;
         color: $viceColor;
+        &:hover {
+          
+            background-color: $viceColor;
+            color: $mainColor;
+          
+        }
       }
     }
-    .type{
+    .type {
       padding: 20px;
       color: $mainColor;
       background-color: $viceColor;
@@ -205,7 +239,7 @@ $emphColor: #b16464;
       font-size: 15px;
       text-align: start;
     }
-    .fk{
+    .fk {
       padding: 15px 40px;
       color: $mainColor;
       background-color: #ffffff;
@@ -213,7 +247,7 @@ $emphColor: #b16464;
       font-size: 13px;
       font-weight: bold;
       text-align: start;
-      .sesstion{
+      .sesstion {
         background-color: $emphColor;
         color: $viceColor;
         width: 20px;
@@ -221,7 +255,7 @@ $emphColor: #b16464;
         border-radius: 50%;
       }
     }
-    .logout{
+    .logout {
       height: 62px;
       background-color: $mainColor;
       color: $viceColor;
@@ -230,15 +264,15 @@ $emphColor: #b16464;
     }
   }
 }
-.ham-logout{
-  .opacity-50{
+.ham-logout {
+  .opacity-50 {
     background-color: $mainColor;
     width: 75px;
   }
-  .btn{
+  .btn {
     border: 0;
     width: 318px;
-    .type{
+    .type {
       padding: 20px;
       color: $mainColor;
       background-color: $viceColor;
@@ -246,7 +280,7 @@ $emphColor: #b16464;
       font-size: 15px;
       text-align: start;
     }
-    .fk{
+    .fk {
       padding: 15px 40px;
       color: $mainColor;
       background-color: #ffffff;
@@ -254,7 +288,7 @@ $emphColor: #b16464;
       font-size: 13px;
       font-weight: bold;
       text-align: start;
-      .sesstion{
+      .sesstion {
         background-color: $emphColor;
         color: $viceColor;
         width: 20px;
@@ -262,7 +296,7 @@ $emphColor: #b16464;
         border-radius: 50%;
       }
     }
-    .login{
+    .login {
       height: 62px;
       background-color: $mainColor;
       color: $viceColor;

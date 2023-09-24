@@ -25,7 +25,7 @@ function PublicNav() {
         <img className="logo-text" src="/logo-text.svg" />
       </div>
       {/* 桌機版nav */}
-      <div className="table-nav position-relative d-flex align-items-center mx-3">
+      <div className="table-nav position-relative d-flex align-items-center">
         <ul className="nav position-absolute top-0 d-flex justify-content-center align-items-center">
           <li className="list-unstyled">
             <a href="/">關於良弓</a>
@@ -44,12 +44,15 @@ function PublicNav() {
           </li>
         </ul>
         <ul className="nav-fk d-flex position-absolute top-0 end-0 align-items-center">
-          <li className=" align-items-center list-unstyled d-flex">
-            <FontAwesomeIcon icon={faSearch} className="fa-magnifying-glass" />
+          <li className=" align-items-center list-unstyled d-flex  ">
             <input
-              className="form-control ms-3"
+              className="form-control ms-3 rounded-5 position-relative"
               type="text"
               placeholder="請輸入商品名稱"
+            />
+            <FontAwesomeIcon
+              icon={faSearch}
+              className="fa-magnifying-glass position-absolute"
             />
           </li>
           <li className="list-unstyled">
@@ -89,9 +92,11 @@ function PublicNav() {
       {/* 手機版ham 登入版*/}
       <div className="ham-login d-flex">
         <div className="opacity-50"></div>
-        <div className="btn p-0">
+        <div className="btns p-0">
           <div className="info d-flex align-items-center justify-content-between">
-            <div className="img"></div>
+            <div className="img">
+              <div className="img-edit opacity-50"></div>
+            </div>
             <div className="text">Hi, 慕朵</div>
             <div className="edit align-items-center d-flex justify-content-center rounded-2">
               修改會員資料
@@ -162,24 +167,11 @@ function PublicNav() {
       <div className="ham-logout d-flex">
         <div className="opacity-50"></div>
         <div className="btn p-0">
-          
-          <div className="type d-flex justify-content-between">
-            會員專區
-            <FontAwesomeIcon
-              icon={faChevronDown}
-              className="fa-solid fa-chevron-down"
-            />
-          </div>
-          <div className="fk">會員資料設定</div>
-          <div className="fk">修改密碼</div>
-          <div className="fk">訂單記錄</div>
-          <div className="fk">我的收藏</div>
-          <div className="fk">我的優惠券</div>
           <div className="type d-flex justify-content-between">
             商品分類
             <FontAwesomeIcon
-              icon={faChevronDown}
-              className="fa-solid fa-chevron-down"
+              icon={faChevronRight}
+              className="fa-solid fa-chevron-right"
             />
           </div>
           <div className="fk">弓</div>
@@ -189,38 +181,26 @@ function PublicNav() {
           <div className="type d-flex justify-content-between">
             課程分類
             <FontAwesomeIcon
-              icon={faChevronDown}
-              className="fa-solid fa-chevron-down"
+              icon={faChevronRight}
+              className="fa-solid fa-chevron-right"
             />
           </div>
-          <div className="fk">初探</div>
-          <div className="fk">進階</div>
-          <div className="fk">專業</div>
           <div className="type">場地租借</div>
           <div className="type d-flex justify-content-between">
             功能選單
             <FontAwesomeIcon
-              icon={faChevronDown}
-              className="fa-solid fa-chevron-down"
+              icon={faChevronRight}
+              className="fa-solid fa-chevron-right"
             />
           </div>
-          <div className="fk">熱銷商品</div>
-          <div className="fk">瀏覽紀錄</div>
-          <div className="fk d-flex justify-content-between align-content-center">
-            購物車
-            <div className="sesstion text-center">10</div>
-          </div>
-          <div className="fk">優惠總覽</div>
           <div className="type">關於良弓制販所</div>
           <div className="type d-flex justify-content-between">
             聯絡我們
             <FontAwesomeIcon
-              icon={faChevronDown}
-              className="fa-solid fa-chevron-down"
+              icon={faChevronRight}
+              className="fa-solid fa-chevron-right"
             />
           </div>
-          <div className="fk">寫信給良弓</div>
-          <div className="fk">聯絡線上客服</div>
           <div className="login">註冊 / 登入</div>
         </div>
       </div>
@@ -228,11 +208,8 @@ function PublicNav() {
       {/* 手機版 button */}
       <div className="bottom-btn d-flex justify-content-around">
         <div className="btn home d-flex flex-column">
-          <FontAwesomeIcon
-            icon={faHouse}
-            className="fa-solid fa-2xl fa-house"
-          ></FontAwesomeIcon>
-          {/* <img className="logo" src="./images/logo1.png" alt="123" /> */}
+          <img className="logo-img2 text-center" src="/logo-img2.svg" />
+          <img className="logo-img text-center" src="/logo-img.svg" />
           首頁
         </div>
         <div className="btn cart position-relative">
