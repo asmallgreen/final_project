@@ -1,0 +1,74 @@
+[
+    {
+      "id": 1,
+      "orderNumber": "A1233456",
+      "orderAmount": 8000,
+      "orderDate": "2023-08-21"
+    },
+    {
+      "id": 2,
+      "orderNumber": "B7890123",
+      "orderAmount": 5500,
+      "orderDate": "2023-09-10"
+    },
+    {
+      "id": 3,
+      "orderNumber": "C4567890",
+      "orderAmount": 9500,
+      "orderDate": "2023-09-15"
+    },
+    {
+      "id": 4,
+      "orderNumber": "D1234567",
+      "orderAmount": 6000,
+      "orderDate": "2023-09-20"
+    },
+    {
+      "id": 5,
+      "orderNumber": "E7890123",
+      "orderAmount": 7500,
+      "orderDate": "2023-09-25"
+    },
+    {
+      "id": 6,
+      "orderNumber": "F4567890",
+      "orderAmount": 8500,
+      "orderDate": "2023-09-28"
+    },
+    {
+      "id": 7,
+      "orderNumber": "G1234567",
+      "orderAmount": 7000,
+      "orderDate": "2023-10-02"
+    },
+    {
+      "id": 8,
+      "orderNumber": "H7890123",
+      "orderAmount": 9200,
+      "orderDate": "2023-10-05"
+    },
+    {
+      "id": 9,
+      "orderNumber": "I4567890",
+      "orderAmount": 8800,
+      "orderDate": "2023-10-10"
+    },
+    {
+      "id": 10,
+      "orderNumber": "J1234567",
+      "orderAmount": 7300,
+      "orderDate": "2023-10-15"
+    },
+    {
+      "id": 11,
+      "orderNumber": "K7890123",
+      "orderAmount": 6400,
+      "orderDate": "2023-10-20"
+    },
+    {
+      "id": 12,
+      "orderNumber": "L4567890",
+      "orderAmount": 9800,
+      "orderDate": "2023-10-25"
+    }
+  ]

@@ -1,0 +1,55 @@
+$pc-img-height: 80px;
+$mobile-img-height: 60px;
+
+.order-title{
+    font-size: 24px;
+    font-weight: 700;
+    color: $secondary;
+    border-bottom:5px solid transparent;
+}
+
+.order-title:hover{
+    border-bottom: $secondary 5px solid;
+}
+
+.order-table-pc{
+    width: 100%;
+    thead{
+        background-color:rgba(97, 97, 83, 0.5);
+        color: #fff;
+    }
+    th{
+        padding: 10px 0;
+        text-align: center;
+    }
+    td{
+        padding: 10px 0;
+        text-align: center;
+        color: $secondary;
+    }
+    img{
+        width: $pc-img-height;
+        height: auto;
+        object-fit: cover;
+    }
+}
+
+.order-table-mobile{
+    img{
+        width: $mobile-img-height;
+        height: $mobile-img-height;
+        object-fit: cover;
+    }
+    .btn{
+        background-color: rgb(97, 97, 83, .7);
+        border-radius: 0;
+        padding: 10px 20px;
+        color: #fff;
+        font-size: 0.75rem;
+    }
+    .subtotal{
+        font-size: 14px;
+        font-weight: bold;
+        color: $accent;
+    }
+}
