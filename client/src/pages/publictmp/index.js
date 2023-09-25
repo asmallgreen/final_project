@@ -20,12 +20,12 @@ function PublicNav() {
   return (
     <>
       {/* 桌機版logo */}
-      <div className="table-logo-bar d-flex justify-content-center align-items-center">
+      {/* <div className="table-logo-bar d-flex justify-content-center align-items-center">
         <img className="logo-img" src="/logo-img.svg" />
         <img className="logo-text" src="/logo-text.svg" />
-      </div>
+      </div> */}
       {/* 桌機版nav */}
-      <div className="table-nav position-relative d-flex align-items-center">
+      {/* <div className="table-nav position-relative d-flex align-items-center">
         <ul className="nav position-absolute top-0 d-flex justify-content-center align-items-center">
           <li className="list-unstyled">
             <a href="/">關於良弓</a>
@@ -65,7 +65,7 @@ function PublicNav() {
             <FontAwesomeIcon icon={faUser} className="fa-user" />
           </li>
         </ul>
-      </div>
+      </div> */}
       {/* 手機版logo */}
       <div className="phone-logo-bar d-flex justify-content-center align-items-center">
         <img className="logo-img" src="/logo-img.svg" />
@@ -250,7 +250,7 @@ function PublicNav() {
       </div>
 
       {/* footer */}
-      <div className="footer d-flex">
+      {/* <div className="footer d-flex">
         <div className="logo d-flex flex-column justify-content-center align-items-center">
           <img className="logo-img" src="/logo-img.svg" />
           <img className="logo-text" src="/logo-text.svg" />
@@ -279,7 +279,7 @@ function PublicNav() {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

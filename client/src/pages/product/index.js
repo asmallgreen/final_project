@@ -1,4 +1,5 @@
 import React from "react";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -13,11 +14,13 @@ function Product() {
   return (
     <>
       {/* 商品廣告 */}
-      <div class="ads d-flex row">
-        <div class="ad col">Ad</div>
-        <div class="main col-6 position-relative">
-          Main
-          <div className="scrolls d-flex position-absolute start-50 bottom-0 text-center m-3">
+      <div class="ads d-flex row position-relative">
+        <div class="ad col">
+          <img src="/product/top1.jpg"/>
+        </div>
+        <div class="main ad col-6">
+        <img src="/product/top2.jpg"/>
+          <div className="scrolls d-flex position-absolute bottom-0  m-3">
             <div className="circle mx-1"></div>
             <div className="circle mx-1"></div>
             <div className="circle mx-1"></div>
@@ -25,7 +28,9 @@ function Product() {
             <div className="circle mx-1"></div>
           </div>
         </div>
-        <div class="ad col">Ad</div>
+        <div class="ad col">
+        <img src="/product/top3.jpg"/>
+        </div>
       </div>
 
       {/* 新品上架 */}
@@ -114,18 +119,18 @@ function Product() {
         {/* 排序篩選 */}
         <div className="fk d-flex justify-content-between align-items-center">
           {/* 麵包屑 */}
-          <div className="bread-crumb d-flex align-items-center">
+          <div  className="bread-crumb d-flex align-items-center">
             <div className="crumb-item">
               <a href="" className="mx-4">
                 首頁
               </a>
-              /
+              &gt;
             </div>
             <div className="crumb-item">
               <a href="" className="mx-4">
                 商店
               </a>
-              /
+              &gt;
             </div>
             <div className="crumb-item">
               <a href="" className="mx-4">
