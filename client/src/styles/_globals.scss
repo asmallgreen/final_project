@@ -89,14 +89,13 @@ $emphColor: #b16464;
       }
       .hover-type {
         display: none;
+        visibility: hidden;
         z-index: 90;
         top: 90px;
         right: calc(50% - 500px);
         width: 1000px;
         height: 300px;
-        // opacity: 50%;
         .box {
-          // z-index: 100;
           position: relative;
           width: 200px;
           height: 200px;
@@ -110,16 +109,32 @@ $emphColor: #b16464;
           }
           .text {
             display: none;
+            width: 200px;
+            height: 200px;
+            background-color: $mainColor;
+            opacity: 50%;
+            // position: relative;
+            margin: 0;
             position: absolute;
-            bottom: 0px;
-            right: 15px;
-            font-size: 30px;
+            bottom: 0;
+            right: 0;
+            font-size: 40px;
             font-weight: bold;
-            color: $mainColor;
+            color: $viceColor;
+            padding-right: 15px;
+            text-align: end;
+            // vertical-align: bottom;
+            span{
+              position: absolute;
+              bottom: 0;
+              right: 5%;
+            }
+            
           }
         }
       }
       .hover-space {
+        visibility: hidden;
         display: none;
         z-index: 89;
         top: 70px;
@@ -129,28 +144,36 @@ $emphColor: #b16464;
         background-color: $viceColor;
         opacity: 75%;
       }
-      &:hover{
-        a{
+      &:hover {
+        a {
           border-bottom: 4px solid $mainColor;
           color: $mainColor;
         }
-        .hover-type{
+        .hover-type {
+          visibility: visible;
           display: block;
           .box {
-            border: 1px solid $mainColor;
+            border: 2px solid transparent;
             img {
               display: block;
             }
             .text {
-              display: block;
+              display: none;
+            }
+            &:hover {
+              border: 1px solid transparent;
+              .text {
+                border: 2px solid $mainColor;
+                display: block;
+              }
             }
           }
         }
         .hover-space {
+          visibility: visible;
           display: block;
         }
       }
-      
     }
   }
 

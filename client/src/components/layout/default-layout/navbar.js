@@ -19,22 +19,31 @@ export default function Navbar() {
           </li>
           <li className="list-unstyled product-page">
             <a href="/product">商品介紹</a>
+
             <div className="hover-type d-flex justify-content-center position-absolute align-items-center">
               <div className="box">
                 <img src="/type1.png" />
-                <div className="text">弓</div>
+                <div className="text">
+                  <span className="text-bottom">弓</span>
+                </div>
               </div>
               <div className="box">
                 <img src="/type1.png" />
-                <div className="text">箭</div>
+                <div className="text">
+                  <span className="text-bottom">箭</span>
+                </div>
               </div>
               <div className="box">
                 <img src="/type1.png" />
-                <div className="text">道服</div>
+                <div className="text">
+                  <span className="text-bottom">道服</span>
+                </div>
               </div>
               <div className="box">
                 <img src="/type1.png" />
-                <div className="text">其他</div>
+                <div className="text">
+                  <span className="text-bottom">其他</span>
+                </div>
               </div>
             </div>
             <div className="hover-space position-absolute"></div>
