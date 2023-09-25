@@ -1,16 +1,12 @@
-.main {
-    max-width: 1440px;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-}
-
 .stepBar {
-    margin: 3rem;
-
+    padding: 5rem 0 5rem 3rem;
 }
-
+.stepBar div{
+    padding-inline: 5px;
+}
+.container-fluid{
+    justify-content: center;
+}
 .step {
     display: flex;
     max-width: 344px
@@ -22,11 +18,9 @@
     width: 6.25rem;
     height: 6.34375rem;
     transform: rotate(-45deg);
-    padding: 0.625rem;
+    padding: 5px;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    flex-shrink: 0;
 }
 
 .nowStep {
@@ -52,7 +46,7 @@
     display: flex;
     flex-direction: column;
     margin-block: auto;
-    margin-left: 20px;
+    margin-left: 12px;
     color: #616153;
 }
 
@@ -62,12 +56,40 @@
     background:#616153;
     height: 70px;
     padding: 0px 10px;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     
 }
-.listTitle :first-child{
-    width: calc(100% - 23.281px);
+.listTitle div span{
+    cursor: pointer;
+}
+.listTitle div{
     justify-content: center;
     display: flex;
+}
+
+.productList{
+    padding: 20px;
+    border-inline: 1px solid #616153;
+    border-bottom: 1px solid #616153;
+    justify-content: space-between;
+}
+.productList  div {
+    margin-block: auto;
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    flex-direction: column;
+}
+.productList  select{
+    padding: 10px 40px;
+    margin-bottom:10px ;
+}
+.deleteBtn{
+    background-color: #B16464;
+    border: #B16464 1px solid;
+}
+.deleteBtn:hover {
+    background-color: #db5151;
+    border: #B16464 1px solid;
 }
