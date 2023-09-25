@@ -5,8 +5,8 @@ $emphColor: #b16464;
 * {
   box-sizing: border-box;
 }
+
 .ads {
-  // background-color: $viceColor;
   height: 500px;
   width: 100%;
   .ad {
@@ -15,14 +15,36 @@ $emphColor: #b16464;
   }
   .main {
     background-color: $mainColor;
+    .scrolls {
+        // right: 50%;
+      .circle {
+        width: 12px;
+        height: 12px;
+        background-color: $viceColor;
+        border: 1px solid $mainColor;
+        border-radius: 50%;
+        &:hover {
+          background-color: $mainColor;
+          border: 1px solid $viceColor;
+
+        }
+      }
+    }
   }
 }
+
 .title {
+  // max-width: 1440px;
   height: 95px;
-  padding: 50px 45px;
-  color: $mainColor;
-  font-size: 30px;
   border-bottom: 1px solid $mainColor;
+  padding: 50px 45px;
+
+  p {
+    max-width: 1440px;
+    margin: 0 auto;
+    color: $mainColor;
+    font-size: 30px;
+  }
 }
 .cards {
   height: 435px;
@@ -30,7 +52,7 @@ $emphColor: #b16464;
   .card {
     width: 230px;
     height: 320px;
-
+    margin-inline: 5px;
     img {
       height: 230px;
       background-color: $mainColor;
@@ -58,6 +80,43 @@ $emphColor: #b16464;
       .price {
         font-size: 18px;
         color: $emphColor;
+      }
+    }
+  }
+}
+.category {
+  height: 510px;
+  .type-title {
+    height: 300px;
+    background-color: $mainColor;
+    color: $viceColor;
+    font-size: 40px;
+    padding-top: 80px;
+    letter-spacing: 8px;
+  }
+  .type {
+    top: 160px;
+    margin: 0 auto;
+    width: 100%;
+    .item {
+      width: 360px;
+      height: 280px;
+      background-color: #4b4b3d;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        background-color: #a7a78c;
+        a {
+          display: block;
+          color: $viceColor;
+          font-size: 36px;
+        }
+      }
+      a {
+        display: none;
+        text-decoration: none;
       }
     }
   }
@@ -111,8 +170,11 @@ $emphColor: #b16464;
   }
 }
 .list {
-    padding-bottom: 100px;
+  padding-bottom: 100px;
+  border-bottom: 1px solid $mainColor;
   .fk {
+    max-width: 1440px;
+    margin: 0 auto;
     padding: 35px 35px 35px 0px;
     .bread-crumb {
       height: 40px;
@@ -153,9 +215,11 @@ $emphColor: #b16464;
     }
   }
   .cards {
-    .card-list {
+    border-bottom: 0;
+    .card {
       width: 250px;
       height: 400px;
+      margin-inline: 5px;
       .img {
         width: 250px;
         height: 300px;
@@ -170,7 +234,7 @@ $emphColor: #b16464;
             height: 26px;
             color: $emphColor;
           }
-          .far-heart{
+          .far-heart {
             display: none;
           }
           &:hover {
@@ -184,7 +248,6 @@ $emphColor: #b16464;
               color: $emphColor;
             }
           }
-          
         }
       }
       .content {
@@ -205,6 +268,26 @@ $emphColor: #b16464;
               color: #93937b;
             }
           }
+        }
+      }
+    }
+  }
+  .page-btns {
+    max-width: 1440px;
+    padding-inline: 30px;
+    margin: 0 auto;
+    .btn-group {
+      .btn {
+        width: 35px;
+        height: 35px;
+        border: 1px solid $mainColor;
+        font-size: 14px;
+        color: $mainColor;
+        border-radius: 0;
+
+        &:hover {
+          color: $viceColor;
+          background-color: $mainColor;
         }
       }
     }

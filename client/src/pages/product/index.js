@@ -1,11 +1,13 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import {
   faFilter,
   faSort,
   faCartShopping,
   faHeart as farHeart,
+  faArrowLeft,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 function Product() {
   return (
@@ -13,12 +15,24 @@ function Product() {
       {/* 商品廣告 */}
       <div class="ads d-flex row">
         <div class="ad col">Ad</div>
-        <div class="main col-6">Main</div>
+        <div class="main col-6 position-relative">
+          Main
+          <div className="scrolls d-flex position-absolute start-50 bottom-0 text-center m-3">
+            <div className="circle mx-1"></div>
+            <div className="circle mx-1"></div>
+            <div className="circle mx-1"></div>
+            <div className="circle mx-1"></div>
+            <div className="circle mx-1"></div>
+          </div>
+        </div>
         <div class="ad col">Ad</div>
       </div>
+
       {/* 新品上架 */}
-      <div className="title">新品上架</div>
-      <div className="cards d-flex justify-content-between px-5 py-5">
+      <div className="title">
+        <p>新品上架</p>
+      </div>
+      <div className="cards d-flex justify-content-center px-5 py-5">
         <div className="card">
           <img src="" />
           <div className="content d-flex flex-column justify-content-between">
@@ -71,9 +85,33 @@ function Product() {
         </div>
       </div>
 
+      {/* 分類 */}
+      <div className="category position-relative">
+        <div className="type-title d-flex justify-content-center ">
+          ｜ 產品分類 ｜
+        </div>
+        <div className="type d-flex position-absolute justify-content-center ">
+          <div className="item">
+            <a href="">弓</a>
+          </div>
+          <div className="item">
+            <a href="">箭</a>
+          </div>
+          <div className="item">
+            <a href="">道服</a>
+          </div>
+          <div className="item">
+            <a href="">其他</a>
+          </div>
+        </div>
+      </div>
+
       {/* 所有產品 */}
-      <div className="title">所有產品</div>
+      <div className="title">
+        <p>所有產品</p>
+      </div>
       <div className="list">
+        {/* 排序篩選 */}
         <div className="fk d-flex justify-content-between align-items-center">
           {/* 麵包屑 */}
           <div className="bread-crumb d-flex align-items-center">
@@ -133,21 +171,13 @@ function Product() {
             </div>
           </div>
         </div>
-
-        {/* 所有產品 */}
-        <div className="cards d-flex justify-content-around">
-          <div className="card-list">
+        {/* 所有產品card */}
+        <div className="cards d-flex justify-content-center">
+          <div className="card">
             <div className="img position-relative">
               <button className="p-0 position-absolute">
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  className="fa-heart"
-                />
-                <FontAwesomeIcon
-                  icon={farHeart}
-                  className="far-heart"
-                />
-
+                <FontAwesomeIcon icon={faHeart} className="fa-heart" />
+                <FontAwesomeIcon icon={farHeart} className="far-heart" />
               </button>
             </div>
             <div className="content d-flex flex-column justify-content-center px-3">
@@ -163,18 +193,11 @@ function Product() {
               </div>
             </div>
           </div>
-          <div className="card-list">
+          <div className="card">
             <div className="img position-relative">
               <button className="p-0 position-absolute">
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  className="fa-heart"
-                />
-                <FontAwesomeIcon
-                  icon={farHeart}
-                  className="far-heart"
-                />
-
+                <FontAwesomeIcon icon={faHeart} className="fa-heart" />
+                <FontAwesomeIcon icon={farHeart} className="far-heart" />
               </button>
             </div>
             <div className="content d-flex flex-column justify-content-center px-3">
@@ -190,18 +213,11 @@ function Product() {
               </div>
             </div>
           </div>
-          <div className="card-list">
+          <div className="card">
             <div className="img position-relative">
               <button className="p-0 position-absolute">
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  className="fa-heart"
-                />
-                <FontAwesomeIcon
-                  icon={farHeart}
-                  className="far-heart"
-                />
-
+                <FontAwesomeIcon icon={faHeart} className="fa-heart" />
+                <FontAwesomeIcon icon={farHeart} className="far-heart" />
               </button>
             </div>
             <div className="content d-flex flex-column justify-content-center px-3">
@@ -217,18 +233,11 @@ function Product() {
               </div>
             </div>
           </div>
-          <div className="card-list">
+          <div className="card">
             <div className="img position-relative">
               <button className="p-0 position-absolute">
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  className="fa-heart"
-                />
-                <FontAwesomeIcon
-                  icon={farHeart}
-                  className="far-heart"
-                />
-
+                <FontAwesomeIcon icon={faHeart} className="fa-heart" />
+                <FontAwesomeIcon icon={farHeart} className="far-heart" />
               </button>
             </div>
             <div className="content d-flex flex-column justify-content-center px-3">
@@ -244,18 +253,11 @@ function Product() {
               </div>
             </div>
           </div>
-          <div className="card-list">
+          <div className="card">
             <div className="img position-relative">
               <button className="p-0 position-absolute">
-                <FontAwesomeIcon
-                  icon={faHeart}
-                  className="fa-heart"
-                />
-                <FontAwesomeIcon
-                  icon={farHeart}
-                  className="far-heart"
-                />
-
+                <FontAwesomeIcon icon={faHeart} className="fa-heart" />
+                <FontAwesomeIcon icon={farHeart} className="far-heart" />
               </button>
             </div>
             <div className="content d-flex flex-column justify-content-center px-3">
@@ -272,10 +274,32 @@ function Product() {
             </div>
           </div>
         </div>
+        {/* btn */}
+        <div className=" page-btns d-flex justify-content-end">
+          <div className="btn-group me-2 rounded-0" role="group">
+            <button className="btn">
+              <FontAwesomeIcon
+                icon={faArrowLeft}
+                className="fa-solid fa-arrow-left"
+              />
+            </button>
+            <button className="btn">1</button>
+            <button className="btn">2</button>
+            <button className="btn">3</button>
+            <button className="btn">
+              <FontAwesomeIcon
+                icon={faArrowRight}
+                className="fa-solid fa-arrow-right"
+              />
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* 優惠專區 */}
-      <div className="title">優惠專區</div>
+      <div className="title">
+        <p>優惠專區</p>
+      </div>
       <div className="sales d-flex justify-content-between">
         <div className="card">
           <div className="img"></div>
@@ -294,8 +318,10 @@ function Product() {
       <div className="inter-block text-center">真誠面對傳統，超越傳統。</div>
 
       {/* 相關商品推薦 */}
-      <div className="title">相關商品推薦</div>
-      <div className="cards d-flex justify-content-between px-5 py-5">
+      <div className="title">
+        <p>相關商品推薦</p>
+      </div>
+      <div className="cards d-flex justify-content-center px-5 py-5">
         <div className="card">
           <img src="" />
           <div className="content d-flex flex-column justify-content-between">

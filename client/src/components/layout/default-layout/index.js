@@ -11,7 +11,7 @@ export default function DefaultLayout({ title = '', children }) {
       </Head>
       <Navbar />
       <main>
-        <div className="container">
+        <div className="container-fluid m-0 p-0">
           {children}
         </div>
       </main>
