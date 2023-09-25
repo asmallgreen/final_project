@@ -1,0 +1,307 @@
+$mainColor: #616153;
+$viceColor: #fcfaf2;
+$emphColor: #b16464;
+
+* {
+  box-sizing: border-box;
+}
+// 桌機logo
+// .table-logo-bar {
+//   img {
+//     height: 45px;
+//     // padding-inline: 0px;
+//   }
+//   margin: 0;
+//   height: 72px;
+//   background-color: $mainColor;
+// }
+// 桌機nav
+// .table-nav {
+//   // width: 1440px;
+//   background-color: $viceColor;
+//   height: 90px;
+//   .nav {
+//     height: 90px;
+//     margin: 0 auto;
+//     width: 100%;
+//     padding: 0;
+//     li {
+//       text-decoration: none;
+//       margin-inline: 5px;
+//       text-align: center;
+//       a {
+//         border-bottom: 4px solid transparent;
+//         padding: 10px 15px;
+//         text-decoration: none;
+//         color: $mainColor;
+//         font-size: 20px;
+//         &:hover {
+//           border-bottom: 4px solid $mainColor;
+//           color: $mainColor;
+//         }
+//       }
+//     }
+//   }
+
+//   .nav-fk {
+//     height: 90px;
+//     padding-inline: 10px;
+//     li {
+//       padding-inline: 10px;
+//       .fa-magnifying-glass{
+//         right: 110px;
+//         // left: 60px;
+//       }
+//     }
+//   }
+// }
+// 電腦footer
+// .footer {
+//   padding: 50px 100px;
+//   background-color: $mainColor;
+//   height: 300px;
+//   color: $viceColor;
+//   font-size: 20px;
+//   .logo {
+//     margin: 10px;
+//     .logo-img {
+//       height: 85px;
+//       margin-bottom: 15px;
+//     }
+//     .logo-text {
+//       height: 54px;
+//     }
+//   }
+//   .button {
+//     border-left: 3px solid $viceColor;
+//     padding-left: 20px;
+//     margin-left: 90px;
+//     .btn {
+//       height: 80px;
+//       width: 80px;
+//       color: $viceColor;
+//       border: 2px solid $viceColor;
+//       font-size: 16px;
+//       padding: 15px;
+//       margin: 10px;
+//     }
+//   }
+
+//   ul {
+//     margin: 10px;
+//     li {
+//     }
+//   }
+// }
+// 手機logo
+.phone-logo-bar {
+  width: 393px;
+  height: 57px;
+  margin: 0;
+  background-color: $mainColor;
+  .logo-img {
+    width: 38px;
+    // padding-inline: 0px;
+  }
+  .logo-text {
+    width: 105px;
+  }
+}
+// 手機nav
+.phone-nav {
+  width: 393px;
+  background-color: $viceColor;
+  height: 40px;
+  .nav {
+    height: 40px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 0;
+    li {
+      text-decoration: none;
+      margin-inline: 10px;
+      text-align: center;
+      a {
+        // border-bottom: 2px solid transparent;
+        padding: 5px 10px;
+        text-decoration: none;
+        color: $mainColor;
+        font-size: 12px;
+        &:hover {
+          font-weight: bold;
+          // border-bottom: 2px solid $mainColor;
+          color: $mainColor;
+        }
+      }
+    }
+  }
+}
+// 手機button
+.bottom-btn {
+  width: 393px;
+  height: 62px;
+  background-color: $viceColor;
+  .btn {
+    width: 78px;
+    border-radius: 0;
+    color: $mainColor;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-inline: 15px;
+    &:hover {
+      background-color: #616153;
+      color: $viceColor;
+      .logo-img2 {
+        display: none;
+        height: 0;
+      }
+      .logo-img {
+        height: 25px;
+        display: block;
+      }
+    }
+    .logo-img2 {
+      height: 25px;
+    }
+    .logo-img {
+      display: none;
+    }
+
+    .notify {
+      background-color: $emphColor;
+      width: 20px;
+      height: 20px;
+      color: $viceColor;
+      right: 15px;
+    }
+  }
+}
+// 手機ham
+.ham-login {
+  .opacity-50 {
+    background-color: $mainColor;
+    width: 75px;
+  }
+  .btns {
+    border: 0;
+    width: 318px;
+    .info {
+      height: 78px;
+      background-color: $mainColor;
+      padding: 10px 20px;
+      color: $viceColor;
+      
+      .img {
+        width: 50px;
+        height: 50px;
+        border: 1px solid $viceColor;
+        border-radius: 50%;
+        .img-edit {
+          display: none;
+        }
+        &:hover {
+          .img-edit {
+            display: block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: $viceColor;
+          }
+        }
+        
+      }
+      .text {
+        font-size: 16px;
+        margin-inline: 10px 30px;
+      }
+      .edit {
+        width: 118px;
+        height: 26px;
+        font-size: 13px;
+        padding-inline: 10px;
+        border: 1px solid $viceColor;
+        color: $viceColor;
+        &:hover {
+          
+            background-color: $viceColor;
+            color: $mainColor;
+          
+        }
+      }
+    }
+    .type {
+      padding: 20px;
+      color: $mainColor;
+      background-color: $viceColor;
+      height: 58px;
+      font-size: 15px;
+      text-align: start;
+    }
+    .fk {
+      padding: 15px 40px;
+      color: $mainColor;
+      background-color: #ffffff;
+      height: 46px;
+      font-size: 13px;
+      font-weight: bold;
+      text-align: start;
+      .sesstion {
+        background-color: $emphColor;
+        color: $viceColor;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+    }
+    .logout {
+      height: 62px;
+      background-color: $mainColor;
+      color: $viceColor;
+      font-size: 15px;
+      padding: 20px;
+    }
+  }
+}
+.ham-logout {
+  .opacity-50 {
+    background-color: $mainColor;
+    width: 75px;
+  }
+  .btn {
+    border: 0;
+    width: 318px;
+    .type {
+      padding: 20px;
+      color: $mainColor;
+      background-color: $viceColor;
+      height: 58px;
+      font-size: 15px;
+      text-align: start;
+    }
+    .fk {
+      padding: 15px 40px;
+      color: $mainColor;
+      background-color: #ffffff;
+      height: 46px;
+      font-size: 13px;
+      font-weight: bold;
+      text-align: start;
+      .sesstion {
+        background-color: $emphColor;
+        color: $viceColor;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+      }
+    }
+    .login {
+      height: 62px;
+      background-color: $mainColor;
+      color: $viceColor;
+      font-size: 15px;
+      padding: 20px;
+    }
+  }
+}
