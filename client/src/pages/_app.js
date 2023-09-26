@@ -1,9 +1,19 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-// import '../styles/global.scss'; // 全域的 SCSS 檔案
-// 請在這裡 import自己的 scss 檔
+import DefaultLayout from '../component/layout/default-layout'
+import 'bootstrap/dist/css/bootstrap.min.css'; // import bootstrap css  
+
+// import '../styles/_globals.scss';
+// import '../styles/_public.scss';
+import '../styles/index.scss'
+// import '../styles/_components.scss';
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+  const getLayout =
+    Component.getLayout || ((page) => <DefaultLayout>{page}</DefaultLayout>)
+    return (
+      <>
+        {getLayout(<Component {...pageProps} />)}
+      </>
+    )
 }
 
 export default MyApp;
