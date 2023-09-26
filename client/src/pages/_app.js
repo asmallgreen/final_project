@@ -1,5 +1,5 @@
-import DefaultLayout from '../component/layout/default-layout'
-import 'bootstrap/dist/css/bootstrap.min.css'; // import bootstrap css  
+import DefaultLayout from '@/components/layout/default-layout/index.js'
+import '@/styles/index.scss';
 
 // import '../styles/_globals.scss';
 // import '../styles/_public.scss';
