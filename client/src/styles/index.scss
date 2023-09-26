@@ -1,16 +1,19 @@
+//全域 + 元件scss
+@import "global.scss";
+
 //bootstrap
 @import "~bootstrap/scss/bootstrap";
+
+@import "components.scss";
+
+
+
+
 // npm install --save normalize.css
 @import '~normalize.css';
 
-
-//全域 + 元件scss
-@import "global.scss";
-@import "components.scss";
-
 // 路徑:member/login
 @import "_member.scss";
-// Normalize.css
 
 //各個pages scss
 @import "member-order.scss";

@@ -75,7 +75,7 @@ export default function Login({ formType, setFormType }) {
         <a href='/' className='forgetpwd-link' onClick={(e)=>{e.preventDefault();setFormType('forgotPwd') }}>忘記密碼</a>
       </Form.Group>
       <Form.Group as={Col} md='5' xs='5' className='p-0 text-end'>
-        <Button type="submit" className='login-button'>登入</Button>
+        <Button type="submit" className='login-button bgc-primary'>登入</Button>
       </Form.Group>
     </Row>
     </Form>

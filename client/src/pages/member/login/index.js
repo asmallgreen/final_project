@@ -1,8 +1,8 @@
 import {useState} from 'react'
 import {Container, Form, InputGroup, Col, Row, Button} from 'react-bootstrap'
-import Login from '../../../component/login/login'
-import Register from '../../../component/login/register'
-import ForgotPwd from '../../../component/login/forgotpwd'
+import Login from '../../../components/login/login'
+import Register from '../../../components/login/register'
+import ForgotPwd from '../../../components/login/forgotpwd'
 
 
 export default function MemberLogin() {

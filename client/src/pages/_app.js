@@ -3,7 +3,7 @@ import '@/styles/index.scss';
 
 // import '../styles/_globals.scss';
 // import '../styles/_public.scss';
-import '../styles/index.scss'
+// import '../styles/index.scss'
 // import '../styles/_components.scss';
 
 function MyApp({ Component, pageProps }) {

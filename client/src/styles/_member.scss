@@ -13,8 +13,63 @@
     bottom: 0;
     background: rgba(255, 255, 255, 0.6); /* 调整透明度的背景颜色 */
   }
-} 
-.member-side-bar{
-  width: 310px;
-  height: 600px;
+}
+.side-avatar-block{
+  .crown{
+    display: none;
+  }
+  @media (max-width: 400px) {
+    display: flex;
+    align-items: center;
+    img{
+          border-radius: 0;
+          width: 50px;
+          height: 50px;
+          margin-right: 30px;
+      }
+      p{
+        margin-block: auto;
+        margin-right:10px;
+      }
+      .crown{
+        display: block;
+      }
+  }
+}
+.side-nav-d-none{
+  @media (max-width: 400px) {
+    // display: none;
+  }
+}
+.avatar{
+  width: 300px;
+  border-radius: 50%;
+  @media (max-width: 764px) {
+    width: 130px;
+    height: 130px;
+}
+  @media (max-width:400) {
+  }
+}
+.nav-item{
+  border-left: 7px solid transparent;
+  &:active, &:hover{
+    border-left: 7px solid $accent;
+  }
+}
+.update-profile-btn, .update-profile-btn:hover{
+  background-color: $secondary;
+  border-radius: 0;
+  color: #fff;
+  font-size: 16px;
+}
+.bgc-primary{
+  background-color: $secondary;
+  color: #fff;
+}
+.fav-header{
+  div{
+    width: 50%;
+    font-size: 24px;
+  }
 }
