@@ -12,3 +12,10 @@
 
 //各個pages scss
 @import "member-order.scss";
+
+// Homepage scss
+@import 'Homepage/Homepage.scss';
+
+// Course scss
+@import 'CourseList/CourseList.scss';
+@import 'CourseDetail/CourseDetail.scss';

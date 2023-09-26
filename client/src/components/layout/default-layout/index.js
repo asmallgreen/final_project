@@ -17,7 +17,7 @@ export default function DefaultLayout({ title = "", children }) {
         <Logobar />
         <Navbar />
         <main>
-          <div className="container-fluid">{children}</div>
+          <div className="">{children}</div>
         </main>
         <Footer />
         {/* <Switch>
