@@ -23,7 +23,7 @@ export default function Order() {
               <tr>
                 <th>#</th>
                 <th>訂單編號</th>
-                <th>訂單金額  </th>
+                <th>訂單金額 </th>
                 <th>成立日期</th>
                 <th>訂單詳情</th>
               </tr>
@@ -31,11 +31,20 @@ export default function Order() {
             <tbody className="text-center">
               {MemberOrder.map((order, index) => (
                 <tr key={order.id}>
-                  <th><img src="/images/member/default_member.png" alt={`Order ${order.id}`} /></th>
+                  <th>
+                    <img
+                      src="/images/member/default_member.png"
+                      alt={`Order ${order.id}`}
+                    />
+                  </th>
                   <td>{order.orderNumber}</td>
                   <td>{order.orderAmount}</td>
                   <td>{order.orderDate}</td>
-                  <td><button type="button" className="btn btn-dark"><FaList /></button></td>
+                  <td>
+                    <button type="button" className="btn btn-dark">
+                      <FaList />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
