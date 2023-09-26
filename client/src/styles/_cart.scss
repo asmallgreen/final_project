@@ -1,12 +1,11 @@
 .stepBar {
     padding: 5rem 0 5rem 3rem;
 }
-.stepBar div{
+
+.stepBar div {
     padding-inline: 5px;
 }
-.container-fluid{
-    justify-content: center;
-}
+
 .step {
     display: flex;
     max-width: 344px
@@ -53,43 +52,86 @@
 .listTitle {
     color: #fff;
     display: flex;
-    background:#616153;
+    background: #616153;
     height: 70px;
     padding: 0px 10px;
     justify-content: space-around;
     align-items: center;
-    
+
 }
-.listTitle div span{
+
+.listTitle div span {
     cursor: pointer;
 }
-.listTitle div{
+
+.listTitle div {
     justify-content: center;
     display: flex;
 }
 
-.productList{
+.productList {
     padding: 20px;
     border-inline: 1px solid #616153;
     border-bottom: 1px solid #616153;
     justify-content: space-between;
 }
-.productList  div {
+
+.productList div {
     margin-block: auto;
-    display: flex; 
+    display: flex;
     justify-content: center;
-    align-items: center; 
+    align-items: center;
     flex-direction: column;
 }
-.productList  select{
+
+.productList select {
     padding: 10px 40px;
-    margin-bottom:10px ;
+    margin-bottom: 10px;
 }
-.deleteBtn{
+
+.deleteBtn {
     background-color: #B16464;
     border: #B16464 1px solid;
 }
+
 .deleteBtn:hover {
     background-color: #db5151;
     border: #B16464 1px solid;
+}
+
+.totalSection {
+    margin-block: 100px 20px;
+    padding-inline: 300px;
+    border-top: 2px solid $secondary;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 20px;
+    color: $secondary;
+}
+
+.totalSection button {
+    width: 121px;
+    height: 45px;
+    padding: 0px 20px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 0.5px solid $secondary;
+    background: $secondary;
+    color: #fff;
+}
+.total{
+    text-align: end;
+    padding: 10px;
+    line-height: 40px;
+}
+.total div span{
+    color:$accent;
+}
+.total :first-child {
+    font-size: 25px;
+}
+.total span span{
+    font-weight: bold;
 }
