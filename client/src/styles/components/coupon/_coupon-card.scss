@@ -1,0 +1,58 @@
+.coupon-card {
+  display: flex;
+  border: solid 2px $secondary-half;
+  border-left: none;
+  border-radius: 0 10px 10px 0;
+  overflow: hidden;
+  width: 350px;
+  max-height: 150px;
+  margin: 20px auto;
+
+  .coupon-left {
+    width: 40%;
+    padding-left: 25px;
+    position: relative;
+    right: 1px;
+    color: $primary;
+    p{
+        margin-bottom: 5px;
+    }
+    span {
+      font-weight: bold;
+    }
+
+    .left-edge {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 100%;
+      background-color: #ffffff;
+      clip-path: polygon(0 0, 100% 50%, 0% 100%);
+    }
+  }
+
+  .coupon-left-red {
+    @extend .coupon-left;
+    background-color: $accent;
+  }
+
+  .coupon-left-green {
+    @extend .coupon-left;
+    background-color: $secondary-half;
+  }
+
+  .coupon-right {
+    width: 60%;
+    padding: 10px;
+    background-color: $primary;
+
+    .time {
+      p {
+        padding: 0;
+        margin: 0;
+        color: $accent;
+      }
+    }
+  }
+}
