@@ -1,6 +1,11 @@
-// @import "components/pagination/index.scss";
-
-// @import "components/member-sidebar/index.scss";
-
 // 會員登入、註冊、忘記密碼的scss
 @import "components/login/index.scss";
+//公版 Nav + Footer
+@import"./components/layout/nav";
+@import"./components/layout/footer";
+
+//Bottom分頁標籤
+@import "./components/pagination/pagination1.scss";
+
+//會員中心左側sidebar
+@import"./components/member-sidebar/member-sidebar.scss"
