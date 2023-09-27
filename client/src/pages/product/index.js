@@ -16,10 +16,10 @@ function Product() {
       {/* 商品廣告 */}
       <div class="ads d-flex row position-relative">
         <div class="ad col">
-          <img src="/product/top1.jpg"/>
+          <img src="/images/product/top1.jpg"/>
         </div>
         <div class="main ad col-6">
-        <img src="/product/top2.jpg"/>
+        <img src="/images/product/top2.jpg"/>
           <div className="scrolls d-flex position-absolute bottom-0  m-3">
             <div className="circle mx-1"></div>
             <div className="circle mx-1"></div>
@@ -29,7 +29,7 @@ function Product() {
           </div>
         </div>
         <div class="ad col">
-        <img src="/product/top3.jpg"/>
+        <img src="/images/product/top3.jpg"/>
         </div>
       </div>
 

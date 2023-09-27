@@ -1,0 +1,137 @@
+$primary: #fcfaf2;
+$secondary: #616153;
+$accent: #b16464;
+.title {
+  width: 100%;
+  font-size: 20px;
+  color: $secondary;
+  border-bottom: 1px solid $secondary;
+}
+.cart {
+  height: 760px;
+  max-width: 1440px;
+  padding-block: 20px 10px;
+  margin: 0 auto;
+  .img-area {
+    margin: 40px 0px 40px 40px;
+    .img {
+      width: 620px;
+      height: 670px;
+      background-color: $secondary;
+    }
+    .scrolls {
+      right: calc(50% - 66px);
+      bottom: 10px;
+      //   left: 50%;
+      //   transform: translateX(-50%);
+      .circle {
+        width: 12px;
+        height: 12px;
+        background-color: $viceColor;
+        border: 1px solid $mainColor;
+        border-radius: 50%;
+        cursor: pointer;
+        &:hover {
+          background-color: $mainColor;
+          border: 1px solid $viceColor;
+        }
+      }
+    }
+  }
+  .detail {
+    margin: 40px 40px 40px 0px;
+    height: 680px;
+    border-top: 1px solid $secondary;
+    .product-info {
+      margin-block: 55px 20px;
+      .product-name {
+        font-size: 30px;
+        color: $secondary;
+      }
+      .price {
+        font-size: 35px;
+        color: $accent;
+        font-weight: bold;
+      }
+      .intro {
+        font-size: 18px;
+        color: $secondary;
+      }
+    }
+    .attributes {
+      padding-block: 10px;
+      .attr {
+        // justify-content: center;
+        align-items: center;
+        margin-block: 25px;
+        .attr-name {
+          font-size: 24px;
+          color: $secondary;
+          margin-right: 40px;
+        }
+        .attr-items {
+          .item {
+            border: 1px solid $secondary;
+            background-color: #ffffff;
+            padding: 8px 20px;
+            margin-inline: 10px;
+            text-align: center;
+            color: $secondary;
+            font-size: 18px;
+          }
+          .btn-primary {
+            text-align: start;
+            padding: 10px 15px;
+            width: 275px;
+            height: 45px;
+            font-size: 20px;
+            border: 1px solid $secondary;
+            border-radius: 0;
+            background-color: #ffffff;
+            color: $mainColor;
+            &:hover {
+              background-color: $mainColor;
+              color: $viceColor;
+            }
+          }
+        }
+      }
+    }
+  }
+  .btns {
+    padding-block: 10px;
+    .btn-group {
+      border: 1px solid $secondary;
+      background-color: #ffffff;
+      color: $secondary;
+      height: 60px;
+      margin-bottom: 15px;
+      .btn {
+        font-size: 25px;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+      }
+      .quantity {
+        width: 400px;
+        background-color: $primary;
+        border-left: 1px solid $secondary;
+        border-right: 1px solid $secondary;
+      }
+    }
+    .btn-send {
+      height: 60px;
+      .btn {
+        width: 325px;
+        border-radius: 0;
+        background-color: $secondary;
+        font-size: 20px;
+        font-weight: bold;
+        color: $primary;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+      }
+    }
+  }
+}

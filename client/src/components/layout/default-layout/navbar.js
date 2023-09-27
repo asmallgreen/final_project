@@ -1,12 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //fontawesome
-import {
-  faShoppingCart,
-  faUser,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
+import{ FaShoppingCart, FaUser, FaSearch} from "react-icons/fa"
 
 export default function Navbar() {
   return (
@@ -22,25 +17,25 @@ export default function Navbar() {
 
             <div className="hover-type d-flex justify-content-center position-absolute align-items-center">
               <div className="box">
-                <img src="/type1.png" />
+                <img src="/images/nav/type1.png" />
                 <div className="text">
                   <span className="text-bottom">弓</span>
                 </div>
               </div>
               <div className="box">
-                <img src="/type1.png" />
+                <img src="/images/nav/type1.png" />
                 <div className="text">
                   <span className="text-bottom">箭</span>
                 </div>
               </div>
               <div className="box">
-                <img src="/type1.png" />
+                <img src="/images/nav/type1.png" />
                 <div className="text">
                   <span className="text-bottom">道服</span>
                 </div>
               </div>
               <div className="box">
-                <img src="/type1.png" />
+                <img src="/images/nav/type1.png" />
                 <div className="text">
                   <span className="text-bottom">其他</span>
                 </div>
@@ -66,19 +61,13 @@ export default function Navbar() {
               type="text"
               placeholder="請輸入商品名稱"
             />
-            <FontAwesomeIcon
-              icon={faSearch}
-              className="fa-magnifying-glass position-absolute"
-            />
+            <FaSearch className="fa-magnifying-glass position-absolute" />
           </li>
           <li className="list-unstyled">
-            <FontAwesomeIcon
-              icon={faShoppingCart}
-              className="fa-cart-shopping"
-            />
+            <FaShoppingCart className="fa-cart-shopping" />
           </li>
           <li className="list-unstyled">
-            <FontAwesomeIcon icon={faUser} className="fa-user" />
+            <FaUser className="fa-user" />
           </li>
         </ul>
       </div>

@@ -1,9 +1,5 @@
-import DefaultLayout from '../components/layout/default-layout'
-import 'bootstrap/dist/css/bootstrap.min.css'; // import bootstrap css  
-
-import '../styles/_globals.scss';
-// import '../styles/_public.scss';
-import '../styles/_product.scss';
+import DefaultLayout from '@/components/layout/default-layout/index.js'
+import '@/styles/index.scss';
 
 export default function MyApp({ Component, pageProps }) {
  
