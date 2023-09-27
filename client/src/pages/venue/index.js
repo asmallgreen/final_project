@@ -9,19 +9,19 @@ export default function index() {
           <h1>北部道場</h1>
         </div>
         <div className=''>
-          <img src='/images/default_dojo_n.png'></img>
+          <img src="/images/dojo_n.png"></img>
         </div>
         <div>
           <h1>中部道場</h1>
         </div>
         <div className=''>
-          <img src='/images/default_dojo_n.png'></img>
+          <img src="/images/dojo_n.png"></img>
         </div>
         <div>
           <h1>南部道場</h1>
         </div>
         <div className=''>
-          <img src='/images/default_dojo_n.png'></img>
+          <img src="/images/dojo_n.png"></img>
         </div>
       </Container>
     </>
