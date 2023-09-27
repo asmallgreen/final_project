@@ -2,8 +2,6 @@ import React from "react";
 
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
-
-import MemberSidebar from "@/components/member-sidebar";
 import Pagination from "@/components/pagination";
 import CouponCard from "@/components/coupon-card";
 
@@ -13,10 +11,7 @@ export default function Coupon() {
   return (
     <>
       <div className="row">
-        <div className="col-12 col-lg-3 p-3">
-          <MemberSidebar />
-        </div>
-        <div className="col-12 col-lg-9 my-4">
+        <div className="my-4">
           <h3>我的優惠券</h3>
           <Tabs
             defaultActiveKey="home"
@@ -36,13 +31,13 @@ export default function Coupon() {
                   </div>
                 </div>
                 <div className="row">
-                  <div className="col-12 col-xl-6 col-xxl-4">
+                  <div className="col-12 col-lg-6">
                     <CouponCard/>
                   </div>
-                  <div className="col-12 col-xl-6 col-xxl-4">
+                  <div className="col-12 col-lg-6">
                     <CouponCard type={1} />
                   </div>
-                  <div className="col-12 col-xl-6 col-xxl-4">
+                  <div className="col-12 col-lg-6">
                     <CouponCard type={2} />
                   </div>
                 </div>

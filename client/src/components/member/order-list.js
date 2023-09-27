@@ -2,17 +2,13 @@ import React from "react";
 import { FaList } from "react-icons/fa";
 
 import MemberOrder from "@/data/Member-order.json";
-import MemberSidebar from "@/components/member-sidebar";
 import Pagination from "@/components/pagination";
 
 export default function Order() {
   return (
     <>
       <div className="row">
-        <div className="col-12 col-lg-3 p-3">
-          <MemberSidebar />
-        </div>
-        <div className="col-12 col-lg-9">
+        {/* <div className="col-12 col-lg-9"> */}
           <h3>訂單記錄</h3>
           <div className="row text-center p-3">
             <div className="order-title col-6">進行中的訂單</div>
@@ -74,7 +70,7 @@ export default function Order() {
           </div>
           <Pagination />
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 }

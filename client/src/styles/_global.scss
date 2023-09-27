@@ -8,6 +8,15 @@ $secondary-light: #a8a8a5;
 $accent: #b16464;
 $font: #0c0c0c;
 
+// 覆蓋特定bootstrap的樣式
+// 這是會員側邊欄使用的tab pane
+$nav-link-color:#616153;
+$nav-link-hover-color:#b16464;
+$nav-pills-border-radius:  0;
+$nav-pills-link-active-color:#616153;
+$nav-pills-link-active-bg:transparent;
+// Bootstrap Button 樣式修改
+
 // ↑↑↑  變數覆蓋(Variable overrides) 要寫在這行"上面"  ↑↑↑
 
 // google Inter,   ABeeZee 字體

@@ -4,7 +4,7 @@ export default function MemberSidebar() {
     return (
         <div className='member-sidebar'>
             <div className='text-center pt-5'>
-                <img src='/images/member/default_member.png'/>
+                <img src='/images/member/default_member.png' />
                 <p>會員姓名</p>
             </div>
             <ul className="list-unstyled pt-3 d-none d-lg-block">
