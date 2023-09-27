@@ -1,22 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import SwipeableViews from "react-swipeable-views";
-import { useTheme } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 
-function TabPanel(props) {
+function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
     <div
       role="tabpanel"
       hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
       {value === index && (
@@ -28,7 +25,7 @@ function TabPanel(props) {
   );
 }
 
-TabPanel.propTypes = {
+CustomTabPanel.propTypes = {
   children: PropTypes.node,
   index: PropTypes.number.isRequired,
   value: PropTypes.number.isRequired,
@@ -36,22 +33,17 @@ TabPanel.propTypes = {
 
 function a11yProps(index) {
   return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
 export default function CourseDetail() {
   //tabs
-  const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-  };
-
-  const handleChangeIndex = (index) => {
-    setValue(index);
   };
 
   return (
@@ -119,36 +111,47 @@ export default function CourseDetail() {
           </div>
         </div>
         <div className="course-detail-tabs">
-          <Box sx={{ bgcolor: "background.paper", width: 500 }}>
-            <AppBar position="static">
+          <Box sx={{ width: "100%" }}>
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
               <Tabs
+                className="tabs"
+                centered 
                 value={value}
                 onChange={handleChange}
-                indicatorColor="secondary"
-                textColor="inherit"
-                variant="fullWidth"
-                aria-label="full width tabs example"
+                aria-label="basic tabs example"
               >
-                <Tab label="Item One" {...a11yProps(0)} />
-                <Tab label="Item Two" {...a11yProps(1)} />
-                <Tab label="Item Three" {...a11yProps(2)} />
+                <Tab
+                className="tab"
+                label="課程介紹" {...a11yProps(0)} />
+                <Tab
+                className="tab"
+                label="講師介紹" {...a11yProps(1)} />
+                <Tab
+                className="tab"
+                label="課程大綱" {...a11yProps(2)} />
+                <Tab
+                className="tab"
+                label="常見問題" {...a11yProps(3)} />
+                <Tab
+                className="tab"
+                label="學員評價" {...a11yProps(4)} />
               </Tabs>
-            </AppBar>
-            <SwipeableViews
-              axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-              index={value}
-              onChangeIndex={handleChangeIndex}
-            >
-              <TabPanel value={value} index={0} dir={theme.direction}>
-                Item One
-              </TabPanel>
-              <TabPanel value={value} index={1} dir={theme.direction}>
-                Item Two
-              </TabPanel>
-              <TabPanel value={value} index={2} dir={theme.direction}>
-                Item Three
-              </TabPanel>
-            </SwipeableViews>
+            </Box>
+            <CustomTabPanel value={value} index={0}>
+              Item One
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={1}>
+              Item Two
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={2}>
+              Item Three
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={3}>
+              Item Four
+            </CustomTabPanel>
+            <CustomTabPanel value={value} index={4}>
+              Item Five
+            </CustomTabPanel>
           </Box>
         </div>
       </div>
