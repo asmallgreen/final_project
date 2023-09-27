@@ -17,12 +17,11 @@ export default function MemberCenter() {
             <div className='fs-2 mb-3'>我的收藏</div>
 {/* 收藏的商品/收藏的課程導覽列 */}
     <Tabs
-      defaultActiveKey="home"
+      defaultActiveKey="product"
       id="uncontrolled-tab-example"
       className="mb-3 fav-header"
-      fill
     >
-      <Tab eventKey="home" title="收藏商品">
+      <Tab eventKey="product" title="收藏商品">
 {/* 全選/取消收藏/加入購物車 */}
 <div className='text-end fav-select-all'>
         <input type='checkbox'/> 全選
@@ -33,7 +32,7 @@ export default function MemberCenter() {
         <FavProductCard/>
       </Tab>
 
-      <Tab eventKey="profile" title="收藏課程" className='fav-course'>
+      <Tab eventKey="course" title="收藏課程" className='fav-course'>
       {/* 全選/取消收藏/加入購物車 */}
       <div className='text-end fav-select-all'>
         <input type='checkbox'/> 全選

@@ -53,7 +53,7 @@
 }
 .nav-item{
   border-left: 7px solid transparent;
-  &:active, &:hover{
+  &:hover{
     border-left: 7px solid $accent;
   }
 }
@@ -67,20 +67,30 @@
   background-color: $secondary;
   color: #fff;
 }
+
 .fav-header{
+  justify-content: space-around;
   ul{
     border-radius: 0;
   }
   li{
+    width: calc(180px + 0.2 * (100vw - 770px));
     border-left: 0;
     border-bottom: 7px solid transparent;
-    &:active, &:hover{
+    &:hover{
       border-left: 0;
+      #uncontrolled-tab-example-tab-product,#uncontrolled-tab-example-tab-course{
       border-bottom: 7px solid $accent;
+      }
     }
-  }
-  button{
-    border-radius: 0;
+    #uncontrolled-tab-example-tab-product,#uncontrolled-tab-example-tab-course{
+      width: 100%;
+      &.active{
+        color: $accent;
+        border-left: 0;
+        border-bottom: 7px solid $accent;
+      }
+    }
   }
 }
 
@@ -100,6 +110,7 @@
   li {
     border-left: solid 7px transparent;
     padding: 0;
+    margin: 3px;
     a {
     padding: 10px 10px;
     color: $secondary;
@@ -113,10 +124,11 @@
     height: 100%;
   }
   } 
-  li:hover {
+  li:hover, .active {
     border-left: solid 7px $accent;
     color: $accent;
   }
+  
   @media (max-width:930px){
     img{
       width: 100px;
@@ -141,17 +153,28 @@
 
 .fav-section{
   position: relative;
+  color:$secondary;
+  text-decoration: none;
+  width: calc(220px + 0.2 * (100vw - 770px));
+  min-width: 315px;
+  height: calc(140px + 0.05 * (100vw - 1470px));
+  min-height: 122px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 4px 0 6px rgba(0, 0, 0, 0.1);
+
   img{
-    width: 100px;
+    height: 100%;
   }
   p{
     font-size: 16px;
+    @media (max-width:1250px){
+      font-size: 14px;
+    }
   }
   input{
     position: absolute;
-    right: 0;
+    top: 5px;
+    right: 10px;
   }
-  
 }
 
 // 收藏課程

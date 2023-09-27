@@ -1,5 +1,6 @@
 import React from 'react'
 import { Row, Col, Nav, Tab } from 'react-bootstrap'
+import Link from 'next/link'
 
 
 export default function FavProductCard() {
@@ -8,8 +9,9 @@ export default function FavProductCard() {
         <Row className='justify-content-md-center my-5'>
             <Col md='12'>
             <Row>
-                <div className='d-flex position-relative fav-section col-md-6'>
-                    <input type='checkbox' className='end-0'/>
+            <Col lg='6' md='12' className='d-flex justify-content-center mb-3'>
+                <Link href='/' className='d-flex position-relative text-center fav-section'>
+                    <input type='checkbox'/>
                         <div className='me-2'>
                             <img src='/Duo/avatar01.jpg'></img>
                         </div>
@@ -25,9 +27,11 @@ export default function FavProductCard() {
                         <div>
 
                         </div>
-                        </div>
-                        <div className='d-flex position-relative fav-section col-md-6'>
-                    <input type='checkbox' className='end-0'/>
+                </Link>
+            </Col>
+            <Col lg='6' md='12' className='d-flex justify-content-center mb-3'>
+                <Link href='/' className='d-flex position-relative fav-section'>
+                    <input type='checkbox'/>
                         <div className='me-2'>
                             <img src='/Duo/avatar01.jpg'></img>
                         </div>
@@ -43,7 +47,8 @@ export default function FavProductCard() {
                         <div>
 
                         </div>
-                        </div>
+                </Link>
+            </Col>
             </Row>
                 
             </Col>
