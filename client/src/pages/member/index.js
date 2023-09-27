@@ -5,56 +5,50 @@ import Profile from '../../components/member/profile'
 import UpdateProfile from '../../components/member/update-profile'
 import UpdatePwd from '../../components/member/update-pwd'
 import FavProduct from '../../components/member/fav-product'
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 
 export default function MemberCenter() {
   return (
     <>
+<Router>
 <Container>
-          <Tab.Container id="left-tabs-example" defaultActiveKey="first" >
-                <Row>
-                  <Col sm='3' className='me-3' md='3'>
-                    <div className='text-center pt-5 side-avatar-block '>
-                        <img className='rounded-circle ' src='/images/member/default_member.png'/>
-                        <p>會員姓名</p>
-                        <BiSolidCrown className='crown'/>
-                    </div>
-                    <Nav variant="pills" className="flex-column side-nav-d-none">
-                    <Nav.Item>
-                        <Nav.Link eventKey="first">會員中心</Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link eventKey="second">會員資料設定</Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link eventKey="third">修改密碼</Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link eventKey="fourth">訂單紀錄</Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link eventKey="fifth">我的收藏</Nav.Link>
-                      </Nav.Item>
-                      <Nav.Item>
-                        <Nav.Link eventKey="sixth">我的優惠券</Nav.Link>
-                      </Nav.Item>
-                    </Nav>
-                  </Col>
+  <Row>
+<Col md='3'>
+<div className='member-sidebar'>
+            <div className='text-center pt-5'>
+                  <img src='/images/member/default_member.png'/>
+                  <p>會員姓名</p>
+            </div>
+            <ul className="list-unstyled pt-3 d-none d-md-block">
+                  <li><Link to='/member'>會員中心</Link></li>
+                  <li><Link to='/member/update-profile'>會員資料設定</Link></li>
+                  <li><Link to='member/update-pwd'>修改密碼</Link></li>
+                  <li><Link to='/member/order-list'>訂單紀錄</Link></li>
+                  <li><Link to='/member/fav-product'>我的收藏</Link></li>
+                  <li><Link to='/member/coupon'>我的優惠券</Link></li>
+            </ul>
+        </div>
+    
+    
+</Col>
+<Col md='8'>
+    <Routes>
+    <Route path='/member' element={<Profile/>}></Route>
+    <Route path='/member/update-profile' element={<UpdateProfile/>}></Route>
+    <Route path='/member/update-pwd' element={<UpdatePwd/>}></Route>    <Route path='/member/order-list' element={<UpdateProfile/>}></Route>
+    <Route path='/member/fav-product' element={<FavProduct/>}></Route>
+    <Route path='/member/coupon' element={<UpdateProfile/>}></Route>
+  </Routes>
+</Col>
 
-                  <Col md='8' sm='8'>
-                    <Tab.Content>
-                      <Tab.Pane eventKey="first"><Profile/></Tab.Pane>
-                      <Tab.Pane eventKey="second"><UpdateProfile/></Tab.Pane>
-                      <Tab.Pane eventKey="third"><UpdatePwd/></Tab.Pane>
-                      <Tab.Pane eventKey="fourth">訂單管理</Tab.Pane>
-                      <Tab.Pane eventKey="fifth"><FavProduct/></Tab.Pane>
-                      <Tab.Pane eventKey="sixth">我的優惠券</Tab.Pane>
-                    </Tab.Content>
-                  </Col>
-                </Row>
-                    </Tab.Container>
-          
-      </Container>
+</Row>
+</Container>
+
+
+
+</Router>
+{/* <h1>123</h1> */}
     </>
   )
 }
