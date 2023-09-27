@@ -68,11 +68,23 @@
   color: #fff;
 }
 .fav-header{
-  div{
-    width: 50%;
-    font-size: 24px;
+  ul{
+    border-radius: 0;
+  }
+  li{
+    border-left: 0;
+    border-bottom: 7px solid transparent;
+    &:active, &:hover{
+      border-left: 0;
+      border-bottom: 7px solid $accent;
+    }
+  }
+  button{
+    border-radius: 0;
   }
 }
+
+// 會員中心側邊欄
 .member-sidebar {
   img {
     width: 200px;
@@ -111,7 +123,6 @@
     height: 100px;
     }
   }
-
 }
 @media (max-width: 768px) {
   img {
