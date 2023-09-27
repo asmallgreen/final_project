@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+
 import { Container, Row, Col, Nav, Tab } from 'react-bootstrap'
 import { BiSolidCrown } from 'react-icons/bi';
 import Profile from '../../components/member/profile'
@@ -7,7 +8,7 @@ import UpdatePwd from '../../components/member/update-pwd'
 import FavProduct from '../../components/member/fav-product'
 import MemberCoupon from '../../components/member/member-coupon'
 import OrderList from '../../components/member/order-list'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, BrowserRouter } from 'react-router-dom';
 
 
 export default function MemberCenter() {
@@ -47,7 +48,7 @@ export default function MemberCenter() {
           </Col>
         </Row>
       </Router>
-      {/* <h1>123</h1> */}
+      <h1>123</h1>
     </>
   )
 }
