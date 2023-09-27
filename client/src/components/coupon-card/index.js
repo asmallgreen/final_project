@@ -6,7 +6,6 @@ export default function CouponCard({type}) {
     <>
       <div className="coupon-card">
         <div className={` ${couponLeftClass} d-flex`}>
-          <div className="left-edge"></div>
           <div className="text-center d-flex align-items-center">
             <div>
               <p>消費滿$1000</p>

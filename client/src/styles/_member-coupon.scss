@@ -1,0 +1,15 @@
+.coupon-check {
+  span{
+    color: $secondary;
+  }
+}
+.coupon-clear {
+  background-color: $secondary-half;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.coupon-clear:hover {
+  background-color: $accent;
+  transition: 0.6s;
+}
