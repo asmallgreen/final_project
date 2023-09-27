@@ -4,7 +4,7 @@ import { Container, Button, Row, Col, Form } from "react-bootstrap";
 export default function UpdateProfile() {
     return (
         <>
-            <Container className='my-5'>
+            <Container className="my-5">
                 <div className="fs-2 mb-5">會員資料設定</div>
                 <div className="d-flex justify-content-center align-items-center">
                     <div>
@@ -99,11 +99,14 @@ export default function UpdateProfile() {
                         </Col>
                     </Form.Group>
                     <div className="text-end">
-                    <Button variant="primary" type="submit" className="update-profile-btn">
-                        送出修改
-                    </Button>                        
+                        <Button
+                            variant="primary"
+                            type="submit"
+                            className="update-profile-btn"
+                        >
+                            送出修改
+                        </Button>
                     </div>
-
                 </Form>
             </Container>
         </>
