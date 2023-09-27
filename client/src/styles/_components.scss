@@ -6,5 +6,21 @@
 @import "./components/pagination/pagination1.scss";
 
 //會員中心左側sidebar
-@import"./components/member-sidebar/member-sidebar.scss"
+@import"./components/member-sidebar/member-sidebar.scss";
+
+//產品卡片(可加入收藏/購物車)
+@import"./components/product/filter-product-card.scss";
+
+//推薦OR新產品卡片
+@import"./components/product/product-card.scss";
+
+//優惠卡片
+@import"./components/product/sales-card.scss";
+
+//麵包
+@import"./components/bread-crumb/bread-crumb.scss";
+
+//Product 業千
+@import"./components/pagination/luna-pagination.scss"
+
 

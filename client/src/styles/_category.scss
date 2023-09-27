@@ -1,45 +1,54 @@
 $primary: #fcfaf2;
 $secondary: #616153;
 $accent: #b16464;
-.title {
-  width: 100%;
-  font-size: 20px;
-  color: $secondary;
-  border-bottom: 1px solid $secondary;
+body{
+  background-color: $primary;
 }
+
+// .title {
+//   width: 100%;
+//   font-size: 20px;
+//   color: $secondary;
+//   border-bottom: 1px solid $secondary;
+// }
 .cart {
   height: 760px;
-  max-width: 1440px;
+  // max-width: 1440px;
   padding-block: 20px 10px;
   margin: 0 auto;
   .img-area {
-    margin: 40px 0px 40px 40px;
+    margin-top: 40px;
+    padding-bottom: 40px;
     .img {
-      width: 620px;
+      // width: 620px;
+      width: 100%;
       height: 670px;
       background-color: $secondary;
     }
     .scrolls {
       right: calc(50% - 66px);
-      bottom: 10px;
+      bottom: 40px;
       //   left: 50%;
       //   transform: translateX(-50%);
       .circle {
         width: 12px;
         height: 12px;
-        background-color: $viceColor;
-        border: 1px solid $mainColor;
+        background-color: $primary;
+        border: 1px solid $secondary;
         border-radius: 50%;
         cursor: pointer;
         &:hover {
-          background-color: $mainColor;
-          border: 1px solid $viceColor;
+          background-color: $secondary;
+          border: 1px solid $primary;
         }
       }
     }
   }
   .detail {
-    margin: 40px 40px 40px 0px;
+    // padding-inline: 20px;
+    // margin: 40px 20px 40px 0px;
+    margin-top: 40px;
+    // padding: 0px 0px 40px 0px;
     height: 680px;
     border-top: 1px solid $secondary;
     .product-info {
@@ -59,7 +68,7 @@ $accent: #b16464;
       }
     }
     .attributes {
-      padding-block: 10px;
+      // padding-block: 10px;
       .attr {
         // justify-content: center;
         align-items: center;
@@ -88,10 +97,10 @@ $accent: #b16464;
             border: 1px solid $secondary;
             border-radius: 0;
             background-color: #ffffff;
-            color: $mainColor;
+            color: $secondary;
             &:hover {
-              background-color: $mainColor;
-              color: $viceColor;
+              background-color: $secondary;
+              color: $primary;
             }
           }
         }
@@ -99,7 +108,8 @@ $accent: #b16464;
     }
   }
   .btns {
-    padding-block: 10px;
+    // padding-block: 10px;
+    width: 100%;
     .btn-group {
       border: 1px solid $secondary;
       background-color: #ffffff;
@@ -113,7 +123,7 @@ $accent: #b16464;
         display: flex;
       }
       .quantity {
-        width: 400px;
+        // width: 300px;
         background-color: $primary;
         border-left: 1px solid $secondary;
         border-right: 1px solid $secondary;
@@ -122,7 +132,7 @@ $accent: #b16464;
     .btn-send {
       height: 60px;
       .btn {
-        width: 325px;
+        // width: 315px;
         border-radius: 0;
         background-color: $secondary;
         font-size: 20px;
@@ -132,6 +142,35 @@ $accent: #b16464;
         align-items: center;
         display: flex;
       }
+    }
+  }
+}
+
+// 手風琴
+.title {
+  // max-width: 1440px;
+  // height: 95px;
+  color: $secondary;
+  border-bottom: 1px solid $secondary;
+  margin:30px 0 0 0;
+  span{
+    text-align: start;
+    font-size: 30px;
+    // color: $secondary;
+  }
+}
+.content{
+  background-color: #ffffff;
+  padding: 60px 40px 30px;
+  font-size: 25px;
+  color: $secondary;
+  ol{
+    list-style-type: circle;
+    padding-left: 60px;
+    // line-height: 1.5;
+    li{
+      // line-height: 1.5;
+      padding-block: 10px;
     }
   }
 }
