@@ -2,12 +2,86 @@
   font-family: inter;
   background: $primary;
   color: $font;
-  .course-detail.info{
-    .left{
+  .course-detail-info {
+    background: lightgray;
+    display: flex;
+    align-items: center;
 
+    .left {
+      .course-detail-img {
+        background: lightcyan;
+        width: 621px;
+        height: 673px;
+      }
     }
-    .right{
-      
+    .right {
+      background: lightpink;
+      width: calc(100% - 621px - 80px);
+      height: 673px;
+      margin-left: 80px;
+      // 處理btns的位置
+      display: flex;
+      flex-direction: column;
+      .course-detail-text {
+        background: lightgoldenrodyellow;
+        //佔滿除了btns的空間
+        flex-grow: 1;
+        .title {
+          font-size: 30px;
+          font-weight: 800;
+        }
+        .intro {
+          font-size: 16px;
+          margin-block: 40px;
+        }
+      }
+      .course-detail-items {
+        font-size: 16px;
+        line-height: 30px;
+      }
+      .course-rating {
+        display: flex;
+        align-items: first baseline;
+        justify-content: space-between;
+        .price {
+          font-size: 35px;
+          color: $accent;
+          letter-spacing: 0.1em;
+          margin: 0;
+        }
+        .stars {
+          display: flex;
+          margin-block: 20px;
+          .star {
+            font-size: 22.5px;
+            letter-spacing: 5px;
+          }
+        }
+        .counting {
+          font-style: 14px;
+          margin-left: 14px;
+        }
+      }
+      .btns {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        .course-detail-btn {
+          letter-spacing: 0.1em;
+          padding: 12px 0px;
+          width: 290px;
+          font: 800 14px inter;
+          background: $secondary;
+          color: $primary;
+          border-radius: 0%;
+          &:hover {
+            color: $secondary;
+            background-color: $primary;
+          }
+        }
+      }
     }
+  }
+  .course-detail-tabs {
   }
 }
