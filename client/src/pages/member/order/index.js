@@ -9,10 +9,10 @@ export default function Order() {
   return (
     <>
       <div className="row">
-        <div className="col-12 col-md-3 p-3">
+        <div className="col-12 col-lg-3 p-3">
           <MemberSidebar />
         </div>
-        <div className="col-12 col-md-9">
+        <div className="col-12 col-lg-9">
           <h3>訂單記錄</h3>
           <div className="row text-center p-3">
             <div className="order-title col-6">進行中的訂單</div>

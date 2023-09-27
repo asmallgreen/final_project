@@ -7,14 +7,16 @@ import MemberSidebar from "@/components/member-sidebar";
 import Pagination from "@/components/pagination";
 import CouponCard from "@/components/coupon-card";
 
+import OrderList from "@/data/order-list.json";
+
 export default function Coupon() {
   return (
     <>
       <div className="row">
-        <div className="col-12 col-md-3 p-3">
+        <div className="col-12 col-lg-3 p-3">
           <MemberSidebar />
         </div>
-        <div className="col-12 col-md-9 my-4">
+        <div className="col-12 col-lg-9 my-4">
           <h3>我的優惠券</h3>
           <Tabs
             defaultActiveKey="home"
@@ -35,7 +37,7 @@ export default function Coupon() {
                 </div>
                 <div className="row">
                   <div className="col-12 col-xl-6 col-xxl-4">
-                    <CouponCard type={1} />
+                    <CouponCard/>
                   </div>
                   <div className="col-12 col-xl-6 col-xxl-4">
                     <CouponCard type={1} />
@@ -48,8 +50,8 @@ export default function Coupon() {
             </Tab>
             <Tab eventKey="profile" title="優惠券使用紀錄">
               優惠券使用紀錄
-              <table className="coupon-table">
-                <thead className="text-center">
+              <table className="coupon-table text-center">
+                <thead className="">
                   <tr>
                     <th>已使用優惠券</th>
                     <th>訂單編號</th>

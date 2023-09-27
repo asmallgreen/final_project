@@ -7,7 +7,7 @@ export default function MemberSidebar() {
                 <img src='/images/member/default_member.png'/>
                 <p>會員姓名</p>
             </div>
-            <ul className="list-unstyled pt-3 d-none d-md-block">
+            <ul className="list-unstyled pt-3 d-none d-lg-block">
                 <li>會員資料設定</li>
                 <li>修改密碼</li>
                 <li>訂單紀錄</li>

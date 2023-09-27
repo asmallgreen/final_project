@@ -1,6 +1,8 @@
 import React from "react";
 
-export default function CouponCard({type}) {
+import couponData from "@/data/coupon-list.json"
+
+export default function CouponCard({ type }) {
   const couponLeftClass = type === 1 ? 'coupon-left-green' : 'coupon-left-red';
   return (
     <>
