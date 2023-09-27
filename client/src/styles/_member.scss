@@ -134,3 +134,97 @@
 .side-bar-border-right{
   border-right: 3px solid $secondary-light;
 }
+
+// 收藏商品的按鈕也使用 update-profile-btn 標籤
+
+// 收藏商品
+
+.fav-section{
+  position: relative;
+  img{
+    width: 100px;
+  }
+  p{
+    font-size: 16px;
+  }
+  input{
+    position: absolute;
+    right: 0;
+  }
+  
+}
+
+// 收藏課程
+
+.fav-course{
+  .course-list-item {
+    display: flex;
+    margin: 40px;
+    .course-list-img {
+      background: lightblue;
+      width: 600px;
+      height: 400px;
+    }
+    .course-list-text {
+      background: lightyellow;
+      width: 760px;
+      height: 400px;
+      padding-inline: 40px;
+      .title {
+        font-size: 22px;
+        padding: 12px 0px;
+        font-weight: 600;
+      }
+      .intro {
+        font-size: 16px;
+        line-height: 19px;
+      }
+      .items {
+        font-style: 16px;
+        line-height: 30px;
+        letter-spacing: 0.1em;
+      }
+      .course-rating {
+        display: flex;
+        align-items: first baseline;
+
+        .stars {
+          display: flex;
+          margin-block: 20px;
+          .star {
+            font-size: 22.5px;
+            letter-spacing: 5px;
+          }
+        }
+        .counting {
+          font-style: 14px;
+          margin-left: 14px;
+        }
+      }
+      .bottom {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        .price {
+          font-size: 28px;
+          color: $accent;
+          letter-spacing: 0.1em;
+          margin: 0;
+        }
+        .moreBtn {
+            letter-spacing: 0.1em;
+            padding: 12px 0px;
+            width: 250px;
+            font: 800 14px inter;
+            background: $secondary;
+            color: $primary;
+            border-radius: 0%;
+          &:hover {
+            color: $secondary;
+            background-color: $primary;
+          }
+        }
+      }
+    }
+  }
+}
