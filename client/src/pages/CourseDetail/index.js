@@ -1,51 +1,39 @@
 import React from "react";
-import PropTypes from "prop-types";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import { ConfigProvider, Tabs } from "antd";
 
-function CustomTabPanel(props) {
-  const { children, value, index, ...other } = props;
-
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
-  );
-}
-
-CustomTabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+// Tabs Index
+const onChange = (key) => {
+  console.log(key);
 };
-
-function a11yProps(index) {
-  return {
-    id: `simple-tab-${index}`,
-    "aria-controls": `simple-tabpanel-${index}`,
-  };
-}
+const items = [
+  {
+    key: "1",
+    label: "課程介紹",
+    children: "Content of Tab Pane 1",
+  },
+  {
+    key: "2",
+    label: "講師介紹",
+    children: "Content of Tab Pane 2",
+  },
+  {
+    key: "3",
+    label: "課程大綱",
+    children: "Content of Tab Pane 3",
+  },
+  {
+    key: "4",
+    label: "常見問題",
+    children: "Content of Tab Pane 3",
+  },
+  {
+    key: "5",
+    label: "學員評價",
+    children: "Content of Tab Pane 3",
+  },
+];
 
 export default function CourseDetail() {
-  //tabs
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
   return (
     <div className="course-detail-body">
       <div className="container">
@@ -111,48 +99,30 @@ export default function CourseDetail() {
           </div>
         </div>
         <div className="course-detail-tabs">
-          <Box sx={{ width: "100%" }}>
-            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-              <Tabs
-                className="tabs"
-                centered 
-                value={value}
-                onChange={handleChange}
-                aria-label="basic tabs example"
-              >
-                <Tab
-                className="tab"
-                label="課程介紹" {...a11yProps(0)} />
-                <Tab
-                className="tab"
-                label="講師介紹" {...a11yProps(1)} />
-                <Tab
-                className="tab"
-                label="課程大綱" {...a11yProps(2)} />
-                <Tab
-                className="tab"
-                label="常見問題" {...a11yProps(3)} />
-                <Tab
-                className="tab"
-                label="學員評價" {...a11yProps(4)} />
-              </Tabs>
-            </Box>
-            <CustomTabPanel value={value} index={0}>
-              Item One
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={1}>
-              Item Two
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={2}>
-              Item Three
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={3}>
-              Item Four
-            </CustomTabPanel>
-            <CustomTabPanel value={value} index={4}>
-              Item Five
-            </CustomTabPanel>
-          </Box>
+          <ConfigProvider
+            theme={{
+              components: {
+                Tabs: {
+                  cardBg: "parent",
+                  //   horizontalItemGutter: 50,
+                  itemColor: "#000",
+                  inkBarColor: "#616153",
+                  itemActiveColor: "#000",
+                  itemHoverColor: "#000",
+                  itemSelectedColor: "#000",
+                  horizontalItemPadding: "12px 30px",
+                },
+              },
+            }}
+          >
+            <Tabs
+              type="primary"
+              centered
+              defaultActiveKey="1"
+              items={items}
+              onChange={onChange}
+            />
+          </ConfigProvider>
         </div>
       </div>
     </div>
