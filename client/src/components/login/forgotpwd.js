@@ -35,7 +35,7 @@ export default function ForgotPwd( {formType, setFormType} ) {
       </Row>
       <Row className='mb-3'>
       <Form.Group as={Col} md='12' xs='12' className='my-4 d-flex justify-content-between'>
-      <Button className='login-button' onClick={()=>{setFormType('login')}}>返回</Button>
+      <Button className='login-button' onClick={()=>{setFormType(true)}}>返回</Button>
         <Button type="submit" className='login-button'>送出</Button>
       </Form.Group>
       </Row>

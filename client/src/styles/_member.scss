@@ -14,6 +14,8 @@
     background: rgba(255, 255, 255, 0.6); /* 调整透明度的背景颜色 */
   }
 }
+
+// 會員側邊導覽列 手機板
 .side-avatar-block{
   .crown{
     display: none;
@@ -41,6 +43,8 @@
     // display: none;
   }
 }
+
+// 會員導覽列桌機版
 .avatar{
   width: 300px;
   border-radius: 50%;
@@ -68,6 +72,7 @@
   color: #fff;
 }
 
+// 收藏的商品 含bootstrap樣式覆蓋
 .fav-header{
   justify-content: space-around;
   ul{
@@ -179,19 +184,19 @@
 
 // 收藏課程
 
-.fav-course{
+.member-fav-course{
   .course-list-item {
     display: flex;
     margin: 40px;
     .course-list-img {
       background: lightblue;
-      width: 600px;
-      height: 400px;
+      width: 420px;
+      height: 280px;
     }
     .course-list-text {
       background: lightyellow;
-      width: 760px;
-      height: 400px;
+      width: 560px;
+      height: 280px;
       padding-inline: 40px;
       .title {
         font-size: 22px;
@@ -199,12 +204,15 @@
         font-weight: 600;
       }
       .intro {
-        font-size: 16px;
+        height: 25px;
+        font-size: 14px;
         line-height: 19px;
+        white-space: nowrap; // 防止文本换行
+        overflow: hidden;    // 隐藏溢出的文本
+        text-overflow: ellipsis; // 使用省略号来表示溢出的文本
       }
       .items {
-        font-style: 16px;
-        line-height: 30px;
+        font-style: 14px;
         letter-spacing: 0.1em;
       }
       .course-rating {
@@ -213,7 +221,7 @@
 
         .stars {
           display: flex;
-          margin-block: 20px;
+          margin-block: 10px;
           .star {
             font-size: 22.5px;
             letter-spacing: 5px;
@@ -249,5 +257,22 @@
         }
       }
     }
+  }
+}
+
+// 會員中心註冊登入
+.login-button{
+  background-color:$secondary;
+  border-radius: 0;
+  border: 0px;
+  padding-inline: 40px;
+  color: #fff;
+  &:hover{
+      background-color:$secondary;
+      color: #fff;
+  }
+
+  @media (max-width: 393px){
+      padding-inline: 35px;
   }
 }
