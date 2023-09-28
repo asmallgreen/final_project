@@ -21,7 +21,6 @@ export default function MemberCoupon() {
               defaultActiveKey="product"
               id="uncontrolled-tab-example"
               className="mb-3 fav-header"
-              justify
             >
               <Tab eventKey="product" title="擁有的優惠券">
                 <div className="container">

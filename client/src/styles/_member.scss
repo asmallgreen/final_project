@@ -83,13 +83,13 @@
     width: calc(180px + 0.2 * (100vw - 770px));
     border-left: 0;
     border-bottom: 7px solid transparent;
-    // &:hover {
-    //   border-left: 0;
-    //   #uncontrolled-tab-example-tab-product,
-    //   #uncontrolled-tab-example-tab-course {
-    //     border-bottom: 7px solid $accent;
-    //   }
-    // }
+    &:hover {
+      border-left: 0;
+      #uncontrolled-tab-example-tab-product,
+      #uncontrolled-tab-example-tab-course {
+        border-bottom: 7px solid $accent;
+      }
+    }
     #uncontrolled-tab-example-tab-product,
     #uncontrolled-tab-example-tab-course {
       width: 100%;

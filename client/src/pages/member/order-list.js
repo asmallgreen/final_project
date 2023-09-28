@@ -21,7 +21,6 @@ export default function OrderList() {
               defaultActiveKey="product"
               id="uncontrolled-tab-example"
               className="mb-3 fav-header"
-              justify
             >
               <Tab eventKey="product" title="進行中訂單">
                 <table className="order-table-pc d-none d-md-table">
