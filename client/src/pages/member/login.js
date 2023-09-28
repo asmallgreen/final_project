@@ -28,8 +28,9 @@ export default function Login() {
   return (
     <>
     {formType? (<div className='login-bg'>
-      <div className='position-relative d-flex justify-content-center align-items-center vh-100 bt-container'>
-        <div className='login-block'>
+
+      <div className='position-relative d-flex justify-content-center align-items-center bt-container'>
+        <div className='login-block my-3'>
         <Form noValidate validated={validated} onSubmit={handleSubmit} className='login-block-container'>
           <div className='d-flex justify-content-around fs-3 mb-3'>
             <div className='login-border-bottom d-flex justify-content-center'>
@@ -87,8 +88,11 @@ export default function Login() {
     </div>
         </div>
       </div>
-      </div>):(<div className='login-bg'>
-      <ForgotPwd formType={formType} setFormType={setFormType}/>
+
+      </div>):(<div className='login-bg'><div className='position-relative d-flex justify-content-center align-items-center bt-container'>
+        <ForgotPwd formType={formType} setFormType={setFormType}/>
+      </div>
+      
       </div>)}
       
     </>

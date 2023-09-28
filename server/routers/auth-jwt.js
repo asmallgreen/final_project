@@ -13,6 +13,12 @@ import 'dotenv/config.js'
 // 定義安全的私鑰字串
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 
+router.get('/private', authenticate, (req, res) => {
+  const user = req.user
+
+  return res.json({ message: 'authorized', user })
+})
+
 // 檢查登入狀態用
 router.get('/check-login', authenticate, async (req, res) => {
     const user = req.user
@@ -62,3 +68,50 @@ router.post('/login', async (req, res) => {
       accessToken,
     })
   })
+// 登出
+  router.post('/logout', authenticate, (req, res) => {
+    // 清除cookie
+    res.clearCookie('accessToken', { httpOnly: true })
+  
+    res.json({ message: 'success', code: '200' })
+  })
+  
+  router.post('/logout-ssl-proxy', authenticate, (req, res) => {
+    // 清除cookie
+    res.clearCookie('accessToken', {
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true,
+    })
+  
+    res.json({ message: 'success', code: '200' })
+  })
+  
+
+  // middlewares
+  // 中介軟體middleware，用於檢查是否在認証情況下
+export default function authenticate(req, res, next) {
+  //const token = req.headers['authorization']
+  const token = req.cookies.accessToken
+  console.log(token)
+
+  // if no token
+  if (!token) {
+    return res.json({ message: 'Forbidden', code: '403' })
+  }
+
+  if (token) {
+    // verify的callback會帶有decoded payload(解密後的有效資料)就是user的資料
+    jsonwebtoken.verify(token, accessTokenSecret, (err, user) => {
+      if (err) {
+        return res.json({ message: 'Forbidden', code: '403' })
+      }
+
+      // 將user資料加到req中
+      req.user = user
+      next()
+    })
+  } else {
+    return res.json({ message: 'Unauthorized', code: '401' })
+  }
+}
