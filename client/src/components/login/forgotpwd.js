@@ -10,8 +10,8 @@ export default function ForgotPwd( {formType, setFormType} ) {
 
   return (
     <>
-            <Container className='position-relative d-flex justify-content-center align-items-center vh-100 bt-container'>
-        <div className='login-block'>
+            <Container className='position-relative d-flex justify-content-center align-items-center bt-container'>
+        <div className='login-block my-3'>
         <Form noValidate validated={validated} onSubmit={handleForgotSubmit} className='login-block-container'>
           <div>
           <p className='fs-3 mb-3 text-center'>忘記密碼</p></div>
@@ -35,7 +35,7 @@ export default function ForgotPwd( {formType, setFormType} ) {
       </Row>
       <Row className='mb-3'>
       <Form.Group as={Col} md='12' xs='12' className='my-4 d-flex justify-content-between'>
-      <Button className='login-button' onClick={()=>{setFormType('login')}}>返回</Button>
+      <Button className='login-button' onClick={()=>{setFormType(true)}}>返回</Button>
         <Button type="submit" className='login-button'>送出</Button>
       </Form.Group>
       </Row>

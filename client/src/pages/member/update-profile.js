@@ -4,7 +4,6 @@ import { BiSolidCrown } from 'react-icons/bi';
 import SideBar from '../../components/member/side-bar'
 
 
-
 export default function UpdateProfile() {
   return (
     <>

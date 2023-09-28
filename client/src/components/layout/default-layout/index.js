@@ -11,13 +11,13 @@ export default function DefaultLayout({ title = "", children }) {
         <meta name="viewport" content="width=device-width" />
       </Head>
       {/* <Router> */}
-      <Logobar />
-      <Navbar />
-      <main>
-        <div>{children}</div>
-      </main>
-      <Footer />
-      {/* <Switch>
+        <Logobar />
+        <Navbar />
+        <main>
+          <div>{children}</div>
+        </main>
+        <Footer />
+        {/* <Switch>
           <Route exact path="/" component={Product} /> 
           <Route path="/product" Component={Product} />
         </Switch>

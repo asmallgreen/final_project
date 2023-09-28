@@ -1,5 +1,4 @@
 // 變數覆蓋用 (Variable overrides)
-
 // 全站配色 colors
 $primary: #fcfaf2;
 $secondary: #616153;
@@ -17,11 +16,7 @@ $nav-pills-border-radius:  0;
 // $nav-pills-link-active-bg:transparent;
 $nav-tabs-border-width:0;
 $nav-tabs-border-radius:0;
-// Bootstrap Button 樣式修改
-
-a{
-  color: $nav-link-color
-}
+$link-color:$secondary;
 
 // ↑↑↑  變數覆蓋(Variable overrides) 要寫在這行"上面"  ↑↑↑
 

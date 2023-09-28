@@ -1,7 +1,7 @@
 import React from "react";
-import Link from "next/link";
 //fontawesome
-import { FaShoppingCart, FaUser, FaSearch } from "react-icons/fa"
+import{ FaShoppingCart, FaUser, FaSearch} from "react-icons/fa"
+import Link from 'next/link';
 
 export default function Navbar() {
   return (
@@ -66,10 +66,7 @@ export default function Navbar() {
             <FaShoppingCart className="fa-cart-shopping" />
           </li>
           <li className="list-unstyled">
-            <Link href="/member">
-              <FaUser className="fa-user" />
-            </Link>
-            
+            <Link href='/member' className="text-decoreation-none"><FaUser className="fa-user" /></Link>
           </li>
         </ul>
       </div>
