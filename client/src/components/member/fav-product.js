@@ -23,11 +23,8 @@ export default function FavProduct() {
       </div>
 {/* 收藏的商品內容 */}
         <FavProductCard/>
-
       </Tab>
 
-
-      
       <Tab eventKey="profile" title="收藏課程">
       {/* 全選/取消收藏/加入購物車 */}
       <div className='text-end fav-select-all'>
@@ -39,7 +36,6 @@ export default function FavProduct() {
         Tab content for Profile
       </Tab>
     </Tabs>
-
 
 {/* 商品card */}
             <div></div>

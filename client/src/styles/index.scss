@@ -2,17 +2,20 @@
 @import "global.scss";
 @import "components.scss";
 
-//bootstrap
+//各個pages scss
+
+//會員專區
+@import "member.scss";
+@import "member-order.scss";
+@import "member-coupon.scss";
+
+//商品
+@import "product.scss";
+
+// bootstrap
+// npm install react-bootstrap bootstrap
 @import "~bootstrap/scss/bootstrap";
 
+// Normalize.css
 // npm install --save normalize.css
-@import '~normalize.css';
-
-// 路徑:member/login
-@import "_member.scss";
-
-//各個pages scss
-@import "member-order.scss";
-
-//CourseList
-@import "CourseList.scss";
+@import "~normalize.css";

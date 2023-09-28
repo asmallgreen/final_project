@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Nav, Tab } from 'react-bootstrap'
 import { BiSolidCrown } from 'react-icons/bi';
 import SideBar from '../../components/member/side-bar'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './login'
 
 

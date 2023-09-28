@@ -3,9 +3,9 @@ const router = express.Router()
 
 import jsonwebtoken from 'jsonwebtoken'
 
-import authenticate from '../middlewares/jwt.js'
+// import authenticate from '../middlewares/jwt.js'
 
-import { verifyUser, getUser } from '../models/users.js'
+// import { verifyUser, getUser } from '../models/users.js'
 
 // 存取`.env`設定檔案使用
 import 'dotenv/config.js'
@@ -13,6 +13,33 @@ import 'dotenv/config.js'
 // 定義安全的私鑰字串
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 
+// middlewares
+  // 中介軟體middleware，用於檢查是否在認証情況下
+  const  authenticate=(req, res, next) =>{
+    //const token = req.headers['authorization']
+    const token = req.cookies.accessToken
+    console.log(token)
+  
+    // if no token
+    if (!token) {
+      return res.json({ message: 'Forbidden', code: '403' })
+    }
+  
+    if (token) {
+      // verify的callback會帶有decoded payload(解密後的有效資料)就是user的資料
+      jsonwebtoken.verify(token, accessTokenSecret, (err, user) => {
+        if (err) {
+          return res.json({ message: 'Forbidden', code: '403' })
+        }
+  
+        // 將user資料加到req中
+        req.user = user
+        next()
+      })
+    } else {
+      return res.json({ message: 'Unauthorized', code: '401' })
+    }
+  }
 router.get('/private', authenticate, (req, res) => {
   const user = req.user
 
@@ -25,75 +52,76 @@ router.get('/check-login', authenticate, async (req, res) => {
     return res.json({ message: 'authorized', user })
   })
   
-router.post('/login', async (req, res) => {
-    console.log(req.body)
-    // 從要求的req.body獲取username與password
-    const { username, password } = req.body
-    if(username === abc && password === 123){
-      
-    // 會員存在，將會員的資料取出
-    const member = {
-      username,
-      password,
-    }
-  
-    console.log(member)
-  
-    // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
-    delete member.password
-      res.json({ message: 'success', code: '200' })
-      // 產生存取令牌(access token)，其中包含會員資料
-    const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
-      expiresIn: '24h',
-    })
-  
-    // 使用httpOnly cookie來讓瀏覽器端儲存access token
-    res.cookie('accessToken', accessToken, { httpOnly: true })
-  
-    // 傳送access token回應(react可以儲存在state中使用)
-    res.json({
-      message: 'success',
-      code: '200',
-      accessToken,
-    })
-    }
-    // 先查詢資料庫是否有同username/password的資料
-    const isMember = await verifyUser({
-      username,
-      password,
-    })
-  
-    console.log(isMember)
-  
-    if (!isMember) {
-      return res.json({ message: 'fail', code: '400' })
-    }
-  
-    // 會員存在，將會員的資料取出
-    const member = await getUser({
-      username,
-      password,
-    })
-  
-    console.log(member)
-  
-    // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
-    delete member.password
-  
-    // // 產生存取令牌(access token)，其中包含會員資料
-    // const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
-    //   expiresIn: '24h',
-    // })
-  
-    // // 使用httpOnly cookie來讓瀏覽器端儲存access token
-    // res.cookie('accessToken', accessToken, { httpOnly: true })
-  
-    // // 傳送access token回應(react可以儲存在state中使用)
-    // res.json({
-    //   message: 'success',
-    //   code: '200',
-    //   accessToken,
-    // })
+router.get('/login',  (req, res) => {
+  res.send("login")
+  // console.log(req.body)
+  // // 從要求的req.body獲取username與password
+  // const { username, password } = req.body
+  // if(username === abc && password === 123){
+    
+  // // 會員存在，將會員的資料取出
+  // const member = {
+  //   username,
+  //   password,
+  // }
+
+  // console.log(member)
+
+  // // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
+  // delete member.password
+  //   res.json({ message: 'success', code: '200' })
+  //   // 產生存取令牌(access token)，其中包含會員資料
+  // const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
+  //   expiresIn: '24h',
+  // })
+
+  // // 使用httpOnly cookie來讓瀏覽器端儲存access token
+  // res.cookie('accessToken', accessToken, { httpOnly: true })
+
+  // // 傳送access token回應(react可以儲存在state中使用)
+  // res.json({
+  //   message: 'success',
+  //   code: '200',
+  //   accessToken,
+  // })
+  // }
+  // // 先查詢資料庫是否有同username/password的資料
+  // const isMember = await verifyUser({
+  //   username,
+  //   password,
+  // })
+
+  // console.log(isMember)
+
+  // if (!isMember) {
+  //   return res.json({ message: 'fail', code: '400' })
+  // }
+
+  // // 會員存在，將會員的資料取出
+  // const member = await getUser({
+  //   username,
+  //   password,
+  // })
+
+  // console.log(member)
+
+  // // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
+  // delete member.password
+
+  // // // 產生存取令牌(access token)，其中包含會員資料
+  // // const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
+  // //   expiresIn: '24h',
+  // // })
+
+  // // // 使用httpOnly cookie來讓瀏覽器端儲存access token
+  // // res.cookie('accessToken', accessToken, { httpOnly: true })
+
+  // // // 傳送access token回應(react可以儲存在state中使用)
+  // // res.json({
+  // //   message: 'success',
+  // //   code: '200',
+  // //   accessToken,
+  // // })
   })
 // 登出
   router.post('/logout', authenticate, (req, res) => {
@@ -115,30 +143,5 @@ router.post('/login', async (req, res) => {
   })
   
 
-  // middlewares
-  // 中介軟體middleware，用於檢查是否在認証情況下
-const  authenticate=(req, res, next) =>{
-  //const token = req.headers['authorization']
-  const token = req.cookies.accessToken
-  console.log(token)
-
-  // if no token
-  if (!token) {
-    return res.json({ message: 'Forbidden', code: '403' })
-  }
-
-  if (token) {
-    // verify的callback會帶有decoded payload(解密後的有效資料)就是user的資料
-    jsonwebtoken.verify(token, accessTokenSecret, (err, user) => {
-      if (err) {
-        return res.json({ message: 'Forbidden', code: '403' })
-      }
-
-      // 將user資料加到req中
-      req.user = user
-      next()
-    })
-  } else {
-    return res.json({ message: 'Unauthorized', code: '401' })
-  }
-}
+ 
+export default router

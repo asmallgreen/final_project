@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename)
 
 // 讓console.log可以呈現檔案與行號
 // import { extendLog } from './utils/tool.js'
-extendLog() // 執行全域套用
+// extendLog() // 執行全域套用
 // console.log呈現顏色用 全域套用
 import 'colors'
 // 檔案上傳
@@ -40,7 +40,7 @@ const app = express()
 
 // 檔案上傳
 // 選項參考: https://github.com/richardgirges/express-fileupload
-app.use(fileUpload())
+// app.use(fileUpload())
 
 // 可以使用的CORS要求，options必要
 // app.use(cors())
@@ -56,7 +56,7 @@ app.use(
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
-app.use(logger('dev'))
+// app.use(logger('dev'))
 app.use(express.json())
 
 app.use(express.urlencoded({ extended: false }))
@@ -82,20 +82,23 @@ app.use(
 )
 
 // 路由使用
-app.use('/api/', indexRouter)
-app.use('/api/auth-jwt', authJwtRouter)
-app.use('/api/auth', authRouter)
-app.use('/api/email', emailRouter)
-app.use('/api/products', productsRouter)
-app.use('/api/reset-password', resetPasswordRouter)
-app.use('/api/users', usersRouter)
-app.use('/api/google-login', googleLoginRouter)
-app.use('/api/line-login', lineLoginRouter)
-app.use('/api/facebook-login', facebookLoginRouter)
-app.use('/api/favorite', favoriteRouter)
+// app.use('/api/', indexRouter)
+app.get('/', (req, res)=>{
+  res.send("首頁")
+})
+app.use('/member', authJwtRouter)
+// app.use('/api/auth', authRouter)
+// app.use('/api/email', emailRouter)
+// app.use('/api/products', productsRouter)
+// app.use('/api/reset-password', resetPasswordRouter)
+// app.use('/api/users', usersRouter)
+// app.use('/api/google-login', googleLoginRouter)
+// app.use('/api/line-login', lineLoginRouter)
+// app.use('/api/facebook-login', facebookLoginRouter)
+// app.use('/api/favorite', favoriteRouter)
 
 app.listen(3005, ()=>{
-  console.log("服務以啟動於 http://localhost:3000");
+  console.log("服務已啟動於 http://localhost:3005");
 })
 
 // catch 404 and forward to error handler
@@ -110,9 +113,7 @@ app.use(function (err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
   // render the error page
-  res.status(err.status || 500)
-  // 更改為錯誤訊息預設為JSON格式
-  res.status(500).send({ error: err })
+  res.status(err.status || 500).json({ error: err });
 })
 
 export default app

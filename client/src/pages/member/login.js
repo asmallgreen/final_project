@@ -26,7 +26,7 @@ export default function Login() {
     }
 
     try{
-      const res = await axios.post()
+      const res = await axios.post('http://localhost:3005/api/member/login')
     }catch(error){
 
     }
