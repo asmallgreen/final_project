@@ -53,7 +53,6 @@ export default function Navbar() {
             <a href="/product">聯絡我們</a>
           </li>
         </ul>
-
         <ul className="nav-fk d-flex position-absolute top-0 end-0 align-items-center">
           <li className=" align-items-center list-unstyled d-flex  ">
             <input

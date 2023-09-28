@@ -2,18 +2,14 @@ import React from "react";
 import { FaList } from "react-icons/fa";
 
 import MemberOrder from "@/data/Member-order.json";
-import MemberSidebar from "@/components/member-sidebar";
 import Pagination from "@/components/pagination";
 
-export default function Order() {
+export default function OrderList() {
   return (
     <>
       <div className="row">
-        <div className="col-12 col-md-3 p-3">
-          <MemberSidebar />
-        </div>
-        <div className="col-12 col-md-9">
-          <h3>訂單記錄</h3>
+        {/* <div className="col-12 col-lg-9"> */}
+          <div className="fs-2 mb-5">訂單記錄</div>
           <div className="row text-center p-3">
             <div className="order-title col-6">進行中的訂單</div>
             <div className="order-title col-6">已完成的訂單</div>
@@ -23,7 +19,7 @@ export default function Order() {
               <tr>
                 <th>#</th>
                 <th>訂單編號</th>
-                <th>訂單金額  </th>
+                <th>訂單金額 </th>
                 <th>成立日期</th>
                 <th>訂單詳情</th>
               </tr>
@@ -31,11 +27,20 @@ export default function Order() {
             <tbody className="text-center">
               {MemberOrder.map((order, index) => (
                 <tr key={order.id}>
-                  <th><img src="/images/member/default_member.png" alt={`Order ${order.id}`} /></th>
+                  <th>
+                    <img
+                      src="/images/member/default_member.png"
+                      alt={`Order ${order.id}`}
+                    />
+                  </th>
                   <td>{order.orderNumber}</td>
                   <td>{order.orderAmount}</td>
                   <td>{order.orderDate}</td>
-                  <td><button type="button" className="btn btn-dark"><FaList /></button></td>
+                  <td>
+                    <button type="button" className="btn btn-dark">
+                      <FaList />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -65,7 +70,7 @@ export default function Order() {
           </div>
           <Pagination />
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 }

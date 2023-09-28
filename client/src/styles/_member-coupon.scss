@@ -1,0 +1,31 @@
+.coupon-check {
+  span{
+    color: $secondary;
+  }
+}
+.coupon-clear {
+  background-color: $secondary-half;
+  color: #fff;
+  cursor: pointer;
+}
+.coupon-clear:hover {
+  background-color: $accent;
+  transition: 0.6s;
+}
+
+.coupon-table{
+  width: 100%;
+  thead{
+    color: #fff;
+    background-color: $secondary-half;
+  }
+  th{
+    padding:5px 0;
+  }
+  td{
+    color: $secondary;
+  }
+  a{
+    color: $accent;
+  }
+}

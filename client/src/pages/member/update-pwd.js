@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Button, Row, Col, Form } from "react-bootstrap";
 import SideBar from '../../components/member/side-bar'
 
-export default function UpdateProfile() {
+export default function UpdatePwd() {
     return (
         <>
             <Row>
