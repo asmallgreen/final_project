@@ -1,15 +1,7 @@
-html{
-    height: 100%;
-  }
-  body{
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .calendar{
+.calendar{
     position: relative;
     display: flex;
+ 
   }
   .calendar .mLeft .ctrl{
     display: flex;
@@ -109,8 +101,8 @@ html{
     justify-content: center;
     align-items: center;
     .calendar-test2{
-        width: 350px;
-        height: 350px;
+        width: 550px;
+        height: 550px;
         background-color: aqua;
         margin-bottom: 3rem;
     }
