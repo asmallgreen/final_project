@@ -69,26 +69,24 @@
   color: #fff;
 }
 
-.fav-header {
+.fav-header{
   justify-content: space-around;
-  ul {
+  ul{
     border-radius: 0;
   }
-  li {
+  li{
     width: calc(180px + 0.2 * (100vw - 770px));
     border-left: 0;
     border-bottom: 7px solid transparent;
-    &:hover {
+    &:hover{
       border-left: 0;
-      #uncontrolled-tab-example-tab-product,
-      #uncontrolled-tab-example-tab-course {
-        border-bottom: 7px solid $accent;
+      #uncontrolled-tab-example-tab-prudoct,#uncontrolled-tab-example-tab-course{
+      border-bottom: 7px solid $accent;
       }
     }
-    #uncontrolled-tab-example-tab-product,
-    #uncontrolled-tab-example-tab-course {
+    #uncontrolled-tab-example-tab-prudoct,#uncontrolled-tab-example-tab-course{
       width: 100%;
-      &.active {
+      &.active{
         color: $accent;
         border-left: 0;
         border-bottom: 7px solid $accent;

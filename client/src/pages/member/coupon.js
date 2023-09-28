@@ -18,12 +18,12 @@ export default function MemberCoupon() {
           <Container className='my-3'>
             <div className='fs-2 mb-3'>我的優惠券</div>
             <Tabs
-              defaultActiveKey="home"
+              defaultActiveKey="product"
               id="justify-tab-example"
               className="mb-3 fav-header"
               justify
             >
-              <Tab eventKey="home" title="擁有的優惠券">
+              <Tab eventKey="product" title="擁有的優惠券">
                 <div className="container">
                   <div className="row p-3 fs-5 fw-bold">
                     <div className="col-12 col-md-6 text-center align-self-center py-1 coupon-check">
@@ -49,7 +49,7 @@ export default function MemberCoupon() {
                   </div>
                 </div>
               </Tab>
-              <Tab eventKey="profile" title="優惠券使用紀錄">
+              <Tab eventKey="course" title="優惠券使用紀錄">
                 <table className="coupon-table text-center">
                   <thead>
                     <tr>
