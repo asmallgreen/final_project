@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //fontawesome
@@ -10,9 +11,12 @@ import {
 export default function Logobar() {
   return (
     <>
-      <div className="logo-bar d-flex justify-content-center align-items-center position-relative">
-        <img className="logo-img" src="/logo-img.svg" />
-        <img className="logo-text" src="/logo-text.svg" />
+      <div className="table-logo-bar d-flex justify-content-center align-items-center">
+        <Link href="/">
+          <img className="logo-img" src="/logo-img.svg" />
+          <img className="logo-text" src="/logo-text.svg" />
+        </Link>
+
       </div>
         <FontAwesomeIcon
         icon={faBars}

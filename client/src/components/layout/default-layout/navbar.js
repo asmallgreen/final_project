@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 //fontawesome
 import { FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
+import Link from 'next/link';
 
 export default function Navbar() {
   return (
@@ -73,7 +74,7 @@ export default function Navbar() {
             <FaShoppingCart className="fa-cart-shopping" />
           </li>
           <li className="list-unstyled">
-            <FaUser className="fa-user" />
+            <Link href='/member' className="text-decoreation-none"><FaUser className="fa-user" /></Link>
           </li>
         </ul>
       </div>
