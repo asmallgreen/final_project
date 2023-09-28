@@ -10,7 +10,7 @@ export default function index() {
             <h2 className="">北部道場</h2>
             <h5 className="dojo-name">藏月弓道場</h5>
           </div>
-          <a href="/">
+          <a href="/venue/reserve">
             <img src="/images/venue/dojo_n.png"></img>
           </a>
         </div>
