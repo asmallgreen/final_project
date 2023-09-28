@@ -18,12 +18,12 @@ export default function OrderList() {
           <Container className='my-3'>
             <div className='fs-2 mb-3'>訂單紀錄</div>
             <Tabs
-              defaultActiveKey="doing"
-              id="justify-tab-example"
+              defaultActiveKey="product"
+              id="uncontrolled-tab-example"
               className="mb-3 fav-header"
               justify
             >
-              <Tab eventKey="doing" title="進行中訂單">
+              <Tab eventKey="product" title="進行中訂單">
                 <table className="order-table-pc d-none d-md-table">
                   <thead className="text-center">
                     <tr>
@@ -79,7 +79,7 @@ export default function OrderList() {
                   </div>
                 </div>
               </Tab>
-              <Tab eventKey="finish" title="已完成訂單">
+              <Tab eventKey="course" title="已完成訂單">
 
               </Tab>
             </Tabs>

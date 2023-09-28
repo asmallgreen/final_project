@@ -19,7 +19,7 @@ export default function MemberCoupon() {
             <div className='fs-2 mb-3'>我的優惠券</div>
             <Tabs
               defaultActiveKey="product"
-              id="justify-tab-example"
+              id="uncontrolled-tab-example"
               className="mb-3 fav-header"
               justify
             >
