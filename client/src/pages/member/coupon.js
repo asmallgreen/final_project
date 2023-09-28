@@ -35,7 +35,7 @@ export default function MemberCoupon() {
                   </div>
                   <div className="row">
                     {CouponData.map((coupon, index) => (
-                      <div className='col-12 col-lg-6'>
+                      <div className='col-12 col-lg-6' key={index}>
                         <CouponCard
                           key={index}
                           name={coupon.name}
