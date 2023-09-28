@@ -19,53 +19,7 @@ import {
 function PublicNav() {
   return (
     <>
-      {/* 桌機版logo */}
-      {/* <div className="table-logo-bar d-flex justify-content-center align-items-center">
-        <img className="logo-img" src="/logo-img.svg" />
-        <img className="logo-text" src="/logo-text.svg" />
-      </div> */}
-      {/* 桌機版nav */}
-      {/* <div className="table-nav position-relative d-flex align-items-center">
-        <ul className="nav position-absolute top-0 d-flex justify-content-center align-items-center">
-          <li className="list-unstyled">
-            <a href="/">關於良弓</a>
-          </li>
-          <li className="list-unstyled">
-            <a href="/">商品介紹</a>
-          </li>
-          <li className="list-unstyled">
-            <a href="/">弓道課程</a>
-          </li>
-          <li className="list-unstyled">
-            <a href="/">場地租借</a>
-          </li>
-          <li className="list-unstyled">
-            <a href="/">聯絡我們</a>
-          </li>
-        </ul>
-        <ul className="nav-fk d-flex position-absolute top-0 end-0 align-items-center">
-          <li className=" align-items-center list-unstyled d-flex  ">
-            <input
-              className="form-control ms-3 rounded-5 position-relative"
-              type="text"
-              placeholder="請輸入商品名稱"
-            />
-            <FontAwesomeIcon
-              icon={faSearch}
-              className="fa-magnifying-glass position-absolute"
-            />
-          </li>
-          <li className="list-unstyled">
-            <FontAwesomeIcon
-              icon={faShoppingCart}
-              className="fa-cart-shopping"
-            />
-          </li>
-          <li className="list-unstyled">
-            <FontAwesomeIcon icon={faUser} className="fa-user" />
-          </li>
-        </ul>
-      </div> */}
+    
       {/* 手機版logo */}
       <div className="phone-logo-bar d-flex justify-content-center align-items-center">
         <img className="logo-img" src="/logo-img.svg" />

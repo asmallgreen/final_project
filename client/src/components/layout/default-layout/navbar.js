@@ -1,7 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //fontawesome
-import{ FaShoppingCart, FaUser, FaSearch} from "react-icons/fa"
+import {
+  faChevronDown,
+  faChevronRight,
+  faBars,
+} from "@fortawesome/free-solid-svg-icons";
+//fontawesome
+import { FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
 
 export default function Navbar() {
   return (
@@ -54,10 +60,10 @@ export default function Navbar() {
           </li>
         </ul>
 
-        <ul className="nav-fk d-flex position-absolute top-0 end-0 align-items-center">
+        <ul className="nav-fk  top-0 end-0 align-items-center">
           <li className=" align-items-center list-unstyled d-flex  ">
             <input
-              className="form-control ms-3 rounded-5 position-relative"
+              className="form-control ms-3 rounded-5 position-relative bg-light"
               type="text"
               placeholder="請輸入商品名稱"
             />
@@ -71,6 +77,28 @@ export default function Navbar() {
           </li>
         </ul>
       </div>
+
+      {/* 手機版nav */}
+      <div className="phone-nav d-flex">
+        <ul className="nav d-flex justify-content-center align-items-center">
+          <li>
+            <a href="/">首頁</a>
+          </li>
+          <li>
+            <a href="/">商店</a>
+          </li>
+          <li>
+            <a href="/">課程</a>
+          </li>
+          <li>
+            <a href="/">場地</a>
+          </li>
+        </ul>
+        
+      </div>
+
+
+
     </>
   );
 }

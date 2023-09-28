@@ -1,0 +1,30 @@
+
+.quantity-btn {
+  padding: 0;
+  border-radius: 0;
+  border: 1px solid $secondary;
+  font-size: 30px;
+
+
+  .symbol {
+    // width: 300px;
+    background-color: $primary;
+    border-radius: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+  }
+  .quantity {
+    background-color: #ffffff;
+    border-left: 1px solid $secondary;
+    border-right: 1px solid $secondary;
+    border-radius: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+  }
+}

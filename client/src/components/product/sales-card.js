@@ -1,5 +1,26 @@
-import React from "react";
+// 產品頁=>優惠專區(橫式)卡片樣式
+// 使用方法:
+// import { Row, Col } from "react-bootstrap";
+//  <Row className="sales my-5 d-flex justify-content-center">
+//   <Col md="12" xs="8" className="">
+//     <Row className="d-flex justify-content-center">
+//       <Col md="auto" xs="6" className="card p-0 m-2">
+//         <SalesCard />
+//       </Col>
+//       <Col md="auto" xs="6" className="card p-0 m-2">
+//         <SalesCard />
+//       </Col>
+//       <Col md="auto" xs="6" className="card p-0 m-2">
+//         <SalesCard />
+//       </Col>
+//       <Col md="auto" xs="6" className="card p-0 m-2">
+//         <SalesCard />
+//       </Col>
+//     </Row>
+//   </Col>
+// </Row>
 
+import React from "react";
 export default function SalesCard() {
   return (
     <>
@@ -16,7 +37,6 @@ export default function SalesCard() {
           <div className="price">$3000</div>
         </div>
       </div>
-      
     </>
   );
 }

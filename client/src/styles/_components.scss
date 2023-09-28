@@ -17,10 +17,22 @@
 //優惠卡片
 @import"./components/product/sales-card.scss";
 
-//麵包
+//麵包屑
 @import"./components/bread-crumb/bread-crumb.scss";
 
-//Product 業千
-@import"./components/pagination/luna-pagination.scss"
+//Product 頁籤
+@import"./components/pagination/luna-pagination.scss";
 
+//產品資訊頁手風琴
+@import"./components/accordion/product-info-accordion.scss";
 
+//產品捲動按鈕(圓形)
+@import"./components/scroll-btn/scroll-circle.scss";
+
+//商品詳情屬性
+@import"./components/product/attributes.scss";
+
+//商品詳情button
+@import"./components/product/fav-btn.scss";
+@import"./components/product/cart-btn.scss";
+@import"./components/product/quantity-btn.scss";

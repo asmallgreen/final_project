@@ -1,0 +1,53 @@
+
+--bs-accordion-active-color .product-info-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: $secondary;
+  margin: 30px 0 0 0;
+  padding: 0 30px 10px 30px;
+}
+
+.accordion {
+  --bs-border-radius: 0%;
+  --bs-accordion-border-color: none;
+}
+.accordion-item {
+  border: transparent;
+  
+}
+.accordion-button {
+  color: #fcfaf2;
+  font-size: 30px;
+  &[aria-expanded="true"] {
+    border-bottom: 1px dashed $secondary;
+    font-weight: bold;
+  //  background-color: #91918b;
+  //  color: $primary;
+  }
+  ::after {
+    color: #fcfaf2;
+    font-size: 30px;
+  }
+}
+.accordion-header {
+  margin-top: 30px;
+  border-bottom: transparent;
+  background-color: #616153;
+  color: #fcfaf2;
+
+}
+
+.accordion-body {
+  background-color: #ffffff;
+  font-size: 25px;
+  color: $secondary;
+  padding-left: 20px;
+  ol {
+    list-style-type: circle;
+    padding-left: 60px;
+    li {
+      padding-block: 10px;
+    }
+  }
+}

@@ -1,5 +1,20 @@
-import React from "react";
+// 產品頁=>新品上架/相關商品卡片樣式
+// 使用方法:
+// import { Row, Col } from "react-bootstrap";
 
+//  <Row className="justify-content-md-center py-5">
+//  <Col md="auto" xs="2" className="cards d-flex offset-auto">
+//   <Row className="rows">
+//     <ProductCard />
+//     <ProductCard />
+//     <ProductCard />
+//     <ProductCard />
+//     <ProductCard />
+//     <ProductCard />
+//   </Row>
+// </Col>
+// </Row>
+import React from "react";
 export default function ProductCard() {
   return (
     <>

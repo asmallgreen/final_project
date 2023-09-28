@@ -1,8 +1,13 @@
 $primary: #fcfaf2;
 $secondary: #616153;
 $accent: #b16464;
+
 body{
   background-color: $primary;
+  --bs-body-bg:$primary
+}
+.container{
+  // background-color: $primary;
 }
 
 // .title {
@@ -13,7 +18,6 @@ body{
 // }
 .cart {
   height: 760px;
-  // max-width: 1440px;
   padding-block: 20px 10px;
   margin: 0 auto;
   .img-area {
@@ -25,24 +29,10 @@ body{
       height: 670px;
       background-color: $secondary;
     }
-    .scrolls {
-      right: calc(50% - 66px);
+    .scrolls{
       bottom: 40px;
-      //   left: 50%;
-      //   transform: translateX(-50%);
-      .circle {
-        width: 12px;
-        height: 12px;
-        background-color: $primary;
-        border: 1px solid $secondary;
-        border-radius: 50%;
-        cursor: pointer;
-        &:hover {
-          background-color: $secondary;
-          border: 1px solid $primary;
-        }
-      }
     }
+
   }
   .detail {
     // padding-inline: 20px;
@@ -67,110 +57,23 @@ body{
         color: $secondary;
       }
     }
-    .attributes {
-      // padding-block: 10px;
-      .attr {
-        // justify-content: center;
-        align-items: center;
-        margin-block: 25px;
-        .attr-name {
-          font-size: 24px;
-          color: $secondary;
-          margin-right: 40px;
-        }
-        .attr-items {
-          .item {
-            border: 1px solid $secondary;
-            background-color: #ffffff;
-            padding: 8px 20px;
-            margin-inline: 10px;
-            text-align: center;
-            color: $secondary;
-            font-size: 18px;
-          }
-          .btn-primary {
-            text-align: start;
-            padding: 10px 15px;
-            width: 275px;
-            height: 45px;
-            font-size: 20px;
-            border: 1px solid $secondary;
-            border-radius: 0;
-            background-color: #ffffff;
-            color: $secondary;
-            &:hover {
-              background-color: $secondary;
-              color: $primary;
-            }
-          }
-        }
-      }
-    }
+
   }
-  .btns {
-    // padding-block: 10px;
-    width: 100%;
-    .btn-group {
-      border: 1px solid $secondary;
-      background-color: #ffffff;
-      color: $secondary;
-      height: 60px;
-      margin-bottom: 15px;
-      .btn {
-        font-size: 25px;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-      }
-      .quantity {
-        // width: 300px;
-        background-color: $primary;
-        border-left: 1px solid $secondary;
-        border-right: 1px solid $secondary;
-      }
-    }
-    .btn-send {
-      height: 60px;
-      .btn {
-        // width: 315px;
-        border-radius: 0;
-        background-color: $secondary;
-        font-size: 20px;
-        font-weight: bold;
-        color: $primary;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-      }
-    }
-  }
+  
 }
 
-// 手風琴
-.title {
+
+//product-page-title
+.product-page-title {
   // max-width: 1440px;
-  // height: 95px;
-  color: $secondary;
+  height: 95px;
   border-bottom: 1px solid $secondary;
-  margin:30px 0 0 0;
-  span{
-    text-align: start;
+  padding: 50px 45px;
+
+  p {
+    max-width: 1440px;
+    margin: 0 auto;
+    color: $secondary;
     font-size: 30px;
-    // color: $secondary;
-  }
-}
-.content{
-  background-color: #ffffff;
-  padding: 60px 40px 30px;
-  font-size: 25px;
-  color: $secondary;
-  ol{
-    list-style-type: circle;
-    padding-left: 60px;
-    // line-height: 1.5;
-    li{
-      // line-height: 1.5;
-      padding-block: 10px;
-    }
   }
 }

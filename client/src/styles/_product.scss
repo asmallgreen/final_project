@@ -24,25 +24,14 @@ body {
   }
   .main {
     padding: 0;
-    .scrolls {
-      right: calc(50% - 66px);
-      .circle {
-        width: 12px;
-        height: 12px;
-        background-color: $primary;
-        border: 1px solid $secondary;
-        border-radius: 50%;
-        cursor: pointer;
-        &:hover {
-          background-color: $secondary;
-          border: 1px solid $primary;
-        }
-      }
+
+    .scrolls{
+      bottom: 10px;
     }
   }
 }
 
-.title {
+.product-page-title {
   // max-width: 1440px;
   height: 95px;
   border-bottom: 1px solid $secondary;

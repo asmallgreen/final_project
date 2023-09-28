@@ -16,6 +16,7 @@ import SalesCard from "@/components/product/sales-card";
 import FilterProductCard from "@/components/product/filter-product-card";
 import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import LunaPagination from "@/components/pagination/luna-pagination";
+import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
 function Product() {
   return (
     <>
@@ -26,13 +27,8 @@ function Product() {
         </div>
         <div class="main ad col-6">
           <img src="/images/product/top2.jpg" />
-          <div className="scrolls d-flex position-absolute bottom-0  m-3">
-            <div className="circle mx-1"></div>
-            <div className="circle mx-1"></div>
-            <div className="circle mx-1"></div>
-            <div className="circle mx-1"></div>
-            <div className="circle mx-1"></div>
-          </div>
+
+          <ScrollsCircle className="scrolls"/>
         </div>
         <div class="ad col">
           <img src="/images/product/top3.jpg" />
@@ -40,7 +36,7 @@ function Product() {
       </div>
 
       {/* 新品上架 */}
-      <div className="title">
+      <div className="product-page-title">
         <p>新品上架</p>
       </div>
       <Row className="justify-content-md-center py-5">
@@ -78,7 +74,7 @@ function Product() {
       </div>
 
       {/* 所有產品 */}
-      <div className="title">
+      <div className="product-page-title">
         <p>所有產品</p>
       </div>
       <div className="filter-product-list">
@@ -143,7 +139,7 @@ function Product() {
       </div>
 
       {/* 優惠專區 */}
-      <div className="title">
+      <div className="product-page-title">
         <p>優惠專區</p>
       </div>
 
@@ -170,7 +166,7 @@ function Product() {
       <div className="inter-block text-center">真誠面對傳統，超越傳統。</div>
 
       {/* 相關商品推薦 */}
-      <div className="title">
+      <div className="product-page-title">
         <p>相關商品推薦</p>
       </div>
       <Row className="justify-content-md-center py-5">

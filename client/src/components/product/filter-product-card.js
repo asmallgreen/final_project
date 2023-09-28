@@ -1,14 +1,24 @@
+// 產品頁=>所有商品(包含篩選過)卡片樣式
+// 使用方法:
+// import { Row, Col } from "react-bootstrap";
+// <Row className="justify-content-md-center py-5">
+//   <Col md="auto" xs="2" className="cards d-flex offset-auto">
+//     <Row className="rows">
+//       <FilterProductCard />
+//       <FilterProductCard />
+//       <FilterProductCard />
+//       <FilterProductCard />
+//       <FilterProductCard />
+//       <FilterProductCard />
+//     </Row>
+//   </Col>
+// </Row>
 import React from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import {
-  faFilter,
-  faSort,
   faCartShopping,
   faHeart as farHeart,
-  faArrowLeft,
-  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function FilterProductCard() {
