@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import {Container, Form, InputGroup, Col, Row, Button} from 'react-bootstrap'
 import Link from 'next/link'
 import ForgotPwd from '@/components/login/forgotpwd';
+import axios from 'axios'
+
 
 
 export default function Login() {
@@ -13,13 +15,20 @@ export default function Login() {
 
 
   // 會員登入表單提交函數
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     const form = e.currentTarget;
     e.preventDefault();
 
     if (form.checkValidity() === false) {
       e.stopPropagation();
       setValidated(true);
+      return;
+    }
+
+    try{
+      const res = await axios.post()
+    }catch(error){
+
     }
 
   };

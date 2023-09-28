@@ -1,8 +1,8 @@
 import createError from 'http-errors'
 import express from 'express'
 import path from 'path'
-import cookieParser from 'cookie-parser'
-import logger from 'morgan'
+// import cookieParser from 'cookie-parser'
+// import logger from 'morgan'
 import cors from 'cors'
 import session from 'express-session'
 // 使用檔案的session store，存在sessions資料夾
@@ -16,25 +16,25 @@ const __dirname = path.dirname(__filename)
 // end 修正 __dirname
 
 // 讓console.log可以呈現檔案與行號
-import { extendLog } from './utils/tool.js'
+// import { extendLog } from './utils/tool.js'
 extendLog() // 執行全域套用
 // console.log呈現顏色用 全域套用
 import 'colors'
 // 檔案上傳
-import fileUpload from 'express-fileupload'
+// import fileUpload from 'express-fileupload'
 
 import authJwtRouter from './routes/auth-jwt.js'
-import authRouter from './routes/auth.js'
-import emailRouter from './routes/email.js'
-import indexRouter from './routes/index.js'
-import productsRouter from './routes/products.js'
-import resetPasswordRouter from './routes/reset-password.js'
-import usersRouter from './routes/users.js'
-import googleLoginRouter from './routes/google-login.js'
-import lineLoginRouter from './routes/line-login.js'
-import facebookLoginRouter from './routes/facebook-login.js'
+// import authRouter from './routes/auth.js'
+// import emailRouter from './routes/email.js'
+// import indexRouter from './routes/index.js'
+// import productsRouter from './routes/products.js'
+// import resetPasswordRouter from './routes/reset-password.js'
+// import usersRouter from './routes/users.js'
+// import googleLoginRouter from './routes/google-login.js'
+// import lineLoginRouter from './routes/line-login.js'
+// import facebookLoginRouter from './routes/facebook-login.js'
 
-import favoriteRouter from './routes/favorite.js'
+// import favoriteRouter from './routes/favorite.js'
 
 const app = express()
 
@@ -46,7 +46,7 @@ app.use(fileUpload())
 // app.use(cors())
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://localhost:9000'],
+    origin: ['http://localhost:3000', 'https://localhost:9000','https://localhost:3001'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   })
@@ -60,7 +60,7 @@ app.use(logger('dev'))
 app.use(express.json())
 
 app.use(express.urlencoded({ extended: false }))
-app.use(cookieParser())
+// app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 // fileStore的選項
@@ -93,6 +93,10 @@ app.use('/api/google-login', googleLoginRouter)
 app.use('/api/line-login', lineLoginRouter)
 app.use('/api/facebook-login', facebookLoginRouter)
 app.use('/api/favorite', favoriteRouter)
+
+app.listen(3005, ()=>{
+  console.log("服務以啟動於 http://localhost:3000");
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

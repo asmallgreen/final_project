@@ -29,7 +29,34 @@ router.post('/login', async (req, res) => {
     console.log(req.body)
     // 從要求的req.body獲取username與password
     const { username, password } = req.body
+    if(username === abc && password === 123){
+      
+    // 會員存在，將會員的資料取出
+    const member = {
+      username,
+      password,
+    }
   
+    console.log(member)
+  
+    // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
+    delete member.password
+      res.json({ message: 'success', code: '200' })
+      // 產生存取令牌(access token)，其中包含會員資料
+    const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
+      expiresIn: '24h',
+    })
+  
+    // 使用httpOnly cookie來讓瀏覽器端儲存access token
+    res.cookie('accessToken', accessToken, { httpOnly: true })
+  
+    // 傳送access token回應(react可以儲存在state中使用)
+    res.json({
+      message: 'success',
+      code: '200',
+      accessToken,
+    })
+    }
     // 先查詢資料庫是否有同username/password的資料
     const isMember = await verifyUser({
       username,
@@ -53,20 +80,20 @@ router.post('/login', async (req, res) => {
     // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
     delete member.password
   
-    // 產生存取令牌(access token)，其中包含會員資料
-    const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
-      expiresIn: '24h',
-    })
+    // // 產生存取令牌(access token)，其中包含會員資料
+    // const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
+    //   expiresIn: '24h',
+    // })
   
-    // 使用httpOnly cookie來讓瀏覽器端儲存access token
-    res.cookie('accessToken', accessToken, { httpOnly: true })
+    // // 使用httpOnly cookie來讓瀏覽器端儲存access token
+    // res.cookie('accessToken', accessToken, { httpOnly: true })
   
-    // 傳送access token回應(react可以儲存在state中使用)
-    res.json({
-      message: 'success',
-      code: '200',
-      accessToken,
-    })
+    // // 傳送access token回應(react可以儲存在state中使用)
+    // res.json({
+    //   message: 'success',
+    //   code: '200',
+    //   accessToken,
+    // })
   })
 // 登出
   router.post('/logout', authenticate, (req, res) => {
@@ -90,7 +117,7 @@ router.post('/login', async (req, res) => {
 
   // middlewares
   // 中介軟體middleware，用於檢查是否在認証情況下
-export default function authenticate(req, res, next) {
+const  authenticate=(req, res, next) =>{
   //const token = req.headers['authorization']
   const token = req.cookies.accessToken
   console.log(token)
