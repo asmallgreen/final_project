@@ -4,12 +4,12 @@ import { FaList } from "react-icons/fa";
 import MemberOrder from "@/data/Member-order.json";
 import Pagination from "@/components/pagination";
 
-export default function Order() {
+export default function OrderList() {
   return (
     <>
       <div className="row">
         {/* <div className="col-12 col-lg-9"> */}
-          <h3>訂單記錄</h3>
+          <div className="fs-2 mb-5">訂單記錄</div>
           <div className="row text-center p-3">
             <div className="order-title col-6">進行中的訂單</div>
             <div className="order-title col-6">已完成的訂單</div>

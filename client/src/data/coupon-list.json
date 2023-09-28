@@ -1,93 +1,106 @@
 [
     {
-        "Name":"中秋射月亮",
-        "Type":1,
-        "discount":"9",
-        "description":"適用於商品分類：弓箭",
-        "deadline":"2999-12-31"
+        "id":1,
+        "name":"中秋射月亮",
+        "type":1,
+        "discount":9,
+        "deadline":"2999-12-31",
+        "valid":1
     },
     {
-        "Name": "中秋射月亮",
-        "Type": 1,
+      "id":2,
+        "name": "中秋射月亮",
+        "type": 1,
         "discount": 9,
-        "description": "適用於商品分類：弓箭",
-        "deadline": "2999-12-31"
+        "deadline": "2999-12-31",
+        "valid":0
       },
       {
-        "Name": "情人節特惠",
-        "Type": 2,
+        "id":3,
+        "name": "情人節特惠",
+        "type": 2,
         "discount": 150,
-        "description": "適用於商品分類：花束",
-        "deadline": "2024-02-14"
+        "deadline": "2024-02-14",
+        "valid":1
       },
       {
-        "Name": "聖誕購物優惠",
-        "Type": 2,
+        "id":4,
+        "name": "聖誕購物優惠",
+        "type": 2,
         "discount": 350,
-        "description": "適用於商品分類：玩具",
-        "deadline": "2023-12-25"
+        "deadline": "2023-12-25",
+        "valid":1
       },
       {
-        "Name": "暑期促銷",
-        "Type": 2,
+        "id":5,
+        "name": "暑期促銷",
+        "type": 2,
         "discount": 200,
-        "description": "適用於商品分類：游泳用品",
-        "deadline": "2023-08-31"
+        "deadline": "2023-08-31",
+        "valid":1
       },
       {
-        "Name": "新春大放送",
-        "Type": 2,
+        "id":6,
+        "name": "新春大放送",
+        "type": 2,
         "discount": 120,
-        "description": "適用於商品分類：家居用品",
-        "deadline": "2024-01-31"
+        "deadline": "2024-01-31",
+        "valid":1
       },
       {
-        "Name": "清明踏青",
-        "Type": 2,
+        "id":7,
+        "name": "清明踏青",
+        "type": 2,
         "discount": 80,
-        "description": "適用於商品分類：户外装备",
-        "deadline": "2024-04-04"
+        "deadline": "2024-04-04",
+        "valid":1
       },
       {
-        "Name": "夏日瘋狂",
-        "Type": 2,
+        "id":8,
+        "name": "夏日瘋狂",
+        "type": 2,
         "discount": 250,
-        "description": "適用於商品分類：冰淇淋",
-        "deadline": "2023-09-01"
+        "deadline": "2023-09-01",
+        "valid":1
       },
       {
-        "Name": "感恩節特惠",
-        "Type": 2,
+        "id":9,
+        "name": "感恩節特惠",
+        "type": 2,
         "discount": 180,
-        "description": "適用於商品分類：火鍋料",
-        "deadline": "2023-11-24"
+        "deadline": "2023-11-24",
+        "valid":1
       },
       {
-        "Name": "春季清潔",
-        "Type": 2,
+        "id":10,
+        "name": "春季清潔",
+        "type": 2,
         "discount": 100,
-        "description": "適用於商品分類：清潔用品",
-        "deadline": "2024-04-15"
+        "deadline": "2024-04-15",
+        "valid":1
       },
       {
-        "Name": "特別慶祝",
-        "Type": 2,
+        "id":11,
+        "name": "特別慶祝",
+        "type": 2,
         "discount": 300,
-        "description": "適用於商品分類：禮品",
-        "deadline": "2023-10-15"
-      },
+        "deadline": "2023-10-15",
+        "valid":1
+      },  
       {
-        "Name": "周年慶典",
-        "Type": 2,
+        "id":12,
+        "name": "周年慶典",
+        "type": 2,
         "discount": 200,
-        "description": "適用於商品分類：派對用品",
-        "deadline": "2023-11-15"
+        "deadline": "2023-11-15",
+        "valid":1
       },
       {
-        "Name": "職工節優惠",
-        "Type": 2,
+        "id":13,
+        "name": "職工節優惠",
+        "type": 2,
         "discount": 150,
-        "description": "適用於商品分類：辦公用品",
-        "deadline": "2023-07-01"
+        "deadline": "2023-07-01",
+        "valid":1
       }
 ]

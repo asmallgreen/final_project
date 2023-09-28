@@ -7,19 +7,19 @@ import CouponCard from "@/components/coupon-card";
 
 import OrderList from "@/data/order-list.json";
 
-export default function Coupon() {
+export default function MemberCoupon() {
   return (
     <>
       <div className="row">
         <div className="my-4">
           <h3>我的優惠券</h3>
           <Tabs
-            defaultActiveKey="home"
+            defaultActiveKey="have"
             id="justify-tab-example"
             className="mb-3"
             justify
           >
-            <Tab eventKey="home" title="擁有的優惠券">
+            <Tab eventKey="have" title="擁有的優惠券">
               <div className="container">
                 <div className="row p-3 fs-5 fw-bold">
                   <div className="col-12 col-md-6 text-center align-self-center py-1 coupon-check">
@@ -43,7 +43,7 @@ export default function Coupon() {
                 </div>
               </div>
             </Tab>
-            <Tab eventKey="profile" title="優惠券使用紀錄">
+            <Tab eventKey="used" title="優惠券使用紀錄">
               優惠券使用紀錄
               <table className="coupon-table text-center">
                 <thead className="">

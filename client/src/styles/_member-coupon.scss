@@ -15,4 +15,17 @@
 
 .coupon-table{
   width: 100%;
+  thead{
+    color: #fff;
+    background-color: $secondary-half;
+  }
+  th{
+    padding:5px 0;
+  }
+  td{
+    color: $secondary;
+  }
+  a{
+    color: $accent;
+  }
 }
