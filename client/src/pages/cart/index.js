@@ -1,7 +1,20 @@
 import React from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap';  // import bootstrap components
+import { useCart } from '@/hooks/use-cart'
+import List from '@/components/cart/list'
 
 export default function Index() {
+  const {
+    cart,
+    items,
+    addItem,
+    removeItem,
+    updateItem,
+    clearCart,
+    isInCart,
+    plusOne,
+    minusOne,
+  } = useCart()
   return (
     <Container fluid>
       <Container fluid={"xxl"}>
@@ -59,6 +72,7 @@ export default function Index() {
           <Col xs={2}>數量</Col>
           <Col xs={1}>小計</Col>
         </Row>
+        <List />
         <Row className="productList">
           <Col xs={2}><Button className="deleteBtn">刪除</Button></Col>
           <Col xs={2}>
@@ -95,7 +109,95 @@ export default function Index() {
         </Row>
 
       </Container>
+      <h4>測試按鈕</h4>
+      <div className="btn-group-vertical">
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            console.log(cart)
+          }}
+        >
+          log cart
+        </button>
 
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            addItem({
+              id: '111',
+              quantity: 5,
+              name: 'iphone',
+              price: 15000,
+              color: 'red',
+              size: '',
+            })
+          }}
+        >
+          add item (id=111, x5)
+        </button>
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            addItem({
+              id: '222',
+              quantity: 1,
+              name: 'ipad',
+              price: 19000,
+              color: '',
+              size: '',
+            })
+          }}
+        >
+          add item (id=222, x1)
+        </button>
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            removeItem('222')
+          }}
+        >
+          remove item(id=222)
+        </button>
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            updateItem({
+              id: '222',
+              quantity: 7,
+            })
+          }}
+        >
+          update id=222 item quantity to 7
+        </button>
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            updateItem({
+              id: '111',
+              quantity: 99,
+            })
+          }}
+        >
+          update id=111 item quantity to 99
+        </button>
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            clearCart()
+          }}
+        >
+          clear cart
+        </button>
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            if (isInCart('222')) alert('id=222 item is in cart')
+            else alert('no id=222  ')
+          }}
+        >
+          check if id=222 in cart
+        </button>
+      </div>
       <div className='totalSection'>
         <label>
           <input type='checkbox' />
