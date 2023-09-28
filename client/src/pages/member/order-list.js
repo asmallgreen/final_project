@@ -21,7 +21,6 @@ export default function OrderList() {
               defaultActiveKey="product"
               id="uncontrolled-tab-example"
               className="mb-3 fav-header"
-              justify
             >
               <Tab eventKey="product" title="進行中訂單">
                 <table className="order-table-pc d-none d-md-table">
@@ -34,7 +33,7 @@ export default function OrderList() {
                       <th>訂單詳情</th>
                     </tr>
                   </thead>
-                  {/* <tbody className="text-center">
+                  <tbody className="text-center">
                     {MemberOrder.map((order, index) => (
                       <tr key={order.id}>
                         <th>
@@ -53,7 +52,7 @@ export default function OrderList() {
                         </td>
                       </tr>
                     ))}
-                  </tbody> */}
+                  </tbody>
                 </table>
                 <div className="container order-table-mobile d-md-none">
                   <div>
