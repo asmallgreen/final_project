@@ -101,16 +101,21 @@ export default function CourseDetail() {
         <div className="course-detail-tabs">
           <ConfigProvider
             theme={{
+              token: {
+                fontFamily:"Inter, AbeeZee"
+              },
+
               components: {
                 Tabs: {
                   cardBg: "parent",
                   //   horizontalItemGutter: 50,
+                  titleFontSize: "18px",
                   itemColor: "#000",
                   inkBarColor: "#616153",
                   itemActiveColor: "#000",
                   itemHoverColor: "#000",
                   itemSelectedColor: "#000",
-                  horizontalItemPadding: "12px 30px",
+                  horizontalItemPadding: "12px 60px",
                 },
               },
             }}

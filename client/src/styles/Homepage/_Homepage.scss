@@ -24,19 +24,16 @@
     border-left: 7px solid $font;
   }
   .homepageHero1 {
-    background-color: lightcoral;
+    background-image: url(../../../public/images/homepage/hero_1.png);
     width: 100%;
     height: 885px;
   }
 
   .homepageHero2 {
-    background-color: lightblue;
-    //   background: $primary;
     width: 100%;
     height: 950px;
     text-align: center;
     p {
-      // background: $primary;
       letter-spacing: 0.1rem;
       padding-top: 311px;
       font-weight: 400;
@@ -45,7 +42,6 @@
   }
 
   .aboutUs {
-    background: lightgreen;
     width: 100%;
     height: 900px;
     padding: 300px 175px;
@@ -87,13 +83,21 @@
   }
 
   .hr {
-    background: lightgray;
     width: 100%;
-    height: 575px;
+    height: 500px;
+  }
+  .homepage-hr1{
+    background-image: url(../../../public/images/homepage/hr_1.png);
+  }
+  .homepage-hr2{
+    background-image: url(../../../public/images/homepage/hr_2.png);
+  }
+  .homepage-hr3{
+    background-image: url(../../../public/images/homepage/hr_3.png);
+    margin-bottom: 100px;
   }
 
   .textarea {
-    background: lightpink;
     width: 100%;
     height: 500px;
     padding: 36px 0;
@@ -120,60 +124,90 @@
       background: $secondary;
       color: $primary;
       border-radius: 0%;
+      &:hover {
+        color: $secondary;
+        background-color: $primary;
+      }
     }
   }
 
   .collection {
-    background: lightgreen;
     width: 100%;
     height: 700px;
-    ul.tab {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: center;
-      list-style: none;
-      li {
-        flex: 0 0 auto;
-        max-width: 100px;
-        padding: 50px 20px;
+    // ul.tab {
+    //   display: flex;
+    //   flex-direction: row;
+    //   align-items: flex-start;
+    //   justify-content: center;
+    //   list-style: none;
+    //   li {
+    //     flex: 0 0 auto;
+    //     max-width: 100px;
+    //     padding: 50px 20px;
+    //     font-weight: 400;
+    //     font-size: 18px;
+    //     letter-spacing: 0.05em;
+    //   }
+    // }
+    // .cards {
+    //   display: flex;
+    //   flex-direction: row;
+    //   align-items: flex-start;
+    //   justify-content: center;
+    //   flex-wrap: wrap;
+
+    //   .card {
+    //     flex: 0 0 auto;
+    //     max-width: 300px;
+    //     margin: 20px;
+    //     .card-img {
+    //       width: 250px;
+    //       height: 300px;
+    //       background: lightblue;
+    //     }
+    //     .card-title {
+    //       font-weight: 400;
+    //       font-size: 18px;
+    //       letter-spacing: 0.05em;
+    //     }
+    //     .card-price {
+    //       font-weight: 400;
+    //       font-size: 18px;
+    //       letter-spacing: 0.05em;
+    //     }
+    //   }
+    // }
+  }
+  .cards {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .card {
+      flex: 0 0 auto;
+      max-width: 300px;
+      margin: 20px;
+      .card-img {
+        width: 250px;
+        height: 300px;
+        background: lightblue;
+      }
+      .card-title {
+        font-weight: 400;
+        font-size: 18px;
+        letter-spacing: 0.05em;
+      }
+      .card-price {
         font-weight: 400;
         font-size: 18px;
         letter-spacing: 0.05em;
       }
     }
-    .cards {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: center;
-      flex-wrap: wrap;
-
-      .card {
-        flex: 0 0 auto;
-        max-width: 300px;
-        margin: 20px;
-        .card-img {
-          width: 250px;
-          height: 300px;
-          background: lightblue;
-        }
-        .card-title {
-          font-weight: 400;
-          font-size: 18px;
-          letter-spacing: 0.05em;
-        }
-        .card-price {
-          font-weight: 400;
-          font-size: 18px;
-          letter-spacing: 0.05em;
-        }
-      }
-    }
   }
 
   .introduction {
-    background: lightblue;
     width: 100%;
     height: 1350px;
     .intro-card {
@@ -182,6 +216,18 @@
         background: lightsalmon;
         width: 100%;
         height: 200px;
+      }
+      .ic-img1{
+        background-image: url(../../../public/images/homepage/product_intro_1.png);
+      }
+      .ic-img2{
+        background-image: url(../../../public/images/homepage/product_intro_2.png);
+      }
+      .ic-img3{
+        background-image: url(../../../public/images/homepage/product_intro_3.png);
+      }
+      .ic-img4{
+        background-image: url(../../../public/images/homepage/product_intro_4.png);
       }
       .intro-card-text {
         display: flex;
@@ -222,7 +268,6 @@
     background: lightpink;
   }
   .course-slider {
-    background: lightgreen;
     width: 100%;
     height: 500px;
 
@@ -256,18 +301,20 @@
           letter-spacing: 0.05em;
           line-height: 20px;
         }
-        .card-btn {
-          display: flex;
-          align-items: center;
-          font-weight: 400;
-          font-size: 20px;
-          letter-spacing: 0.05em;
-          margin-left: 300px;
-          margin-top: 75px;
-          .text-btn {
-            margin-inline: 20px;
-          }
-        }
+        
+      }
+      
+    }
+    .card-btn {
+      display: flex;
+      align-items: center;
+      font-weight: 400;
+      font-size: 20px;
+      letter-spacing: 0.05em;
+      margin-left: 300px;
+      margin-top: 75px;
+      .text-btn {
+        margin-inline: 20px;
       }
     }
   }

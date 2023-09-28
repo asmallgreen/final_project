@@ -1,13 +1,69 @@
 import React from "react";
+import { ConfigProvider, Tabs } from "antd";
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
 
-//圖檔
-// import hero1 from '../../assets/homapage/hero_1.png'
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+
+// Tabs分頁內容
+import New from "./New";
+import Season from "./Season";
+import Hot from "./Hot";
+import Beginner from "./Beginner";
+import Welfare from "./Welfare";
+
+// Tabs Index
+const onChange = (key) => {
+  console.log(key);
+};
+
+const items = [
+  {
+    key: "1",
+    label: "新品",
+    children: <New />,
+  },
+  {
+    key: "2",
+    label: "熱銷",
+    children: <Hot />,
+  },
+  {
+    key: "3",
+    label: "季節",
+    children: <Season />,
+  },
+  {
+    key: "4",
+    label: "初學",
+    children: <Beginner />,
+  },
+  {
+    key: "5",
+    label: "福利品",
+    children: <Welfare />,
+  },
+];
 
 export default function Homepage() {
   return (
     <>
       <div className="homepage-body">
-        <div className="homepageHero1"></div>
+        <div className="homepageHero1">
+          {/* <video
+            autoplay=""
+            muted=""
+            loop=""
+            playsinline=""
+            src=""
+            style="object-position:45% 45%"
+            data-object-fit="cover"
+            data-object-position="45% 45%"
+          ></video> */}
+        </div>
         <div className="homepageHero2">
           <p className="">探求弓道的本質</p>
         </div>
@@ -44,7 +100,7 @@ export default function Homepage() {
             </div>
           </div>
         </div>
-        <div className="hr">hr</div>
+        <div className="hr homepage-hr1"></div>
         <div className="textarea">
           <h1>良物優選</h1>
           <p>
@@ -54,6 +110,37 @@ export default function Homepage() {
           </p>
         </div>
         <div className="collection">
+          <ConfigProvider
+            theme={{
+              token: {
+                fontFamily: "Inter, AbeeZee",
+              },
+
+              components: {
+                Tabs: {
+                  cardBg: "parent",
+                  //   horizontalItemGutter: 50,
+                  titleFontSize: "18px",
+                  itemColor: "#000",
+                  inkBarColor: "#616153",
+                  itemActiveColor: "#000",
+                  itemHoverColor: "#000",
+                  itemSelectedColor: "#000",
+                  horizontalItemPadding: "12px 30px",
+                },
+              },
+            }}
+          >
+            <Tabs
+              type="primary"
+              centered
+              defaultActiveKey="1"
+              items={items}
+              onChange={onChange}
+            />
+          </ConfigProvider>
+        </div>
+        {/* <div className="collection">
           <ul className="tab">
             <li>新品</li>
             <li>熱銷</li>
@@ -88,7 +175,7 @@ export default function Homepage() {
               <div className="card-price">price</div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="textarea">
           <h1>商品介紹</h1>
           <p>
@@ -102,7 +189,7 @@ export default function Homepage() {
         <div className="introduction">
           <div className="container">
             <div className="intro-card">
-              <div className="intro-card-img"></div>
+              <div className="intro-card-img ic-img1"></div>
               <div className="intro-card-text">
                 <div className="intro-card-title">弓</div>
                 <div className="intro-card-content">竹弓｜合成弓</div>
@@ -114,7 +201,7 @@ export default function Homepage() {
               </div>
             </div>
             <div className="intro-card">
-              <div className="intro-card-img"></div>
+              <div className="intro-card-img ic-img2"></div>
               <div className="intro-card-text">
                 <div className="intro-card-title">箭</div>
                 <div className="intro-card-content">鋁箭｜合成箭</div>
@@ -126,7 +213,7 @@ export default function Homepage() {
               </div>
             </div>
             <div className="intro-card">
-              <div className="intro-card-img"></div>
+              <div className="intro-card-img ic-img3"></div>
               <div className="intro-card-text">
                 <div className="intro-card-title">道服</div>
                 <div className="intro-card-content"></div>
@@ -138,7 +225,7 @@ export default function Homepage() {
               </div>
             </div>
             <div className="intro-card">
-              <div className="intro-card-img"></div>
+              <div className="intro-card-img ic-img4"></div>
               <div className="intro-card-text">
                 <div className="intro-card-title">其他</div>
                 <div className="intro-card-content">
@@ -162,7 +249,7 @@ export default function Homepage() {
           </p>
           <div className="btn">前往網路商店</div>
         </div>
-        <div className="hr">hr</div>
+        <div className="hr homepage-hr2"></div>
         <div className="textarea">
           <h1>課程介紹</h1>
           <p>
@@ -177,6 +264,37 @@ export default function Homepage() {
           </p>
         </div>
         <div className="course-slider">
+          <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
+            <SwiperSlide>
+              <div className="course-slider-container">
+                <div className="course-img"></div>
+                <div className="course-text">
+                  <h1>初探弓道</h1>
+                  <p>
+                    初生嬰兒打開眼睛所見看到的畫面，決定了他如何看待世界。
+                    <br />
+                    <br />
+                    弓道亦如此，弓道初體驗彌足珍貴，是無可取代的經驗。
+                    <br />
+                    我們非常重視初探弓道的活動，竭盡全力傳達弓道精神和弓道之美。
+                    <br />
+                    透過道場的空間、物件、伙伴們，到自己親歷引弓放箭，累積對於弓道的感受。
+                    <br />
+                    期盼曾感動過我們的弓道，能夠在這裡與你們分享。
+                  </p>
+                  <div className="card-btn">
+                    <div className="arrow-line"></div>
+                    <div className="text-btn">報名</div>
+                    <div className="icon"></div>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>Slide 2</SwiperSlide>
+            <SwiperSlide>Slide 3</SwiperSlide>
+          </Swiper>
+        </div>
+        {/* <div className="course-slider">
           <div className="course-slider-container">
             <div className="course-img"></div>
             <div className="course-text">
@@ -200,7 +318,7 @@ export default function Homepage() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="textarea">
           <h1>全然一身，正射必中</h1>
           <p>
@@ -214,7 +332,7 @@ export default function Homepage() {
             隨時啟程
           </p>
         </div>
-        <div className="hr">hr</div>
+        <div className="hr homepage-hr3"></div>
       </div>
     </>
   );
