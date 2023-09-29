@@ -1,9 +1,9 @@
 import React from 'react'
-import { Container, Row, Col, Button } from 'react-bootstrap';  // import bootstrap components
+import { Container, Row, Col} from 'react-bootstrap';  // import bootstrap components
 
 
 export default function Index() {
-  
+
   return (
     <Container fluid>
       <Container fluid={"xxl"}>
@@ -13,9 +13,9 @@ export default function Index() {
               <div className="stepNum">1</div>
             </div>
             <div className="stepWords">
-              <div>First</div>
-              <div>—————————</div>
-              <span className=''>購物車確認</span>
+              <div className='phoneDNone'>First</div>
+              <div className='phoneDNone'>—————————</div>
+              <span>購物車確認</span>
             </div>
           </Col>
           <Col className="step otherStep">
@@ -50,20 +50,21 @@ export default function Index() {
           </Col>
         </Row>
         <Row className="listTitle">
-          <Col xs={11}>商品</Col>
-          <Col xs={1}><span className='expand'>+</span></Col>
+          <Col xs={1} ><input type='checkbox' className='expand pcDNone' /></Col>
+          <Col xs={10}>商品</Col>
+          <Col xs={1}  ><span className='expand phoneDNone'>+</span></Col>
         </Row>
-        <Row className="productList">
-          <Col xs={1}><input type='checkbox' /></Col>
-          <Col xs={4}>商品名稱</Col>
-          <Col xs={2}>規格</Col>
-          <Col xs={2}>單價</Col>
-          <Col xs={2}>數量</Col>
-          <Col xs={1}>小計</Col>
+        <Row className="productList phoneDNone">
+          <Col xs={1}><input type='checkbox' className='phoneDNone'/></Col>
+          <Col xs={4}><span className='phoneDNone'>商品名稱</span></Col>
+          <Col xs={2}><span className='phoneDNone'>規格</span></Col>
+          <Col xs={2}><span className='phoneDNone'>單價</span></Col>
+          <Col xs={2}><span className='phoneDNone'>數量</span></Col>
+          <Col xs={1}><span className='phoneDNone'>小計</span></Col>
         </Row>
-        
+
         <Row className="productList">
-          <Col xs={2}><Button className="deleteBtn">刪除</Button></Col>
+          <Col xs={2}><button className="deleteBtn">刪除</button></Col>
           <Col xs={2}>
             <select>
               <option>套用優惠券</option>
@@ -81,38 +82,39 @@ export default function Index() {
       </Row> */}
 
         <Row className="listTitle">
-          <Col xs={11}>課程</Col>
-          <Col xs={1}><span className='expand'>+</span></Col>
+          <Col xs={1} ><input type='checkbox' className='expand pcDNone' /></Col>
+          <Col xs={10}>課程</Col>
+          <Col xs={1}><span className='expand phoneDNone'>+</span></Col>
+        </Row>
+        <Row className="productList phoneDNone">
+          <Col xs={1}><input type='checkbox' className='phoneDNone'/></Col>
+          <Col xs={4}><span className='phoneDNone'>商品名稱</span></Col>
+          <Col xs={4}><span className='phoneDNone'>課程內容</span></Col>
+          <Col xs={3}><span className='phoneDNone'>小計</span></Col>
         </Row>
         <Row className="productList">
-          <Col xs={1}><input type='checkbox' /></Col>
-          <Col xs={4}>商品名稱</Col>
-          <Col xs={4}>課程內容</Col>
-          <Col xs={3}>小計</Col>
-        </Row>
-        <Row className="productList">
-          <Col xs={2}><Button className="deleteBtn">刪除</Button></Col>
+          <Col xs={2}><button className="deleteBtn">刪除</button></Col>
           <Col xs={2}>
             <div>{`共  項 , 課程小計 元`}</div>
           </Col>
         </Row>
         <div className='totalSection'>
-        <label>
-          <input type='checkbox' />
-          {`  全選`}
-        </label>
-        <div className='total'>
-          <div>{`總金額(共 項)`}<span>{`  $ `}</span></div>
-          <div className='discount'>{`優惠券折抵   $ `}</div>
-          <span className=''>
-            <span>{`確認訂單金額    `}</span> 
-            <button>下一步</button>
-          </span>          
+          <label>
+            <input type='checkbox' />
+            {`  全選`}
+          </label>
+          <div className='total'>
+            <div>{`總金額(共 項)`}<span>{`  $ `}</span></div>
+            <div className='discount'>{`優惠券折抵   $ `}</div>
+            <span className=''>
+              <span>{`確認訂單金額    `}</span>
+              <button>下一步</button>
+            </span>
+          </div>
         </div>
-      </div>
       </Container>
-  
-      
+
+
 
     </Container>
   );

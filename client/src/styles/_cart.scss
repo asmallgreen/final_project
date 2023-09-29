@@ -1,5 +1,21 @@
+.pcDNone {
+    display: none;
+}
+
+@media (max-width: 393px) {
+    .pcDNone {
+        display: block;
+    }
+}
+
 .stepBar {
     padding: 5rem 0 5rem 3rem;
+}
+
+@media (max-width: 393px) {
+    .stepBar {
+        padding: 20px;
+    }
 }
 
 .stepBar div {
@@ -10,26 +26,32 @@
     display: flex;
     max-width: 344px
 }
-@media (max-width: 393px){
-    .step{
+
+@media (max-width: 393px) {
+    .step {
         flex-direction: column;
-        
+
     }
 }
 
 .stepBox {
     background: rgba(97, 97, 83, 1);
     display: flex;
-    width: 6.25rem;
-    height: 6.34375rem;
+    width: 100px;
+    height: 100px;
     transform: rotate(-45deg);
     padding: 5px;
     justify-content: center;
     align-items: center;
 }
-@media (max-width: 393px){
-    .stepBox{
-        margin-left: 55px;
+
+@media (max-width: 393px) {
+    .stepBox {
+        // margin-left:100px;
+        width: 45px;
+        height: 45px;
+        font-size: 36px;
+        margin: auto;
     }
 }
 
@@ -41,11 +63,12 @@
     opacity: 0.5;
 }
 
-@media (max-width: 393px){
-    .otherStep{
+@media (max-width: 393px) {
+    .otherStep {
         display: none;
     }
 }
+
 .stepNum {
     transform: rotate(45deg);
     color: #FFFCF3;
@@ -57,6 +80,12 @@
     line-height: normal;
 }
 
+@media (max-width: 393px) {
+    .stepNum {
+        font-size: 36px;
+    }
+}
+
 .stepWords {
     display: flex;
     flex-direction: column;
@@ -64,13 +93,24 @@
     margin-left: 12px;
     color: #616153;
 }
-@media (max-width: 393px){
-    .stepWords{
-        display: none;
+
+@media (max-width: 393px) {
+    .stepWords {
+        margin-left: 0;
     }
-    .stepWords span{
-        display: block;
+
+    .phoneDNone {
+        display: none !important; 
     }
+
+    .stepWords span {
+        display: inline-block;
+        margin: auto;
+        padding-top: 30px;
+        // padding-left: 65px;
+        font-size: 20px;
+    }
+
 }
 
 .listTitle {
@@ -81,6 +121,13 @@
     padding: 0px 10px;
     justify-content: space-around;
     align-items: center;
+}
+
+@media (max-width: 393px) {
+    .listTitle {
+        height: 47px;
+        justify-content: center;
+    }
 
 }
 
@@ -91,6 +138,12 @@
 .listTitle div {
     justify-content: center;
     display: flex;
+}
+
+@media (max-width: 393px) {
+    .listTitle div {
+        justify-content: flex-start;
+    }
 }
 
 .productList {
@@ -116,6 +169,11 @@
 .deleteBtn {
     background-color: #B16464;
     border: #B16464 1px solid;
+    border-radius: 5px;
+    padding: 0px 20px;
+    color: #fff;
+    height: 45px;
+    width: 72px;
 }
 
 .deleteBtn:hover {
@@ -133,6 +191,7 @@
     font-size: 20px;
     color: $secondary;
 }
+
 @media (max-width: 393px) {
     .totalSection {
         padding-inline: 0;
@@ -150,17 +209,21 @@
     background: $secondary;
     color: #fff;
 }
-.total{
+
+.total {
     text-align: end;
     padding: 10px;
     line-height: 40px;
 }
-.total div span{
-    color:$accent;
+
+.total div span {
+    color: $accent;
 }
+
 .total :first-child {
     font-size: 25px;
 }
-.total span span{
+
+.total span span {
     font-weight: bold;
 }
