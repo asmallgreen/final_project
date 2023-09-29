@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Nav, Tab, Tabs } from 'react-bootstrap'
-import SideBar from '../../components/member/side-bar'
+import React, { useState, useEffect } from "react";
+import { Container, Row, Col, Nav, Tab, Tabs } from "react-bootstrap";
+import SideBar from "../../components/member/side-bar";
 import { FaList } from "react-icons/fa";
+import Link from "next/link";
 
 import MemberOrder from "@/data/Member-order.json";
 import Pagination from "@/components/pagination";
-
 
 export default function OrderList() {
   return (
     <>
       <Row>
-        <Col md='3' className='p-3  offset-md-1 side-bar-border-right'>
+        <Col md="3" className="p-3  offset-md-1 side-bar-border-right">
           <SideBar />
         </Col>
-        <Col md='7' className='p-3'>
-          <Container className='my-3'>
-            <div className='fs-2 mb-3'>訂單紀錄</div>
+        <Col md="7" className="p-3">
+          <Container className="my-3">
+            <div className="fs-2 mb-3">訂單紀錄</div>
             <Tabs
               defaultActiveKey="product"
               id="uncontrolled-tab-example"
@@ -46,9 +46,11 @@ export default function OrderList() {
                         <td>{order.orderAmount}</td>
                         <td>{order.orderDate}</td>
                         <td>
-                          <button type="button" className="btn btn-dark">
-                            <FaList />
-                          </button>
+                          <Link href="/member/order-detail">
+                            <button type="button" className="btn btn-dark">
+                              <FaList />
+                            </button>
+                          </Link>
                         </td>
                       </tr>
                     ))}
@@ -78,14 +80,12 @@ export default function OrderList() {
                   </div>
                 </div>
               </Tab>
-              <Tab eventKey="course" title="已完成訂單">
-
-              </Tab>
+              <Tab eventKey="course" title="已完成訂單"></Tab>
             </Tabs>
             <Pagination />
           </Container>
         </Col>
       </Row>
     </>
-  )
+  );
 }
