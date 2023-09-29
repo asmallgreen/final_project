@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Row, Col} from 'react-bootstrap';  // import bootstrap components
+import { Container, Row, Col } from 'react-bootstrap';  // import bootstrap components
 
 
 export default function Index() {
@@ -54,8 +54,8 @@ export default function Index() {
           <Col xs={10}>商品</Col>
           <Col xs={1}  ><span className='expand phoneDNone'>+</span></Col>
         </Row>
-        <Row className="productList phoneDNone">
-          <Col xs={1}><input type='checkbox' className='phoneDNone'/></Col>
+        <Row className="productList d-none d-lg-flex">
+          <Col xs={1}><input type='checkbox' className='phoneDNone' /></Col>
           <Col xs={4}><span className='phoneDNone'>商品名稱</span></Col>
           <Col xs={2}><span className='phoneDNone'>規格</span></Col>
           <Col xs={2}><span className='phoneDNone'>單價</span></Col>
@@ -64,12 +64,16 @@ export default function Index() {
         </Row>
 
         <Row className="productList">
-          <Col xs={2}><button className="deleteBtn">刪除</button></Col>
-          <Col xs={2}>
-            <select>
-              <option>套用優惠券</option>
-            </select>
-            <div>{`共  項 , 商品小計 元`}</div>
+          <Col>
+            <button className="deleteBtn">刪除</button>
+            <div className='couponSection'>
+              <select>
+                <option>套用優惠券</option>
+                <option>1套用優惠券</option>
+                <option>套用優惠券</option>
+              </select>
+              <span>{`共  項 , 商品小計 元`}</span>
+            </div>
           </Col>
         </Row>
         {/* <Row className="productList">
@@ -86,16 +90,14 @@ export default function Index() {
           <Col xs={10}>課程</Col>
           <Col xs={1}><span className='expand phoneDNone'>+</span></Col>
         </Row>
-        <Row className="productList phoneDNone">
-          <Col xs={1}><input type='checkbox' className='phoneDNone'/></Col>
+        <Row className="productList d-none d-lg-flex">
+          <Col xs={1}><input type='checkbox' className='phoneDNone' /></Col>
           <Col xs={4}><span className='phoneDNone'>商品名稱</span></Col>
           <Col xs={4}><span className='phoneDNone'>課程內容</span></Col>
           <Col xs={3}><span className='phoneDNone'>小計</span></Col>
         </Row>
         <Row className="productList">
-          <Col xs={2}><button className="deleteBtn">刪除</button></Col>
-          <Col xs={2}>
-            <div>{`共  項 , 課程小計 元`}</div>
+          <Col><button className="deleteBtn">刪除</button><div>{`共  項 , 課程小計 元`}</div>
           </Col>
         </Row>
         <div className='totalSection'>

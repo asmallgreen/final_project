@@ -100,7 +100,7 @@
     }
 
     .phoneDNone {
-        display: none !important; 
+        display: none ; 
     }
 
     .stepWords span {
@@ -156,21 +156,30 @@
 .productList div {
     margin-block: auto;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    
+}
+.productList .couponSection{
+    display: flex;
     flex-direction: column;
 }
-
 .productList select {
     padding: 10px 40px;
     margin-bottom: 10px;
+    border-radius: 5px;
+}
+@media (max-width: 393px){
+    .productList select {
+        padding: 10px 15px;
+    }
 }
 
 .deleteBtn {
     background-color: #B16464;
     border: #B16464 1px solid;
     border-radius: 5px;
-    padding: 0px 20px;
+    
     color: #fff;
     height: 45px;
     width: 72px;
@@ -194,8 +203,15 @@
 
 @media (max-width: 393px) {
     .totalSection {
+        margin-block: 20px;
         padding-inline: 0;
+        font-size: 14px;
+        align-items: flex-end;
     }
+    .totalSection label {
+        padding-bottom: 20px;
+    }
+    
 }
 
 .totalSection button {
@@ -209,7 +225,15 @@
     background: $secondary;
     color: #fff;
 }
-
+@media (max-width: 393px) {
+    .totalSection button {
+        width: 44px;
+        height: 30px;
+        font-size: 12px;
+        padding: 0px;
+        line-height: 100%;
+    }
+}
 .total {
     text-align: end;
     padding: 10px;
@@ -222,6 +246,11 @@
 
 .total :first-child {
     font-size: 25px;
+}
+@media (max-width: 393px) {
+    .total :first-child {
+        font-size: 16px;
+    }
 }
 
 .total span span {
