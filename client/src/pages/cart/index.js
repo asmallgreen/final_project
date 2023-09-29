@@ -1,25 +1,27 @@
 import React from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap';  // import bootstrap components
 
+
 export default function Index() {
+  
   return (
     <Container fluid>
       <Container fluid={"xxl"}>
         <Row className="stepBar">
           <Col className="step">
-            <span className="stepBox">
+            <div className="stepBox">
               <div className="stepNum">1</div>
-            </span>
+            </div>
             <div className="stepWords">
               <div>First</div>
               <div>—————————</div>
-              <div>購物車確認</div>
+              <span className=''>購物車確認</span>
             </div>
           </Col>
           <Col className="step otherStep">
-            <span className="stepBox">
+            <div className="stepBox">
               <div className="stepNum">2</div>
-            </span>
+            </div>
             <div className="stepWords">
               <div>Second</div>
               <div>—————————</div>
@@ -27,9 +29,9 @@ export default function Index() {
             </div>
           </Col>
           <Col className="step otherStep">
-            <span className="stepBox">
+            <div className="stepBox">
               <div className="stepNum">3</div>
-            </span>
+            </div>
             <div className="stepWords">
               <div>Third</div>
               <div>—————————</div>
@@ -37,9 +39,9 @@ export default function Index() {
             </div>
           </Col>
           <Col className="step otherStep">
-            <span className="stepBox">
+            <div className="stepBox">
               <div className="stepNum">4</div>
-            </span>
+            </div>
             <div className="stepWords">
               <div>Forth</div>
               <div>—————————</div>
@@ -59,6 +61,7 @@ export default function Index() {
           <Col xs={2}>數量</Col>
           <Col xs={1}>小計</Col>
         </Row>
+        
         <Row className="productList">
           <Col xs={2}><Button className="deleteBtn">刪除</Button></Col>
           <Col xs={2}>
@@ -93,10 +96,7 @@ export default function Index() {
             <div>{`共  項 , 課程小計 元`}</div>
           </Col>
         </Row>
-
-      </Container>
-
-      <div className='totalSection'>
+        <div className='totalSection'>
         <label>
           <input type='checkbox' />
           {`  全選`}
@@ -110,6 +110,9 @@ export default function Index() {
           </span>          
         </div>
       </div>
+      </Container>
+  
+      
 
     </Container>
   );
