@@ -1,15 +1,22 @@
-// Normalize.css
-// npm install --save normalize.css
-@import '~normalize.css';
-
-// bootstrap
-// npm install react-bootstrap bootstrap
-@import '~bootstrap/scss/bootstrap';
-
 //全域 + 元件scss
 @import "global.scss";
 @import "components.scss";
 
 //各個pages scss
+
+//會員專區
+@import "member.scss";
 @import "member-order.scss";
-@import "cart.scss";
+@import "member-coupon.scss";
+
+//商品
+@import "product.scss";
+
+
+// bootstrap
+// npm install react-bootstrap bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+// Normalize.css
+// npm install --save normalize.css
+@import "~normalize.css";
