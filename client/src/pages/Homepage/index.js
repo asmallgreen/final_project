@@ -8,12 +8,18 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
+// courseSlider
+import CourseSlider from "./CourseSlider";
+
 // Tabs分頁內容
 import New from "./New";
 import Season from "./Season";
 import Hot from "./Hot";
 import Beginner from "./Beginner";
 import Welfare from "./Welfare";
+
+//引入圖片
+import CourseSlider1 from "../../../public/images/homepage/course-image1.png";
 
 // Tabs Index
 const onChange = (key) => {
@@ -140,42 +146,6 @@ export default function Homepage() {
             />
           </ConfigProvider>
         </div>
-        {/* <div className="collection">
-          <ul className="tab">
-            <li>新品</li>
-            <li>熱銷</li>
-            <li>夏季</li>
-            <li>初學</li>
-            <li>福利品</li>
-          </ul>
-          <div className="cards">
-            <div className="card">
-              <div className="card-img"></div>
-              <div className="card-title">title</div>
-              <div className="card-price">price</div>
-            </div>
-            <div className="card">
-              <div className="card-img"></div>
-              <div className="card-title">title</div>
-              <div className="card-price">price</div>
-            </div>
-            <div className="card">
-              <div className="card-img"></div>
-              <div className="card-title">title</div>
-              <div className="card-price">price</div>
-            </div>
-            <div className="card">
-              <div className="card-img"></div>
-              <div className="card-title">title</div>
-              <div className="card-price">price</div>
-            </div>
-            <div className="card">
-              <div className="card-img"></div>
-              <div className="card-title">title</div>
-              <div className="card-price">price</div>
-            </div>
-          </div>
-        </div> */}
         <div className="textarea">
           <h1>商品介紹</h1>
           <p>
@@ -266,59 +236,20 @@ export default function Homepage() {
         <div className="course-slider">
           <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
             <SwiperSlide>
-              <div className="course-slider-container">
-                <div className="course-img"></div>
-                <div className="course-text">
-                  <h1>初探弓道</h1>
-                  <p>
-                    初生嬰兒打開眼睛所見看到的畫面，決定了他如何看待世界。
-                    <br />
-                    <br />
-                    弓道亦如此，弓道初體驗彌足珍貴，是無可取代的經驗。
-                    <br />
-                    我們非常重視初探弓道的活動，竭盡全力傳達弓道精神和弓道之美。
-                    <br />
-                    透過道場的空間、物件、伙伴們，到自己親歷引弓放箭，累積對於弓道的感受。
-                    <br />
-                    期盼曾感動過我們的弓道，能夠在這裡與你們分享。
-                  </p>
-                  <div className="card-btn">
-                    <div className="arrow-line"></div>
-                    <div className="text-btn">報名</div>
-                    <div className="icon"></div>
-                  </div>
-                </div>
-              </div>
+              <CourseSlider
+                 courseImg='https://png.pngtree.com/png-vector/20221222/ourmid/pngtree-super-cute-cartoon-vector-bear-png-image_6504049.png'
+                 courseTitle="初探弓道"
+                 courseParagraph="初生嬰兒打開眼睛所見看到的畫面，決定了他如何看待世界。"
+              />
             </SwiperSlide>
-            <SwiperSlide>Slide 2</SwiperSlide>
-            <SwiperSlide>Slide 3</SwiperSlide>
+            <SwiperSlide>
+              <CourseSlider />
+            </SwiperSlide>
+            <SwiperSlide>
+              <CourseSlider />
+            </SwiperSlide>
           </Swiper>
         </div>
-        {/* <div className="course-slider">
-          <div className="course-slider-container">
-            <div className="course-img"></div>
-            <div className="course-text">
-              <h1>初探弓道</h1>
-              <p>
-                初生嬰兒打開眼睛所見看到的畫面，決定了他如何看待世界。
-                <br />
-                <br />
-                弓道亦如此，弓道初體驗彌足珍貴，是無可取代的經驗。
-                <br />
-                我們非常重視初探弓道的活動，竭盡全力傳達弓道精神和弓道之美。
-                <br />
-                透過道場的空間、物件、伙伴們，到自己親歷引弓放箭，累積對於弓道的感受。
-                <br />
-                期盼曾感動過我們的弓道，能夠在這裡與你們分享。
-              </p>
-              <div className="card-btn">
-                <div className="arrow-line"></div>
-                <div className="text-btn">報名</div>
-                <div className="icon"></div>
-              </div>
-            </div>
-          </div>
-        </div> */}
         <div className="textarea">
           <h1>全然一身，正射必中</h1>
           <p>
