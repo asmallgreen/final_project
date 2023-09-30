@@ -2,8 +2,11 @@ import React from "react";
 //fontawesome
 import{ FaShoppingCart, FaUser, FaSearch} from "react-icons/fa"
 import Link from 'next/link';
+import { Button } from "react-bootstrap";
+import { useAuthJWT } from "@/hooks/use-auth-jwt";
 
 export default function Navbar() {
+  const {authJWT , setAuthJWT} = useAuthJWT()
   return (
     <>
       {/* 桌機版nav */}
@@ -54,9 +57,9 @@ export default function Navbar() {
           </li>
         </ul>
         <ul className="nav-fk d-flex position-absolute top-0 end-0 align-items-center">
-          <li className=" align-items-center list-unstyled d-flex  ">
+          <li className=" align-items-center list-unstyled d-flex  position-relative">
             <input
-              className="form-control ms-3 rounded-5 position-relative"
+              className="form-control ms-3 rounded-5 "
               type="text"
               placeholder="請輸入商品名稱"
             />
@@ -67,6 +70,40 @@ export default function Navbar() {
           </li>
           <li className="list-unstyled">
             <Link href='/member' className="text-decoreation-none"><FaUser className="fa-user" /></Link>
+          </li>
+          <li className="list-unstyled">
+            {authJWT.isAuth? (<Button onClick={()=>{
+              setAuthJWT({
+                isAuth:false,
+                memberData: {
+                  id: 0,
+                  account: '',
+                  name: '',
+                  email: '',
+                  level: '',
+                  created_date: '',
+              }
+              })
+            }}>登出</Button>)
+            :
+            (<Button onClick={()=>{
+              setAuthJWT({
+                isAuth:true,
+                memberData: {
+                  id: 1,
+                  account: 'abc',
+                  name: 'Harry Potter',
+                  email: 'harry@gmail.com',
+                  level: '2',
+                  created_date: '2023-08-21',
+              }
+              })
+            }}>一鍵登入</Button>)}
+            
+            
+          </li>
+          <li className="list-unstyled">
+            {authJWT.isAuth?'登入中':'未登入'}
           </li>
         </ul>
       </div>
