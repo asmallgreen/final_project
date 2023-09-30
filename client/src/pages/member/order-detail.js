@@ -7,10 +7,12 @@ export default function OrderDetail() {
   return (
     <>
       <Row className="member-order-detail">
+      <div className="px-5 py-3">
+        <Link href="/member/order-list">
+          <button className="d-md-none backBtn">返回訂單紀錄</button>
+        </Link>
+      </div> 
         <Col md="3" className="p-3  offset-md-1 side-bar-border-right">
-          <Link href="/member/order-list">
-            <button className="d-md-none backBtn">返回訂單紀錄</button>
-          </Link>
           <SideBar />
         </Col>
         <Col md="7" className="p-3">
