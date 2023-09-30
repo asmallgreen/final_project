@@ -8,8 +8,9 @@ import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 
-// courseSlider
+// 引入slider卡片元件
 import CourseSlider from "./CourseSlider";
+
 
 // Tabs分頁內容
 import New from "./New";
@@ -19,7 +20,49 @@ import Beginner from "./Beginner";
 import Welfare from "./Welfare";
 
 //引入圖片
-import CourseSlider1 from "../../../public/images/homepage/course-image1.png";
+// import CourseSlider1 from "../../../public/images/homepage/course-image1.png";
+
+// slider卡片內容
+const courseParagraph1 = `
+<p>
+初生嬰兒打開眼睛所見看到的畫面，決定了他如何看待世界。
+<br/><br/>
+弓道亦如此，弓道初體驗彌足珍貴，是無可取代的經驗。
+<br/>
+我們非常重視初探弓道的活動，竭盡全力傳達弓道精神和弓道之美。
+<br/>
+透過道場的空間、物件、伙伴們，到自己親歷引弓放箭，累積對於弓道的感受。
+<br/>
+期盼曾感動過我們的弓道，能夠在這裡與你們分享。
+<br/>
+<p/>
+`;
+const courseParagraph2 = `
+<p>
+當你已經踏入弓道的門檻，你將進入一個更深刻的世界。
+<br/><br/>
+我們繼續傳遞弓道的精髓，引導你深入體驗這項古老的藝術。
+<br/>
+不僅是技術的提升，更是心靈的成長。
+<br/>
+透過經驗豐富的導師，你將掌握更高級的技巧，提高專注力。
+<br/>
+無論你是追求競技，還是追求更深層次的平靜
+<br/>
+進階弓道課程將為你打開新的可能性，讓你更深刻地理解自己和這個世界。
+`;
+const courseParagraph3 = `
+<p>
+專業弓道，極致的藝術。狹隘崎嶇的山徑，只為堅韌者開啟。
+<br/><br/>
+這是一個完全沉浸式的旅程，要求你的心、身、靈全然奉獻。
+<br/>
+在這裡，你將學會掌握各種優美的射擊技巧，還將深入理解弓道的哲學和歷史。
+<br/>
+我們將透過嚴格的訓練和深度的內省，引導你達到專業弓道的頂峰。
+<br/>
+這不僅是一門技藝，更是一種生活方式，一種尋找心靈平靜的方式。
+`;
 
 // Tabs Index
 const onChange = (key) => {
@@ -55,20 +98,21 @@ const items = [
 ];
 
 export default function Homepage() {
+  
   return (
     <>
       <div className="homepage-body">
         <div className="homepageHero1">
-          {/* <video
-            autoplay=""
-            muted=""
-            loop=""
+          <video
+            autoplay="true"
+            muted="true"
+            loop="true"
             playsinline=""
-            src=""
-            style="object-position:45% 45%"
+            src="https://raw.githubusercontent.com/asmallgreen/final_project/Jim/client/public/images/homepage/hero_1.mp4"
+            width={1902}
             data-object-fit="cover"
             data-object-position="45% 45%"
-          ></video> */}
+          ></video>
         </div>
         <div className="homepageHero2">
           <p className="">探求弓道的本質</p>
@@ -237,16 +281,24 @@ export default function Homepage() {
           <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
             <SwiperSlide>
               <CourseSlider
-                 courseImg='https://png.pngtree.com/png-vector/20221222/ourmid/pngtree-super-cute-cartoon-vector-bear-png-image_6504049.png'
-                 courseTitle="初探弓道"
-                 courseParagraph="初生嬰兒打開眼睛所見看到的畫面，決定了他如何看待世界。"
+                courseImg="https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image1.png?raw=true"
+                courseTitle="初探弓道"
+                courseParagraph={courseParagraph1}
               />
             </SwiperSlide>
             <SwiperSlide>
-              <CourseSlider />
+              <CourseSlider
+                courseImg="https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image2.jpg?raw=true"
+                courseTitle="進階弓道"
+                courseParagraph={courseParagraph2}
+              />
             </SwiperSlide>
             <SwiperSlide>
-              <CourseSlider />
+              <CourseSlider
+                courseImg="https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image3.jpg?raw=true"
+                courseTitle="專業弓道"
+                courseParagraph={courseParagraph3}
+              />
             </SwiperSlide>
           </Swiper>
         </div>

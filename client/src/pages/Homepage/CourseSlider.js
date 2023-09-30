@@ -13,7 +13,7 @@ export default function CourseSlider(props) {
         ></div>
         <div className="course-text">
           <h1>{courseTitle}</h1>
-          <p>{courseParagraph}</p>
+          <div id="courseParagraph" dangerouslySetInnerHTML={{ __html: courseParagraph }}></div>
         </div>
         <div className="card-btn">
           <div className="arrow-line"></div>

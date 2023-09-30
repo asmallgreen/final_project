@@ -24,7 +24,7 @@
     border-left: 7px solid $font;
   }
   .homepageHero1 {
-    background-image: url(../../../public/images/homepage/hero_1.png);
+    // background-image: url(../../../public/images/homepage/hero_1.png);
     width: 100%;
     height: 885px;
   }
@@ -86,13 +86,13 @@
     width: 100%;
     height: 500px;
   }
-  .homepage-hr1{
+  .homepage-hr1 {
     background-image: url(../../../public/images/homepage/hr_1.png);
   }
-  .homepage-hr2{
+  .homepage-hr2 {
     background-image: url(../../../public/images/homepage/hr_2.png);
   }
-  .homepage-hr3{
+  .homepage-hr3 {
     background-image: url(../../../public/images/homepage/hr_3.png);
     margin-bottom: 100px;
   }
@@ -217,16 +217,16 @@
         width: 100%;
         height: 200px;
       }
-      .ic-img1{
+      .ic-img1 {
         background-image: url(../../../public/images/homepage/product_intro_1.png);
       }
-      .ic-img2{
+      .ic-img2 {
         background-image: url(../../../public/images/homepage/product_intro_2.png);
       }
-      .ic-img3{
+      .ic-img3 {
         background-image: url(../../../public/images/homepage/product_intro_3.png);
       }
-      .ic-img4{
+      .ic-img4 {
         background-image: url(../../../public/images/homepage/product_intro_4.png);
       }
       .intro-card-text {
@@ -270,7 +270,13 @@
   .course-slider {
     width: 100%;
     height: 500px;
+    .swiper-pagination-bullet {
+      background: #ffffff;
+    }
 
+    .swiper-pagination-bullet-active {
+      background: $accent;
+    }
     .course-slider-container {
       display: flex;
       flex-direction: row;
@@ -278,12 +284,11 @@
       justify-content: center;
 
       .course-img {
-        background: lightblue;
         width: 792px;
         height: 500px;
       }
       .course-text {
-        background: lightgray;
+        background-color: rgb(242, 242, 242, 0.75);
         width: 782px;
         height: 339px;
         margin-top: 65.5px;
@@ -301,9 +306,7 @@
           letter-spacing: 0.05em;
           line-height: 20px;
         }
-        
       }
-      
     }
     .card-btn {
       display: flex;
