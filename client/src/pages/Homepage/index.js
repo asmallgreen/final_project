@@ -1,8 +1,8 @@
 import React from "react";
 import { ConfigProvider, Tabs } from "antd";
-// Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Import Swiper styles
 import "swiper/css";
@@ -11,6 +11,8 @@ import "swiper/css/pagination";
 // 引入slider卡片元件
 import CourseSlider from "./CourseSlider";
 
+// 引入IntroCard元件
+import IntroCard from "./IntroCard";
 
 // Tabs分頁內容
 import New from "./New";
@@ -202,56 +204,26 @@ export default function Homepage() {
         </div>
         <div className="introduction">
           <div className="container">
-            <div className="intro-card">
-              <div className="intro-card-img ic-img1"></div>
-              <div className="intro-card-text">
-                <div className="intro-card-title">弓</div>
-                <div className="intro-card-content">竹弓｜合成弓</div>
-                <div className="intro-card-btn">
-                  <div className="arrow-line"></div>
-                  <div className="text-btn">商城</div>
-                  <div className="icon"></div>
-                </div>
-              </div>
-            </div>
-            <div className="intro-card">
-              <div className="intro-card-img ic-img2"></div>
-              <div className="intro-card-text">
-                <div className="intro-card-title">箭</div>
-                <div className="intro-card-content">鋁箭｜合成箭</div>
-                <div className="intro-card-btn">
-                  <div className="arrow-line"></div>
-                  <div className="text-btn">商城</div>
-                  <div className="icon"></div>
-                </div>
-              </div>
-            </div>
-            <div className="intro-card">
-              <div className="intro-card-img ic-img3"></div>
-              <div className="intro-card-text">
-                <div className="intro-card-title">道服</div>
-                <div className="intro-card-content"></div>
-                <div className="intro-card-btn">
-                  <div className="arrow-line"></div>
-                  <div className="text-btn">商城</div>
-                  <div className="icon"></div>
-                </div>
-              </div>
-            </div>
-            <div className="intro-card">
-              <div className="intro-card-img ic-img4"></div>
-              <div className="intro-card-text">
-                <div className="intro-card-title">其他</div>
-                <div className="intro-card-content">
-                  箭頭｜箭筒｜粉容器｜弦卷
-                </div>
-                <div className="intro-card-btn">
-                  <div className="arrow-line"></div>
-                  <div className="text-btn">商城</div>
-                  <div className="icon"></div>
-                </div>
-              </div>
-            </div>
+          <IntroCard
+              IntroImg="images/homepage/product_intro_1.png"
+              IntroTitle="弓"
+              IntroCat="竹弓｜合成弓"
+          />
+          <IntroCard
+              IntroImg="images/homepage/product_intro_2.png"
+              IntroTitle="箭"
+              IntroCat="鋁箭｜合成箭"
+          />
+          <IntroCard
+              IntroImg="images/homepage/product_intro_3.png"
+              IntroTitle="道服"
+              IntroCat=""
+          />
+          <IntroCard
+              IntroImg="images/homepage/product_intro_4.png"
+              IntroTitle="其他"
+              IntroCat="箭頭｜箭筒｜粉容器｜弦卷"
+          />
           </div>
         </div>
         <div className="textarea">
