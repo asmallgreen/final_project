@@ -256,3 +256,15 @@
 .total span span {
     font-weight: bold;
 }
+
+.radioSection{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-inline: 30px;
+}
+.radioSection label input{
+    width: 35px;
+    height: 35px;
+    background-color: #616153;
+}
