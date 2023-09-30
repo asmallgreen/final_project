@@ -11,83 +11,92 @@ import jsonwebtoken from 'jsonwebtoken'
 import 'dotenv/config.js'
 
 // 定義安全的私鑰字串
-const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
+// const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
+const accessTokenSecret = 'thisisasecretkey'
 
-// middlewares
+  // middlewares
   // 中介軟體middleware，用於檢查是否在認証情況下
   const  authenticate=(req, res, next) =>{
     //const token = req.headers['authorization']
     const token = req.cookies.accessToken
     console.log(token)
-  
+
     // if no token
     if (!token) {
       return res.json({ message: 'Forbidden', code: '403' })
     }
   
     if (token) {
-      // verify的callback會帶有decoded payload(解密後的有效資料)就是user的資料
-      jsonwebtoken.verify(token, accessTokenSecret, (err, user) => {
+      // verify的callback會帶有decoded payload(解密後的有效資料)就是member的資料
+      jsonwebtoken.verify(token, accessTokenSecret, (err, member) => {
         if (err) {
           return res.json({ message: 'Forbidden', code: '403' })
         }
-  
-        // 將user資料加到req中
-        req.user = user
+        // 將member資料加到req中
+        req.member = member
         next()
       })
     } else {
       return res.json({ message: 'Unauthorized', code: '401' })
     }
   }
-router.get('/private', authenticate, (req, res) => {
-  const user = req.user
 
-  return res.json({ message: 'authorized', user })
+router.get('/private', authenticate, (req, res) => {
+  const member = req.member
+  return res.json({ message: 'authorized', member })
 })
 
-// 檢查登入狀態用
-router.get('/check-login', authenticate, async (req, res) => {
-    const user = req.user
-    return res.json({ message: 'authorized', user })
-  })
+// 檢查登入狀態用 -----------------------------------------------
+// router.get('/check-login', authenticate, async (req, res) => {
+//     const member = req.member
+//     return res.json({ message: 'authorized', member })
+//   })
   
-router.get('/login',  (req, res) => {
-  res.send("login")
-  // console.log(req.body)
-  // // 從要求的req.body獲取username與password
-  // const { username, password } = req.body
-  // if(username === abc && password === 123){
+
+// 登入頁面 -----------------------------------------------------
+router.post('/login',  (req, res) => {
+  // res.send("後端登入頁")
+  console.log(req.body)
+  // 從要求的req.body獲取member account與password
+  const { account, password } = req.body
+  if(account === 'abc' && password === '123'){
     
-  // // 會員存在，將會員的資料取出
-  // const member = {
-  //   username,
-  //   password,
-  // }
+  // 會員存在，將會員的資料取出
+  const member = {
+    id: 1,
+    account,
+    password,
+    name: '怡君',
+    email: 'luna@gmail.com',
+    level: '2',
+    created_date: '2023-08-21',
+  }
 
-  // console.log(member)
+  console.log(member)
 
-  // // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
-  // delete member.password
-  //   res.json({ message: 'success', code: '200' })
-  //   // 產生存取令牌(access token)，其中包含會員資料
-  // const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
-  //   expiresIn: '24h',
-  // })
+  // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
+  delete member.password
+    // res.json({ message: 'success', code: '200' })
+    // 產生存取令牌(access token)，其中包含會員資料
+  const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
+    expiresIn: '24h',
+  })
 
-  // // 使用httpOnly cookie來讓瀏覽器端儲存access token
-  // res.cookie('accessToken', accessToken, { httpOnly: true })
+  // 使用httpOnly cookie來讓瀏覽器端儲存access token
+  res.cookie('accessToken', accessToken, { httpOnly: true })
 
-  // // 傳送access token回應(react可以儲存在state中使用)
-  // res.json({
-  //   message: 'success',
-  //   code: '200',
-  //   accessToken,
-  // })
-  // }
-  // // 先查詢資料庫是否有同username/password的資料
+  // 傳送access token回應(react可以儲存在state中使用)
+  res.json({
+    message: 'success',
+    code: '200',
+    accessToken,
+    isAuth:true,
+    memberData:member
+  })
+  }
+  // // 先查詢資料庫是否有同member account/password的資料
   // const isMember = await verifyUser({
-  //   username,
+  //   account,
   //   password,
   // })
 
@@ -99,7 +108,7 @@ router.get('/login',  (req, res) => {
 
   // // 會員存在，將會員的資料取出
   // const member = await getUser({
-  //   username,
+  //   account,
   //   password,
   // })
 
@@ -123,7 +132,8 @@ router.get('/login',  (req, res) => {
   // //   accessToken,
   // // })
   })
-// 登出
+
+// 登出 -------------------------------------------------------
   router.post('/logout', authenticate, (req, res) => {
     // 清除cookie
     res.clearCookie('accessToken', { httpOnly: true })
@@ -142,6 +152,10 @@ router.get('/login',  (req, res) => {
     res.json({ message: 'success', code: '200' })
   })
   
+  // 註冊頁面 --------------------------------------------------
+  router.post('/register', (req, res)=>{
+    res.send('註冊頁')
+  })
 
  
 export default router

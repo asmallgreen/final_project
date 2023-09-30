@@ -46,7 +46,7 @@ const app = express()
 // app.use(cors())
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://localhost:9000','https://localhost:3001'],
+    origin: ['http://localhost:3000', 'https://localhost:9000','https://localhost:3001','https://localhost:3005'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   })

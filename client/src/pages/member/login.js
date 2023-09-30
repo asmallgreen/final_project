@@ -3,7 +3,9 @@ import {Container, Form, InputGroup, Col, Row, Button} from 'react-bootstrap'
 import Link from 'next/link'
 import ForgotPwd from '@/components/login/forgotpwd';
 import axios from 'axios'
-
+import { useAuthJWT } from '@/hooks/use-auth-jwt';
+import jwtDecode from 'jwt-decode';
+import { useRouter } from 'next/router';
 
 
 export default function Login() {
@@ -12,23 +14,65 @@ export default function Login() {
   const [validated, setValidated] = useState(false);
   const [checked, setChecked] = useState(false)
   const [formType, setFormType] = useState(true)
+  const {authJWT, setAuthJWT} = useAuthJWT()
+  const [loginData, setLoginData] = useState({
+    account:'',
+    password:''
+  })
+  const parseJwt = (token) => {
+    const base64Payload = token.split('.')[1]
+    const payload = Buffer.from(base64Payload, 'base64')
+    return JSON.parse(payload.toString())
+  }
+  const router = useRouter()
+
+  // 抓取使用者輸入的帳號密碼 input 值
+  const handleInputChange = (e) => {
+    // 輸入後更新存放內容的物件
+    setLoginData({
+      ...loginData,
+      [e.target.name]: e.target.value,
+    })
+  }
 
 
   // 會員登入表單提交函數
   const handleSubmit = async (e) => {
-    const form = e.currentTarget;
+    // const form = e.currentTarget;
     e.preventDefault();
 
-    if (form.checkValidity() === false) {
-      e.stopPropagation();
-      setValidated(true);
-      return;
-    }
 
+    // if (form.checkValidity() === false) {
+    //   e.stopPropagation();
+    //   setValidated(true);
+    //   // return;
+    // }
+
+    // const {account, password} = loginData;
     try{
-      const res = await axios.post('http://localhost:3005/api/member/login')
+      const res = await axios.post('http://localhost:3005/member/login',
+      loginData,
+      {withCredentials:true})
+      
+      // setToken(res.data.token);
+      // const decodecToken = jwtDecode(res.data.taken)
+      // setAuthJWT({
+      //   isAuth: true,
+      //   memberData: {
+      //       decodedToken
+      //   }
+      // }
+      // )
+      console.log(res.data);
+      if (res.data.message === 'success' && res.data.memberData.id) {
+        setAuthJWT({
+          isAuth: true,
+          memberData: res.data.memberData,
+        })
+        router.push('/member')
+      }
     }catch(error){
-
+      console.log(error);
     }
 
   };
@@ -58,6 +102,9 @@ export default function Login() {
           <Form.Control
             required
             type="text"
+            name='account'
+            value={loginData.account}
+            onChange={handleInputChange}
           />
           <Form.Control.Feedback type="invalid">請輸入帳號</Form.Control.Feedback>
         </Form.Group>
@@ -66,6 +113,9 @@ export default function Login() {
           <Form.Control
             required
             type="text"
+            name='password'
+            value={loginData.password}
+            onChange={handleInputChange}
           />
           <Form.Control.Feedback type='invalid'>請輸入密碼</Form.Control.Feedback>
         </Form.Group>
@@ -82,10 +132,10 @@ export default function Login() {
       </Row>
     <Row className='d-flex justify-content-center'>
       <Form.Group as={Col} md='7' xs='5' className='p-0 '>
-        <a href='/' className='forgetpwd-link' onClick={(e)=>{e.preventDefault();setFormType(false) }}>忘記密碼</a>
+        <Link href='/' className='forgetpwd-link' onClick={(e)=>{e.preventDefault();setFormType(false) }}>忘記密碼</Link>
       </Form.Group>
       <Form.Group as={Col} md='5' xs='5' className='p-0 text-end'>
-        <Button type="submit" className='login-button bgc-primary update-profile-btn'>登入</Button>
+        <Button type="submit" className='login-button bgc-primary update-profile-btn' onClick={handleSubmit}>登入</Button>
       </Form.Group>
     </Row>
     </Form>

@@ -17,7 +17,6 @@ export default function MemberCenter() {
             <div className='fs-2 mb-5'>會員中心</div>
             <div className='d-flex justify-content-center align-items-center'>
               <div>
-                
                 <div>
                   <img className='avatar' src='/Duo/avatar01.jpg'></img>
                   <p className='text-center mt-3'>怡君</p>
