@@ -9,22 +9,18 @@ import StepFour from '@/components/cart/stepfour';
 
 export default function Index() {
   const [stepType , setstepType] = useState(1)
-  
-
-  
   function switchStep(){
     if(stepType === 1){
-      return <StepOne stepType={stepType} setstepType={setstepType}/>;
+      return <StepOne  setstepType={setstepType}/>;
     }else if(stepType === 2){
-      return <StepTwo stepType={stepType} setstepType={setstepType}/>;
-    }else if(stepType === 3){
-      return <StepThree stepType={stepType} setstepType={setstepType}/>;
+      return <StepTwo  setstepType={setstepType}/>;
+    }else if(stepType === 3){ 
+      return <StepThree  setstepType={setstepType}/>;
     }else if(stepType === 4){
-      return <StepFour stepType={stepType} setstepType={setstepType}/>;
+      return <StepFour  setstepType={setstepType}/>;
     }
   }
   return (
-    
       <Container fluid={"xxl"}>
         <Row className="stepBar">
           <Col className="step">
@@ -69,11 +65,6 @@ export default function Index() {
           </Col>
         </Row>
         {switchStep()}
-      </Container>
-      
-
-
-
-    
+      </Container>   
   );
 }
