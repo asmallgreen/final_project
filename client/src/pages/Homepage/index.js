@@ -205,24 +205,24 @@ export default function Homepage() {
         <div className="introduction">
           <div className="container">
           <IntroCard
-              IntroImg="images/homepage/product_intro_1.png"
-              IntroTitle="弓"
-              IntroCat="竹弓｜合成弓"
+              introImg="images/homepage/product_intro_1.png"
+              introTitle="弓"
+              introCat="竹弓｜合成弓"
           />
           <IntroCard
-              IntroImg="images/homepage/product_intro_2.png"
-              IntroTitle="箭"
-              IntroCat="鋁箭｜合成箭"
+              introImg="images/homepage/product_intro_2.png"
+              introTitle="箭"
+              introCat="鋁箭｜合成箭"
           />
           <IntroCard
-              IntroImg="images/homepage/product_intro_3.png"
-              IntroTitle="道服"
-              IntroCat=""
+              introImg="images/homepage/product_intro_3.png"
+              introTitle="道服"
+              introCat=""
           />
           <IntroCard
-              IntroImg="images/homepage/product_intro_4.png"
-              IntroTitle="其他"
-              IntroCat="箭頭｜箭筒｜粉容器｜弦卷"
+              introImg="images/homepage/product_intro_4.png"
+              introTitle="其他"
+              introCat="箭頭｜箭筒｜粉容器｜弦卷"
           />
           </div>
         </div>
