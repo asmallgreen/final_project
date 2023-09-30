@@ -1,6 +1,6 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-//TODO: 元件化後樣式結構需要調整，然後放進homepage測試
 export default function CourseSlider(props) {
   const { courseImg, courseTitle, courseParagraph } = props;
 
@@ -18,7 +18,9 @@ export default function CourseSlider(props) {
         <div className="card-btn">
           <div className="arrow-line"></div>
           <div className="text-btn">報名</div>
-          <div className="icon"></div>
+          <div className="icon">
+          <FontAwesomeIcon icon="fa-solid fa-angles-left" style={{color: "#0c0c0c",}} />
+          </div>
         </div>
       </div>
       {/* <div className="course-slider-container">
