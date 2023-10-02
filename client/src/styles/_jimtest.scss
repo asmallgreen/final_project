@@ -1,6 +1,6 @@
 .rating-section {
   background-color: $primary;
-  max-height: 0;
+  // max-height: 0;
   transition: all 0.3s ease-in-out;
 
   .comment-wrapper {
@@ -34,10 +34,9 @@
 }
 
 .rating-section.close {
-    max-height: 0px;
-    display: none;
-  }
+display: none;
+}
 .rating-section.open {
-    max-height: 500px;
-    display: table-row;
-  }
+
+
+}

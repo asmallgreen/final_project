@@ -81,7 +81,7 @@ export default function OrderDetail() {
                         </button>
                       </td>
                     </tr>
-                    <div
+                    <tr
                       className={
                         isRatingSectionOpen
                           ? "rating-section open"
@@ -101,7 +101,7 @@ export default function OrderDetail() {
                           <button className="btn">送出</button>
                         </div>
                       </td>
-                    </div>
+                    </tr>
                     <tr>
                       <td>
                         <img src="/images/member/default_member.png" />
