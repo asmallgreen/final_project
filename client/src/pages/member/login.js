@@ -64,10 +64,11 @@ export default function Login() {
       // }
       // )
       console.log(res.data);
-      if (res.data.message === 'success' && res.data.memberData.id) {
+      console.log(parseJwt(res.data.accessToken));
+      if (res.data.message === 'login success') {
         setAuthJWT({
           isAuth: true,
-          memberData: res.data.memberData,
+          memberData: parseJwt(res.data.accessToken),
         })
         router.push('/member')
       }

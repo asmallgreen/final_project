@@ -16,7 +16,7 @@ const accessTokenSecret = 'thisisasecretkey'
 
   // middlewares
   // 中介軟體middleware，用於檢查是否在認証情況下
-  const  authenticate=(req, res, next) =>{
+  const authenticate=(req, res, next) =>{
     //const token = req.headers['authorization']
     const token = req.cookies.accessToken
     console.log(token)
@@ -37,20 +37,21 @@ const accessTokenSecret = 'thisisasecretkey'
         next()
       })
     } else {
-      return res.json({ message: 'Unauthorized', code: '401' })
+      // return res.json({ message: 'Unauthorized', code: '401' })
     }
   }
 
 router.get('/private', authenticate, (req, res) => {
-  const member = req.member
-  return res.json({ message: 'authorized', member })
+  const memberData = req.member
+  return res.json({ message: 'authorized', memberData })
 })
 
 // 檢查登入狀態用 -----------------------------------------------
-// router.get('/check-login', authenticate, async (req, res) => {
-//     const member = req.member
-//     return res.json({ message: 'authorized', member })
-//   })
+router.get('/check-login', authenticate, async (req, res) => {
+    const memberData = req.member
+    console.log(`Get the memberData:${memberData}`);
+    return res.json({ message: 'authorized', memberData})
+  })
   
 
 // 登入頁面 -----------------------------------------------------
@@ -87,11 +88,11 @@ router.post('/login',  (req, res) => {
 
   // 傳送access token回應(react可以儲存在state中使用)
   res.json({
-    message: 'success',
+    message: 'login success',
     code: '200',
     accessToken,
-    isAuth:true,
-    memberData:member
+    // isAuth:true,
+    // memberData:member
   })
   }
   // // 先查詢資料庫是否有同member account/password的資料
