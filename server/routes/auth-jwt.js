@@ -1,9 +1,8 @@
 import express from 'express'
 const router = express.Router()
 
+import authenticate from '../middlewares/jwt.js'
 import jsonwebtoken from 'jsonwebtoken'
-
-// import authenticate from '../middlewares/jwt.js'
 
 // import { verifyUser, getUser } from '../models/users.js'
 
@@ -14,32 +13,7 @@ import 'dotenv/config.js'
 // const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
 const accessTokenSecret = 'thisisasecretkey'
 
-  // middlewares
-  // 中介軟體middleware，用於檢查是否在認証情況下
-  const authenticate=(req, res, next) =>{
-    //const token = req.headers['authorization']
-    const token = req.cookies.accessToken
-    console.log(token)
 
-    // if no token
-    if (!token) {
-      return res.json({ message: 'Forbidden', code: '403' })
-    }
-  
-    if (token) {
-      // verify的callback會帶有decoded payload(解密後的有效資料)就是member的資料
-      jsonwebtoken.verify(token, accessTokenSecret, (err, member) => {
-        if (err) {
-          return res.json({ message: 'Forbidden', code: '403' })
-        }
-        // 將member資料加到req中
-        req.member = member
-        next()
-      })
-    } else {
-      // return res.json({ message: 'Unauthorized', code: '401' })
-    }
-  }
 
 router.get('/private', authenticate, (req, res) => {
   const memberData = req.member
@@ -49,7 +23,6 @@ router.get('/private', authenticate, (req, res) => {
 // 檢查登入狀態用 -----------------------------------------------
 router.get('/check-login', authenticate, async (req, res) => {
     const memberData = req.member
-    console.log(`Get the memberData:${memberData}`);
     return res.json({ message: 'authorized', memberData})
   })
   
@@ -57,7 +30,7 @@ router.get('/check-login', authenticate, async (req, res) => {
 // 登入頁面 -----------------------------------------------------
 router.post('/login',  (req, res) => {
   // res.send("後端登入頁")
-  console.log(req.body)
+  // console.log(req.body)
   // 從要求的req.body獲取member account與password
   const { account, password } = req.body
   if(account === 'abc' && password === '123'){
@@ -73,7 +46,7 @@ router.post('/login',  (req, res) => {
     created_date: '2023-08-21',
   }
 
-  console.log(member)
+  // console.log(member)
 
   // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
   delete member.password
