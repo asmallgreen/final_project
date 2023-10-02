@@ -4,6 +4,7 @@ import SideBar from "@/components/member/side-bar";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import { FaAngleLeft } from "react-icons/fa6";
+import { Rate } from 'antd';
 
 export default function OrderDetail() {
   const router = useRouter();
@@ -92,7 +93,9 @@ export default function OrderDetail() {
                         <div className="comment-wrapper">
                           <div className="star-area d-flex">
                             <div>評價</div>
-                            <div className="star-component">12345</div>
+                            <div className="star-component">
+                            <Rate allowHalf defaultValue={2.5} />
+                            </div>
                           </div>
                           <div className="text-area">
                             <div>留言</div>
