@@ -28,6 +28,68 @@ export default function OrderList() {
                     <tr>
                       <th>#</th>
                       <th>訂單編號</th>
+                      <th>訂單金額</th>
+                      <th>成立日期</th>
+                      <th>訂單詳情</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-center">
+                    {MemberOrder.map((order, index) => (
+                      <tr key={order.id}>
+                        <th>
+                          <img
+                            src="/images/member/default_member.png"
+                            alt={`Order ${order.id}`}
+                          />
+                        </th>
+                        <td>{order.orderNumber}</td>
+                        <td>{order.orderAmount}</td>
+                        <td>{order.orderDate}</td>
+                        <td>
+                          <Link href={`/member/order-detail/${order.orderNumber}`}>
+                            <button type="button" className="btn">
+                              <FaList />
+                            </button>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <div className="container order-table-mobile d-md-none">
+                  <div>
+                    {MemberOrder.map((order, index) => (
+                      <div className="row align-items-center p-2 order"
+                      key={order.id}>
+                        <div className="col-3 text-center">
+                          <img
+                            src="/images/member/default_member.png"
+                            alt={`Order ${order.id}`}
+                          />
+                        </div>
+                        <div className="col-6">
+                          <div>訂單編號：{order.orderNumber}</div>
+                          <div>成立日期：{order.orderDate}</div>
+                          <div>訂單金額：{order.orderAmount}</div>
+                        </div>
+                        <div className="col-3 text-center">
+                          <Link href={`/member/order-detail/${order.orderNumber}`}>
+                            <button className="btn">
+                              訂單詳情
+                            </button>
+                          </Link>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Tab>
+              <Tab eventKey="course" title="已完成訂單">
+                <table className="order-table-pc d-none d-md-table">
+                  <thead className="text-center">
+                    <tr>
+                      <th>#</th>
+                      <th>訂單編號</th>
                       <th>訂單金額 </th>
                       <th>成立日期</th>
                       <th>訂單詳情</th>
@@ -46,7 +108,7 @@ export default function OrderList() {
                         <td>{order.orderAmount}</td>
                         <td>{order.orderDate}</td>
                         <td>
-                          <Link href="/member/order-detail">
+                          <Link href={`/member/order-detail/${order.orderNumber}`}>
                             <button type="button" className="btn btn-dark">
                               <FaList />
                             </button>
@@ -57,30 +119,33 @@ export default function OrderList() {
                   </tbody>
                 </table>
                 <div className="container order-table-mobile d-md-none">
-                  <div>
-                    <div className="row align-items-center p-2">
-                      <div className="col-3 text-center">
-                        <img src="/images/member/default_member.png" />
+                <div>
+                    {MemberOrder.map((order, index) => (
+                      <div className="row align-items-center p-2 order"
+                      key={order.id}>
+                        <div className="col-3 text-center">
+                          <img
+                            src="/images/member/default_member.png"
+                            alt={`Order ${order.id}`}
+                          />
+                        </div>
+                        <div className="col-6">
+                          <div>訂單編號：{order.orderNumber}</div>
+                          <div>成立日期：{order.orderDate}</div>
+                          <div>訂單金額：{order.orderAmount}</div>
+                        </div>
+                        <div className="col-3 text-center">
+                          <Link href={`/member/order-detail/${order.orderNumber}`}>
+                            <button className="btn">
+                              訂單詳情
+                            </button>
+                          </Link>
+                        </div>
                       </div>
-                      <div className="col-8">
-                        <h5>產品名稱</h5>
-                        <p>產品價格</p>
-                      </div>
-                      <div className="col-1">*1</div>
-                    </div>
-                    <div className="row align-items-center">
-                      <div className="col-6 text-center">
-                        <button className="btn">訂單詳情</button>
-                      </div>
-                      <div className="col-6 text-end">
-                        <div>訂單總計</div>
-                        <div className="subtotal">$123</div>
-                      </div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </Tab>
-              <Tab eventKey="course" title="已完成訂單"></Tab>
             </Tabs>
             <Pagination />
           </Container>

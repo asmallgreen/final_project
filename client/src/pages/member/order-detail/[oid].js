@@ -2,8 +2,11 @@ import { Container, Row, Col, Tabs, Tab } from "react-bootstrap";
 import SideBar from "@/components/member/side-bar";
 import Pagination from "@/components/pagination";
 import Link from "next/link";
+import { useRouter } from 'next/router';
 
 export default function OrderDetail() {
+  const router = useRouter();
+  const { oid } = router.query;
   return (
     <>
       <Row className="member-order-detail">
@@ -20,8 +23,8 @@ export default function OrderDetail() {
             <div className="fs-2 mb-3">訂單詳情</div>
             <div className="row align-items-center py-2">
               <div className="row col-md-10 text-center">
-                <div className="col-6">訂單編號： {`A1234567`}</div>
-                <div className="col-6">訂單日期：{`2023-09-28`}</div>
+                <div className="col-6">訂單編號：{oid}</div>
+                <div className="col-6">訂單日期：</div>
               </div>
               <div className="col text-center d-none d-md-block">
                 <Link href="/member/order-list">
@@ -100,7 +103,7 @@ export default function OrderDetail() {
                 </table>
               </Tab>
             </Tabs>
-          </Container>
+          </Container>          
           <Pagination />
         </Col>
       </Row>
