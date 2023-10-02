@@ -114,30 +114,63 @@ body {
 }
 //卡片在各自component
 //手機板 優惠專區
+.phone-sales{
+  display: none;
+}
+@media screen and (max-width: 768px) {
 .phone-sales {
-  
-  width: 300px;
-  height: 160px;
+  display: flex;
+
+ justify-content: center;
   .cards {
     display: flex;
+    border: 1px solid $secondary;
+    border-radius: 3px;
+    width: 350px;
+    height: 160px;
     .img {
+      border: 1px solid transparent;
       width: 200px;
       height: 100%;
+      background-color: $secondary;
       img {
         object-fit: cover;
         width: 100%;
         height: 100%;
       }
+      
     }
     .content {
+      width: 150px;
+      padding: 15px 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
       .product-name {
-        font-size: 16px;
+        font-size: 14px;
+        color: $secondary;
       }
-      .description {
-        font-size: 12px;
+      .price {
+        font-size: 16px;
+        color: $accent;
+      }
+      .tag{
+        bottom: 0;
+        color: $primary;
+        font-size: 15px;
+        padding: 5px;
+        width: 100%;
+        text-align: center;
+      }
+      .tag1{
+        background-color: $accent;
+      }
+      .tag2{
+        background-color: #a7a78c;
       }
     }
   }
+}
 }
 .category {
   height: 360px;

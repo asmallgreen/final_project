@@ -1,17 +1,6 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 import NormalCard from "../../components/product/normal-card";
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import {
-  faFilter,
-  faSort,
-  faCartShopping,
-  faHeart as farHeart,
-  faArrowLeft,
-  faArrowRight,
-} from "@fortawesome/free-solid-svg-icons";
 import SalesCard from "@/components/product/sales-card";
 import FilterProductCard from "@/components/product/filter-product-card";
 import BreadCrumb from "@/components/bread-crumb/bread-crumb";
@@ -131,17 +120,15 @@ function Product() {
       </Row>
       {/* 手機板 優惠專區 */}
       <div className="phone-sales">
-        <div class="cards">
-        <div className="img">
-        <img src="" class="card-img-top"></img>
-        </div>
-  
-          <div class="content">
-            <div class="product-name">Card title</div>
-            <div class="description">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </div>
+        <div className="cards">
+          <div className="img">
+            <img src=""></img>
+          </div>
+          <div className="content">
+          <div className="tag tag1">HOT</div>
+          <div className="tag tag2">SALES</div>
+            <div className="product-name">特選黑羽雞翅汝拉箭</div>
+            <div className="price">$3000</div>
           </div>
         </div>
       </div>
