@@ -112,7 +112,7 @@ export default function OrderList() {
                         <td>{order.orderDate}</td>
                         <td>
                           <Link href={`/member/order-detail/${order.orderNumber}`}>
-                            <button type="button" className="btn btn-dark">
+                            <button type="button" className="btn">
                               <FaList />
                             </button>
                           </Link>
