@@ -143,7 +143,10 @@ export default function Login() {
     <div><p className='text-center'>_______________________________________</p></div>
     <div className='text-center mb-5'>
     <button className='google-login-btn'>
+    <Link href='/google-login/jwt'>
       <img src='/Duo/googleLogin.svg' alt='googleicon'/>使用Google登入
+    </Link>
+      
     </button>
     </div>
         </div>

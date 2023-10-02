@@ -30,7 +30,7 @@ import authJwtRouter from './routes/auth-jwt.js'
 // import productsRouter from './routes/products.js'
 // import resetPasswordRouter from './routes/reset-password.js'
 // import usersRouter from './routes/users.js'
-// import googleLoginRouter from './routes/google-login.js'
+import googleLoginRouter from './routes/google-login.js'
 // import lineLoginRouter from './routes/line-login.js'
 // import facebookLoginRouter from './routes/facebook-login.js'
 
@@ -92,7 +92,7 @@ app.use('/member', authJwtRouter)
 // app.use('/api/products', productsRouter)
 // app.use('/api/reset-password', resetPasswordRouter)
 // app.use('/api/users', usersRouter)
-// app.use('/api/google-login', googleLoginRouter)
+app.use('/google-login', googleLoginRouter)
 // app.use('/api/line-login', lineLoginRouter)
 // app.use('/api/facebook-login', facebookLoginRouter)
 // app.use('/api/favorite', favoriteRouter)
