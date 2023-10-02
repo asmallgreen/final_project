@@ -11,6 +11,8 @@
 //Navbar
 .table-nav {
   // width: 1440px;
+  display: flex;
+  align-items: center;
   background-color: $primary;
   height: 90px;
   .nav {
@@ -137,10 +139,14 @@
         right: 130px;
       }
     }
-    a{
-      color: $secondary;
-    }
+    // a{
+    //   color: $secondary;
+    // }
   }
+}
+.phone-nav{
+  display: none;
+  
 }
 .ham-login {
   display: none;
@@ -163,11 +169,12 @@
       width: 150px;
     }
   }
+  //漢堡icon
   .fa-bars {
+    color: $primary!important;
     height: 20px;
     top: calc(39px - 17px);
     right: 20px;
-    color: $primary;
   }
   .fa-bars:hover + .ham-login{
     // 手機ham
@@ -264,14 +271,18 @@
 
   // 桌機nav
   .table-nav {
-    display: none !important;
+    display: none;
   }
   // 手機nav
   .phone-nav {
     // width: 393px;
+    display: flex;
     background-color: $primary;
     height: 40px;
     .nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
       height: 40px;
       margin: 0 auto;
       width: 100%;
@@ -298,6 +309,7 @@
   }
 }
 
+//登出版漢堡 暫存
     // .ham-logout {
     //   display: flex;
     //   .opacity-50 {

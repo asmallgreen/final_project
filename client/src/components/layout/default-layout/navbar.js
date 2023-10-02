@@ -14,7 +14,7 @@ export default function Navbar() {
   return (
     <>
       {/* 桌機版nav */}
-      <div className="table-nav position-relative d-flex align-items-center">
+      <div className="table-nav position-relative">
         <ul className="nav position-absolute top-0 d-flex justify-content-center align-items-center">
           <li className="list-unstyled">
             <a href="/product">關於良弓</a>
@@ -80,8 +80,8 @@ export default function Navbar() {
       </div>
 
       {/* 手機版nav */}
-      <div className="phone-nav d-flex">
-        <ul className="nav d-flex justify-content-center align-items-center">
+      <div className="phone-nav">
+        <ul className="nav">
           <li>
             <a href="/">首頁</a>
           </li>
