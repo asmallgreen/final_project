@@ -6,6 +6,9 @@
         border: none;
         padding: 5px 10px;
         color: #fff;
+        &:hover{
+            background-color: $accent;
+        }
     }
     .order-info{
         div{

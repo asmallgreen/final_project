@@ -25,11 +25,17 @@ export default function MemberCoupon() {
               <Tab eventKey="product" title="擁有的優惠券">
                 <div className="container">
                   <div className="row p-3 fs-5 fw-bold">
-                    <div className="col-12 col-md-6 text-center align-self-center py-1 coupon-check">
-                      <input type="checkbox" className="form-check-input mx-2" />
-                      <span>僅顯示可使用的優惠券</span>
+                    <div className="col-12 col-lg-6 text-center align-self-center py-1 coupon-check">
+                      <label >
+                        <input
+                          className='mx-2' 
+                          name="isCheck"
+                          type="checkbox"
+                        />
+                        <span>僅顯示可使用的優惠券</span>
+                      </label>
                     </div>
-                    <div className="col-12 col-md-6 text-center py-1 coupon-clear">
+                    <div className="col-12 col-lg-6 text-center py-1 coupon-clear">
                       一鍵清空失效的優惠券
                     </div>
                   </div>
