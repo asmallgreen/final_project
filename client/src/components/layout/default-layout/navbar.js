@@ -6,12 +6,44 @@ import Link from 'next/link';
 import { Button } from "react-bootstrap";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
   const {authJWT , setAuthJWT} = useAuthJWT()
 
-  const handleLogout = () => {
-    
+  const router = useRouter()
+  // 首頁路由
+  const homeRoute = '/'
+  // 隱私頁面路由，登出時會，檢查後跳轉至首頁
+  const protectedRoutes = ['/member', '/member/update-profile', 'member/update-pwd', '/member/order-list', '/member/coupon', '/member/fav-product','/cart', ]
+
+
+  const handleLogout = async () => {
+    try{
+      const res = await axios.post('http://localhost:3005/member/logout',{},
+      {
+        withCredentials:true
+      })
+      if(res.data.message === 'success'){
+        setAuthJWT({
+          isAuth:false,
+          memberData: {
+            id: 0,
+            account: '',
+            name: '',
+            email: '',
+            level: '',
+            created_date: '',
+        }
+        })
+        if (protectedRoutes.includes(router.pathname)) {
+        router.push(homeRoute)
+      }
+      }
+    }catch(error){
+
+    }
   }
   return (
     <>
@@ -112,12 +144,12 @@ export default function Navbar() {
           <li className="list-unstyled">
             {authJWT.isAuth?'登入中':'未登入'}
           </li>
-          
-          <li className="list-unstyled">
+          {authJWT.isAuth && (<li className="list-unstyled">
           <Button onClick={handleLogout}>
           <FiLogOut className="fi-logout"/>
           </Button>
-          </li>
+          </li>)}
+          
         </ul>
       </div>
     </>
