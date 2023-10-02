@@ -1,12 +1,20 @@
+import React, { useState } from "react";
 import { Container, Row, Col, Tabs, Tab } from "react-bootstrap";
 import SideBar from "@/components/member/side-bar";
 import Pagination from "@/components/pagination";
 import Link from "next/link";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 
 export default function OrderDetail() {
   const router = useRouter();
   const { oid } = router.query;
+
+  //處理評價區塊開關
+  const [isRatingSectionOpen, setIsRatingSectionOpen] = useState(false);
+  const toggleRatingSection = () => {
+    setIsRatingSectionOpen(!isRatingSectionOpen);
+  };
+
   return (
     <>
       <Row className="member-order-detail">
@@ -60,8 +68,36 @@ export default function OrderDetail() {
                       <td>7</td>
                       <td>火雞毛</td>
                       <td>500</td>
-                      <td></td>
+                      <td>
+                        <button
+                          className="btn collapse-btn"
+                          onClick={toggleRatingSection}
+                        >
+                          {isRatingSectionOpen ? "收起" : "展開"}
+                        </button>
+                      </td>
                     </tr>
+                    <div
+                      className={
+                        isRatingSectionOpen
+                          ? "rating-section open"
+                          : "rating-section close"
+                      }
+                    >
+                      <td colspan="7">
+                        <div className="comment-wrapper">
+                          <div className="star-area d-flex">
+                            <div>評價</div>
+                            <div className="star-component">12345</div>
+                          </div>
+                          <div className="text-area">
+                            <div>留言</div>
+                            <textarea placeholder="請留下您的評價"></textarea>
+                          </div>
+                          <button className="btn">送出</button>
+                        </div>
+                      </td>
+                    </div>
                     <tr>
                       <td>
                         <img src="/images/member/default_member.png" />
@@ -84,9 +120,7 @@ export default function OrderDetail() {
                       <div className="order-title">產品名稱1</div>
                       <div className="order-contain">產品單價1</div>
                     </div>
-                    <div className="col-3">
-                      產品數量
-                    </div>
+                    <div className="col-3">產品數量</div>
                   </div>
                   <div className="row align-items-center py-3">
                     <div className="col-4  text-center">
@@ -96,9 +130,7 @@ export default function OrderDetail() {
                       <div className="order-title">產品名稱2</div>
                       <div className="order-contain">產品單價2</div>
                     </div>
-                    <div className="col-3">
-                      產品數量
-                    </div>
+                    <div className="col-3">產品數量</div>
                   </div>
                   <div className="container p-3">
                     <div className="order-info">
@@ -114,7 +146,7 @@ export default function OrderDetail() {
                 </div>
               </Tab>
               <Tab eventKey="course" title="課程">
-              <table className="order-table-pc d-none d-md-table">
+                <table className="order-table-pc d-none d-md-table">
                   <thead>
                     <tr>
                       <th>#</th>
