@@ -7,11 +7,13 @@ export default function index() {
     return (
         <>
             <Container>
-                <img className='m-5 d-flex justify-content-center' src='/images/venue/場地流程ui-日期選擇.png'></img>
+                <div className='m-5 d-flex justify-content-center'>
+                    <img className='' src='/images/venue/場地流程ui-日期選擇.png'></img>
+                </div>
                 <div className='calendar-test1'>
-                    <div className='calendar-test2'>
+                    <a href="/venue/date/reserve/" className='calendar-test2'>
                         日期選擇器
-                    </div>
+                    </a>
                 </div>
 
                 {/* <div class="calendar">
