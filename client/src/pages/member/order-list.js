@@ -68,14 +68,17 @@ export default function OrderList() {
                           />
                         </div>
                         <div className="col-6">
-                          <div>訂單編號：{order.orderNumber}</div>
-                          <div>成立日期：{order.orderDate}</div>
-                          <div>訂單金額：{order.orderAmount}</div>
+                          <div className="order-title">訂單編號：</div>
+                          <div className="order-contain">{order.orderNumber}</div>
+                          <div className="order-title">成立日期：</div>
+                          <div className="order-contain">{order.orderDate}</div>
+                          <div className="order-title">訂單金額：</div>
+                          <div className="order-contain">{order.orderAmount}</div>
                         </div>
                         <div className="col-3 text-center">
                           <Link href={`/member/order-detail/${order.orderNumber}`}>
                             <button className="btn">
-                              訂單詳情
+                            <FaList />
                             </button>
                           </Link>
                         </div>
@@ -119,7 +122,7 @@ export default function OrderList() {
                   </tbody>
                 </table>
                 <div className="container order-table-mobile d-md-none">
-                <div>
+                  <div>
                     {MemberOrder.map((order, index) => (
                       <div className="row align-items-center p-2 order"
                       key={order.id}>
@@ -130,14 +133,17 @@ export default function OrderList() {
                           />
                         </div>
                         <div className="col-6">
-                          <div>訂單編號：{order.orderNumber}</div>
-                          <div>成立日期：{order.orderDate}</div>
-                          <div>訂單金額：{order.orderAmount}</div>
+                          <div className="order-title">訂單編號：</div>
+                          <div className="order-contain">{order.orderNumber}</div>
+                          <div className="order-title">成立日期：</div>
+                          <div className="order-contain">{order.orderDate}</div>
+                          <div className="order-title">訂單金額：</div>
+                          <div className="order-contain">{order.orderAmount}</div>
                         </div>
                         <div className="col-3 text-center">
                           <Link href={`/member/order-detail/${order.orderNumber}`}>
                             <button className="btn">
-                              訂單詳情
+                            <FaList />
                             </button>
                           </Link>
                         </div>

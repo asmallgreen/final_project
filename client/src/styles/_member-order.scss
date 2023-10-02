@@ -45,6 +45,13 @@ $mobile-img-height: 60px;
     height: $mobile-img-height;
     object-fit: cover;
   }
+  .order-title{
+    font-size: 14px;
+  }
+  .order-contain{
+    font-size: 1rem;
+    color: $accent;
+  }
   .btn {
     background-color: $secondary-half;
     border-radius: 0;

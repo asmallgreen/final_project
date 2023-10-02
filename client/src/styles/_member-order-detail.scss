@@ -1,9 +1,18 @@
 .member-order-detail{
+    color: $secondary;
     .backBtn{
         background-color: $secondary-half;
         border-radius: 0;
         border: none;
         padding: 5px 10px;
         color: #fff;
+    }
+    .order-info{
+        div{
+            font-size: 14px;
+        }
+    }
+    .order-subtotal{
+        color: $accent;
     }
 }   
