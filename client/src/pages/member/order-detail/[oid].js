@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Tabs, Tab } from "react-bootstrap";
 import SideBar from "@/components/member/side-bar";
-import Pagination from "@/components/pagination";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
+import { FaAngleLeft } from "react-icons/fa6";
 
 export default function OrderDetail() {
   const router = useRouter();
@@ -18,9 +18,11 @@ export default function OrderDetail() {
   return (
     <>
       <Row className="member-order-detail">
-        <div className="px-5 py-3">
+        <div className="px-5 py-3 d-md-none">
           <Link href="/member/order-list">
-            <button className="d-md-none backBtn">返回訂單紀錄</button>
+            <button className="backBtn">
+              <FaAngleLeft />
+            </button>
           </Link>
         </div>
         <Col md="3" className="p-3  offset-md-1 side-bar-border-right">
@@ -28,9 +30,11 @@ export default function OrderDetail() {
         </Col>
         <Col md="7" className="p-3">
           <Container className="my-3">
-            <div className="fs-2 mb-3">訂單詳情</div>
+            <div className="fs-2 mb-3 title-bar">
+                訂單詳情
+            </div>
             <div className="row align-items-center py-2">
-              <div className="row col-md-10 col-lg-6 text-center">
+              <div className="row col-md-10 col-lg-6 text-start">
                 <div className="col-6">訂單編號：{oid}</div>
                 <div className="col-6">訂單日期：</div>
               </div>
