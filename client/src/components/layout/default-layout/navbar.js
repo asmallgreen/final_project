@@ -1,12 +1,18 @@
 import React from "react";
 //fontawesome
 import{ FaShoppingCart, FaUser, FaSearch} from "react-icons/fa"
+import{ FiLogOut } from 'react-icons/fi'
 import Link from 'next/link';
 import { Button } from "react-bootstrap";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export default function Navbar() {
   const {authJWT , setAuthJWT} = useAuthJWT()
+
+  const handleLogout = () => {
+    
+  }
   return (
     <>
       {/* 桌機版nav */}
@@ -69,7 +75,8 @@ export default function Navbar() {
             <FaShoppingCart className="fa-cart-shopping" />
           </li>
           <li className="list-unstyled">
-            <Link href='/member' className="text-decoreation-none"><FaUser className="fa-user" /></Link>
+            <Link href='/member' className="text-decoreation-none">
+            <FaUser className="fa-user" /></Link>
           </li>
           <li className="list-unstyled">
             {authJWT.isAuth? (<Button onClick={()=>{
@@ -104,6 +111,12 @@ export default function Navbar() {
           </li>
           <li className="list-unstyled">
             {authJWT.isAuth?'登入中':'未登入'}
+          </li>
+          
+          <li className="list-unstyled">
+          <Button onClick={handleLogout}>
+          <FiLogOut className="fi-logout"/>
+          </Button>
           </li>
         </ul>
       </div>

@@ -8,10 +8,11 @@ import jsonwebtoken from 'jsonwebtoken'
 
 // 存取`.env`設定檔案使用
 import 'dotenv/config.js'
+import cookieParser from 'cookie-parser'
 
 // 定義安全的私鑰字串
-// const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
-const accessTokenSecret = 'thisisasecretkey'
+const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET
+// const accessTokenSecret = 'thisisasecretkey'
 
 
 
@@ -110,9 +111,12 @@ router.post('/login',  (req, res) => {
 // 登出 -------------------------------------------------------
   router.post('/logout', authenticate, (req, res) => {
     // 清除cookie
+    cookieParser()(req, res, ()=>{
     res.clearCookie('accessToken', { httpOnly: true })
   
-    res.json({ message: 'success', code: '200' })
+    res.json({ message: 'success', code: '200' })      
+    })
+
   })
   
   router.post('/logout-ssl-proxy', authenticate, (req, res) => {
