@@ -1,0 +1,102 @@
+.normal-cards-area {
+  padding-block: 48px;
+  justify-content: center;
+  .normal-cards {
+    display: flex;
+    .rows {
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+    }
+    .card {
+      // border-radius: 0;
+      width: 230px;
+      margin: 10px 5px;
+      padding: 0;
+      .img {
+        height: 230px;
+        width: 100%;
+        border: 0px solid transparent;
+        // background-color: $secondary;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border: 0px solid transparent;
+          
+        }
+        .tag {
+          border-radius: 0 0 0px 0;
+          bottom: 1px;
+          right: 1px;
+          text-align: center;
+          padding-block: 5px;
+          width: 50px;
+          height: 30px;
+          font-size: 12px;
+          background-color: $accent;
+          color: $primary;
+        }
+      }
+      .content {
+        padding: 5px;
+        .product-name {
+          color: $secondary;
+          // font-size: 18px;
+          // .tag {
+          //   text-align: center;
+          //   padding-block: 5px;
+          //   width: 50px;
+          //   height: 30px;
+          //   font-size: 12px;
+          //   background-color: $accent;
+          //   color: $primary;
+          // }
+        }
+        .description {
+          color: $secondary;
+          font-size: 15px;
+        }
+        .price {
+          font-size: 18px;
+          color: $accent;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .normal-cards-area {
+    padding-block: 0px;
+    margin: 0;
+    .normal-cards {
+      display: flex;
+      .rows {
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        .card {
+          width: 178px;
+          // height: 400px;
+          margin: 10px 5px;
+          padding: 0;
+          .img {
+            height: 200px;
+            width: 100%;
+            background-color: $secondary;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+
+          }
+.content{
+  display: none;
+}
+        }
+      }
+    }
+  }
+}

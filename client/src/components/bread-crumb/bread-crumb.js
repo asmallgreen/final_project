@@ -6,19 +6,19 @@ export default function BreadCrumb() {
     <>
       <div className="bread-crumb d-flex align-items-center">
         <div className="crumb-item">
-          <Link href="/" className="mx-4">
+          <Link href="/" className="crumb-link">
             首頁
           </Link>
           &gt;
         </div>
         <div className="crumb-item">
-          <Link href="/product" className="mx-4">
+          <Link href="/product" className="crumb-link">
             商店
           </Link>
           &gt;
         </div>
         <div className="crumb-item">
-          <Link href="/product" className="mx-4">
+          <Link href="/product" className="crumb-link">
             所有商品
           </Link>
         </div>

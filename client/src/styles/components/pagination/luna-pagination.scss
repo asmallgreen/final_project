@@ -18,3 +18,15 @@
       }
     }
   }
+  @media screen and (max-width: 768px) {
+    .page-btns {
+      padding: 15px 20px;
+      .btn-group {
+        .btn {
+          width: 35px;
+          height: 35px;
+          font-size: 14px;
+        }
+      }
+    }
+  }

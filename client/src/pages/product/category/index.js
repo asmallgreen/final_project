@@ -2,7 +2,7 @@ import React from "react";
 import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import { Row, Col } from "react-bootstrap";
 
-import ProductCard from "@/components/product/product-card";
+import ProductCard from "@/components/product/normal-card";
 import ProductInfoAccordion from "@/components/accordion/product-info-accordion";
 import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
 import Attributes from "@/components/product/attributes";

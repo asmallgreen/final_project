@@ -27,13 +27,16 @@ export default function FilterProductCard() {
       <div className="card">
         <div className="img position-relative">
           <img src=""></img>
+          <div className="tag position-absolute">NEW</div>
           <button className="p-0 position-absolute">
             <FontAwesomeIcon icon={faHeart} className="fa-heart" />
             <FontAwesomeIcon icon={farHeart} className="far-heart" />
           </button>
         </div>
-        <div className="content d-flex flex-column justify-content-center px-3">
-          <div className="prodcut-name my-1">特選黑羽雞翅汝拉箭</div>
+        <div className="content">
+          
+            <div className="product-name">特選黑羽雞翅汝拉箭</div>
+          
           <div className="price d-flex justify-content-between my-1">
             NT$ 8000
             <button className="">

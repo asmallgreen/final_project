@@ -25,7 +25,7 @@
 @import"./components/product/filter-product-card.scss";
 
 //推薦OR新產品卡片
-@import"./components/product/product-card.scss";
+@import"./components/product/normal-card.scss";
 
 //優惠卡片
 @import"./components/product/sales-card.scss";
@@ -49,3 +49,6 @@
 @import"./components/product/fav-btn.scss";
 @import"./components/product/cart-btn.scss";
 @import"./components/product/quantity-btn.scss";
+
+//商品篩選
+@import"./components/product/filter-btns.scss";
