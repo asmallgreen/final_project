@@ -3,19 +3,19 @@
   background: $primary;
   color: $font;
   .course-detail-info {
-    background: lightgray;
+    // background: lightgray;
     display: flex;
     align-items: center;
 
     .left {
       .course-detail-img {
-        background: lightcyan;
+        background-image: url(https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image1.png?raw=true);
         width: 621px;
         height: 673px;
       }
     }
     .right {
-      background: lightpink;
+      // background: lightpink;
       width: calc(100% - 621px - 80px);
       height: 673px;
       margin-left: 80px;
@@ -23,7 +23,7 @@
       display: flex;
       flex-direction: column;
       .course-detail-text {
-        background: lightgoldenrodyellow;
+        // background: lightgoldenrodyellow;
         //佔滿除了btns的空間
         flex-grow: 1;
         .title {

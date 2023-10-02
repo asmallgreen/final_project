@@ -1,6 +1,13 @@
 import React from "react";
 import { ConfigProvider, Tabs } from "antd";
 
+// 引入Tabs頁面
+import CourseDescription from "./CourseDescription";
+import TeacherDescription from "./TeacherDescription";
+import Syllabus from "./Syllabus";
+import Faq from "./Faq";
+import Review from "./Review";
+
 // Tabs Index
 const onChange = (key) => {
   console.log(key);
@@ -9,27 +16,27 @@ const items = [
   {
     key: "1",
     label: "課程介紹",
-    children: "Content of Tab Pane 1",
+    children: <CourseDescription />,
   },
   {
     key: "2",
     label: "講師介紹",
-    children: "Content of Tab Pane 2",
+    children: <TeacherDescription />,
   },
   {
     key: "3",
     label: "課程大綱",
-    children: "Content of Tab Pane 3",
+    children: <Syllabus />,
   },
   {
     key: "4",
     label: "常見問題",
-    children: "Content of Tab Pane 3",
+    children: <Faq />,
   },
   {
     key: "5",
     label: "學員評價",
-    children: "Content of Tab Pane 3",
+    children: <Review />,
   },
 ];
 
@@ -44,7 +51,7 @@ export default function CourseDetail() {
           <div className="left">
             <div className="course-detail-img"></div>
           </div>
-          <div className="right">
+          <div className="right ">
             <div className="course-detail-text">
               <div className="title">初探：射法八節</div>
               <div className="intro">
@@ -102,7 +109,7 @@ export default function CourseDetail() {
           <ConfigProvider
             theme={{
               token: {
-                fontFamily:"Inter, AbeeZee"
+                fontFamily: "Inter, AbeeZee",
               },
 
               components: {
