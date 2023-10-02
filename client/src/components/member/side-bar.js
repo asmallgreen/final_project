@@ -11,7 +11,7 @@ export default function SideBar() {
     <>
       <div className='member-sidebar'>
         <div className='text-center pt-md-5 row align-items-center'>
-          <div className='col-4 col-md-12'>
+          <div className='col-3 col-md-12'>
             <img src='/images/member/default_member.png' />
           </div>
           <div className='col col-md-12 d-flex justify-content-md-center'>

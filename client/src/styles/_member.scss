@@ -127,6 +127,19 @@
       height: 100px;
     }
   }
+  @media (max-width: 768px) {
+    img {
+      width: 80px;
+      height: 80px;
+      border-radius: 0;
+    }
+    p {
+      font-size: 1rem;
+      font-weight: bold;
+      color: $secondary;
+      margin: 0;
+    }
+  }
 }
 .side-bar-border-right {
   border-right: 3px solid $secondary-light;
