@@ -1,5 +1,5 @@
 .atrribute {
-  .attr-btns {
+  .attr-btns-length {
     .attr-btn {
       border-radius: 0;
       color: $secondary;
@@ -15,7 +15,7 @@
 }
 @media screen and (max-width: 768px) {
   .atrribute {
-    .attr-btns {
+    .attr-btns-length  {
       .attr-btn {
         margin-inline: 2px;
         font-size: 16px;

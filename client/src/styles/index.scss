@@ -3,15 +3,6 @@
 
 @import "components.scss";
 
-//商品
-@import "product.scss";
-
-
-//category
-@import "category.scss";
-
-
-
 
 //各個pages scss
 
@@ -20,7 +11,15 @@
 @import "member-order.scss";
 @import "member-coupon.scss";
 
+//商品
+@import "product.scss";
 
+
+//category
+@import "category.scss";
+
+//商品頁篩選、排序
+@import "filter-modal.scss";
 
 
 // bootstrap
