@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios';
 import { Container, Row, Col, Nav, Tab, Tabs } from 'react-bootstrap';
 import SideBar from '@/components/member/side-bar';
 import Pagination from "@/components/pagination";
 import CouponCard from "@/components/coupon-card";
 import Link from 'next/link';
 
-import CouponData from "@/data/coupon-list"
+// import CouponData from "@/data/coupon-list"
 
 export default function MemberCoupon() {
+  const [CouponData, setCouponData] = useState([]);
+  useEffect(() => {
+    // 在這裡執行 HTTP GET 請求
+    axios.get('http://localhost:3005/memberDashboard/coupon')
+      .then((response) => {
+        // 從後端獲取的數據將存儲在response.data中
+        const data = response.data;
+        setCouponData(data.CouponList);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
   return (
     <>
       <Row>

@@ -89,7 +89,7 @@ export default function OrderDetail() {
                           : "rating-section close"
                       }
                     >
-                      <td colspan="7">
+                      <td colSpan="7">
                         <div className="comment-wrapper">
                           <div className="star-area d-flex">
                             <div>評價</div>
