@@ -34,6 +34,47 @@ router.post('/login', async (req, res) => {
   // console.log(req.body)
   // 從要求的req.body獲取member account與password
   const { account, password } = req.body
+
+    // 先查詢資料庫是否有同member account/password的資料
+  const isMember = await verifyUser({
+    account,
+    password,
+  })
+
+  console.log(isMember)
+ 
+  if(!isMember) {
+    return res.json({ message: 'verifyUser fail', code: '400' })
+  }
+
+  // 會員存在，將會員的資料取出
+  const member = await getUser({
+    account,
+    password,
+  })
+
+  console.log(member)
+
+  // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
+  delete member.password
+
+  // 產生存取令牌(access token)，其中包含會員資料
+  const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
+    expiresIn: '24h',
+  })
+
+  // 使用httpOnly cookie來讓瀏覽器端儲存access token
+  res.cookie('accessToken', accessToken, { httpOnly: true })
+
+  // 傳送access token回應(react可以儲存在state中使用)
+  res.json({
+    message: 'login success',
+    code: '200',
+    accessToken,
+  })
+  })
+
+  // 假資料測試區
   // if(account === 'abc' && password === '123'){
     
   // // 會員存在，將會員的資料取出
@@ -69,45 +110,7 @@ router.post('/login', async (req, res) => {
   //   // memberData:member
   // })
   // }
-  // 先查詢資料庫是否有同member account/password的資料
-  const isMember = await verifyUser({
-    account,
-    password,
-  })
 
-  console.log(isMember)
- 
-  if(!isMember) {
-    return res.json({ message: 'verifyUser fail', code: '400' })
-  }
-
-  // 會員存在，將會員的資料取出
-  const member = await getUser({
-    
-    account,
-    password,
-  })
-
-  console.log(member)
-
-  // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
-  delete member.password
-
-  // 產生存取令牌(access token)，其中包含會員資料
-  const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
-    expiresIn: '24h',
-  })
-
-  // 使用httpOnly cookie來讓瀏覽器端儲存access token
-  res.cookie('accessToken', accessToken, { httpOnly: true })
-
-  // 傳送access token回應(react可以儲存在state中使用)
-  res.json({
-    message: 'login success',
-    code: '200',
-    accessToken,
-  })
-  })
 
 // 登出 -------------------------------------------------------
   router.post('/logout', authenticate, (req, res) => {
@@ -132,10 +135,19 @@ router.post('/login', async (req, res) => {
   })
   
   // 註冊頁面 --------------------------------------------------
-  router.post('/register', (req, res)=>{
+  router.post('/register', async (req, res)=>{
     // 先檢查帳號跟信箱是否已註冊過
     // 檢查帳號使否已註冊
-
+    console.log('使用者填入的註冊資料:', req.body);
+    const checkAccount = await checkAccount(req.body.account)
+    if(!checkAccount){
+      return res.json({ message: 'account is used', code: '400' })
+    }
+    const checkEmail = await checkEmail(req.body.email)
+    if(!checkEmail){
+      return res.json({ message: 'email is used', code: '400' })
+    }
+    // const member = await createUser(req.body)
     // 檢查信箱是否已註冊
 
     // 檢查完存入資料庫

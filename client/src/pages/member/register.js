@@ -11,6 +11,9 @@ import {
 import Link from "next/link";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { DatePicker } from 'react-rainbow-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 
 export default function Login({ formType, setFormType }) {
   // react 表單檢查(不可空白欄位)
@@ -19,6 +22,8 @@ export default function Login({ formType, setFormType }) {
   const [rememberMeChecked, setRememberMeChecked] = useState(true);
   // 檢查第二次輸入的密碼是否與第一次輸入的一致
   const [passwordCheck, setPasswordCheck] = useState(false);
+  // 抓到選擇的生日
+  const [birthday, setBirthday] = useState(new Date())
   // 註冊時寫入後端資料庫的會員欄位內容
   const [member, setMember] = useState({
     account: "",
@@ -29,16 +34,21 @@ export default function Login({ formType, setFormType }) {
     email: "",
     phone: "",
     address: "",
-    level: "",
-    member_img: "",
+    level: "1",
+    member_img: "avatar01.jpg",
     created_at: "",
-    total_spant: "",
-    valid: "",
+    total_spant: "0",
+    valid: "1",
   });
   // 抓到表單內填寫的內容寫進member物件
   function handleChange(e) {
     setMember({ ...member, [e.target.name]: e.target.value });
   }
+  // 抓到生日的 Date 寫入 member 物件
+  const handleBirthdateChange = (date) => {
+    // 將選擇的日期存在 member 的 birthday 屬性中
+    setMember({ ...member, birthday: date });
+  };
 
   useEffect(() => {
     if (member.password !== member.repassword) {
@@ -230,15 +240,16 @@ export default function Login({ formType, setFormType }) {
                   className="mb-2"
                 >
                   <Form.Label className="mb-0">生日</Form.Label>
-                  <Form.Control
+                  {/* <Form.Control
                     type="text"
                     name="year"
                     placeholder="西元年"
                     className="text-end"
                     onChange={handleChange}
-                  />
+                  /> */}
+                  
                 </Form.Group>
-                <Form.Group
+                {/* <Form.Group
                   as={Col}
                   md="4"
                   xs="4"
@@ -269,7 +280,15 @@ export default function Login({ formType, setFormType }) {
                     className="text-end"
                     onChange={handleChange}
                   />
-                </Form.Group>
+                </Form.Group> */}
+                <DatePicker
+                borderRadius='semi-square'
+            id="datePicker-19"
+            placeholder="選擇生日"
+            value={birthday.date}
+            onChange={date => setBirthday({ date })}
+            icon={<FontAwesomeIcon icon={faCalendar} />}
+        />
               </Row>
               <Row>
                 <Form.Group

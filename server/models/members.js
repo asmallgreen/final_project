@@ -25,6 +25,13 @@ import {
   const createBulkUsers = async (members) => await insertMany(table, members)
   const deleteUserById = async (id) => await remove(table, { id })
   
+  // 檢查使用者帳號密碼是否已註冊
+  const checkAccount = async ({account}) => {
+    Boolean(await count(table,{account}))
+  }
+  const checkEmail = async ({email}) => {
+    Boolean(await count(table,{email}))
+  }
   // 針對PUT更新user資料
   const updateUserById = async (member, id) => await updateById(table, member, id)
   const updateUser = async (member) => await updateById(table, member, member.id)
@@ -51,4 +58,6 @@ import {
     updateUser,
     updateUserById,
     verifyUser,
+    checkAccount,
+    checkEmail,
   }
