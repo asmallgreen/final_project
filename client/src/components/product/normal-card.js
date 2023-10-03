@@ -17,7 +17,8 @@
 
 
 import React from "react";
-export default function NormalCard() {
+export default function NormalCard(props) {
+  const { title } = props;
   return (
     <>
       <div className="card">
@@ -27,7 +28,7 @@ export default function NormalCard() {
         </div>
         <div className="content">
           <div className="product-name">
-            特選黑羽雞翅汝拉箭
+            {title}
           </div>
           <div className="description">汝拉箭6枚1913年 (5)</div>
           <div className="price text-end">$1500</div>

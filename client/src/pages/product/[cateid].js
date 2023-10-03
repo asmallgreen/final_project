@@ -7,19 +7,9 @@ import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import LunaPagination from "@/components/pagination/luna-pagination";
 import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
 import FilterBtns from "@/components/product/filter-btns";
-import axios from "axios";
-
 function Product(props) {
   const [filterTitle, setFilterTitle] = useState("所有商品");
   const category = filterTitle;
-  const [cateData, setCateData] = useState(null)
-
-  const handleCate = async (e)=>{
-    const res = await axios.get('http://localhost:3005/product/:cateid',{cateData},
-    {
-      withCredentials:true
-    })
-  }
   return (
     <>
       {/* 商品廣告 */}
@@ -61,12 +51,10 @@ function Product(props) {
             onClick={() => {
               const newTitle = "所有「弓」相關的商品";
               setFilterTitle(newTitle);
-              
             }}
           >
             <img src=""></img>
-            <a href="/product/category1" onClick={()=>{
-            handleCate();setCateData(1)}}>弓</a>
+            <a href="">弓</a>
           </div>
           <div
             className="item"

@@ -40,8 +40,8 @@
         visibility: hidden;
         z-index: 90;
         top: 90px;
-        right: calc(50% - 500px);
-        width: 1000px;
+        right: calc(50vw - 970px);
+        width: 100vw;
         height: 300px;
         .box {
           position: relative;
@@ -85,8 +85,8 @@
         display: none;
         z-index: 89;
         top: 70px;
-        right: calc(50% - 500px);
-        width: 1000px;
+        right: calc(50% - 50vw);
+        width: 100vw;
         height: 300px;
         background-color: $primary;
         opacity: 75%;
