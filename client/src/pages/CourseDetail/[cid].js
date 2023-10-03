@@ -1,7 +1,5 @@
-// 20231003後 以[cid].js取代本檔案
-
 import React from "react";
-import { ConfigProvider, Tabs, theme } from "antd";
+import { ConfigProvider, Tabs, Rate } from "antd";
 import StickyBox from "react-sticky-box";
 
 // 引入Tabs頁面
@@ -99,11 +97,7 @@ export default function CourseDetail() {
               <div className="course-rating">
                 <h2 className="price">NT$8000</h2>
                 <div className="stars">
-                  <div className="star">1</div>
-                  <div className="star">2</div>
-                  <div className="star">3</div>
-                  <div className="star">4</div>
-                  <div className="star">5</div>
+                  <Rate disabled defaultValue={2} />
                   <div className="counting">888人已評價</div>
                 </div>
               </div>
@@ -149,14 +143,14 @@ export default function CourseDetail() {
               },
             }}
           >
-              <Tabs
-                type="primary"
-                centered
-                defaultActiveKey="1"
-                renderTabBar={renderTabBar}
-                items={items}
-                onChange={onChange}
-              />
+            <Tabs
+              type="primary"
+              centered
+              defaultActiveKey="1"
+              renderTabBar={renderTabBar}
+              items={items}
+              onChange={onChange}
+            />
           </ConfigProvider>
         </div>
       </div>
