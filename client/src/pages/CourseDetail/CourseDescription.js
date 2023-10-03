@@ -4,7 +4,7 @@ export default function CourseDescription() {
 
     return(
         <>
-            <h1>這是課程介紹</h1>
+            <h1 className="description-container">這是課程介紹</h1>
         </>
     )
 }

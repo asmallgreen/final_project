@@ -11,13 +11,14 @@
       .course-detail-img {
         background-image: url(https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image1.png?raw=true);
         width: 621px;
-        height: 673px;
+        height: 670px;
+        background-size: cover;
       }
     }
     .right {
       // background: lightpink;
       width: calc(100% - 621px - 80px);
-      height: 673px;
+      // max-height: 673px;
       margin-left: 80px;
       // 處理btns的位置
       display: flex;
@@ -32,7 +33,8 @@
         }
         .intro {
           font-size: 16px;
-          margin-block: 40px;
+          margin-block: 43px;
+          max-height: 240px;
         }
       }
       .course-detail-items {
@@ -82,7 +84,12 @@
       }
     }
   }
-  .course-detail-tabs {
-    margin-top: 60px;
-  }
+
+}
+.course-detail-tabs {
+  margin-top: 60px;
+}
+
+.description-container{
+  height: 200vh;
 }

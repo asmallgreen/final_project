@@ -1,5 +1,6 @@
 import React from "react";
-import { ConfigProvider, Tabs } from "antd";
+import { ConfigProvider, Tabs, theme } from "antd";
+import StickyBox from "react-sticky-box";
 
 // 引入Tabs頁面
 import CourseDescription from "./CourseDescription";
@@ -41,6 +42,25 @@ const items = [
 ];
 
 export default function CourseDetail() {
+  //處理antd的tabBar的sticky效果
+
+  const renderTabBar = (props, DefaultTabBar) => (
+    <StickyBox
+      offsetTop={0}
+      offsetBottom={20}
+      style={{
+        zIndex: 1,
+      }}
+    >
+      <DefaultTabBar
+        {...props}
+        style={{
+          background: "#FCFAF2",
+          zIndex: 1,
+        }}
+      />
+    </StickyBox>
+  );
   return (
     <div className="course-detail-body">
       <div className="container">
@@ -114,12 +134,12 @@ export default function CourseDetail() {
 
               components: {
                 Tabs: {
-                  cardBg: "parent",
+                  // cardBg: "#000000",
                   //   horizontalItemGutter: 50,
                   titleFontSize: "18px",
                   itemColor: "#000",
                   inkBarColor: "#616153",
-                  itemActiveColor: "#000",
+                  itemActiveColor: "# ",
                   itemHoverColor: "#000",
                   itemSelectedColor: "#000",
                   horizontalItemPadding: "12px 60px",
@@ -127,13 +147,14 @@ export default function CourseDetail() {
               },
             }}
           >
-            <Tabs
-              type="primary"
-              centered
-              defaultActiveKey="1"
-              items={items}
-              onChange={onChange}
-            />
+              <Tabs
+                type="primary"
+                centered
+                defaultActiveKey="1"
+                renderTabBar={renderTabBar}
+                items={items}
+                onChange={onChange}
+              />
           </ConfigProvider>
         </div>
       </div>
