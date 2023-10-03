@@ -87,6 +87,7 @@ app.get('/', (req, res)=>{
   res.send("首頁")
 })
 app.use('/member', authJwtRouter)
+
 // app.use('/api/auth', authRouter)
 // app.use('/api/email', emailRouter)
 // app.use('/api/products', productsRouter)

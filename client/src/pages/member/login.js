@@ -38,31 +38,20 @@ export default function Login() {
 
   // 會員登入表單提交函數
   const handleSubmit = async (e) => {
-    // const form = e.currentTarget;
-    e.preventDefault();
+    const form = e.currentTarget;
+    
+    
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
 
-
-    // if (form.checkValidity() === false) {
-    //   e.stopPropagation();
-    //   setValidated(true);
-    //   // return;
-    // }
-
-    // const {account, password} = loginData;
     try{
       const res = await axios.post('http://localhost:3005/member/login',
       loginData,
       {withCredentials:true})
-      
-      // setToken(res.data.token);
-      // const decodecToken = jwtDecode(res.data.taken)
-      // setAuthJWT({
-      //   isAuth: true,
-      //   memberData: {
-      //       decodedToken
-      //   }
-      // }
-      // )
+
       console.log(res.data);
       console.log(parseJwt(res.data.accessToken));
       if (res.data.message === 'login success') {

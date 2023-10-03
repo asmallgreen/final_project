@@ -180,6 +180,7 @@
     position: absolute;
     top: 5px;
     right: 10px;
+    z-index: 10;
   }
 }
 
@@ -258,6 +259,27 @@
         }
       }
     }
+  @media (max-width:393px){
+    display: block;
+    margin: 10px;
+    .course-list-img {
+      background: lightblue;
+      width: 336px;
+      height: 224px;
+    }
+    .course-list-text {
+      background: lightyellow;
+      width: 336px;
+      height: 280px;
+      padding-inline: 20px;
+      .title {
+        font-size: 22px;
+        padding: 2px 0px;
+        font-weight: 600;
+        height: 40px;
+      }
+    }
+  }
   }
 }
 
