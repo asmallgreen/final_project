@@ -3,7 +3,7 @@ import React from "react";
 export default function CourseDescription() {
   return (
     <>
-      <div className="description-container container my-5 px-5">
+      <div className="description-container container">
         「初探：射法八節」課程旨在為射箭愛好者和初學者提供全面的射箭體驗。
         <br/><br/>
         射箭作為一項古老而優雅的運動，不僅考驗著技巧，還培養了專注力、精確度和自我控制等品質。

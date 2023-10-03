@@ -139,6 +139,7 @@ export default function CourseDetail() {
                   itemHoverColor: "#000",
                   itemSelectedColor: "#000",
                   horizontalItemPadding: "12px 60px",
+                  horizontalMargin:"0 0 100px 0"
                 },
               },
             }}
