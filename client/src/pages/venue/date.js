@@ -11,7 +11,7 @@ export default function index() {
                     <img className='' src='/images/venue/場地流程ui-日期選擇.png'></img>
                 </div>
                 <div className='calendar-test1'>
-                    <a href="/venue/date/reserve/" className='calendar-test2'>
+                    <a href="/venue/reserve/" className='calendar-test2'>
                         日期選擇器
                     </a>
                 </div>
