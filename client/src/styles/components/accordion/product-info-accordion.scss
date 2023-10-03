@@ -1,4 +1,3 @@
-
 --bs-accordion-active-color .product-info-title {
   display: flex;
   justify-content: space-between;
@@ -13,17 +12,21 @@
   --bs-accordion-border-color: none;
 }
 .accordion-item {
-  border: transparent;
-  
+  border: transparent !important;
+  // border-bottom: 1px solid $secondary !important;
 }
 .accordion-button {
-  color: #fcfaf2;
-  font-size: 30px;
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 10px 0 10px 25px !important;
+  color: $secondary !important;
+  border-bottom: 1px solid $secondary !important;
+  font-size: 30px !important;
   &[aria-expanded="true"] {
-    border-bottom: 1px dashed $secondary;
+    border-bottom: 1px dashed $secondary !important;
     font-weight: bold;
-  //  background-color: #91918b;
-  //  color: $primary;
+    //  background-color: #91918b;
+    //  color: $primary;
   }
   ::after {
     color: #fcfaf2;
@@ -33,12 +36,13 @@
 .accordion-header {
   margin-top: 30px;
   border-bottom: transparent;
-  background-color: #616153;
+  // background-color: #616153;
   color: #fcfaf2;
-
 }
 
 .accordion-body {
+  max-width: 1220px;
+  margin: 0 auto;
   background-color: #ffffff;
   font-size: 25px;
   color: $secondary;
@@ -48,6 +52,28 @@
     padding-left: 60px;
     li {
       padding-block: 10px;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .accordion-button {
+    font-size: 16px !important;
+    ::after {
+      font-size: 16px;
+    }
+  }
+  .accordion-header {
+    margin-top: 16px;
+    border-bottom: transparent;
+  }
+  .accordion-body {
+    font-size: 16px;
+    padding-left: 10px;
+    ol {
+      padding-left: 20px;
+      li {
+        padding-block: 5px;
+      }
     }
   }
 }

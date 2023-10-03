@@ -45,10 +45,19 @@
 //商品詳情屬性
 @import"./components/product/attributes.scss";
 
-//商品詳情button
-@import"./components/product/fav-btn.scss";
-@import"./components/product/cart-btn.scss";
-@import"./components/product/quantity-btn.scss";
-
 //商品篩選
 @import"./components/product/filter-btns.scss";
+
+//商品詳情(右邊區塊)
+@import"./components/category/description.scss";
+@import"./components/category/quantity-btn.scss";
+
+//商品詳情button
+@import"./components/category/fav-btn.scss";
+@import"./components/category/cart-btn.scss";
+@import"./components/category/quantity-btn.scss";
+
+//商品詳情 屬性們
+@import"./components/attributes/material.scss";
+@import"./components/attributes/length.scss";
+@import"./components/attributes/diameter.scss";
