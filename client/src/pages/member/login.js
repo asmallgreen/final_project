@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import {Container, Form, InputGroup, Col, Row, Button} from 'react-bootstrap'
+import { Form,  Col, Row, Button} from 'react-bootstrap'
 import Link from 'next/link'
 import ForgotPwd from '@/components/login/forgotpwd';
 import axios from 'axios'
 import { useAuthJWT } from '@/hooks/use-auth-jwt';
-import jwtDecode from 'jwt-decode';
 import { useRouter } from 'next/router';
+// import "dotenv/config.js";
 
 
 export default function Login() {
@@ -50,7 +50,10 @@ export default function Login() {
     try{
       const res = await axios.post('http://localhost:3005/member/login',
       loginData,
-      {withCredentials:true})
+      {
+        withCredentials:true,
+        data:loginData
+      })
 
       console.log(res.data);
       console.log(parseJwt(res.data.accessToken));

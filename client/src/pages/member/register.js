@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {
-  Container,
   Form,
-  InputGroup,
   Col,
   Row,
   Button,
-  FloatingLabel,
 } from "react-bootstrap";
 import Link from "next/link";
 import Swal from "sweetalert2";
@@ -14,6 +11,10 @@ import axios from "axios";
 import { DatePicker } from 'react-rainbow-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { useAuthJWT } from '@/hooks/use-auth-jwt';
+import { useRouter } from 'next/router';
+// import "dotenv/config.js";
+
 
 export default function Login({ formType, setFormType }) {
   // react 表單檢查(不可空白欄位)
@@ -46,8 +47,18 @@ export default function Login({ formType, setFormType }) {
   }
   // 抓到生日的 Date 寫入 member 物件
   const handleBirthdateChange = (date) => {
-    // 將選擇的日期存在 member 的 birthday 屬性中
-    setMember({ ...member, birthday: date });
+    // 先將 data 放入 Birthday的狀態儲存
+    setBirthday({date})
+    // console.log({date});
+    // 轉換{date}物件的格式
+    const birthdate = new Date(date)
+    const year = birthdate.getFullYear()
+    const month = (birthdate.getMonth() + 1).toString().padStart(2, "0");
+    const day = birthdate.getDate().toString().padStart(2, "0");
+    const formattedBirthdate = `${year}-${month}-${day}`
+    // console.log(formattedBirthdate);
+    // 再將日期存在 member 的 birthday 屬性中
+    setMember({ ...member, birthday: formattedBirthdate });
   };
 
   useEffect(() => {
@@ -57,6 +68,15 @@ export default function Login({ formType, setFormType }) {
       setPasswordCheck(true);
     }
   }, [member.password, member.repassword]);
+
+
+  const {authJWT, setAuthJWT} = useAuthJWT()
+  const parseJwt = (token) => {
+    const base64Payload = token.split('.')[1]
+    const payload = Buffer.from(base64Payload, 'base64')
+    return JSON.parse(payload.toString())
+  }
+  const router = useRouter()
 
   // 表單提交時檢查input並用try catch寫入資料庫
   const handleRegisterSubmit = async (e) => {
@@ -96,18 +116,26 @@ export default function Login({ formType, setFormType }) {
         }
       );
       console.log(res.data);
-      await Swal.fire({
-        icon: 'success',
-        title: '註冊成功',
-        showConfirmButton: false,
-        timer: 1500,
-        backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: '35%',
-        padding: '0 0 1.25em',
-        customClass: {
-          popup: 'shadow-sm',
-        },
-      })
+      
+      if(res.data.message === 'register success'){
+        setAuthJWT({
+          isAuth:true,
+          memberData:parseJwt(res.date.accessToken)
+        })
+      //   await Swal.fire({
+      //   icon: 'success',
+      //   title: '註冊成功',
+      //   showConfirmButton: false,
+      //   timer: 1500,
+      //   backdrop: `rgba(255, 255, 255, 0.55)`,
+      //   width: '35%',
+      //   padding: '0 0 1.25em',
+      //   customClass: {
+      //     popup: 'shadow-sm',
+      //   },
+      // })
+        router.push(process.env.BASE_URL || '/')
+      }
     } catch (error) {
       console.log(error);
     }
@@ -286,7 +314,7 @@ export default function Login({ formType, setFormType }) {
             id="datePicker-19"
             placeholder="選擇生日"
             value={birthday.date}
-            onChange={date => setBirthday({ date })}
+            onChange={handleBirthdateChange}
             icon={<FontAwesomeIcon icon={faCalendar} />}
         />
               </Row>
