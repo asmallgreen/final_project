@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect} from "react";
 import {
   Form,
   Col,
@@ -22,7 +22,14 @@ export default function Login({ formType, setFormType }) {
   // 是否點選了記住我
   const [rememberMeChecked, setRememberMeChecked] = useState(true);
   // 檢查第二次輸入的密碼是否與第一次輸入的一致
-  const [passwordCheck, setPasswordCheck] = useState(false);
+  const [passwordCheck, setPasswordCheck] = useState('');
+  const [elememtId, setElementId] = useState()
+  // 驗證密碼的正規表達式
+  const passwordRegex =  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/;
+  // 驗證信箱的正規表達式
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  // 驗證手機號碼的正規表達式
+  const taiwanPhoneNumberRegex = /^09\d{8}$/;
   // 抓到選擇的生日
   const [birthday, setBirthday] = useState(new Date())
   // 註冊時寫入後端資料庫的會員欄位內容
@@ -44,6 +51,57 @@ export default function Login({ formType, setFormType }) {
   // 抓到表單內填寫的內容寫進member物件
   function handleChange(e) {
     setMember({ ...member, [e.target.name]: e.target.value });
+  }
+// 額外驗證密碼的正規表達式
+  const handlepwdReg = (e) => {
+    const pwdReg = passwordRegex.test(member.password)
+    if(!pwdReg){
+      Swal.fire({
+      icon: "error",
+      title: "請輸入至少6位英文大小寫及數字",
+      showConfirmButton: false,
+      timer: 1500,
+      backdrop: `rgba(255, 255, 255, 0.55)`,
+      width: "35%",
+      padding: "0 0 3.25em",
+      customClass: {
+        popup: "shadow-sm",
+      },
+    });;}
+  }
+  // 驗證 email 的正規表達式
+  const handleEmailReg =(e)=>{
+    const emailReg = emailRegex.test(member.email)
+    if(!emailReg){
+      Swal.fire({
+      icon: "error",
+      title: "請輸入有效的信箱格式",
+      showConfirmButton: false,
+      timer: 1500,
+      backdrop: `rgba(255, 255, 255, 0.55)`,
+      width: "35%",
+      padding: "0 0 3.25em",
+      customClass: {
+        popup: "shadow-sm",
+      },
+    });}
+  }
+  // 驗證手機號碼的正規表達式
+  const handlePhoneReg =(e)=>{
+    const phoneReg = taiwanPhoneNumberRegex.test(member.phone)
+    if(!phoneReg){
+      Swal.fire({
+      icon: "error",
+      title: "請輸入有效的手機號碼格式",
+      showConfirmButton: false,
+      timer: 1500,
+      backdrop: `rgba(255, 255, 255, 0.55)`,
+      width: "35%",
+      padding: "0 0 3.25em",
+      customClass: {
+        popup: "shadow-sm",
+      },
+    });}
   }
   // 抓到生日的 Date 寫入 member 物件
   const handleBirthdateChange = (date) => {
@@ -69,6 +127,15 @@ export default function Login({ formType, setFormType }) {
     }
   }, [member.password, member.repassword]);
 
+  useEffect(()=>{
+    setElementId('input-1')
+  },[])
+  useEffect(() => {
+      const dateInput = document.querySelector('.hmgnAx');
+      if (dateInput) {
+        dateInput.id = elememtId;
+      }
+  }, [elememtId]);
 
   const {authJWT, setAuthJWT} = useAuthJWT()
   const parseJwt = (token) => {
@@ -81,24 +148,24 @@ export default function Login({ formType, setFormType }) {
   // 表單提交時檢查input並用try catch寫入資料庫
   const handleRegisterSubmit = async (e) => {
     const form = e.currentTarget;
+    e.preventDefault();
 
     if (form.checkValidity() === false) {
       // 先檢查是否有填寫必填欄位
-      e.preventDefault();
       e.stopPropagation();
     } else if (member.password !== member.repassword) {
       // 這裡檢查密碼是否填寫一致
       e.preventDefault();
       e.stopPropagation();
       setPasswordCheck(false);
-      Swal.fire({
+      await Swal.fire({
         icon: "error",
         title: "密碼填寫不一致",
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
         width: "35%",
-        padding: "0 0 1.25em",
+        padding: "0 0 3.25em",
         customClass: {
           popup: "shadow-sm",
         },
@@ -116,24 +183,56 @@ export default function Login({ formType, setFormType }) {
         }
       );
       console.log(res.data);
-      
+      if(res.data.message === "帳號已有人使用"){
+        console.log('條件成立');
+        await Swal.fire({
+        icon: 'error',
+        title: '此帳號已有人使用',
+        showConfirmButton: false,
+        timer: 1500,
+        backdrop: `rgba(255, 255, 255, 0.55)`,
+        width: '35%',
+        padding: '0 0 3.25em',
+        customClass: {
+          popup: 'shadow-sm',
+        },
+      })
+      return
+      }
+      if(res.data.message === "信箱已被註冊過"){
+        console.log('條件成立');
+        await Swal.fire({
+        icon: 'error',
+        title: '此信箱已被註冊',
+        showConfirmButton: false,
+        timer: 1500,
+        backdrop: `rgba(255, 255, 255, 0.55)`,
+        width: '35%',
+        padding: '0 0 3.25em',
+        customClass: {
+          popup: 'shadow-sm',
+        },
+      })
+      return
+      }
       if(res.data.message === 'register success'){
         setAuthJWT({
           isAuth:true,
-          memberData:parseJwt(res.date.accessToken)
+          memberData:parseJwt(res.data.accessToken)
         })
-      //   await Swal.fire({
-      //   icon: 'success',
-      //   title: '註冊成功',
-      //   showConfirmButton: false,
-      //   timer: 1500,
-      //   backdrop: `rgba(255, 255, 255, 0.55)`,
-      //   width: '35%',
-      //   padding: '0 0 1.25em',
-      //   customClass: {
-      //     popup: 'shadow-sm',
-      //   },
-      // })
+        await Swal.fire({
+        icon: 'success',
+        title: '註冊成功',
+        showConfirmButton: false,
+        timer: 1500,
+        backdrop: `rgba(255, 255, 255, 0.55)`,
+        width: '35%',
+        padding: '0 0 3.25em',
+        customClass: {
+          popup: 'shadow-sm',
+        },
+      })
+      console.log(process.env.BASE_URL || '/');
         router.push(process.env.BASE_URL || '/')
       }
     } catch (error) {
@@ -202,6 +301,7 @@ export default function Login({ formType, setFormType }) {
                     name="password"
                     placeholder="請輸入至少6位英文大小寫及數字"
                     onChange={handleChange}
+                    onBlur={handlepwdReg}
                   />
                   <Form.Control.Feedback type="invalid">
                     請輸入密碼
@@ -331,6 +431,7 @@ export default function Login({ formType, setFormType }) {
                     type="mail"
                     name="email"
                     onChange={handleChange}
+                    onBlur={handleEmailReg}
                   />
                   <Form.Control.Feedback type="invalid">
                     請輸入Email
@@ -344,15 +445,16 @@ export default function Login({ formType, setFormType }) {
                   controlId="validationCustom10"
                   className="mb-2"
                 >
-                  <Form.Label className="mb-0">電話</Form.Label>
+                  <Form.Label className="mb-0">手機號碼</Form.Label>
                   <Form.Control
                     required
                     type="tel"
                     name="phone"
                     onChange={handleChange}
+                    onBlur={handlePhoneReg}
                   />
                   <Form.Control.Feedback type="invalid">
-                    請輸入電話
+                    請輸入手機號碼
                   </Form.Control.Feedback>
                 </Form.Group>
               </Row>

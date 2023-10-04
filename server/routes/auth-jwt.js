@@ -136,62 +136,62 @@ router.post("/logout-ssl-proxy", authenticate, (req, res) => {
 });
 
 // 註冊頁面 --------------------------------------------------
-// router.post("/register", async (req, res) => {
-//   console.log("使用者填入的註冊資料:", req.body);
-//   // 先檢查帳號跟信箱是否已註冊過
-//   const member = req.body;
-//   // 檢查是否為空物件
-//   if (isEmpty(member)) {
-//     return res.json({ message: "member is empty", code: "400" });
-//   }
+router.post("/register", async (req, res) => {
+  console.log("使用者填入的註冊資料:", req.body);
+  // 先檢查帳號跟信箱是否已註冊過
+  const member = req.body;
+  // 檢查是否為空物件
+  if (isEmpty(member)) {
+    return res.json({ message: "member is empty", code: "400" });
+  }
 
-//   // 檢查帳號及信箱是否已註冊過
-//   const checkAccount = await getCount({ account: member.account });
-//   if (checkAccount) {
-//     return res.json({ message: "帳號已有人使用", code: "400" });
-//   }
-//   const checkEmail = await getCount({ email: member.email });
-//   if (checkEmail) {
-//     return res.json({ message: "信箱已被註冊過", code: "400" });
-//   }
-//   // 檢查完存入資料庫
-//   try {
-//     delete member.repassword;
-//     const hashedPassword = await argon2.hash(member.password);
-//     member.password = hashedPassword;
-//     // 抓到當下時間
-//     const currentDateTime = new Date();
-//     const created_at = currentDateTime.toISOString();
-//     member.creatd_at = created_at
-//     const newMember = await createUser(member);
-//     if (!newMember.insertId) {
-//       return res.json({ message: "fail", code: "400" });
-//     }
-//     // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
-//     delete newMember.password;
+  // 檢查帳號及信箱是否已註冊過
+  const checkAccount = await getCount({ account: member.account });
+  if (checkAccount) {
+    return res.json({ message: "帳號已有人使用", code: "400" });
+  }
+  const checkEmail = await getCount({ email: member.email });
+  if (checkEmail) {
+    return res.json({ message: "信箱已被註冊過", code: "400" });
+  }
+  // 檢查完存入資料庫
+  try {
+    delete member.repassword;
+    const hashedPassword = await argon2.hash(member.password);
+    member.password = hashedPassword;
+    // 抓到當下時間
+    const currentDateTime = new Date();
+    const created_at = currentDateTime.toISOString();
+    member.created_at = created_at
+    const newMember = await createUser(member);
+    if (!newMember.insertId) {
+      return res.json({ message: "fail", code: "400" });
+    }
+    // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
+    delete newMember.password;
 
-//     // 產生存取令牌(access token)，其中包含會員資料
-//     const accessToken = jsonwebtoken.sign(
-//       { ...newMember, id: newMember.insertId },
-//       accessTokenSecret,
-//       {
-//         expiresIn: "24h",
-//       }
-//     );
+    // 產生存取令牌(access token)，其中包含會員資料
+    const accessToken = jsonwebtoken.sign(
+      { ...newMember, id: newMember.insertId },
+      accessTokenSecret,
+      {
+        expiresIn: "24h",
+      }
+    );
 
-//     // 使用httpOnly cookie來讓瀏覽器端儲存access token
-//     res.cookie("accessToken", accessToken, { httpOnly: true });
+    // 使用httpOnly cookie來讓瀏覽器端儲存access token
+    res.cookie("accessToken", accessToken, { httpOnly: true });
 
-//     // 傳送access token回應(react可以儲存在state中使用)
-//     res.json({
-//       message: "register success",
-//       code: "200",
-//       accessToken,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//   }
-//   // 註冊成功後讓使用者直接進入登入狀態
-// });
+    // 傳送access token回應(react可以儲存在state中使用)
+    res.json({
+      message: "register success",
+      code: "200",
+      accessToken,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  // 註冊成功後讓使用者直接進入登入狀態
+});
 
 export default router;

@@ -5,7 +5,6 @@ import ForgotPwd from '@/components/login/forgotpwd';
 import axios from 'axios'
 import { useAuthJWT } from '@/hooks/use-auth-jwt';
 import { useRouter } from 'next/router';
-// import "dotenv/config.js";
 
 
 export default function Login() {
@@ -39,10 +38,10 @@ export default function Login() {
   // 會員登入表單提交函數
   const handleSubmit = async (e) => {
     const form = e.currentTarget;
+    e.preventDefault();
     
     
     if (form.checkValidity() === false) {
-      e.preventDefault();
       e.stopPropagation();
     }
     setValidated(true);
@@ -62,7 +61,7 @@ export default function Login() {
           isAuth: true,
           memberData: parseJwt(res.data.accessToken),
         })
-        router.push('/member')
+        router.push(process.env.BASE_URL || '/')
       }
     }catch(error){
       console.log(error);
