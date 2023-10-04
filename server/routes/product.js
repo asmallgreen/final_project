@@ -65,8 +65,9 @@ router.get("/:cate", async (req, res) => {
       cateid = 4;
       break;
   }
+  // 判斷cateid 取得後端資料庫的資料
   const catedata = await getCate({ category_id: cateid });
-
+  console.log(`cateid:${cateid}`);
   // 定義資料庫表格名稱
   // console.log(catedata);
   // console.log(cate);
@@ -83,7 +84,7 @@ router.get("/", async (req, res) => {
   // const pid = req.params.pid;
   // 定義資料庫表格名稱
   const alldata = await getAllProduct();
-  console.log(alldata);
+  console.log(`alldata:${alldata}`);
   res.json({
     message: "getAllProduct success",
     code: "200",

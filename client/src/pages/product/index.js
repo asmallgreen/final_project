@@ -33,7 +33,7 @@ function Product() {
         // console.log(res.data);
         // console.log(res.data.products);
         setAllProduct(res.data.alldata);
-        // console.log(allProduct)
+        console.log(allProduct)
       } catch (error) {
         console.log(error);
       }
