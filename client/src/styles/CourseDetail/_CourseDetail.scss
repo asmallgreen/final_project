@@ -98,3 +98,34 @@
   overflow: hidden;
   transition: height 0.3s ease-in-out 0s;
 }
+
+// 大綱樣式
+.syllabus-container {
+  .row > * {
+    padding: 0;
+  }
+  .syllabus-container {
+    margin-top: 20px;
+  }
+
+  .table-header {
+    font-weight: bold;
+    background-color: #f0f0f0; /* 表头背景颜色 */
+    padding: 10px;
+    text-align: center;
+  }
+
+  .table-data {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd; /* 表格边框 */
+  }
+
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .table-header,
+    .table-data {
+      padding: 5px; /* 减小内边距以适应小屏幕 */
+    }
+  }
+}
