@@ -84,7 +84,6 @@
       }
     }
   }
-
 }
 .course-detail-tabs {
   margin-top: 60px;
@@ -92,6 +91,10 @@
   padding-inline: 100px;
 }
 
-.description-container{
-  // font-size: 18px;
+.comment-card {
+}
+.h150px {
+  max-height: 150px;
+  overflow: hidden;
+  transition: height 0.3s ease-in-out 0s;
 }
