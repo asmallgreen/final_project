@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Link from "next/link";
 import { Row, Col } from "react-bootstrap";
 import NormalCard from "../../components/product/normal-card";
 import SalesCard from "@/components/product/sales-card";
@@ -7,21 +9,58 @@ import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import LunaPagination from "@/components/pagination/luna-pagination";
 import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
 import FilterBtns from "@/components/product/filter-btns";
-import axios from "axios";
 
-function Product(props) {
-  const [filterTitle, setFilterTitle] = useState("所有商品");
-  const category = filterTitle;
-  const [cateData, setCateData] = useState(null)
 
-  const handleCate = async (e)=>{
-    const res = await axios.get('http://localhost:3005/product/:cateid',{cateData},
-    {
-      withCredentials:true
-    })
-  }
+function Product() {
+  // const [productList ,setproductList] = useState(null);
+  // const [cateData, setCateData] = useState(null);
+  const [allProduct, setAllProduct] = useState([]);
+
+  // const handleProduct = async (e) => {
+  //   const res = await axios.get(
+  //     "http://localhost:3005/product",
+  //     {},
+  //     {
+  //       withCredentials: true,
+  //     }
+  //   );
+  //   console.log(res.data);
+  // };
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.get("http://localhost:3005/product", []);
+        // console.log(res.data);
+        // console.log(res.data.products);
+        setAllProduct(res.data.alldata);
+        // console.log(allProduct)
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    console.log(allProduct);
+  }, [allProduct]);
+
+  // const handleCate = async (e) => {
+  //   const res = await axios.get(
+  //     "http://localhost:3005/product",
+  //     { cateData },
+  //     {
+  //       withCredentials: true,
+  //     }
+  //   );
+  //   console.log(res.data);
+  //   if (res.data.message === "getAllProduct success") {
+  //     setAllProduct(res.data.product);
+  //   }
+  //   console.log(allProduct);
+  // };
   return (
     <>
+
       {/* 商品廣告 */}
       <Row className="ads">
         <Col md="3" className="ad">
@@ -56,47 +95,21 @@ function Product(props) {
       <div className="category position-relative">
         <div className="type-title">｜ 產品分類 ｜</div>
         <div className="type">
-          <div
-            className="item"
-            onClick={() => {
-              const newTitle = "所有「弓」相關的商品";
-              setFilterTitle(newTitle);
-              
-            }}
-          >
+          <div className="item">
             <img src=""></img>
-            <a href="/product/category1" onClick={()=>{
-            handleCate();setCateData(1)}}>弓</a>
+            <Link href="/product/bow">弓</Link>
           </div>
-          <div
-            className="item"
-            onClick={() => {
-              const newTitle = "所有「箭」相關的商品";
-              setFilterTitle(newTitle);
-            }}
-          >
+          <div className="item">
             <img src=""></img>
-            <a href="">箭</a>
+            <Link href="/product/arrow">箭</Link>
           </div>
-          <div
-            className="item"
-            onClick={() => {
-              const newTitle = "所有「道服」相關的商品";
-              setFilterTitle(newTitle);
-            }}
-          >
+          <div className="item">
             <img src=""></img>
-            <a href="">道服</a>
+            <Link href="/product/suit">道服</Link>
           </div>
-          <div
-            className="item"
-            onClick={() => {
-              const newTitle = "所有「其他」相關的商品";
-              setFilterTitle(newTitle);
-            }}
-          >
+          <div className="item">
             <img src=""></img>
-            <a href="">其他</a>
+            <Link href="/product/other">其他</Link>
           </div>
         </div>
       </div>
@@ -106,7 +119,7 @@ function Product(props) {
         <div className="container">
           <div className="all-product">
             <div className="p-0">
-              <p>{filterTitle}</p>
+              <p>所有商品</p>
             </div>
             <div className="p-0">
               <FilterBtns />
@@ -115,18 +128,30 @@ function Product(props) {
         </div>
       </div>
       <div className="container">
-        <BreadCrumb breadCate={category} />
+        <BreadCrumb currentCate="所有商品" />
       </div>
       {/* 所有產品card */}
+{/* 
+      <div>
+        {allProduct.map((product) => {
+          return <div key={product.id}>{product.name}</div>;
+        })}
+      </div> */}
+
+
       <Row className="filter-cards-area">
         <Col md="auto" className="filter-cards">
           <Row className="rows">
+            {allProduct.map((productData) => {
+              return (
+                <FilterProductCard  key={productData.id} filterProduct={productData}/>
+              )
+            })}
+
+            {/* <FilterProductCard />
             <FilterProductCard />
             <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard />
+            <FilterProductCard /> */}
           </Row>
         </Col>
       </Row>
@@ -190,6 +215,7 @@ function Product(props) {
       <div className="product-under-space"></div>
 
       {/* *************TEST**************** */}
+      <p></p>
     </>
   );
 }

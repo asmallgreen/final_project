@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 
 export default function BreadCrumb(props) {
-  const {  product, breadCate }  = props;
+  const {  currentCate }  = props;
   return (
     <>
       <div className="bread-crumb d-flex align-items-center">
@@ -14,13 +14,13 @@ export default function BreadCrumb(props) {
         </div>
         <div className="crumb-item">
           <Link href="/product" className="crumb-link">
-            商店{product}
+            商店{}
           </Link>
           &gt;
         </div>
         <div className="crumb-item">
           <Link href="/product" className="crumb-link">
-            {breadCate}
+            {currentCate}
           </Link>
         </div>
       </div>

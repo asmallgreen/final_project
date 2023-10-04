@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { useRouter } from "next/router";
+import Link from "next/link";
 import { Row, Col } from "react-bootstrap";
 import NormalCard from "../../components/product/normal-card";
 import SalesCard from "@/components/product/sales-card";
@@ -7,11 +10,70 @@ import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import LunaPagination from "@/components/pagination/luna-pagination";
 import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
 import FilterBtns from "@/components/product/filter-btns";
-function Product(props) {
-  const [filterTitle, setFilterTitle] = useState("所有商品");
-  const category = filterTitle;
+function Product() {
+  const [cateProduct, setCateProduct] = useState([]);
+  const [category, setCategory] = useState('所有商品');
+  const router = useRouter();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const cate= 'bow'
+        const res = await axios.get(`http://localhost:3005/product/${cate}`, []);
+        console.log(res.data);
+        // console.log(res.data.products);
+        // setCateProduct(res.data.catedata);
+        // console.log(allProduct)
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    console.log(cateProduct);
+  }, [cateProduct]);
+
+
+  useEffect(()=>{
+    const aaa = router.pathname;
+console.log(aaa)
+  // 取得當前網頁的網址
+  const currentUrl = router.asPath;
+  console.log(currentUrl)
+  let newCate = category;
+  switch (currentUrl) {
+    case "/product/bow":
+      newCate = "所有「弓」相關商品";
+      break;
+    case "/product/arrow":
+      newCate = "所有「箭」相關商品";
+      break;
+    case "/product/suit":
+      newCate = "所有「道服」相關商品";
+      break;
+    case "/product/other":
+      newCate = "所有「其他」相關商品";
+      break;
+    default:
+      newCate = "所有商品";
+      break;
+  }
+    setCategory(newCate)
+
+  }, [router.asPath, category]);
+
   return (
     <>
+      {/* test */}
+
+      <div>
+        {/* <p>當前網頁的網址是：{currentUrl}</p> */}
+        {/* <p>當前的newCate：{newCate}</p> */}
+        <p>當前的setCategory：{category}</p>
+      </div>
+
+      {/* //////////////////////////////////// */}
       {/* 商品廣告 */}
       <Row className="ads">
         <Col md="3" className="ad">
@@ -46,45 +108,21 @@ function Product(props) {
       <div className="category position-relative">
         <div className="type-title">｜ 產品分類 ｜</div>
         <div className="type">
-          <div
-            className="item"
-            onClick={() => {
-              const newTitle = "所有「弓」相關的商品";
-              setFilterTitle(newTitle);
-            }}
-          >
+          <div className="item">
             <img src=""></img>
-            <a href="">弓</a>
+            <Link href="/product/bow">弓</Link>
           </div>
-          <div
-            className="item"
-            onClick={() => {
-              const newTitle = "所有「箭」相關的商品";
-              setFilterTitle(newTitle);
-            }}
-          >
+          <div className="item">
             <img src=""></img>
-            <a href="">箭</a>
+            <Link href="/product/arrow">箭</Link>
           </div>
-          <div
-            className="item"
-            onClick={() => {
-              const newTitle = "所有「道服」相關的商品";
-              setFilterTitle(newTitle);
-            }}
-          >
+          <div className="item">
             <img src=""></img>
-            <a href="">道服</a>
+            <Link href="/product/suit">道服</Link>
           </div>
-          <div
-            className="item"
-            onClick={() => {
-              const newTitle = "所有「其他」相關的商品";
-              setFilterTitle(newTitle);
-            }}
-          >
+          <div className="item">
             <img src=""></img>
-            <a href="">其他</a>
+            <Link href="/product/other">其他</Link>
           </div>
         </div>
       </div>
@@ -94,7 +132,7 @@ function Product(props) {
         <div className="container">
           <div className="all-product">
             <div className="p-0">
-              <p>{filterTitle}</p>
+              <p>{category}</p>
             </div>
             <div className="p-0">
               <FilterBtns />
@@ -103,18 +141,23 @@ function Product(props) {
         </div>
       </div>
       <div className="container">
-        <BreadCrumb breadCate={category} />
+        <BreadCrumb currentCate={category}/>
       </div>
       {/* 所有產品card */}
       <Row className="filter-cards-area">
         <Col md="auto" className="filter-cards">
           <Row className="rows">
+          {cateProduct.map((productData) => {
+              return (
+                <FilterProductCard  key={productData.id} filterProduct={productData}/>
+              )
+            })}
+            {/* <FilterProductCard />
             <FilterProductCard />
             <FilterProductCard />
             <FilterProductCard />
             <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard />
+            <FilterProductCard /> */}
           </Row>
         </Col>
       </Row>

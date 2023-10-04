@@ -1,18 +1,4 @@
 // 產品頁=>所有商品(包含篩選過)卡片樣式
-// 使用方法:
-// import { Row, Col } from "react-bootstrap";
-// <Row className="justify-content-md-center py-5">
-//   <Col md="auto" xs="2" className="cards d-flex offset-auto">
-//     <Row className="rows">
-//       <FilterProductCard />
-//       <FilterProductCard />
-//       <FilterProductCard />
-//       <FilterProductCard />
-//       <FilterProductCard />
-//       <FilterProductCard />
-//     </Row>
-//   </Col>
-// </Row>
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
@@ -21,12 +7,13 @@ import {
   faHeart as farHeart,
 } from "@fortawesome/free-solid-svg-icons";
 
-export default function FilterProductCard() {
+export default function FilterProductCard(props) {
+  const { filterProduct } = props
   return (
     <>
       <div className="card">
         <div className="img position-relative">
-          <img src=""></img>
+          <img src={filterProduct.img1}></img>
           <div className="tag position-absolute">NEW</div>
           <button className="p-0 position-absolute">
             <FontAwesomeIcon icon={faHeart} className="fa-heart" />
@@ -35,10 +22,10 @@ export default function FilterProductCard() {
         </div>
         <div className="content">
           
-            <div className="product-name">特選黑羽雞翅汝拉箭</div>
+            <div className="product-name">{filterProduct.name}</div>
           
           <div className="price d-flex justify-content-between my-1">
-            NT$ 8000
+          NT$ {filterProduct.price}
             <button className="">
               <FontAwesomeIcon
                 icon={faCartShopping}

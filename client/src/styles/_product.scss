@@ -78,7 +78,7 @@ body {
   .all-product {
     height: 95px;
     display: flex;
-    align-items: end;
+    align-items: flex-end;
     justify-content: space-between;
 
     p {
@@ -90,7 +90,7 @@ body {
     }
     .wrap {
       margin-bottom: 10px;
-      justify-content: end;
+      justify-content: flex-end;
     }
   }
 }
