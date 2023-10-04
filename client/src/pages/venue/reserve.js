@@ -32,14 +32,17 @@ export default function index() {
                     </div>
                 </div>
 
-
                 <div className='d-flex justify-content-center'>
-                    <button className='m-5 reserve-button1'>
-                        返回上一步
-                    </button>
-                    <button className='m-5 reserve-button2' type='submit'>
-                        下一步
-                    </button>
+                    <a href='/venue/date'>
+                        <button className='mx-4 mt-2 mb-5 reserve-bt1'>
+                            返回上一步
+                        </button>
+                    </a>
+                    <a href='/venue/check'>
+                        <button className='mx-4 mt-2 mb-5 reserve-bt2' type='submit'>
+                            下一步
+                        </button>
+                    </a>
                 </div>
 
 

@@ -2,18 +2,23 @@
     width: 700px;
     margin: 0 auto;
 }
-.reserve-button1{
+.reserve-bta{
+    text-decoration:none;
+}
+.reserve-bt1{
         width: 200px;
         height: 60px;
         border-width: 3px;
+        border-style: solid;
         background-color: #FFFCF3;
         border-color: #616153;
     }
-.reserve-button2{
+.reserve-bt2{
         width: 200px;
         height: 60px;
         color: #FFFCF3;
         border-width: 3px;
+        border-style: solid;
         background-color: #616153;
         border-color: #616153;
     }

@@ -18,11 +18,11 @@ export default function index() {
                     </div>
                     <hr></hr>
 
-                    <div className='m-5'>
+                    <div className='my-5'>
                         <div className='display-6 d-flex justify-content-center check-title'>
                             <div>感謝預約</div>
                         </div>
-                        <div className='h4 mt-5 d-flex justify-content-center'>
+                        <div className='h4 m-5 d-flex justify-content-center'>
                             <p>已完成預約，詳情可至會員中心查看</p>
                         </div>
                     </div>
