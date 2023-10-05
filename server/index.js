@@ -1,27 +1,27 @@
-import createError from 'http-errors'
-import express from 'express'
-import path from 'path'
+import createError from "http-errors";
+import express from "express";
+import path from "path";
 // import cookieParser from 'cookie-parser'
 // import logger from 'morgan'
-import cors from 'cors'
-import session from 'express-session'
+import cors from "cors";
+// import session from 'express-session'
 // 使用檔案的session store，存在sessions資料夾
-import sessionFileStore from 'session-file-store'
-const FileStore = sessionFileStore(session)
+// import sessionFileStore from 'session-file-store'
+// const FileStore = sessionFileStore(session)
 
 // 修正 __dirname for esm
-import { fileURLToPath } from 'url'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+import { fileURLToPath } from "url";
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 // end 修正 __dirname
 
 // 讓console.log可以呈現檔案與行號
-import { extendLog } from './utils/tool.js'
-extendLog() // 執行全域套用
+import { extendLog } from "./utils/tool.js";
+extendLog(); // 執行全域套用
 // console.log呈現顏色用 全域套用
-import 'colors'
+import "colors";
 // 檔案上傳
-import fileUpload from 'express-fileupload'
+import fileUpload from "express-fileupload";
 
 // import authJwtRouter from './routes/auth-jwt.js'
 // import authRouter from './routes/auth.js'
@@ -33,35 +33,39 @@ import fileUpload from 'express-fileupload'
 // import googleLoginRouter from './routes/google-login.js'
 // import lineLoginRouter from './routes/line-login.js'
 // import facebookLoginRouter from './routes/facebook-login.js'
-import courseRouter from './routes/course.js'
+import courseRouter from "./routes/course.js";
 // import favoriteRouter from './routes/favorite.js'
 
-const app = express()
+const app = express();
 
 // 檔案上傳
 // 選項參考: https://github.com/richardgirges/express-fileupload
-app.use(fileUpload())
+app.use(fileUpload());
 
 // 可以使用的CORS要求，options必要
 // app.use(cors())
 app.use(
   cors({
-    origin: ['http://localhost:3005', 'https://localhost:9000','https://localhost:3000'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    origin: [
+      "http://localhost:3005",
+      "https://localhost:9000",
+      "https://localhost:3000",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
-)
+);
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'pug')
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
 
 // app.use(logger('dev'))
-app.use(express.json())
+app.use(express.json());
 
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, "public")));
 
 // // fileStore的選項
 // const fileStoreOptions = {}
@@ -83,6 +87,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 // 路由使用
 // app.use('/api/', indexRouter)
+// app.get('/', (req, res)=>{
+//   res.send("首頁")
+// })
 // app.use('/api/auth-jwt', authJwtRouter)
 // app.use('/api/auth', authRouter)
 // app.use('/api/email', emailRouter)
@@ -93,25 +100,27 @@ app.use(express.static(path.join(__dirname, 'public')))
 // app.use('/api/line-login', lineLoginRouter)
 // app.use('/api/facebook-login', facebookLoginRouter)
 // app.use('/api/favorite', favoriteRouter)
-app.use('/course', courseRouter)
+app.use("/course", courseRouter);
 // catch 404 and forward to error handler
+
+// app.listen(3005, ()=>{
+//   console.log('server started on port http://localhost:3005');
+// })
+
 app.use(function (req, res, next) {
-  next(createError(404))
-})
+  next(createError(404));
+});
 
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development
-  res.locals.message = err.message
-  res.locals.error = req.app.get('env') === 'development' ? err : {}
+  res.locals.message = err.message;
+  res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
-  res.status(err.status || 500)
+  res.status(err.status || 500);
   // 更改為錯誤訊息預設為JSON格式
-  res.status(500).send({ error: err })
-})
+  res.status(500).send({ error: err });
+});
 
-app.listen(3005, ()=>{
-  console.log('server started on port http://localhost:3005');
-})
-export default app
+export default app;
