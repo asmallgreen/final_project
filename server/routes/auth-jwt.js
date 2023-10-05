@@ -226,9 +226,9 @@ if(!isMemberAccount){
   }
 
 const mailOptions = {
-  from: `"yoibow"<${process.env.SMTP_TO_EMAIL}>`,
+  from: `"良弓製販所"<${process.env.SMTP_TO_EMAIL}>`,
   to: 'k7891532002@gmail.com',
-  subject: '這是一封測試電子郵件',
+  subject: '良弓製販所-重新設定密碼',
   // html: `
   // <div>
   //     <a href=${process.env.FRONTEND_URL}/resetPassword/${mail}>請點此處重置密碼</a>
