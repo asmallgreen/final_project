@@ -1,0 +1,42 @@
+.rating-section {
+  background-color: $primary;
+  // max-height: 0;
+  transition: all 0.3s ease-in-out;
+
+  .comment-wrapper {
+    display: flex;
+    flex-direction: column;
+    // align-items:flex-start;
+    margin-inline-start: 40px;
+    margin-inline-end: 20px;
+    margin-block-start: 20px;
+    .star-area {
+      .star-component {
+        margin-left: 20px;
+      }
+    }
+    .text-area {
+      margin-block: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    textarea {
+      width: 100%;
+      height: 100px;
+      resize: none;
+    }
+  }
+
+  .btn {
+    align-self: flex-end;
+  }
+}
+
+.rating-section.close {
+display: none;
+}
+.rating-section.open {
+
+
+}
