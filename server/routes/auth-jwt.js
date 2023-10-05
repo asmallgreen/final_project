@@ -1,14 +1,18 @@
 import express from "express";
 const router = express.Router();
-
 import authenticate from "../middlewares/jwt.js";
 import jsonwebtoken from "jsonwebtoken";
+import nodemailer from 'nodemailer'
+import transporter from '../config/mail.js'
 
 import {
   verifyUser,
   getUser,
   createUser,
   getCount,
+  checkAccount,
+  checkEmail,
+  forgotPwdGetUser
 } from "../models/members.js";
 
 // 存取`.env`設定檔案使用
@@ -22,6 +26,8 @@ import { isEmpty } from "../utils/tool.js";
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 // const accessTokenSecret = 'thisisasecretkey'
 
+
+//--------------------------------------------------------
 router.get("/private", authenticate, (req, res) => {
   const memberData = req.member;
   return res.json({ message: "authorized", memberData });
@@ -194,4 +200,87 @@ router.post("/register", async (req, res) => {
   // 註冊成功後讓使用者直接進入登入狀態
 });
 
+// 忘記密碼 ------------------------------------------------------
+router.post('/forgotpwd', async(req, res)=>{
+  console.log('使用者填入的忘記密碼資料:',req.body)
+  const { account, email } = req.body
+  const isMemberAccount = await checkAccount(
+    {account}
+  )
+  console.log(isMemberAccount);
+if(!isMemberAccount){
+  return res.json({ message: 'no account', code: '400' })
+}
+  const isMemberEmail = await checkEmail(
+    {email}
+  )
+  console.log(isMemberEmail);
+
+  if(!isMemberEmail){
+    return res.json({ message: 'no email', code: '400' })
+  }
+  const isMember = await forgotPwdGetUser({account, email})
+  console.log(isMember);
+  if(!isMember){
+    return res.json({message:'信箱和帳號不匹配', code:'400'})
+  }
+
+const mailOptions = {
+  from: `"yoibow"<${process.env.SMTP_TO_EMAIL}>`,
+  to: 'k7891532002@gmail.com',
+  subject: '這是一封測試電子郵件',
+  // html: `
+  // <div>
+  //     <a href=${process.env.FRONTEND_URL}/resetPassword/${mail}>請點此處重置密碼</a>
+  //     <p>或是直接複製下列網址貼到瀏覽器上重置密碼</p>
+  //     <span>${process.env.FRONTEND_URL}/resetPassword/${mail}</span>
+  // </div>
+  //     `,
+}
+
+// 寄送
+transporter.sendMail(mailOptions, (err, response) => {
+  if (err) {
+    // 失敗處理
+    return res.status(400).json({ message: 'Failure', detail: err })
+  } else {
+    // 成功回覆的json
+    return res.json({ message: 'Success sending' })
+  }
+})
+
+// 使用 nodemailer
+// const transporter = nodemailer.createTransport({
+//   host: "smtp.forwardemail.net",
+//   port: 465,
+//   auth:{
+//     user:'k7891532002@gmai.com',
+//     pass:''
+//   }
+// })
+
+
+// 忘記密碼寄發驗證信
+// router.get('/send', function (req, res, next) {
+//   // email內容
+//   const mailOptions = {
+//     from: `"yoibow"<${process.env.SMTP_TO_EMAIL}>`,
+//     to: mail,
+//     subject: '這是一封測試電子郵件',
+//     text: `你好， \r\n通知你有關第一封郵件的事。\r\n\r\n敬上\r\n開發團隊`,
+//   }
+
+//   // 寄送
+//   transporter.sendMail(mailOptions, (err, response) => {
+//     if (err) {
+//       // 失敗處理
+//       return res.status(400).json({ message: 'Failure', detail: err })
+//     } else {
+//       // 成功回覆的json
+//       return res.json({ message: 'Success sending' })
+//     }
+//   })
+// })
+
+})
 export default router;

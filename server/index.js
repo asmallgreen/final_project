@@ -66,28 +66,33 @@ app.use(express.static(path.join(__dirname, 'public')))
 // fileStore的選項
 const fileStoreOptions = {}
 // session-cookie使用
-app.use(
-  session({
-    store: new FileStore(fileStoreOptions), // 使用檔案記錄session
-    name: 'SESSION_ID', // cookie名稱，儲存在瀏覽器裡
-    secret: '67f71af4602195de2450faeb6f8856c0', // 安全字串，應用一個高安全字串
-    cookie: {
-      maxAge: 30 * 86400000, // 30 * (24 * 60 * 60 * 1000) = 30 * 86400000 => session保存30天
-      // httpOnly: false,
-      // sameSite: 'none',
-    },
-    resave: false,
-    saveUninitialized: false,
-  })
-)
+// app.use(
+//   session({
+//     store: new FileStore(fileStoreOptions), // 使用檔案記錄session
+//     name: 'SESSION_ID', // cookie名稱，儲存在瀏覽器裡
+//     secret: '67f71af4602195de2450faeb6f8856c0', // 安全字串，應用一個高安全字串
+//     cookie: {
+//       maxAge: 30 * 86400000, // 30 * (24 * 60 * 60 * 1000) = 30 * 86400000 => session保存30天
+//       // httpOnly: false,
+//       // sameSite: 'none',
+//     },
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// )
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}))
 
 // 路由使用
 // app.use('/api/', indexRouter)
-app.get('/', (req, res)=>{
-  res.send("首頁")
-})
+// app.get('/', (req, res)=>{
+//   res.send("首頁")
+// })
 app.use('/member', authJwtRouter)
-
 // app.use('/api/auth', authRouter)
 // app.use('/api/email', emailRouter)
 // app.use('/api/products', productsRouter)

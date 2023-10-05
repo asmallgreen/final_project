@@ -23,7 +23,7 @@ export const AuthProviderJWT = ({ children }) => {
     // 登入頁路由
     const loginRoute = '/member/login'
     // 隱私頁面路由，未登入時會，檢查後跳轉至登入頁
-    const protectedRoutes = ['/member', '/member/update-profile', 'member/update-pwd', '/member/order-list', '/member/coupon', '/member/fav-product','/cart', ]
+    const protectedRoutes = ['/member', '/member/update-profile', '/member/update-pwd', '/member/order-list', '/member/coupon', '/member/fav-product','/cart', ]
 
 // 檢查會員認証用
 const checkAuth = async () => {

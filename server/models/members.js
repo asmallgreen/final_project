@@ -26,12 +26,16 @@ import {
   const deleteUserById = async (id) => await remove(table, { id })
   
   // 檢查使用者帳號密碼是否已註冊
-  const checkAccount = async ({account}) => {
+  const checkAccount = async ({account}) => 
     Boolean(await count(table,{account}))
-  }
-  const checkEmail = async ({email}) => {
+  
+  const checkEmail = async ({email}) => 
     Boolean(await count(table,{email}))
-  }
+  
+    const forgotPwdGetUser = async ({ account, email }) =>
+    Boolean(await count(table, { account, email }))
+
+
   // 針對PUT更新user資料
   const updateUserById = async (member, id) => await updateById(table, member, id)
   const updateUser = async (member) => await updateById(table, member, member.id)
@@ -42,8 +46,10 @@ import {
   
   const getUser = async ({ account, password }) =>
     await findOne(table, { account, password })
-  
+
+
   // 其它用途
+
   const cleanAll = async () => await cleanTable(table)
   
   export {
@@ -60,4 +66,5 @@ import {
     verifyUser,
     checkAccount,
     checkEmail,
+    forgotPwdGetUser
   }
