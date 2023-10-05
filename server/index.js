@@ -115,9 +115,6 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
-app.listen(3005, () => {
-  console.log("服務已啟動 http://localhost:3005");
-});
 
 // error handler
 app.use(function (err, req, res, next) {
