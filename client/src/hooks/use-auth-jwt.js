@@ -1,11 +1,8 @@
 import React, { useState, useContext, createContext, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import jwtDecode from 'jwt-decode'
-import { Route } from 'react-router-dom'
 
 const AuthContextJWT = createContext(null)
-
 export const AuthProviderJWT = ({ children }) => {
     const [authJWT , setAuthJWT] = useState({
         isAuth: false,

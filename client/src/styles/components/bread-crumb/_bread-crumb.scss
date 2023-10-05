@@ -1,0 +1,19 @@
+.bread-crumb {
+  height: 40px;
+  padding: 50px 0 0 0px;
+  .crumb-link {
+    text-decoration: none;
+    color: $secondary;
+    font-size: 20px;
+    margin-inline: 20px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .bread-crumb {
+    padding: 10px 0 0 20px;
+    .crumb-link {
+      font-size: 14px;
+      margin-inline: 5px;
+    }
+  }
+}
