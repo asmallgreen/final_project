@@ -1,0 +1,30 @@
+.atrribute {
+  .attr-select {
+    border-radius: 0;
+    border: 1px solid $secondary;
+    color: $secondary;
+    background-color: #ffffff;
+    // flex: 4;
+    width: 50%;
+    margin-left: 5px;
+    font-size: 1.5rem !important;
+    &:hover{
+      background-color: $secondary;
+      color: $primary;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .atrribute {
+    .attr-select {
+      width: 50%;
+      margin-left: 5px;
+      font-size: 16px !important;
+      &:hover{
+        background-color: $secondary;
+        color: $primary;
+        font-size: 16px !important;
+      }
+    }
+  }
+}
