@@ -1,8 +1,8 @@
 import createError from 'http-errors'
 import express from 'express'
 import path from 'path'
-import cookieParser from 'cookie-parser'
-import logger from 'morgan'
+// import cookieParser from 'cookie-parser'
+// import logger from 'morgan'
 import cors from 'cors'
 import session from 'express-session'
 // 使用檔案的session store，存在sessions資料夾
@@ -23,18 +23,18 @@ import 'colors'
 // 檔案上傳
 import fileUpload from 'express-fileupload'
 
-import authJwtRouter from './routes/auth-jwt.js'
-import authRouter from './routes/auth.js'
-import emailRouter from './routes/email.js'
-import indexRouter from './routes/index.js'
-import productsRouter from './routes/products.js'
-import resetPasswordRouter from './routes/reset-password.js'
-import usersRouter from './routes/users.js'
-import googleLoginRouter from './routes/google-login.js'
-import lineLoginRouter from './routes/line-login.js'
-import facebookLoginRouter from './routes/facebook-login.js'
-
-import favoriteRouter from './routes/favorite.js'
+// import authJwtRouter from './routes/auth-jwt.js'
+// import authRouter from './routes/auth.js'
+// import emailRouter from './routes/email.js'
+// import indexRouter from './routes/index.js'
+// import productsRouter from './routes/products.js'
+// import resetPasswordRouter from './routes/reset-password.js'
+// import usersRouter from './routes/users.js'
+// import googleLoginRouter from './routes/google-login.js'
+// import lineLoginRouter from './routes/line-login.js'
+// import facebookLoginRouter from './routes/facebook-login.js'
+import courseRouter from './routes/course.js'
+// import favoriteRouter from './routes/favorite.js'
 
 const app = express()
 
@@ -46,7 +46,7 @@ app.use(fileUpload())
 // app.use(cors())
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://localhost:9000'],
+    origin: ['http://localhost:3005', 'https://localhost:9000','https://localhost:3000'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   })
@@ -56,44 +56,44 @@ app.use(
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
-app.use(logger('dev'))
+// app.use(logger('dev'))
 app.use(express.json())
 
 app.use(express.urlencoded({ extended: false }))
-app.use(cookieParser())
+// app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
-// fileStore的選項
-const fileStoreOptions = {}
-// session-cookie使用
-app.use(
-  session({
-    store: new FileStore(fileStoreOptions), // 使用檔案記錄session
-    name: 'SESSION_ID', // cookie名稱，儲存在瀏覽器裡
-    secret: '67f71af4602195de2450faeb6f8856c0', // 安全字串，應用一個高安全字串
-    cookie: {
-      maxAge: 30 * 86400000, // 30 * (24 * 60 * 60 * 1000) = 30 * 86400000 => session保存30天
-      // httpOnly: false,
-      // sameSite: 'none',
-    },
-    resave: false,
-    saveUninitialized: false,
-  })
-)
+// // fileStore的選項
+// const fileStoreOptions = {}
+// // session-cookie使用
+// app.use(
+//   session({
+//     store: new FileStore(fileStoreOptions), // 使用檔案記錄session
+//     name: 'SESSION_ID', // cookie名稱，儲存在瀏覽器裡
+//     secret: '67f71af4602195de2450faeb6f8856c0', // 安全字串，應用一個高安全字串
+//     cookie: {
+//       maxAge: 30 * 86400000, // 30 * (24 * 60 * 60 * 1000) = 30 * 86400000 => session保存30天
+//       // httpOnly: false,
+//       // sameSite: 'none',
+//     },
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// )
 
 // 路由使用
-app.use('/api/', indexRouter)
-app.use('/api/auth-jwt', authJwtRouter)
-app.use('/api/auth', authRouter)
-app.use('/api/email', emailRouter)
-app.use('/api/products', productsRouter)
-app.use('/api/reset-password', resetPasswordRouter)
-app.use('/api/users', usersRouter)
-app.use('/api/google-login', googleLoginRouter)
-app.use('/api/line-login', lineLoginRouter)
-app.use('/api/facebook-login', facebookLoginRouter)
-app.use('/api/favorite', favoriteRouter)
-
+// app.use('/api/', indexRouter)
+// app.use('/api/auth-jwt', authJwtRouter)
+// app.use('/api/auth', authRouter)
+// app.use('/api/email', emailRouter)
+// app.use('/api/products', productsRouter)
+// app.use('/api/reset-password', resetPasswordRouter)
+// app.use('/api/users', usersRouter)
+// app.use('/api/google-login', googleLoginRouter)
+// app.use('/api/line-login', lineLoginRouter)
+// app.use('/api/facebook-login', facebookLoginRouter)
+// app.use('/api/favorite', favoriteRouter)
+app.use('/course', courseRouter)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404))
@@ -111,4 +111,7 @@ app.use(function (err, req, res, next) {
   res.status(500).send({ error: err })
 })
 
+app.listen(3005, ()=>{
+  console.log('server started on port http://localhost:3005');
+})
 export default app
