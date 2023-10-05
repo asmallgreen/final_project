@@ -5,13 +5,14 @@ import ForgotPwd from '@/components/login/forgotpwd';
 import axios from 'axios'
 import { useAuthJWT } from '@/hooks/use-auth-jwt';
 import { useRouter } from 'next/router';
+import Swal from 'sweetalert2';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 
 export default function Login() {
 
   // const { member, setMember, setIsLogin, isLogin } = useLogin()
   const [validated, setValidated] = useState(false);
-  const [checked, setChecked] = useState(false)
   const [formType, setFormType] = useState(true)
   const {authJWT, setAuthJWT} = useAuthJWT()
   const [loginData, setLoginData] = useState({
@@ -51,16 +52,34 @@ export default function Login() {
       loginData,
       {
         withCredentials:true,
-        data:loginData
       })
 
       console.log(res.data);
-      console.log(parseJwt(res.data.accessToken));
+      // console.log(parseJwt(res.data.accessToken));
+      if(res.data.message === 'verifyUser fail'){
+        await Swal.fire({
+          icon: 'error',
+          title: '帳號或密碼輸入錯誤',
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: `rgba(255, 255, 255, 0.55)`,
+          width: '35%',
+          padding: '0 0 3.25em',
+          customClass: {
+          }
+        })
+        return
+      }
       if (res.data.message === 'login success') {
         setAuthJWT({
           isAuth: true,
           memberData: parseJwt(res.data.accessToken),
         })
+        if(checked === true){
+          setRememberMe()
+        }else{
+          removeRememberme()
+        }
         router.push(process.env.BASE_URL || '/')
       }
     }catch(error){
@@ -68,7 +87,30 @@ export default function Login() {
     }
 
   };
-  
+
+  // 「記住我」功能
+  const [checked, setChecked] = useState(false)
+
+  const setRememberMe = (e) => {
+    localStorage.setItem('remember', JSON.stringify(loginData))
+  }
+  const removeRememberme = (e) => {
+    localStorage.removeItem('remember',JSON.stringify(loginData))
+  }
+  useEffect(() => {
+    const remember = JSON.parse(localStorage.getItem('remember'))
+    if (remember) {
+     setChecked(true)
+     setLoginData({
+      ...loginData,
+      account: remember.account,
+      password: remember.password,
+     })
+    }
+  }, [])
+
+  // 密碼顯示功能
+  const [showPassword, setShowPassword] = useState(false)
 
   return (
     <>
@@ -100,15 +142,20 @@ export default function Login() {
           />
           <Form.Control.Feedback type="invalid">請輸入帳號</Form.Control.Feedback>
         </Form.Group>
-        <Form.Group as={Col} md="12" controlId="validationCustom02">
+        <Form.Group as={Col} md="12" controlId="validationCustom02" className='password-eye'>
           <Form.Label>密碼</Form.Label>
           <Form.Control
             required
-            type="text"
+            type={showPassword?'text':'password'}
             name='password'
             value={loginData.password}
             onChange={handleInputChange}
           />
+          <div className='password-eye2' onClick={()=>{setShowPassword(!showPassword)}}>
+             {showPassword? <FaEye/>:<FaEyeSlash/>}
+          </div>
+           
+          
           <Form.Control.Feedback type='invalid'>請輸入密碼</Form.Control.Feedback>
         </Form.Group>
       </Row>
