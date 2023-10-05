@@ -1,0 +1,37 @@
+    .product-information {
+        text-align: center;
+        .product-name {
+          font-size: 3rem;
+          color: $secondary;
+          font-weight: bold;
+          margin-bottom: 15px;
+        }
+        .description {
+          font-size: 1.5rem;
+          color: $secondary;
+          margin-bottom: 15px;
+        }
+        .price {
+          font-size: 2.5rem;
+          color: $accent;
+          font-weight: bold;
+          margin-bottom: 15px;
+        }
+      }
+      @media screen and (max-width: 768px) {
+        .product-information {
+          .product-name {
+            font-size: 28px;
+            margin-bottom: 10px;
+          }
+          .description {
+            font-size: 20px;
+            margin-bottom: 10px;
+          }
+          .price {
+            font-size: 30px;
+            margin-bottom: 5px;
+          }
+        }
+      }
+      

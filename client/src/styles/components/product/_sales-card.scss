@@ -1,0 +1,71 @@
+.sales {
+  margin-block: 48px;
+  display: flex;
+  justify-content: center;
+  
+    .sales-row {
+      display: flex;
+      justify-content: center;
+      .card {
+        // height: 320px;
+        // width: 630px;
+        // flex-direction: row;
+        display: flex;
+        // justify-content: center;
+
+        .img {
+          width: 350px;
+          height: 240px;
+          // width: 100%;
+          // height: 100%;
+          background-color: $secondary;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .content {
+          height: 240px;
+          width: 280px;
+          padding: 60px 10px;
+          .tags {
+            .tag1 {
+              background-color: $accent;
+              color: $primary;
+              font-size: 15px;
+              padding: 5px;
+              width: 56px;
+            }
+            .tag2 {
+              background-color: $secondary;
+              color: $primary;
+              font-size: 15px;
+              padding: 5px;
+              width: 72px;
+            }
+          }
+          .product-name {
+            font-size: 23px;
+            color: $secondary;
+          }
+          .price {
+            font-size: 25px;
+            color: $accent;
+          }
+        }
+      }
+    }
+  }
+
+@media screen and (max-width: 768px) {
+  .sales {
+    display: none;
+    .sales-row{
+          .card {
+      display: none;
+    }
+    }
+
+  }
+}

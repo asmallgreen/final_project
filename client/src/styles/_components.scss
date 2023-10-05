@@ -19,3 +19,46 @@
 
 //Coupon Card
 @import"./components/coupon/coupon-card.scss";
+;
+
+//產品卡片(可加入收藏/購物車)
+@import"./components/product/filter-product-card.scss";
+
+//推薦OR新產品卡片
+@import"./components/product/launched-card.scss";
+@import"./components/product/recommended-card.scss";
+
+//優惠卡片
+@import"./components/product/sales-card.scss";
+
+//麵包屑
+@import"./components/bread-crumb/bread-crumb.scss";
+
+//Product 頁籤
+@import"./components/pagination/luna-pagination.scss";
+
+//產品資訊頁手風琴
+@import"./components/accordion/product-info-accordion.scss";
+
+//產品捲動按鈕(圓形)
+@import"./components/scroll-btn/scroll-circle.scss";
+
+//商品詳情屬性
+@import"./components/product/attributes.scss";
+
+//商品篩選
+@import"./components/product/filter-btns.scss";
+
+//商品詳情(右邊區塊)
+@import"./components/category/description.scss";
+@import"./components/category/quantity-btn.scss";
+
+//商品詳情button
+@import"./components/category/fav-btn.scss";
+@import"./components/category/cart-btn.scss";
+@import"./components/category/quantity-btn.scss";
+
+//商品詳情 屬性們
+@import"./components/attributes/material.scss";
+@import"./components/attributes/length.scss";
+@import"./components/attributes/diameter.scss";

@@ -1,6 +1,8 @@
 //全域 + 元件scss
 @import "global.scss";
+
 @import "components.scss";
+
 
 //各個pages scss
 
@@ -21,6 +23,13 @@
 @import "date.scss";
 @import "reserve.scss";
 @import "check.scss";
+
+//category
+@import "category.scss";
+
+//商品頁篩選、排序
+@import "filter-modal.scss";
+
 
 // bootstrap
 // npm install react-bootstrap bootstrap
