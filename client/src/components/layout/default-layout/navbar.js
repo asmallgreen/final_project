@@ -9,7 +9,8 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 //fontawesome
-import{ FaShoppingCart, FaUser, FaSearch} from "react-icons/fa"
+import { FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
+// import Link from 'next/link';
 
 export default function Navbar() {
   return (
@@ -107,7 +108,6 @@ export default function Navbar() {
           <li>
             <Link href="/">場地</Link>
           </li>
-          
         </ul>
       </div>
     </>

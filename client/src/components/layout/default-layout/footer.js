@@ -46,8 +46,8 @@ export default function Footer() {
       <div className="bottom-btn">
         <div className="btn home d-flex justify-content-center">
         <div>
-          <img className="logo-img2" src="/logo-img2.svg" />
-          <img className="logo-img " src="/logo-img.svg" />
+          <img className="logo-img" src="/layout/logo-img.svg" />
+          <img className="logo-img2 " src="/layout/logo2-img-green.svg" />
         </div>
         <div>
           首頁
