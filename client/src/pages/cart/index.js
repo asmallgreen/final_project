@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect } from 'react';
+import axios from 'axios';
 
 import { Container, Row, Col } from 'react-bootstrap';  // import bootstrap components
 import StepOne from '@/components/cart/stepone';
@@ -8,6 +9,16 @@ import StepFour from '@/components/cart/stepfour';
 
 
 export default function Index() {
+
+  useEffect(() => {
+    axios.get('http://localhost:3005/')
+    .then((res) => {
+      console.log(res.data)
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }, [])
 
   const [stepType, setStepType] = useState(1)
 
