@@ -1,0 +1,24 @@
+.member-order-detail {
+  color: $secondary;
+  .backBtn {
+    background-color: $secondary-half;
+    border-radius: 0;
+    border: none;
+    padding: 5px 10px;
+    color: #fff;
+    &:hover {
+      background-color: $accent;
+    }
+  }
+  .order-info {
+    div {
+      font-size: 14px;
+    }
+  }
+  .order-subtotal {
+    color: $accent;
+  }
+//   .title-bar{
+//     background-image: url(/images/member/hero1\ 1.svg);
+//   }
+}

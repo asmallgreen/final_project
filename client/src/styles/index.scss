@@ -9,6 +9,7 @@
 //會員專區
 @import "member.scss";
 @import "member-order.scss";
+@import "member-order-detail.scss";
 @import "member-coupon.scss";
 
 //商品
@@ -35,6 +36,8 @@
 // npm install react-bootstrap bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-// Normalize.css
 // npm install --save normalize.css
 @import "~normalize.css";
+
+//jim測試
+@import "jimtest.scss";
