@@ -35,8 +35,8 @@ function Product() {
         // console.log(res.data.products);
         setAllProduct(res.data.alldata);
         setNewProduct(res.data.launchedData);
-        console.log(allProduct);
-        console.log(newProduct);
+        // console.log(allProduct);
+        // console.log(newProduct);
       } catch (error) {
         console.log(error);
       }
@@ -44,8 +44,8 @@ function Product() {
   }, []);
 
   useEffect(() => {
-    console.log(allProduct);
-    console.log(newProduct);
+    // console.log(allProduct);
+    // console.log(newProduct);
   }, [allProduct, newProduct]);
 
   // const handleCate = async (e) => {

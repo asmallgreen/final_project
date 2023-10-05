@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Form from "react-bootstrap/Form";
+import { Form } from "react-bootstrap";
 //fontawesome
 import { FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
-// import Link from 'next/link';
 
 export default function Navbar() {
+  const [searchValue, setSearchValue] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  useEffect(() => {
+    if (searchValue.trim() !== "") {
+      // 向后端API发送请求
+      fetch(`/api/products?query=${searchValue}`)
+        .then((res) => res.json())
+        .then((data) => {
+          // 处理从后端获取的数据并将结果存储在searchResults状态中
+          setSearchResults(data);
+        })
+        .catch((error) => {
+          console.error("搜索失败", error);
+        });
+    }
+  }, [searchValue]);
+
+  const handleSearch = () => {
+    // 在点击 FaSearch 图标时，只更新 searchValue 的值
+    // 搜索请求会在 useEffect 中触发
+    setSearchValue(searchValue);
+  };
+
   return (
     <>
       {/* 桌機版nav */}
@@ -78,8 +101,13 @@ export default function Navbar() {
                 type="text"
                 placeholder="請輸入商品名稱"
                 className="search-product-name rounded-5"
+                onChange={(e) => setSearchValue(e.target.value)}
+                value={searchValue}
               />
-              <FaSearch className="fa-magnifying-glass position-absolute " />
+              <FaSearch
+                className="fa-magnifying-glass position-absolute"
+                onClick={handleSearch}
+              />
             </div>
           </Form>
           <li className="list-unstyled">
@@ -92,10 +120,14 @@ export default function Navbar() {
               <FaUser className="fa-user" />
             </Link>
           </li>
-    
         </ul>
       </div>
-
+      {/* 在这里显示搜索结果 */}
+      <div>
+        {searchResults.map((result) => (
+          <div key={result.id}>{result.name}</div>
+        ))}
+      </div>
       {/* 手機版nav */}
       <div className="phone-nav">
         <ul className="nav">

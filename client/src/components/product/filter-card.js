@@ -11,13 +11,25 @@ export default function FilterProductCard(props) {
   const { filterProduct } = props;
   // 切換愛心的實心和空心狀態
   const [isSolidHeart, setIsSolidHeart] = useState(true);
-  // const handleClick = (isSolidHeart) => {
-  //   setIsSolidHeart(!isSolidHeart);
-  // };
-  const handleClick = () => {
+  // Toggle切換
+  const handleToggle = () => {
     setIsSolidHeart((prevState) => !prevState );
   };
-  console.log(filterProduct);
+  const handleAddCart = () => {
+    // 发送GET请求到后端，获取filterProduct.id
+    fetch(`/api/getProductId?id=${filterProduct.id}`)
+      .then(res => res.json())
+      .then(data => {
+        const productId = data.productId;
+        // 在这里使用productId进行其他操作
+        console.log(productId);
+      })
+      .catch(error => {
+        console.error("Error fetching product ID:", error);
+      });
+  }
+  
+  // console.log(filterProduct);
   return (
     <>
       <div className="card">
@@ -28,7 +40,7 @@ export default function FilterProductCard(props) {
             <FontAwesomeIcon
               icon={isSolidHeart ? faHeart : farHeart}
               className={isSolidHeart ? "fa-heart" : "far-heart"}
-              onClick={handleClick}
+              onClick={handleToggle}
             />
             
           </button>
@@ -42,6 +54,7 @@ export default function FilterProductCard(props) {
               <FontAwesomeIcon
                 icon={faCartShopping}
                 className="fa-solid fa-cart-shopping"
+                onClick={handleAddCart}
               />
             </button>
           </div>
