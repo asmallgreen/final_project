@@ -16,14 +16,11 @@ const __dirname = path.dirname(__filename);
 // end 修正 __dirname
 
 // 讓console.log可以呈現檔案與行號
-// import { extendLog } from './utils/tool.js'
-// extendLog() // 執行全域套用
-// import { extendLog } from './utils/tool.js'
-// extendLog() // 執行全域套用
+import { extendLog } from './utils/tool.js'
+extendLog() // 執行全域套用
 // console.log呈現顏色用 全域套用
 import "colors";
 // 檔案上傳
-// import fileUpload from 'express-fileupload'
 // import fileUpload from 'express-fileupload'
 
 import authJwtRouter from './routes/auth-jwt.js'
@@ -37,14 +34,13 @@ import DashboardRouter from './routes/memberDashboard.js'
 import googleLoginRouter from './routes/google-login.js'
 // import lineLoginRouter from './routes/line-login.js'
 // import facebookLoginRouter from './routes/facebook-login.js'
-
+import productRouter from './routes/product.js'
 // import favoriteRouter from './routes/favorite.js'
 
 const app = express();
 
 // 檔案上傳
 // 選項參考: https://github.com/richardgirges/express-fileupload
-// app.use(fileUpload())
 // app.use(fileUpload())
 
 // 可以使用的CORS要求，options必要
@@ -85,9 +81,13 @@ const fileStoreOptions = {};
 //     saveUninitialized: false,
 //   })
 // )
-// app.use("/product", (req, res) => {
-//   res.send("產品頁");
-// });
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}))
+
 // 路由使用
 // app.use('/api/', indexRouter)
 app.get('/', (req, res)=>{
@@ -95,7 +95,6 @@ app.get('/', (req, res)=>{
 })
 app.use('/member', authJwtRouter)
 app.use('/memberDashboard', DashboardRouter)
-// app.use('/member/coupon', memberCouponRouter)
 // app.use('/api/auth', authRouter)
 // app.use('/api/email', emailRouter)
 // app.use('/api/products', productsRouter)
@@ -105,6 +104,7 @@ app.use('/google-login', googleLoginRouter)
 // app.use('/api/line-login', lineLoginRouter)
 // app.use('/api/facebook-login', facebookLoginRouter)
 // app.use('/api/favorite', favoriteRouter)
+app.use('/product', productRouter)
 
 app.listen(3005, ()=>{
   console.log("服務已啟動於 http://localhost:3005");
@@ -115,9 +115,6 @@ app.use(function (req, res, next) {
   next(createError(404));
 });
 
-app.listen(3005, () => {
-  console.log("服務已啟動 http://localhost:3005");
-});
 
 // error handler
 app.use(function (err, req, res, next) {

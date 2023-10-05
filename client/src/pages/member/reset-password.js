@@ -4,7 +4,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router';
 
-export default function ForgotPwd( {formType, setFormType} ) {
+export default function ResetPassword( {formType, setFormType} ) {
   const [validated, setValidated] = useState(false);
   // 設定狀態存放使用者填寫的帳號跟信箱
   const [memberInput, setMemberInput] = useState({
@@ -88,7 +88,8 @@ export default function ForgotPwd( {formType, setFormType} ) {
 
   return (
     <>
-            <Container className='position-relative d-flex justify-content-center align-items-center bt-container'>
+    <div className='login-bg'>
+                  <Container className='position-relative d-flex justify-content-center align-items-center bt-container'>
         <div className='login-block my-3'>
         <Form noValidate validated={validated} onSubmit={handleForgotSubmit} className='login-block-container'>
           <div>
@@ -126,6 +127,8 @@ export default function ForgotPwd( {formType, setFormType} ) {
     </Form>
         </div>
       </Container>
+    </div>
+
     </>
   )
 }
