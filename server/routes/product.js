@@ -66,7 +66,9 @@ router.get("/:cate", async (req, res) => {
       cateid = 4;
       break;
   }
+  const launchedData = alldata.filter(data=>data.launched === 1);
   const catedata = await getCate({ category_id: cateid });
+  console.log(launchedData)
   console.log(`cateid:${cateid}`);
   // 定義資料庫表格名稱
   res.json({
@@ -74,6 +76,7 @@ router.get("/:cate", async (req, res) => {
     code: "200",
     cate: cateid,
     catedata,
+    launchedData,
   });
 });
 

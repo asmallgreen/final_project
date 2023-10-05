@@ -3,18 +3,22 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Row, Col } from "react-bootstrap";
-import NormalCard from "../../components/product/normal-card";
 import SalesCard from "@/components/product/sales-card";
 import FilterProductCard from "@/components/product/filter-product-card";
 import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import LunaPagination from "@/components/pagination/luna-pagination";
 import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
 import FilterBtns from "@/components/product/filter-btns";
+import RecommendedCard from "@/components/product/recommended-card";
+import LaunchedCard from "@/components/product/launched-card";
+
 function Product() {
   // 判斷目前網址狀態
   // const [currentUrl, setCurrentUrl] = useState();
   // filter category的所有產品
   const [cateProduct, setCateProduct] = useState([]);
+  const [newProduct, setNewProduct] = useState([]);
+
   // 透過path改變ui狀態
   const [category, setCategory] = useState("所有商品");
   const router = useRouter();
@@ -44,6 +48,7 @@ function Product() {
         break;
     }
     setCategory(newCate);
+    
   }, [router.asPath, category]);
 
   useEffect(() => {
@@ -55,6 +60,7 @@ function Product() {
         console.log(res.data);
         // console.log(res.data.products);
         setCateProduct(res.data.catedata);
+        setNewProduct(res.data.launchedData);
         console.log(cateProduct)
       } catch (error) {
         console.log(error);
@@ -63,8 +69,9 @@ function Product() {
   }, [router.asPath]);
 
   useEffect(() => {
+    console.log(newProduct)
     console.log(cateProduct);
-  }, [cateProduct]);
+  }, [cateProduct,newProduct]);
 
   return (
     <>
@@ -99,10 +106,9 @@ function Product() {
       <Row className="normal-cards-area">
         <Col className="normal-cards">
           <Row className="rows">
-            <NormalCard title={123} />
-            <NormalCard />
-            <NormalCard />
-            <NormalCard />
+          {newProduct.map((data) => {
+              return <LaunchedCard key={data.id} filterNewProduct={data} />;
+            })}
           </Row>
         </Col>
       </Row>
@@ -217,10 +223,11 @@ function Product() {
       <Row className="normal-cards-area">
         <Col className="normal-cards">
           <Row className="rows">
-            <NormalCard />
-            <NormalCard />
-            <NormalCard />
-            <NormalCard />
+           <RecommendedCard/>
+           <RecommendedCard/>
+           <RecommendedCard/>
+           <RecommendedCard/>
+           <RecommendedCard/>
           </Row>
         </Col>
       </Row>
