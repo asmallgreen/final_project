@@ -12,21 +12,58 @@ export default function MemberCoupon() {
   const { authJWT } = useAuthJWT();
   const memberId = authJWT.memberData.id;
 
-  //驗證持有的優惠券
-  const [CouponData, setCouponData] = useState([]);
-  useEffect(() => {
-    axios
-      .get(
-        `http://localhost:3005/memberDashboard/find-member-coupon?memberId=${memberId}`
+  const [allCouponData, setAllCouponData] = useState([]);
+  const [showValidCoupon, setShowValidCoupon] = useState(false);
+
+
+  // 過濾checkbox切換
+  const handleValidCoupon = () => {
+    setShowValidCoupon((prevShowValidCoupon) => !prevShowValidCoupon);
+  };
+  //刪除失效優惠券並重新渲染
+  const handleClearInvalidCoupon = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3005/memberDashboard//DeleteUnvalidCoupon?memberId=${memberId}`
       )
-      .then((response) => {
-        const data = response.data;
-        setCouponData(data.memberCoupon);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  }, [memberId]);
+      if (response.data.code === "200") {
+        alert('刪除失效優惠券成功');
+        showAllCouponData()
+      } else {
+        alert('刪除失效優惠券失敗')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  //讀取member-coupon & 過濾失效coupon
+  const showAllCouponData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3005/memberDashboard/findMemberCoupon?memberId=${memberId}`
+      );
+      const allCoupon = response.data.memberCoupon;
+
+      if (showValidCoupon) {
+        const validCoupon = allCoupon.filter((coupon) => {
+          const deadlineDate = new Date(coupon.deadline);
+          const currentDate = new Date();
+          return deadlineDate >= currentDate;
+        })
+        setAllCouponData(validCoupon)
+      } else {
+        setAllCouponData(allCoupon)
+      }
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    showAllCouponData()
+  }, [showValidCoupon, memberId]);
+  
   return (
     <>
       <Row>
@@ -51,16 +88,18 @@ export default function MemberCoupon() {
                             className="mx-2"
                             name="isCheck"
                             type="checkbox"
+                            checked={showValidCoupon}
+                            onChange={handleValidCoupon}
                           />
                           <span>僅顯示可使用的優惠券</span>
                         </label>
                       </div>
-                      <div className="col-12 col-lg-6 text-center py-1 coupon-clear">
+                      <div className="col-12 col-lg-6 text-center py-1 coupon-clear" onClick={handleClearInvalidCoupon}>
                         一鍵清空失效的優惠券
                       </div>
                     </div>
                     <div className="row">
-                      {CouponData.map((coupon, index) => (
+                      {allCouponData.map((coupon, index) => (
                         <div className="col-12 col-lg-6" key={index}>
                           <CouponCard
                             key={index}
