@@ -25,6 +25,24 @@ const getCate = async (where) => {
   const { rows } = await find(table, where);
   return rows;
 };
+// 篩選價格
+const getProductPrice = async (where) => {
+  const { rows } = await find(table, where);
+  return rows;
+};
+// 篩選上架時間
+const getProductCreate = async (where) => {
+  const { rows } = await find(table, where);
+  return rows;
+};
+// 篩選商品名稱
+const getProductName = async (where) => {
+  const { rows } = await find(table, where);
+  return rows;
+};
+
+
+
 // 限制筆數
 const getLimit = async (where) => {
   //limit使用數字
@@ -39,4 +57,4 @@ const getOrder = async (where) => {
 };
 
 // 上面定義的函式都要放進來導出
-export { getAllProduct, getCate };
+export { getAllProduct, getCate, getProductPrice, getProductCreate, getProductName };

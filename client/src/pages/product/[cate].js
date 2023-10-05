@@ -80,13 +80,13 @@ function Product() {
       {/* 商品廣告 */}
       <Row className="ads">
         <Col md="3" className="ad">
-          <img src="/images/product/top1.jpg" />
+          <img src="/product/top1.jpg" />
         </Col>
         <Col md="6" className="ad main">
-          <img src="/images/product/top2.jpg" />
+          <img src="/product/top2.jpg" />
         </Col>
         <Col md="3" className="ad">
-          <img src="/images/product/top3.jpg" />
+          <img src="/product/top3.jpg" />
         </Col>
       </Row>
       <div className="phone-ad">
@@ -111,22 +111,22 @@ function Product() {
       <div className="category position-relative">
         <div className="type-title">｜ 產品分類 ｜</div>
         <div className="type">
-          <div className="item">
-            <img src=""></img>
-            <Link href="/product/bow">弓</Link>
-          </div>
-          <div className="item">
-            <img src=""></img>
-            <Link href="/product/arrow">箭</Link>
-          </div>
-          <div className="item">
-            <img src=""></img>
-            <Link href="/product/suit">道服</Link>
-          </div>
-          <div className="item">
-            <img src=""></img>
-            <Link href="/product/other">其他</Link>
-          </div>
+          <Link href="/product/bow" className="item">
+            <img src="/product/cate1.jpg"></img>
+            <span>弓</span>
+          </Link>
+          <Link href="/product/arrow" className="item">
+            <img src="/product/cate2.jpg"></img>
+            <span>箭</span>
+          </Link>
+          <Link href="/product/suit" className="item">
+            <img src="/product/cate3.jpg"></img>
+            <span>道服</span>
+          </Link>
+          <Link href="/product/other" className="item">
+            <img src="/product/cate4.jpg"></img>
+            <span>其他</span>
+          </Link>
         </div>
       </div>
       {/* 手機板slogan */}

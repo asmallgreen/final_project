@@ -17,21 +17,22 @@
 
 
 import React from "react";
-export default function NormalCard(props) {
-  const { title } = props;
+export default function LaunchedCard(props) {
+  const { filterNewProduct } = props;
+  // console.log(filterNewProduct);
   return (
     <>
       <div className="card">
         <div className="img position-relative">
-          <img src="" />
+         <img src={filterNewProduct.img1}></img>
           <div className="tag position-absolute">NEW</div>
         </div>
         <div className="content">
           <div className="product-name">
-            {title}
+            {/* {filterNewProduct.name} */}
           </div>
-          <div className="description">汝拉箭6枚1913年 (5)</div>
-          <div className="price text-end">$1500</div>
+          <div className="description">{filterNewProduct.summary}</div>
+          <div className="price text-end">NT${filterNewProduct.price}</div>
         </div>
       </div>
     </>

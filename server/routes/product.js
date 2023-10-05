@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllProduct, getCate } from "../models/products.js";
+import { getAllProduct, getCate, getProductPrice } from "../models/products.js";
 const router = express.Router();
 // 中間件：檢查是否是 cateid
 // router.param("cateid", (req, res, next, value) => {
@@ -47,8 +47,9 @@ const router = express.Router();
 //   res.send(`顯示產品ID為 ${pid} 的產品詳細資訊`);
 // });
 
-//:cate頁
+// 篩選(分類、價格、上架日期、商品名稱)
 router.get("/:cate", async (req, res) => {
+  // 透過路由判斷cateid 取得後端資料庫category_id(ex:1,2,3,4)的資料
   const cate = req.params.cate;
   let cateid;
   switch (cate) {
@@ -65,12 +66,9 @@ router.get("/:cate", async (req, res) => {
       cateid = 4;
       break;
   }
-  // 判斷cateid 取得後端資料庫的資料
   const catedata = await getCate({ category_id: cateid });
   console.log(`cateid:${cateid}`);
   // 定義資料庫表格名稱
-  // console.log(catedata);
-  // console.log(cate);
   res.json({
     message: "產品分類 success",
     code: "200",
@@ -79,24 +77,43 @@ router.get("/:cate", async (req, res) => {
   });
 });
 
-// 商品頁
+// 所有商品頁
 router.get("/", async (req, res) => {
   // const pid = req.params.pid;
   // 定義資料庫表格名稱
+
   const alldata = await getAllProduct();
-  console.log(`alldata:${alldata}`);
+  // const pricedata = await getProductPrice("WHERE price>8000");
+  const filteredData = alldata.filter((data) => {
+    //----------------價格
+    const filterprice = data.price > 6000;
+    //----------------姓名
+    const filtername = data.name.includes("弓");
+    //----------------時間
+    const currentTime = new Date();
+    const createdat = new Date(data.created_at);
+    const timeDifference = currentTime.getTime() - createdat.getTime();
+    const daysDifference = timeDifference / (1000 * 3600 * 24);
+    const filtercreatedat = daysDifference < 15;
+    // console.log("daysDifference:", daysDifference);
+    // console.log("filtercreatedat",filtercreatedat);
+    // console.log("Created at:", filterdata.created_at);
+    // console.log("Time difference:", timeDifference);
+    return filterprice && filtername && filtercreatedat;
+  });
+  const launchedData = alldata.filter(data=>data.launched === 1);
+  console.log(launchedData)
+
+
+
   res.json({
     message: "getAllProduct success",
     code: "200",
     alldata,
+    // filteredData,
+    launchedData,
   });
 });
 
-// router.get('/:cateid', (req, res)=>{
-//     const cateid=req.params.cateid
-//     if(cateid==="category1"){
-//         res.send('這是cate頁')
-//     }
 
-// })
 export default router;

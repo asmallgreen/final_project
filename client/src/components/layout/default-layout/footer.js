@@ -16,8 +16,8 @@ export default function Footer() {
       {/* 電腦footer */}
       <div className="footer">
         <div className="logo">
-          <img className="logo-img" src="/logo-img.svg" />  
-          <img className="logo-text" src="/logo-text.svg" />
+          <img className="logo-img" src="/layout/logo-img.svg" />  
+          <img className="logo-text" src="/layout/logo-text.svg" />
         </div>
         <div className="footer-buttons">
           <div className="button rounded-0">

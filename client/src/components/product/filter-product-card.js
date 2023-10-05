@@ -9,6 +9,7 @@ import {
 
 export default function FilterProductCard(props) {
   const { filterProduct } = props
+  console.log(filterProduct);
   return (
     <>
       <div className="card">

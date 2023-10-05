@@ -2,19 +2,20 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Link from "next/link";
 import { Row, Col } from "react-bootstrap";
-import NormalCard from "../../components/product/normal-card";
 import SalesCard from "@/components/product/sales-card";
 import FilterProductCard from "@/components/product/filter-product-card";
 import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import LunaPagination from "@/components/pagination/luna-pagination";
 import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
 import FilterBtns from "@/components/product/filter-btns";
-
+import RecommendedCard from "@/components/product/recommended-card";
+import LaunchedCard from "@/components/product/launched-card";
 
 function Product() {
   // const [productList ,setproductList] = useState(null);
   // const [cateData, setCateData] = useState(null);
   const [allProduct, setAllProduct] = useState([]);
+  const [newProduct, setNewProduct] = useState([]);
 
   // const handleProduct = async (e) => {
   //   const res = await axios.get(
@@ -33,7 +34,9 @@ function Product() {
         // console.log(res.data);
         // console.log(res.data.products);
         setAllProduct(res.data.alldata);
-        console.log(allProduct)
+        setNewProduct(res.data.launchedData);
+        console.log(allProduct);
+        console.log(newProduct);
       } catch (error) {
         console.log(error);
       }
@@ -42,7 +45,8 @@ function Product() {
 
   useEffect(() => {
     console.log(allProduct);
-  }, [allProduct]);
+    console.log(newProduct);
+  }, [allProduct, newProduct]);
 
   // const handleCate = async (e) => {
   //   const res = await axios.get(
@@ -60,17 +64,16 @@ function Product() {
   // };
   return (
     <>
-
       {/* 商品廣告 */}
       <Row className="ads">
         <Col md="3" className="ad">
-          <img src="/images/product/top1.jpg" />
+          <img src="/product/top1.jpg" />
         </Col>
         <Col md="6" className="ad main">
-          <img src="/images/product/top2.jpg" />
+          <img src="/product/top2.jpg" />
         </Col>
         <Col md="3" className="ad">
-          <img src="/images/product/top3.jpg" />
+          <img src="/product/top3.jpg" />
         </Col>
       </Row>
       <div className="phone-ad">
@@ -83,10 +86,19 @@ function Product() {
       <Row className="normal-cards-area">
         <Col className="normal-cards">
           <Row className="rows">
-            <NormalCard title={123} />
+            {/* <div>
+        {newProduct.map((data) => {
+          return <div key={data.id}>{data.name}</div>;
+        })}
+      </div> */}
+            {newProduct.map((data) => {
+              return <LaunchedCard key={data.id} filterNewProduct={data} />;
+            })}
+            {/* <LaunchedCard/> */}
+            {/* <NormalCard newProduct/>
             <NormalCard />
             <NormalCard />
-            <NormalCard />
+            <NormalCard /> */}
           </Row>
         </Col>
       </Row>
@@ -95,22 +107,22 @@ function Product() {
       <div className="category position-relative">
         <div className="type-title">｜ 產品分類 ｜</div>
         <div className="type">
-          <div className="item">
-            <img src=""></img>
-            <Link href="/product/bow">弓</Link>
-          </div>
-          <div className="item">
-            <img src=""></img>
-            <Link href="/product/arrow">箭</Link>
-          </div>
-          <div className="item">
-            <img src=""></img>
-            <Link href="/product/suit">道服</Link>
-          </div>
-          <div className="item">
-            <img src=""></img>
-            <Link href="/product/other">其他</Link>
-          </div>
+          <Link href="/product/bow" className="item">
+            <img src="/product/cate1.jpg"></img>
+            <span>弓</span>
+          </Link>
+          <Link href="/product/arrow" className="item">
+            <img src="/product/cate2.jpg"></img>
+            <span>箭</span>
+          </Link>
+          <Link href="/product/suit" className="item">
+            <img src="/product/cate3.jpg"></img>
+            <span>道服</span>
+          </Link>
+          <Link href="/product/other" className="item">
+            <img src="/product/cate4.jpg"></img>
+            <span>其他</span>
+          </Link>
         </div>
       </div>
       {/* 手機板slogan */}
@@ -131,21 +143,18 @@ function Product() {
         <BreadCrumb currentCate="所有商品" />
       </div>
       {/* 所有產品card */}
-{/* 
-      <div>
+
+      {/* <div>
         {allProduct.map((product) => {
           return <div key={product.id}>{product.name}</div>;
         })}
       </div> */}
 
-
       <Row className="filter-cards-area">
         <Col md="auto" className="filter-cards">
           <Row className="rows">
-            {allProduct.map((productData) => {
-              return (
-                <FilterProductCard  key={productData.id} filterProduct={productData}/>
-              )
+            {allProduct.map((data) => {
+              return <FilterProductCard key={data.id} filterProduct={data} />;
             })}
 
             {/* <FilterProductCard />
@@ -205,10 +214,11 @@ function Product() {
       <Row className="normal-cards-area">
         <Col className="normal-cards">
           <Row className="rows">
-            <NormalCard />
-            <NormalCard />
-            <NormalCard />
-            <NormalCard />
+           <RecommendedCard/>
+           <RecommendedCard/>
+           <RecommendedCard/>
+           <RecommendedCard/>
+           <RecommendedCard/>
           </Row>
         </Col>
       </Row>

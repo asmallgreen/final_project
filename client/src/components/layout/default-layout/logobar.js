@@ -13,8 +13,8 @@ export default function Logobar() {
     <>
       <div className="logo-bar d-flex justify-content-center align-items-center">
         <Link href="/">
-          <img className="logo-img" src="/logo-img.svg" />
-          <img className="logo-text" src="/logo-text.svg" />
+          <img className="logo-img" src="/layout/logo-img.svg" />
+          <img className="logo-text" src="/layout/logo-text.svg" />
         </Link>
 
       </div>
