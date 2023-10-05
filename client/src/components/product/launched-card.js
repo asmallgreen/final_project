@@ -29,7 +29,7 @@ export default function LaunchedCard(props) {
         </div>
         <div className="content">
           <div className="product-name">
-            {/* {filterNewProduct.name} */}
+            {filterNewProduct.name}
           </div>
           <div className="description">{filterNewProduct.summary}</div>
           <div className="price text-end">NT${filterNewProduct.price}</div>

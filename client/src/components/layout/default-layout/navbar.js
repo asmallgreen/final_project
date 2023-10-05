@@ -1,13 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import Form from "react-bootstrap/Form";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//fontawesome
-import {
-  faChevronDown,
-  faChevronRight,
-  faBars,
-} from "@fortawesome/free-solid-svg-icons";
 //fontawesome
 import { FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
 // import Link from 'next/link';
@@ -19,7 +12,9 @@ export default function Navbar() {
       <div className="table-nav position-relative">
         <ul className="nav position-absolute">
           <li className="list-unstyled">
-            <Link href="/product" className="titleLi">關於良弓</Link>
+            <Link href="/product" className="titleLi">
+              關於良弓
+            </Link>
           </li>
           <li className="list-unstyled product-page">
             <Link href="/product">商品介紹</Link>
@@ -60,28 +55,35 @@ export default function Navbar() {
             <div className="hover-space position-absolute"></div>
           </li>
           <li className="list-unstyled">
-            <Link href="/product" className="titleLi">弓道課程</Link>
+            <Link href="/product" className="titleLi">
+              弓道課程
+            </Link>
           </li>
           <li className="list-unstyled">
-            <Link href="/product" className="titleLi">場地租借</Link>
+            <Link href="/product" className="titleLi">
+              場地租借
+            </Link>
           </li>
           <li className="list-unstyled">
-            <Link href="/product" className="titleLi">聯絡我們</Link>
+            <Link href="/product" className="titleLi">
+              聯絡我們
+            </Link>
           </li>
         </ul>
 
         <ul className="nav-fk">
           <Form className="list-unstyled search-form">
-            <Form.Control
-              type="text"
-              placeholder="請輸入商品名稱"
-              className="search-product-name rounded-5 position-relative"
-            />
-            <FaSearch className="fa-magnifying-glass position-absolute " />
+            <div className="position-relative">
+              <Form.Control
+                type="text"
+                placeholder="請輸入商品名稱"
+                className="search-product-name rounded-5"
+              />
+              <FaSearch className="fa-magnifying-glass position-absolute " />
+            </div>
           </Form>
           <li className="list-unstyled">
             <Link href="/cart">
-              {" "}
               <FaShoppingCart className="fa-cart-shopping" />
             </Link>
           </li>
@@ -90,6 +92,7 @@ export default function Navbar() {
               <FaUser className="fa-user" />
             </Link>
           </li>
+    
         </ul>
       </div>
 

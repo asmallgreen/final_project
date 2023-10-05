@@ -66,10 +66,11 @@ router.get("/:cate", async (req, res) => {
       cateid = 4;
       break;
   }
-  const launchedData = alldata.filter(data=>data.launched === 1);
+  
   const catedata = await getCate({ category_id: cateid });
-  console.log(launchedData)
   console.log(`cateid:${cateid}`);
+  const launchedData = catedata.filter(data=>data.launched === 1);
+  console.log(launchedData)
   // 定義資料庫表格名稱
   res.json({
     message: "產品分類 success",

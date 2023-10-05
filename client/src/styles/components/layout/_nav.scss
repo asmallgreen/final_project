@@ -156,14 +156,15 @@
         cursor:pointer;
       }
       .search-product-name {
-        margin-left: 16px;
+        margin-left: 10px;
         &:focus {
           border: 3px solid #81816f;
           background-color: #ffffff;
         }
       }
       .fa-magnifying-glass {
-        right: 130px;
+        right: 5px;
+        top: 12px;
       }
     }
 

@@ -46,19 +46,12 @@
           color: $accent;
         }
         .far-heart {
-          display: none;
+          
+          width: 26px;
+          height: 26px;
+          color: $accent;
         }
-        &:hover {
-          .fa-heart {
-            display: none;
-          }
-          .far-heart {
-            display: block;
-            width: 26px;
-            height: 26px;
-            color: $accent;
-          }
-        }
+       
       }
     }
     .content {
