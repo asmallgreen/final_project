@@ -33,8 +33,6 @@ export default function ReserveDate() {
     ) : (
       <p>請選擇日期</p>
     );
-
-    console.log(selected);
   return (
     <>
       <Container>

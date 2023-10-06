@@ -1,72 +1,156 @@
 import React from "react";
+import Link from "next/link";
+import Form from "react-bootstrap/Form";
 //fontawesome
-import{ FaShoppingCart, FaUser, FaSearch} from "react-icons/fa"
-import Link from 'next/link';
+import { FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
+// 登入後才會顯示登出按鈕
+import{ FiLogOut } from 'react-icons/fi'
+import { Button } from "react-bootstrap";
+import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
+  const {authJWT , setAuthJWT} = useAuthJWT()
+  const router = useRouter()
+  // 首頁路由
+  const homeRoute = '/'
+  // 隱私頁面路由，登出時會，檢查後跳轉至首頁
+  const protectedRoutes = ['/member', '/member/update-profile', 'member/update-pwd', '/member/order-list', '/member/coupon', '/member/fav-product','/cart', ]
+  const handleLogout = async () => {
+    try{
+      const res = await axios.post('http://localhost:3005/member/logout',{},
+      {
+        withCredentials:true
+      })
+      if(res.data.message === 'success'){
+        setAuthJWT({
+          isAuth:false,
+          memberData: {
+            id: 0,
+            account: '',
+            name: '',
+            email: '',
+            level: '',
+            created_date: '',
+        }
+        })
+        if (protectedRoutes.includes(router.pathname)) {
+        router.push(homeRoute)
+      }
+      }
+    }catch(error){
+
+    }
+  }
   return (
     <>
       {/* 桌機版nav */}
-      <div className="table-nav position-relative d-flex align-items-center">
-        <ul className="nav position-absolute top-0 d-flex justify-content-center align-items-center">
+      <div className="table-nav position-relative">
+        <ul className="nav position-absolute">
           <li className="list-unstyled">
-            <a href="/product">關於良弓</a>
+            <Link href="/product" className="titleLi">
+              關於良弓
+            </Link>
           </li>
           <li className="list-unstyled product-page">
-            <a href="/product">商品介紹</a>
-
-            <div className="hover-type d-flex justify-content-center position-absolute align-items-center">
-              <div className="box">
-                <img src="/images/nav/type1.png" />
-                <div className="text">
-                  <span className="text-bottom">弓</span>
+            <Link href="/product">商品介紹</Link>
+            <div className="hover-type position-absolute">
+              <Link href="/product/bow">
+                <div className="box">
+                  <img src="/layout/type1.png" />
+                  <div className="text">
+                    <span className="text-bottom">弓</span>
+                  </div>
                 </div>
-              </div>
-              <div className="box">
-                <img src="/images/nav/type1.png" />
-                <div className="text">
-                  <span className="text-bottom">箭</span>
+              </Link>
+              <Link href="/product/arrow">
+                <div className="box">
+                  <img src="/layout/type2.png" />
+                  <div className="text">
+                    <span className="text-bottom">箭</span>
+                  </div>
                 </div>
-              </div>
-              <div className="box">
-                <img src="/images/nav/type1.png" />
-                <div className="text">
-                  <span className="text-bottom">道服</span>
+              </Link>
+              <Link href="/product/suit">
+                <div className="box">
+                  <img src="/layout/type3.png" />
+                  <div className="text">
+                    <span className="text-bottom">道服</span>
+                  </div>
                 </div>
-              </div>
-              <div className="box">
-                <img src="/images/nav/type1.png" />
-                <div className="text">
-                  <span className="text-bottom">其他</span>
+              </Link>
+              <Link href="/product/other">
+                <div className="box">
+                  <img src="/layout/type4.png" />
+                  <div className="text">
+                    <span className="text-bottom">其他</span>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
             <div className="hover-space position-absolute"></div>
           </li>
           <li className="list-unstyled">
-            <a href="/product">弓道課程</a>
+            <Link href="/product" className="titleLi">
+              弓道課程
+            </Link>
           </li>
           <li className="list-unstyled">
-            <a href="/product">場地租借</a>
+            <Link href="/product" className="titleLi">
+              場地租借
+            </Link>
           </li>
           <li className="list-unstyled">
-            <a href="/product">聯絡我們</a>
+            <Link href="/product" className="titleLi">
+              聯絡我們
+            </Link>
           </li>
         </ul>
-        <ul className="nav-fk d-flex position-absolute top-0 end-0 align-items-center">
-          <li className=" align-items-center list-unstyled d-flex  ">
-            <input
-              className="form-control ms-3 rounded-5 position-relative"
-              type="text"
-              placeholder="請輸入商品名稱"
-            />
-            <FaSearch className="fa-magnifying-glass position-absolute" />
+
+        <ul className="nav-fk">
+          <Form className="list-unstyled search-form">
+            <div className="position-relative">
+              <Form.Control
+                type="text"
+                placeholder="請輸入商品名稱"
+                className="search-product-name rounded-5"
+              />
+              <FaSearch className="fa-magnifying-glass position-absolute " />
+            </div>
+          </Form>
+          <li className="list-unstyled">
+            <Link href="/cart">
+              <FaShoppingCart className="fa-cart-shopping" />
+            </Link>
           </li>
           <li className="list-unstyled">
-            <FaShoppingCart className="fa-cart-shopping" />
+            <Link href="/member" className="text-decoreation-none">
+              <FaUser className="fa-user" />
+            </Link>
           </li>
-          <li className="list-unstyled">
-            <Link href='/member' className="text-decoreation-none"><FaUser className="fa-user" /></Link>
+          {authJWT.isAuth && (<li className="list-unstyled">
+          <Button onClick={handleLogout}>
+          <FiLogOut className="fi-logout"/>
+          </Button>
+          </li>)}
+        </ul>
+      </div>
+
+      {/* 手機版nav */}
+      <div className="phone-nav">
+        <ul className="nav">
+          <li>
+            <Link href="/">首頁</Link>
+          </li>
+          <li>
+            <Link href="/">商店</Link>
+          </li>
+          <li>
+            <Link href="/">課程</Link>
+          </li>
+          <li>
+            <Link href="/">場地</Link>
           </li>
         </ul>
       </div>

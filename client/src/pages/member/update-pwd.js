@@ -13,22 +13,7 @@ export default function UpdatePwd() {
 <Container className='my-5'>
                 <div className="fs-2 mb-5">修改密碼</div>
                 <Form className="ms-3">
-                    <Form.Group
-                        as={Row}
-                        className="mb-3"
-                        controlId="formPlaintextEmail"
-                    >
-                        <Form.Label column sm="3">
-                            舊密碼
-                        </Form.Label>
-                        <Col sm="9">
-                            <Form.Control
-                                type="text"
-                                placeholder="舊密碼"
-                            />
-                        </Col>
-                    </Form.Group>
-
+                    
                     <Form.Group
                         as={Row}
                         className="mb-3"

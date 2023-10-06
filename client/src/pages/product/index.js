@@ -1,385 +1,231 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Link from "next/link";
+import { Row, Col } from "react-bootstrap";
+import SalesCard from "@/components/product/sales-card";
+import FilterProductCard from "@/components/product/filter-product-card";
+import BreadCrumb from "@/components/bread-crumb/bread-crumb";
+import LunaPagination from "@/components/pagination/luna-pagination";
+import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
+import FilterBtns from "@/components/product/filter-btns";
+import RecommendedCard from "@/components/product/recommended-card";
+import LaunchedCard from "@/components/product/launched-card";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { FaHeart, FaRegHeart } from "react-icons/fa";
-
-import {
-  faFilter,
-  faSort,
-  faCartShopping,
-  faHeart as farHeart,
-  faArrowLeft,
-  faArrowRight,
-} from "@fortawesome/free-solid-svg-icons";
 function Product() {
+  // const [productList ,setproductList] = useState(null);
+  // const [cateData, setCateData] = useState(null);
+  const [allProduct, setAllProduct] = useState([]);
+  const [newProduct, setNewProduct] = useState([]);
+
+  // const handleProduct = async (e) => {
+  //   const res = await axios.get(
+  //     "http://localhost:3005/product",
+  //     {},
+  //     {
+  //       withCredentials: true,
+  //     }
+  //   );
+  //   console.log(res.data);
+  // };
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await axios.get("http://localhost:3005/product", []);
+        // console.log(res.data);
+        // console.log(res.data.products);
+        setAllProduct(res.data.alldata);
+        setNewProduct(res.data.launchedData);
+        console.log(allProduct);
+        console.log(newProduct);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
+  useEffect(() => {
+    console.log(allProduct);
+    console.log(newProduct);
+  }, [allProduct, newProduct]);
+
+  // const handleCate = async (e) => {
+  //   const res = await axios.get(
+  //     "http://localhost:3005/product",
+  //     { cateData },
+  //     {
+  //       withCredentials: true,
+  //     }
+  //   );
+  //   console.log(res.data);
+  //   if (res.data.message === "getAllProduct success") {
+  //     setAllProduct(res.data.product);
+  //   }
+  //   console.log(allProduct);
+  // };
   return (
     <>
       {/* 商品廣告 */}
-      <div className="ads d-flex row position-relative">
-        <div className="ad col">
+      <Row className="ads">
+        <Col md="3" className="ad">
           <img src="/product/top1.jpg" />
-        </div>
-        <div className="main ad col-6">
+        </Col>
+        <Col md="6" className="ad main">
           <img src="/product/top2.jpg" />
-          <div className="scrolls d-flex position-absolute bottom-0  m-3">
-            <div className="circle mx-1"></div>
-            <div className="circle mx-1"></div>
-            <div className="circle mx-1"></div>
-            <div className="circle mx-1"></div>
-            <div className="circle mx-1"></div>
-          </div>
-        </div>
-        <div className="ad col">
+        </Col>
+        <Col md="3" className="ad">
           <img src="/product/top3.jpg" />
-        </div>
+        </Col>
+      </Row>
+      <div className="phone-ad">
+        <img src=""></img>
       </div>
-
       {/* 新品上架 */}
-      <div className="title">
+      <div className="product-page-title">
         <p>新品上架</p>
       </div>
-      <div className="cards d-flex justify-content-center px-5 py-5">
-        <div className="card">
-          <img src="" />
-          <div className="content d-flex flex-column justify-content-between">
-            <div className="product-name d-flex">
-              <div className="tag me-1">NEW</div>特選黑羽雞翅汝拉箭
-            </div>
-            <div className="description">汝拉箭6枚1913年 (5)</div>
-            <div className="price text-end">$1500</div>
-          </div>
-        </div>
-        <div className="card">
-          <img src="" />
-          <div className="content d-flex flex-column justify-content-between">
-            <div className="product-name d-flex">
-              <div className="tag me-1">NEW</div>特選黑羽雞翅汝拉箭
-            </div>
-            <div className="description">汝拉箭6枚1913年 (5)</div>
-            <div className="price text-end">$1500</div>
-          </div>
-        </div>
-        <div className="card">
-          <img src="" />
-          <div className="content d-flex flex-column justify-content-between">
-            <div className="product-name d-flex">
-              <div className="tag me-1">NEW</div>特選黑羽雞翅汝拉箭
-            </div>
-            <div className="description">汝拉箭6枚1913年 (5)</div>
-            <div className="price text-end">$1500</div>
-          </div>
-        </div>
-        <div className="card">
-          <img src="" />
-          <div className="content d-flex flex-column justify-content-between">
-            <div className="product-name d-flex">
-              <div className="tag me-1">NEW</div>特選黑羽雞翅汝拉箭
-            </div>
-            <div className="description">汝拉箭6枚1913年 (5)</div>
-            <div className="price text-end">$1500</div>
-          </div>
-        </div>
-        <div className="card">
-          <img src="" />
-          <div className="content d-flex flex-column justify-content-between">
-            <div className="product-name d-flex">
-              <div className="tag me-1">NEW</div>特選黑羽雞翅汝拉箭
-            </div>
-            <div className="description">汝拉箭6枚1913年 (5)</div>
-            <div className="price text-end">$1500</div>
-          </div>
-        </div>
-      </div>
+      <Row className="normal-cards-area">
+        <Col className="normal-cards">
+          <Row className="rows">
+            {/* <div>
+        {newProduct.map((data) => {
+          return <div key={data.id}>{data.name}</div>;
+        })}
+      </div> */}
+            {newProduct.map((data) => {
+              return <LaunchedCard key={data.id} filterNewProduct={data} />;
+            })}
+            {/* <LaunchedCard/> */}
+            {/* <NormalCard newProduct/>
+            <NormalCard />
+            <NormalCard />
+            <NormalCard /> */}
+          </Row>
+        </Col>
+      </Row>
 
       {/* 分類 */}
       <div className="category position-relative">
-        <div className="type-title d-flex justify-content-center ">
-          ｜ 產品分類 ｜
+        <div className="type-title">｜ 產品分類 ｜</div>
+        <div className="type">
+          <Link href="/product/bow" className="item">
+            <img src="/product/cate1.jpg"></img>
+            <span>弓</span>
+          </Link>
+          <Link href="/product/arrow" className="item">
+            <img src="/product/cate2.jpg"></img>
+            <span>箭</span>
+          </Link>
+          <Link href="/product/suit" className="item">
+            <img src="/product/cate3.jpg"></img>
+            <span>道服</span>
+          </Link>
+          <Link href="/product/other" className="item">
+            <img src="/product/cate4.jpg"></img>
+            <span>其他</span>
+          </Link>
         </div>
-        <div className="type d-flex position-absolute justify-content-center ">
-          <div className="item">
-            <a href="">弓</a>
-          </div>
-          <div className="item">
-            <a href="">箭</a>
-          </div>
-          <div className="item">
-            <a href="">道服</a>
-          </div>
-          <div className="item">
-            <a href="">其他</a>
+      </div>
+      {/* 手機板slogan */}
+      <div className="phone-slogan">全店優惠滿$1,000 ，即可免運</div>
+      <div className="filter-area container-fluid">
+        <div className="container">
+          <div className="all-product">
+            <div className="p-0">
+              <p>所有商品</p>
+            </div>
+            <div className="p-0">
+              <FilterBtns />
+            </div>
           </div>
         </div>
       </div>
+      <div className="container">
+        <BreadCrumb currentCate="所有商品" />
+      </div>
+      {/* 所有產品card */}
 
-      {/* 所有產品 */}
-      <div className="title">
-        <p>所有產品</p>
-      </div>
-      <div className="list">
-        {/* 排序篩選 */}
-        <div className="fk d-flex justify-content-between align-items-center">
-          {/* 麵包屑 */}
-          <div className="bread-crumb d-flex align-items-center">
-            <div className="crumb-item">
-              <a href="" className="mx-4">
-                首頁
-              </a>
-              &gt;
-            </div>
-            <div className="crumb-item">
-              <a href="" className="mx-4">
-                商店
-              </a>
-              &gt;
-            </div>
-            <div className="crumb-item">
-              <a href="" className="mx-4">
-                所有商品
-              </a>
-            </div>
-          </div>
-          {/* btn-group */}
-          <div className="wrap d-flex align-items-center px-2">
-            {/* 排序篩選 */}
-            <div
-              className="btn-group me-3"
-              role="group"
-              aria-label="Basic outlined example"
-            >
-              <button type="button" className="btn btn-outline-primary">
-                <FontAwesomeIcon
-                  icon={faFilter}
-                  className="fa-solid fa-filter me-2"
-                />
-                篩選商品 ({5})
-              </button>
-              <button type="button" className="btn btn-outline-primary">
-                <FontAwesomeIcon
-                  icon={faSort}
-                  className="fa-solid fa-sort me-2"
-                />
-                排序
-              </button>
-            </div>
-            {/* 每頁幾筆 */}
-            <div className="per-page px-3 align-items-center d-flex">
-              每頁顯示
-              <button
-                type="button"
-                className="btn btn-primary dropdown-toggle mx-2"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                {5}
-              </button>
-              筆
-            </div>
-          </div>
-        </div>
-        {/* 所有產品card */}
-        <div className="cards d-flex justify-content-center">
-          <div className="card">
-            <div className="img position-relative">
-              <button className="p-0 position-absolute">
-                <FaHeart className="fa-heart" />
-                <FaRegHeart className="far-heart" />
-              </button>
-            </div>
-            <div className="content d-flex flex-column justify-content-center px-3">
-              <div className="prodcut-name my-1">特選黑羽雞翅汝拉箭</div>
-              <div className="price d-flex justify-content-between my-1">
-                NT$ 8000
-                <button className="">
-                  <FontAwesomeIcon
-                    icon={faCartShopping}
-                    className="fa-solid fa-cart-shopping"
-                  />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="card">
-            <div className="img position-relative">
-              <button className="p-0 position-absolute">
-                <FaHeart className="fa-heart" />
-                <FaRegHeart className="far-heart" />
-              </button>
-            </div>
-            <div className="content d-flex flex-column justify-content-center px-3">
-              <div className="prodcut-name my-1">特選黑羽雞翅汝拉箭</div>
-              <div className="price d-flex justify-content-between my-1">
-                NT$ 8000
-                <button className="">
-                  <FontAwesomeIcon
-                    icon={faCartShopping}
-                    className="fa-solid fa-cart-shopping"
-                  />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="card">
-            <div className="img position-relative">
-              <button className="p-0 position-absolute">
-                <FaHeart className="fa-heart" />
-                <FaRegHeart className="far-heart" />
-              </button>
-            </div>
-            <div className="content d-flex flex-column justify-content-center px-3">
-              <div className="prodcut-name my-1">特選黑羽雞翅汝拉箭</div>
-              <div className="price d-flex justify-content-between my-1">
-                NT$ 8000
-                <button className="">
-                  <FontAwesomeIcon
-                    icon={faCartShopping}
-                    className="fa-solid fa-cart-shopping"
-                  />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="card">
-            <div className="img position-relative">
-              <button className="p-0 position-absolute">
-                <FaHeart className="fa-heart" />
-                <FaRegHeart className="far-heart" />
-              </button>
-            </div>
-            <div className="content d-flex flex-column justify-content-center px-3">
-              <div className="prodcut-name my-1">特選黑羽雞翅汝拉箭</div>
-              <div className="price d-flex justify-content-between my-1">
-                NT$ 8000
-                <button className="">
-                  <FontAwesomeIcon
-                    icon={faCartShopping}
-                    className="fa-solid fa-cart-shopping"
-                  />
-                </button>
-              </div>
-            </div>
-          </div>
-          <div className="card">
-            <div className="img position-relative">
-              <button className="p-0 position-absolute">
-                <FaHeart className="fa-heart" />
-                <FaRegHeart className="far-heart" />
-              </button>
-            </div>
-            <div className="content d-flex flex-column justify-content-center px-3">
-              <div className="prodcut-name my-1">特選黑羽雞翅汝拉箭</div>
-              <div className="price d-flex justify-content-between my-1">
-                NT$ 8000
-                <button className="">
-                  <FontAwesomeIcon
-                    icon={faCartShopping}
-                    className="fa-solid fa-cart-shopping"
-                  />
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* btn */}
-        <div className=" page-btns d-flex justify-content-end">
-          <div className="btn-group me-2 rounded-0" role="group">
-            <button className="btn">
-              <FontAwesomeIcon
-                icon={faArrowLeft}
-                className="fa-solid fa-arrow-left"
-              />
-            </button>
-            <button className="btn">1</button>
-            <button className="btn">2</button>
-            <button className="btn">3</button>
-            <button className="btn">
-              <FontAwesomeIcon
-                icon={faArrowRight}
-                className="fa-solid fa-arrow-right"
-              />
-            </button>
-          </div>
-        </div>
-      </div>
+      {/* <div>
+        {allProduct.map((product) => {
+          return <div key={product.id}>{product.name}</div>;
+        })}
+      </div> */}
+
+      <Row className="filter-cards-area">
+        <Col md="auto" className="filter-cards">
+          <Row className="rows">
+            {allProduct.map((data) => {
+              return <FilterProductCard key={data.id} filterProduct={data} />;
+            })}
+
+            {/* <FilterProductCard />
+            <FilterProductCard />
+            <FilterProductCard />
+            <FilterProductCard /> */}
+          </Row>
+        </Col>
+      </Row>
+
+      {/* btn */}
+      <LunaPagination />
 
       {/* 優惠專區 */}
-      <div className="title">
+      <div className="product-page-title">
         <p>優惠專區</p>
       </div>
-      <div className="sales d-flex justify-content-between">
-        <div className="card">
-          <div className="img"></div>
-          <div className="content d-flex flex-column justify-content-around py-5 px-3">
-            <div className="tags d-flex">
-              <div className="tag1 text-center me-2">NEW</div>
-              <div className="tag2 text-center">HOT</div>
-            </div>
-            <div className="product-name">特選黑羽雞翅汝拉箭6枚</div>
+      <Row className="sales">
+        <Col md="12" xs="8" className="">
+          <Row className="sales-row">
+            <Col md="auto" xs="6" className="card p-0 m-2">
+              <SalesCard />
+            </Col>
+            <Col md="auto" xs="6" className="card p-0 m-2">
+              <SalesCard />
+            </Col>
+            <Col md="auto" xs="6" className="card p-0 m-2">
+              <SalesCard />
+            </Col>
+            <Col md="auto" xs="6" className="card p-0 m-2">
+              <SalesCard />
+            </Col>
+          </Row>
+        </Col>
+      </Row>
+      {/* 手機板 優惠專區 */}
+      <div className="phone-sales">
+        <div className="cards">
+          <div className="img">
+            <img src=""></img>
+          </div>
+          <div className="content">
+            <div className="tag tag1">HOT</div>
+            <div className="tag tag2">SALES</div>
+            <div className="product-name">特選黑羽雞翅汝拉箭</div>
             <div className="price">$3000</div>
           </div>
         </div>
       </div>
-
       {/* inter */}
       <div className="inter-block text-center">真誠面對傳統，超越傳統。</div>
 
       {/* 相關商品推薦 */}
-      <div className="title">
+      <div className="product-page-title">
         <p>相關商品推薦</p>
       </div>
-      <div className="cards d-flex justify-content-center px-5 py-5">
-        <div className="card">
-          <img src="" />
-          <div className="content d-flex flex-column justify-content-between">
-            <div className="product-name d-flex">
-              <div className="tag me-1">NEW</div>特選黑羽雞翅汝拉箭
-            </div>
-            <div className="description">汝拉箭6枚1913年 (5)</div>
-            <div className="price text-end">$1500</div>
-          </div>
-        </div>
-        <div className="card">
-          <img src="" />
-          <div className="content d-flex flex-column justify-content-between">
-            <div className="product-name d-flex">
-              <div className="tag me-1">NEW</div>特選黑羽雞翅汝拉箭
-            </div>
-            <div className="description">汝拉箭6枚1913年 (5)</div>
-            <div className="price text-end">$1500</div>
-          </div>
-        </div>
-        <div className="card">
-          <img src="" />
-          <div className="content d-flex flex-column justify-content-between">
-            <div className="product-name d-flex">
-              <div className="tag me-1">NEW</div>特選黑羽雞翅汝拉箭
-            </div>
-            <div className="description">汝拉箭6枚1913年 (5)</div>
-            <div className="price text-end">$1500</div>
-          </div>
-        </div>
-        <div className="card">
-          <img src="" />
-          <div className="content d-flex flex-column justify-content-between">
-            <div className="product-name d-flex">
-              <div className="tag me-1">NEW</div>特選黑羽雞翅汝拉箭
-            </div>
-            <div className="description">汝拉箭6枚1913年 (5)</div>
-            <div className="price text-end">$1500</div>
-          </div>
-        </div>
-        <div className="card">
-          <img src="" />
-          <div className="content d-flex flex-column justify-content-between">
-            <div className="product-name d-flex">
-              <div className="tag me-1">NEW</div>特選黑羽雞翅汝拉箭
-            </div>
-            <div className="description">汝拉箭6枚1913年 (5)</div>
-            <div className="price text-end">$1500</div>
-          </div>
-        </div>
-      </div>
+      <Row className="normal-cards-area">
+        <Col className="normal-cards">
+          <Row className="rows">
+           <RecommendedCard/>
+           <RecommendedCard/>
+           <RecommendedCard/>
+           <RecommendedCard/>
+           <RecommendedCard/>
+          </Row>
+        </Col>
+      </Row>
+      <div className="product-under-space"></div>
+
+      {/* *************TEST**************** */}
+      <p></p>
     </>
   );
 }

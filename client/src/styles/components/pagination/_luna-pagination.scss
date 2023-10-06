@@ -1,0 +1,32 @@
+.page-btns {
+    max-width: 1440px;
+    padding-inline: 30px;
+    margin: 0 auto;
+    .btn-group {
+      .btn {
+        width: 50px;
+        height: 50px;
+        border: 1px solid $secondary;
+        font-size: 20px;
+        color: $secondary;
+        border-radius: 0;
+
+        &:hover {
+          color: $primary;
+          background-color: $secondary;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .page-btns {
+      padding: 15px 20px;
+      .btn-group {
+        .btn {
+          width: 35px;
+          height: 35px;
+          font-size: 14px;
+        }
+      }
+    }
+  }

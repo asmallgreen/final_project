@@ -1,0 +1,44 @@
+.member-sidebar {
+  img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  p {
+    font-weight: bold;
+    color: $secondary;
+    margin: 0;
+  }
+  li {
+    padding: 10px 10px;
+    border-left: solid 7px transparent;
+    color: $secondary;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  li:hover {
+    border-left: solid 7px $accent;
+    color: $accent;
+  }
+  .crown {
+    color: $secondary;
+    font-size: 1.25rem;
+    p {
+      font-size: 1rem;
+    }
+  }
+  @media (max-width: 768px) {
+    img {
+      width: 50px;
+      height: 50px;
+      border-radius: 0;
+    }
+    p {
+      font-size: 1rem;
+      font-weight: bold;
+      color: $secondary;
+      margin: 0;
+    }
+  }
+}

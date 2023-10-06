@@ -1,0 +1,25 @@
+.atrribute {
+  .attr-btns-material {
+    .attr-btn {
+      border-radius: 0;
+      color: $secondary;
+      border: 1px solid $secondary;
+      margin-inline: 5px;
+      font-size: 25px;
+      &:hover {
+        background-color: $secondary;
+        color: $primary;
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .atrribute {
+    .attr-btns-material {
+      .attr-btn {
+        margin-inline: 2px;
+        font-size: 16px;
+      }
+    }
+  }
+}
