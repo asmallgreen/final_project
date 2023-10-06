@@ -2,7 +2,6 @@ import DefaultLayout from "@/components/layout/default-layout/index.js";
 import "@/styles/index.scss";
 import { useEffect } from "react";
 import { AuthProviderJWT } from "@/hooks/use-auth-jwt";
-import { LoadingProvider } from "@/contexts/LoadingContext";
 
 function MyApp({ Component, pageProps }) {
   // 導入bootstrap的JS函式庫
@@ -15,9 +14,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <AuthProviderJWT>
-        <LoadingProvider>
           {getLayout(<Component {...pageProps} />)}
-        </LoadingProvider>
       </AuthProviderJWT>
     </>
   );
