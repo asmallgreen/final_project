@@ -18,6 +18,7 @@ const __dirname = path.dirname(__filename);
 // 讓console.log可以呈現檔案與行號
 // import { extendLog } from './utils/tool.js'
 // extendLog() // 執行全域套用
+
 // console.log呈現顏色用 全域套用
 import "colors";
 // 檔案上傳

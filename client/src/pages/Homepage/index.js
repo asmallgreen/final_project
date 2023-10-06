@@ -9,17 +9,17 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 // 引入slider卡片元件
-import CourseSlider from "../components/homepage/CourseSlider";
+import CourseSlider from "./CourseSlider";
 
 // 引入IntroCard元件
-import IntroCard from "../components/homepage/IntroCard";
+import IntroCard from "./IntroCard";
 
 // Tabs分頁內容
-import New from "../components/homepage/New";
-import Season from "../components/homepage/Season";
-import Hot from "../components/homepage/Hot";
-import Beginner from "../components/homepage/Beginner";
-import Welfare from "../components/homepage/Welfare";
+import New from "./New";
+import Season from "./Season";
+import Hot from "./Hot";
+import Beginner from "./Beginner";
+import Welfare from "./Welfare";
 
 //引入圖片
 // import CourseSlider1 from "../../../public/images/homepage/course-image1.png";
@@ -106,10 +106,10 @@ export default function Homepage() {
       <div className="homepage-body">
         <div className="homepageHero1">
           <video
-            autoPlay={true}
-            muted={true}
-            loop={true}
-            playsInline=""
+            autoplay="true"
+            muted="true"
+            loop="true"
+            playsinline=""
             src="https://raw.githubusercontent.com/asmallgreen/final_project/Jim/client/public/images/homepage/hero_1.mp4"
             width={1902}
             data-object-fit="cover"
