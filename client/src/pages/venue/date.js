@@ -2,10 +2,11 @@ import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { format } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import 'react-day-picker/dist/style.css';
 import { zhTW } from 'date-fns/locale';
-
+import axios from 'axios'
+import { useRouter } from 'next/router';
 
 const css = `
 .my-selected{
@@ -17,6 +18,37 @@ const css = `
 
 export default function ReserveDate() {
   const [selected, setSelected] = useState();
+  const [VenueData, setVenueData] = useState(null)
+  const [reserveData, setReserveData] = useState(null);
+
+  const router = useRouter()
+  const { isReady } = router
+  const { id } = router.query
+
+
+  useEffect(() => {
+    async function fetchVenueData(id) {
+      try {
+        const response = await axios.get(`http://127.0.0.1:3005/venue`);
+        setVenueData(response.data.allVenue);
+      } catch (error) {
+        console.error('資料庫連結錯誤:', error);
+      }
+    }
+    async function fetchVenueReserveData() {
+      try {
+        const response = await axios.get('http://127.0.0.1:3005/venue_reserve');
+        setReserveData(response.data.allVenueReserve);
+
+      } catch (error) {
+        console.error('資料庫連結錯誤:', error);
+      }
+    }
+    if(isReady){
+      fetchVenueData(id);
+      fetchVenueReserveData()
+    }
+  }, [isReady])
 
 
   // const [footer , setFooter] = useState(message)
@@ -33,11 +65,21 @@ export default function ReserveDate() {
     ) : (
       <p>請選擇日期</p>
     );
+
   return (
     <>
       <Container>
-        <div className='mt-5 d-flex justify-content-center'>
+        <div className='my-5 d-flex justify-content-center'>
           <img className='' src='/images/venue/場地流程ui-日期選擇.png'></img>
+        </div>
+
+        <div className='reserve-text '>
+          <div>
+            <p className='fs-5 fw-bold'>您所選擇的</p>
+            <p className='fs-5 fw-bold'>道場：{id}</p>
+            <p className='fs-5 fw-bold'>日期：２０２３／０７／２７</p>
+          </div>
+          <hr></hr>
         </div>
 
         <div className='mt-5 mb-2 d-flex justify-content-center'>

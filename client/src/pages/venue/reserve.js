@@ -13,8 +13,9 @@ export default function Reserve() {
                 <div className='reserve-text '>
                     <div>
                         <p className='fs-5 fw-bold'>您所選擇的</p>
-                        <p className='fs-5 fw-bold'>日期：２０２３／０７／２７</p>
                         <p className='fs-5 fw-bold'>道場：北道場　藏月弓道場</p>
+                        <p className='fs-5 fw-bold'>日期：２０２３／０７／２７</p>
+
                     </div>
                     <hr></hr>
 
