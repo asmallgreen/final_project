@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ConfigProvider, Tabs, Rate } from "antd";
 import StickyBox from "react-sticky-box";
 
@@ -43,7 +43,6 @@ const items = [
 
 export default function CourseDetail() {
   //處理antd的tabBar的sticky效果
-
   const renderTabBar = (props, DefaultTabBar) => (
     <StickyBox
       offsetTop={0}
@@ -61,6 +60,7 @@ export default function CourseDetail() {
       />
     </StickyBox>
   );
+
   return (
     <div className="course-detail-body">
       <div className="container">

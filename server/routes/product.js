@@ -66,7 +66,7 @@ router.get("/:cate", async (req, res) => {
       cateid = 4;
       break;
   }
-  const launchedData = alldata.filter(data=>data.launched === 1);
+  const launchedData = allData.filter(data=>data.launched === 1);
   const catedata = await getCate({ category_id: cateid });
   console.log(launchedData)
   console.log(`cateid:${cateid}`);

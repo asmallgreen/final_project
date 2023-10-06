@@ -10,7 +10,7 @@ export default function GetAll() {
         const response = await axios.get(
           "http://localhost:3005/course/"
         );
-        console.log("伺服器回應:", response.data.allCourse);
+        // console.log("伺服器回應:", response.data.allCourse);
         setAllCourseDate(response.data.allCourse);
       } catch (error) {
         console.error("錯誤：請確認後台API功能", error);
