@@ -1,7 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
+import axios from 'axios'
 
 export default function Venue() {
+  const [data, setData] = useState([])
+  useEffect(() => {
+    axios.get(`http://localhost:9000/`)
+      .them(res => console.log(res))
+      .catch(err => console.log(err))
+  }, [])
   return (
     <>
       <Container>
