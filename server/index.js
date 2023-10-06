@@ -111,9 +111,9 @@ app.use('/google-login', googleLoginRouter)
 app.use('/product', productRouter)
 app.use('/course', courseRouter)
 
-// app.listen(3005, ()=>{
-//   console.log("服務已啟動於 http://localhost:3005");
-// })
+app.listen(3005, ()=>{
+  console.log("服務已啟動於 http://localhost:3005");
+})
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
