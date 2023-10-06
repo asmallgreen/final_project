@@ -1,0 +1,31 @@
+.product-info-btns {
+  .product-info-btn {
+    .cart-btn {
+      background-color: $secondary;
+      color: $primary;
+      font-size: 20px;
+      border: 5px solid $primary;
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 65px;
+      // padding: auto;
+      &:hover {
+        background-color: $accent;
+        color: $primary;
+        transition: 0.2s;
+        border: 5px solid $primary;
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .product-info-btns {
+    .product-info-btn {
+      .cart-btn {
+       
+      }
+    }
+  }
+}

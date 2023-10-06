@@ -1,55 +1,71 @@
 $pc-img-height: 80px;
 $mobile-img-height: 60px;
 
-.order-title{
-    font-size: 24px;
-    font-weight: 700;
+.order-table-pc {
+  width: 100%;
+  thead {
+    background-color: $secondary-half;
+    color: #fff;
+  }
+  th {
+    padding: 10px 0;
+    text-align: center;
+  }
+  td {
+    padding: 10px 0;
+    text-align: center;
     color: $secondary;
-    border-bottom:5px solid transparent;
+  }
+  img {
+    width: $pc-img-height;
+    height: auto;
+    object-fit: cover;
+  }
+  .btn {
+    background-color: $secondary-half;
+    border-radius: 0;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 0.75rem;
+    &:hover {
+      background-color: $accent;
+      color: #fff
+    }
+  }
 }
 
-.order-title:hover{
-    border-bottom: $secondary 5px solid;
-}
-
-.order-table-pc{
-    width: 100%;
-    thead{
-        background-color: $secondary-half;
-        color: #fff;
+.order-table-mobile {
+  color: $secondary;
+  background-color: $primary;
+  .order{
+    border-bottom: #fff solid 3px;  
+  }
+  img {
+    width: $mobile-img-height;
+    height: $mobile-img-height;
+    object-fit: cover;
+  }
+  .order-title{
+    font-size: 14px;
+  }
+  .order-contain{
+    font-size: 1rem;
+    color: $accent;
+  }
+  .btn {
+    background-color: $secondary-half;
+    border-radius: 0;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 0.75rem;
+    &:hover {
+      background-color: $accent;
+      color: #fff
     }
-    th{
-        padding: 10px 0;
-        text-align: center;
-    }
-    td{
-        padding: 10px 0;
-        text-align: center;
-        color: $secondary;
-    }
-    img{
-        width: $pc-img-height;
-        height: auto;
-        object-fit: cover;
-    }
-}
-
-.order-table-mobile{
-    img{
-        width: $mobile-img-height;
-        height: $mobile-img-height;
-        object-fit: cover;
-    }
-    .btn{
-        background-color: $secondary-half;
-        border-radius: 0;
-        padding: 10px 20px;
-        color: #fff;
-        font-size: 0.75rem;
-    }
-    .subtotal{
-        font-size: 14px;
-        font-weight: bold;
-        color: $accent;
-    }
+  }
+  .subtotal {
+    font-size: 14px;
+    font-weight: bold;
+    color: $accent;
+  }
 }

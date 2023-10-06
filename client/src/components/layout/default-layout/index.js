@@ -1,6 +1,3 @@
-// import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-// import Product from './Product';
-
 import Footer from "./footer.js";
 import Navbar from "./navbar.js";
 import Logobar from "./logobar.js";
@@ -17,7 +14,7 @@ export default function DefaultLayout({ title = "", children }) {
         <Logobar />
         <Navbar />
         <main>
-          <div className="">{children}</div>
+          <div>{children}</div>
         </main>
         <Footer />
         {/* <Switch>

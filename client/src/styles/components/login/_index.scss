@@ -1,0 +1,64 @@
+
+.bt-container{
+    // overflow-y: auto;
+    // max-height: 100vh;
+}
+.login-block{
+    width: 520px;
+    // height: 450px;
+    background-color: #FCFAF2;
+    .hmgnAx{
+        border: 0.5px solid rgba(196, 198, 204, 0.2);
+    }
+    .password-eye{
+        position: relative;
+        .password-eye2{
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            position: absolute;
+            top: 2.3rem;
+            right: 1rem;
+            svg{
+        } 
+
+        }
+    }
+
+}
+.login-block-container{
+    padding-top: 30px;
+    padding-inline: 100px;
+
+    .login-link{
+        border-bottom: 5px solid #B16464;
+    }
+    @media (max-width: 393px) {
+        padding-top: 30px;
+        padding-inline: 50px;
+    }
+}
+.login-border-bottom{
+    width: 40%;
+
+    a{
+        width: 100%;
+        text-align: center;
+        color:#616153;
+    }
+}
+.google-login-btn{
+    width: 60%;
+    border: 0;
+    background-color:#fff;
+    position: relative;
+    img{
+        width: 6%;
+        position: absolute;
+        left: 5%;
+    }
+    }
+
+.forgetpwd-link{
+    color:#616153;
+}
