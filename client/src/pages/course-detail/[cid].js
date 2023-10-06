@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ConfigProvider, Tabs, Rate } from "antd";
 import StickyBox from "react-sticky-box";
+import axios from "axios";
 
 // 引入Tabs頁面
 import CourseDescription from "../../components/course-detail/CourseDescription";
@@ -11,7 +12,7 @@ import Review from "../../components/course-detail/Review";
 
 // Tabs Index
 const onChange = (key) => {
-  console.log(key);
+  // console.log(key);
 };
 const items = [
   {
@@ -59,12 +60,26 @@ export default function CourseDetail() {
         }}
       />
     </StickyBox>
-
-    
   );
 
+  const [AllCourseDate, setAllCourseDate] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3005/course/");
+        // console.log("伺服器回應:", response.data.allCourse);
+        setAllCourseDate(response.data.allCourse);
+      } catch (error) {
+        console.error("錯誤：請確認後台API功能", error);
+      }
+    };
+
+    fetchData(); // 呼叫包裹的 async 函數
+  }, []);
+  console.log(AllCourseDate);
+
   return (
-    
     <div className="course-detail-body">
       <div className="container">
         <div className="bread-crumb">
@@ -76,7 +91,7 @@ export default function CourseDetail() {
           </div>
           <div className="right ">
             <div className="course-detail-text">
-              <div className="title">初探：射法八節</div>
+              <div className="title">  </div>
               <div className="intro">
                 且而抱樹小空誰拉邊了就車吉固，蝶貓年真快。師跑亭眼；午哥兆說合眼動把習爪右安頁常許，遠校候「魚隻幾抄園」。登也身司光北具，月枝巴登寺主羽，下早急房訴玩月美夏，葉造新雄給頁來品知游後大飽。圓河毛夕文員快犬訴貝苦坐反再良點實。
                 <br />
@@ -142,7 +157,7 @@ export default function CourseDetail() {
                   itemHoverColor: "#000",
                   itemSelectedColor: "#000",
                   horizontalItemPadding: "12px 60px",
-                  horizontalMargin:"0 0 100px 0"
+                  horizontalMargin: "0 0 100px 0",
                 },
               },
             }}

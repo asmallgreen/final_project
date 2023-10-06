@@ -11,11 +11,11 @@ import {
     findOne,
   } from "./base.js";
 
-  const table = "course";
+  const table = "teacher";
 
-  const getAllCourse = async () => {
+  const getAllTeacher = async () => {
     const { rows } = await find(table);
     return rows;
   };
 
-  export { getAllCourse };
+  export { getAllTeacher };
