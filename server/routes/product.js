@@ -126,7 +126,7 @@ router.get("/searchProduct", async (req, res) => {
 
 
 // 篩選(分類、價格、上架日期、商品名稱)
-router.get("/:cate", async (req, res) => {
+router.get("/category/:cate", async (req, res) => {
   // 透過路由判斷cateid 取得後端資料庫category_id(ex:1,2,3,4)的資料
   const cate = req.params.cate;
   let cateid;

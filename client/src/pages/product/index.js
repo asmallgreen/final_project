@@ -6,15 +6,12 @@ import SalesCard from "@/components/product/sales-card";
 import FilterProductCard from "@/components/product/filter-card";
 import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import LunaPagination from "@/components/pagination/luna-pagination";
-import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
 import FilterBtns from "@/components/product/filter-btns";
 import RecommendedCard from "@/components/product/recommended-card";
 import LaunchedCard from "@/components/product/launched-card";
 import { useProductContext } from "../../hooks/use-product-context.js";
 
 function Product() {
-  // const [productList ,setproductList] = useState(null);
-  // const [cateData, setCateData] = useState(null);
   const [allProduct, setAllProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
 
@@ -132,19 +129,19 @@ function Product() {
       <div className="category position-relative">
         <div className="type-title">｜ 產品分類 ｜</div>
         <div className="type">
-          <Link href="/product/bow" className="item">
+          <Link href="/product/category/bow" className="item">
             <img src="/product/cate1.jpg"></img>
             <span className="text-decoration-none">弓</span>
           </Link>
-          <Link href="/product/arrow" className="item">
+          <Link href="/product/category/arrow" className="item">
             <img src="/product/cate2.jpg"></img>
             <span className="text-decoration-none">箭</span>
           </Link>
-          <Link href="/product/suit" className="item">
+          <Link href="/product/category/suit" className="item">
             <img src="/product/cate3.jpg"></img>
             <span className="text-decoration-none">道服</span>
           </Link>
-          <Link href="/product/other" className="item">
+          <Link href="/product/category/other" className="item">
             <img src="/product/cate4.jpg"></img>
             <span className="text-decoration-none">其他</span>
           </Link>

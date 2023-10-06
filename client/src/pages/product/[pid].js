@@ -3,15 +3,14 @@ import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import { Row, Col } from "react-bootstrap";
 
 import ProductInfoAccordion from "@/components/accordion/product-info-accordion";
-import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
 import FavBtn from "@/components/category/fav-btn";
 import CartBtn from "@/components/category/cart-btn";
-import NormalCard from "@/components/product/normal-card";
 import Description from "@/components/category/description";
 import QuantityBtn from "@/components/category/quantity-btn";
 import Material from "@/components/attributes/material";
 import Length from "@/components/attributes/length";
 import Diameter from "@/components/attributes/diameter";
+import RecommendedCard from "@/components/product/recommended-card";
 function Category() {
   return (
     <>
@@ -62,11 +61,10 @@ function Category() {
       <Row className="normal-cards-area">
         <Col className="normal-cards">
           <Row className="rows">
-            <NormalCard />
-            <NormalCard />
-            <NormalCard />
-            <NormalCard />
-            <NormalCard />
+            <RecommendedCard/>
+            <RecommendedCard/>
+            <RecommendedCard/>
+            <RecommendedCard/>
           </Row>
         </Col>
       </Row>

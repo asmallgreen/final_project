@@ -100,7 +100,7 @@ export default function Navbar() {
           <li className="list-unstyled product-page">
             <Link href="/product">商品介紹</Link>
             <div className="hover-type position-absolute">
-              <Link href="/product/bow">
+              <Link href="/product/category/bow">
                 <div className="box">
                   <img src="/layout/type1.png" />
                   <div className="text">
@@ -108,7 +108,7 @@ export default function Navbar() {
                   </div>
                 </div>
               </Link>
-              <Link href="/product/arrow">
+              <Link href="/product/category/arrow">
                 <div className="box">
                   <img src="/layout/type2.png" />
                   <div className="text">
@@ -116,7 +116,7 @@ export default function Navbar() {
                   </div>
                 </div>
               </Link>
-              <Link href="/product/suit">
+              <Link href="/product/category/suit">
                 <div className="box">
                   <img src="/layout/type3.png" />
                   <div className="text">
@@ -124,7 +124,7 @@ export default function Navbar() {
                   </div>
                 </div>
               </Link>
-              <Link href="/product/other">
+              <Link href="/product/category/other">
                 <div className="box">
                   <img src="/layout/type4.png" />
                   <div className="text">
