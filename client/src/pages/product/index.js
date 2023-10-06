@@ -10,6 +10,17 @@ import FilterBtns from "@/components/product/filter-btns";
 import RecommendedCard from "@/components/product/recommended-card";
 import LaunchedCard from "@/components/product/launched-card";
 import { useProductContext } from "../../hooks/use-product-context.js";
+//AnimatedArrow
+import AnimatedArrow from "../../components/product/animate-arrow.js";
+import ConcentricCircles from "../../components/product/animate-concent-circle.js";
+// 廣告
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import { Navigation, Pagination, History } from "swiper/modules";
 
 function Product() {
   const [allProduct, setAllProduct] = useState([]);
@@ -63,6 +74,7 @@ function Product() {
   //   }
   //   console.log(allProduct);
   // };
+
   return (
     <>
       {/* <div>
@@ -85,9 +97,64 @@ function Product() {
             </ul>
           </div>
         )} */}
+      {/* **************** */}
+      <Swiper
+        slidesPerView={2}
+        centeredSlides={true}
+        spaceBetween={30}
+        pagination={{
+          clickable: true,
+        }}
+        modules={[Pagination]}
+        className="mySwiper ad-swiper"
+      >
+        <SwiperSlide>
+          <Row className="ads">
+            <Col md="12" className="ad">
+              <img src="/product/top1.jpg" />
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide>
+          <Row className="ads">
+            <Col md="12" className="ad">
+              <img src="/product/top2.jpg" />
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide>
+          <Row className="ads">
+            <Col md="12" className="ad">
+              <img src="/product/top3.jpg" />
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide>
+          <Row className="ads">
+            <Col md="12" className="ad">
+              <img src="/product/top1.jpg" />
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide>
+          <Row className="ads">
+            <Col md="12" className="ad">
+              <img src="/product/top2.jpg" />
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide>
+          <Row className="ads">
+            <Col md="12" className="ad">
+              <img src="/product/top3.jpg" />
+            </Col>
+          </Row>
+        </SwiperSlide>
+      </Swiper>
 
+      {/* ****************************** */}
       {/* 商品廣告 */}
-      <Row className="ads">
+      {/* <Row className="ads">
         <Col md="3" className="ad">
           <img src="/product/top1.jpg" />
         </Col>
@@ -97,7 +164,7 @@ function Product() {
         <Col md="3" className="ad">
           <img src="/product/top3.jpg" />
         </Col>
-      </Row>
+      </Row> */}
       <div className="phone-ad">
         <img src="/product/top1.jpg"></img>
       </div>
@@ -131,19 +198,43 @@ function Product() {
         <div className="type">
           <Link href="/product/category/bow" className="item">
             <img src="/product/cate1.jpg"></img>
-            <span className="text-decoration-none">弓</span>
+            <span className="text-decoration-none">良弓</span>
+            <div className="animate-content-circle position-absolute">
+              <ConcentricCircles />
+            </div>
+            <div className="animate-arrow">
+              <AnimatedArrow />
+            </div>
           </Link>
           <Link href="/product/category/arrow" className="item">
             <img src="/product/cate2.jpg"></img>
-            <span className="text-decoration-none">箭</span>
+            <span className="text-decoration-none">羽箭</span>
+            <div className="animate-content-circle position-absolute">
+              <ConcentricCircles />
+            </div>
+            <div className="animate-arrow">
+              <AnimatedArrow />
+            </div>
           </Link>
           <Link href="/product/category/suit" className="item">
             <img src="/product/cate3.jpg"></img>
             <span className="text-decoration-none">道服</span>
+            <div className="animate-content-circle position-absolute">
+              <ConcentricCircles />
+            </div>
+            <div className="animate-arrow">
+              <AnimatedArrow />
+            </div>
           </Link>
           <Link href="/product/category/other" className="item">
             <img src="/product/cate4.jpg"></img>
             <span className="text-decoration-none">其他</span>
+            <div className="animate-content-circle position-absolute">
+              <ConcentricCircles />
+            </div>
+            <div className="animate-arrow">
+              <AnimatedArrow />
+            </div>
           </Link>
         </div>
       </div>
@@ -182,24 +273,90 @@ function Product() {
       <div className="product-page-title">
         <p>優惠專區</p>
       </div>
-      <Row className="sales">
+      {/* ************** */}
+      <Swiper
+        spaceBetween={50}
+        slidesPerView={3}
+        navigation={true}
+        pagination={true}
+        history={{
+          key: "slide",
+        }}
+        modules={[Navigation, Pagination, History]}
+        className="mySwiper sale-product-swiper pt-5"
+      >
+        <SwiperSlide data-history="1">
+          <Row className="sales">
+            <Col md="12" xs="8" className="">
+              <Row className="sales-row">
+                <Col md="auto" xs="6" className="card p-0 m-2">
+                  <SalesCard />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide data-history="Slide 2">
+          <Row className="sales">
+            <Col md="12" xs="8" className="">
+              <Row className="sales-row">
+                <Col md="auto" xs="6" className="card p-0 m-2">
+                  <SalesCard />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide data-history="3">
+          <Row className="sales">
+            <Col md="12" xs="8" className="">
+              <Row className="sales-row">
+                <Col md="auto" xs="6" className="card p-0 m-2">
+                  <SalesCard />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide data-history="Slide 4">
+          <Row className="sales">
+            <Col md="12" xs="8" className="">
+              <Row className="sales-row">
+                <Col md="auto" xs="6" className="card p-0 m-2">
+                  <SalesCard />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide data-history="5">
+          <Row className="sales">
+            <Col md="12" xs="8" className="">
+              <Row className="sales-row">
+                <Col md="auto" xs="6" className="card p-0 m-2">
+                  <SalesCard />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide data-history="Slide 6"></SwiperSlide>
+        {/* <SwiperSlide data-history="7"></SwiperSlide>
+        <SwiperSlide data-history="Slide 8"></SwiperSlide>
+        <SwiperSlide data-history="9"></SwiperSlide> */}
+      </Swiper>
+
+      {/* ************** */}
+
+      {/* <Row className="sales">
         <Col md="12" xs="8" className="">
           <Row className="sales-row">
             <Col md="auto" xs="6" className="card p-0 m-2">
               <SalesCard />
             </Col>
-            <Col md="auto" xs="6" className="card p-0 m-2">
-              <SalesCard />
-            </Col>
-            <Col md="auto" xs="6" className="card p-0 m-2">
-              <SalesCard />
-            </Col>
-            <Col md="auto" xs="6" className="card p-0 m-2">
-              <SalesCard />
-            </Col>
           </Row>
         </Col>
-      </Row>
+      </Row> */}
       {/* 手機板 優惠專區 */}
       <div className="phone-sales">
         <div className="cards">

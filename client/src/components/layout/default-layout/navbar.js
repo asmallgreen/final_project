@@ -158,7 +158,7 @@ export default function Navbar() {
               <Form.Control
                 type="text"
                 placeholder="請輸入商品名稱"
-                className="search-product-name rounded-5"
+                className="search-product-name"
                 value={keyword}
                 onChange={(e) => setKeyword(e.target.value)}
               />
