@@ -8,10 +8,20 @@ export default function Navbar() {
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
+
+
+  const handleSearch = () => {
+    // 在点击 FaSearch 图标时，只更新 searchValue 的值
+    // 搜索请求会在 useEffect 中触发
+    setSearchValue(searchValue);
+    console.log(searchValue)
+    console.log(searchResults);
+  };
   useEffect(() => {
+    //检查 searchValue 经过修剪后的值是否不等于空字符串。
     if (searchValue.trim() !== "") {
       // 向后端API发送请求
-      fetch(`/api/products?query=${searchValue}`)
+      fetch(`http://localhost:3005/prodcut/getProductName?name=${searchValue}`)
         .then((res) => res.json())
         .then((data) => {
           // 处理从后端获取的数据并将结果存储在searchResults状态中
@@ -22,13 +32,6 @@ export default function Navbar() {
         });
     }
   }, [searchValue]);
-
-  const handleSearch = () => {
-    // 在点击 FaSearch 图标时，只更新 searchValue 的值
-    // 搜索请求会在 useEffect 中触发
-    setSearchValue(searchValue);
-  };
-
   return (
     <>
       {/* 桌機版nav */}
@@ -107,6 +110,7 @@ export default function Navbar() {
               <FaSearch
                 className="fa-magnifying-glass position-absolute"
                 onClick={handleSearch}
+                
               />
             </div>
           </Form>

@@ -108,9 +108,6 @@ router.get("/", async (req, res) => {
   });
   const launchedData = alldata.filter(data=>data.launched === 1);
   // console.log(launchedData)
-
-
-
   res.json({
     message: "getAllProduct success",
     code: "200",
@@ -123,7 +120,7 @@ router.get("/", async (req, res) => {
 // 创建一个API端点来获取产品ID
 router.get('/api/getProductId', (req, res) => {
   const productId = req.query.id;
-  const product = productsDatabase.find(item => item.id === parseInt(productId));
+  const product = productsData.find(item => item.id === parseInt(productId));
   
   if (product) {
     res.json({ productId: product.id });
@@ -131,6 +128,13 @@ router.get('/api/getProductId', (req, res) => {
     res.status(404).json({ error: "Product not found" });
   }
 });
+
+router.get('/getProductName', (req, res)=>{
+  const alldata =  getAllProduct();
+  const productName = req.query.name
+  const products = alldata.filter(data => data.name.includes(productName))
+  res.json({products})
+})
 
 // app.listen(3000, () => {
 //   console.log('Server is running on port 3000');
