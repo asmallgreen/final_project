@@ -21,7 +21,7 @@ extendLog() // 執行全域套用
 // console.log呈現顏色用 全域套用
 import "colors";
 // 檔案上傳
-import fileUpload from 'express-fileupload'
+// import fileUpload from 'express-fileupload'
 
 import authJwtRouter from './routes/auth-jwt.js'
 import DashboardRouter from './routes/memberDashboard.js'
@@ -41,7 +41,7 @@ const app = express();
 
 // 檔案上傳
 // 選項參考: https://github.com/richardgirges/express-fileupload
-app.use(fileUpload())
+// app.use(fileUpload())
 
 // 可以使用的CORS要求，options必要
 // app.use(cors())

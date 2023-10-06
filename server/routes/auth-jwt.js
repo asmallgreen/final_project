@@ -6,6 +6,22 @@ import nodemailer from 'nodemailer'
 import transporter from '../config/mail.js'
 import multer from 'multer'
 
+// 定義頭像上傳後存放的地方
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+
+
+    console.log('step 1: destination');
+    cb(null, './uploads/')
+  },
+  filename: function (req, file, cb) {
+    console.log('step 2: filename');
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix); // 使用唯一的檔案名稱
+    console.log(file.fieldname);
+  }
+})
+const upload = multer({storage:storage})
 import {
   verifyUser,
   getUser,
@@ -15,7 +31,7 @@ import {
   checkEmail,
   forgotPwdGetUser,
   getUserByAccount,
-  updateUserById
+  updateUserById,
 } from "../models/members.js";
 
 // 存取`.env`設定檔案使用
@@ -289,6 +305,27 @@ transporter.sendMail(mailOptions, (err, response) => {
 // })
 })
 
+// 修改會員頭像
+router.put('/update-profile-img', upload.single('avatar'), async (req, res)=>{
+  console.log('step 3: entering router');
+  console.log((req.file, req.body));
+
+  if(req.file){
+    console.log('step 4: file upload successfully');
+    console.log(req.file);
+    const member = {member_img: req.file.filename}
+    const id = req.body.id
+    const result = await updateUserById(member,id)
+    console.log(result);
+    return res.json({message:'檔案上傳成功', code:'200', result})
+  } else {
+    console.log('step 5: file upload failed');
+    console.log('檔案上傳失敗');
+    return res.json({message:'檔案上傳失敗', code:'409'})
+  }
+})
+
+
 // 修改會員資料
 router.put('/:memberId', async (req, res)=>{
   const memberId = req.params.memberId
@@ -315,26 +352,5 @@ router.put('/:memberId', async (req, res)=>{
   return res.json({message:'會員資料修改成功', code:'400'})
 })
 
-// 修改會員頭像
-router.post('/update-profile-img', async (req, res)=>{
-  // console.log(req);
-// use antd-img-crop to the node back-end
-  const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads/')
-    },
-    filename: function (req, file, cb) {
-      cb(null, file.fieldname + '-' + Date.now() + '.jpg')
-    }
-  })
-  const upload = multer({storage})
-  console.log(req.file);
-  console.log(upload);
-  if(!req.file){
-    return res.json({message:'上傳失敗', code:'400'})
-  }
-  res.json({message:'上傳成功', code:'400', filename:req.file.filename})
-
-})
 
 export default router;
