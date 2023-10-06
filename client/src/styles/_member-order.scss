@@ -7,6 +7,10 @@ $mobile-img-height: 60px;
     background-color: $secondary-half;
     color: #fff;
   }
+  .thead {
+    background-color: $secondary-half;
+    color: #fff;
+  }
   th {
     padding: 10px 0;
     text-align: center;
@@ -32,12 +36,15 @@ $mobile-img-height: 60px;
       color: #fff
     }
   }
+  .row{
+    margin: 0;
+  }
 }
 
 .order-table-mobile {
   color: $secondary;
   background-color: $primary;
-  .order{
+  .member-order{
     border-bottom: #fff solid 3px;  
   }
   img {

@@ -6,7 +6,6 @@
     object-fit: cover;
   }
   p {
-    font-weight: bold;
     color: $secondary;
     margin: 0;
   }
@@ -15,7 +14,6 @@
     border-left: solid 7px transparent;
     color: $secondary;
     font-size: 1.25rem;
-    font-weight: bold;
   }
   li:hover {
     border-left: solid 7px $accent;
@@ -36,7 +34,6 @@
     }
     p {
       font-size: 1rem;
-      font-weight: bold;
       color: $secondary;
       margin: 0;
     }

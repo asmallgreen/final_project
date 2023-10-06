@@ -8,6 +8,7 @@ import MemberOrder from "@/data/Member-order.json";
 import Pagination from "@/components/pagination";
 
 export default function OrderList() {
+
   return (
     <>
       <Row>
@@ -59,8 +60,8 @@ export default function OrderList() {
                 <div className="container order-table-mobile d-md-none">
                   <div>
                     {MemberOrder.map((order, index) => (
-                      <div className="row align-items-center p-2 order"
-                      key={order.id}>
+                      <div className="row align-items-center p-2 member-order"
+                        key={order.id}>
                         <div className="col-3 text-center">
                           <img
                             src="/images/member/default_member.png"
@@ -78,7 +79,7 @@ export default function OrderList() {
                         <div className="col-3 text-center">
                           <Link href={`/member/order-detail/${order.orderNumber}`}>
                             <button className="btn">
-                            <FaList />
+                              <FaList />
                             </button>
                           </Link>
                         </div>
@@ -125,7 +126,7 @@ export default function OrderList() {
                   <div>
                     {MemberOrder.map((order, index) => (
                       <div className="row align-items-center p-2 order"
-                      key={order.id}>
+                        key={order.id}>
                         <div className="col-3 text-center">
                           <img
                             src="/images/member/default_member.png"
@@ -143,7 +144,7 @@ export default function OrderList() {
                         <div className="col-3 text-center">
                           <Link href={`/member/order-detail/${order.orderNumber}`}>
                             <button className="btn">
-                            <FaList />
+                              <FaList />
                             </button>
                           </Link>
                         </div>

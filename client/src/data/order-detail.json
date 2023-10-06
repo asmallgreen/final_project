@@ -2,6 +2,7 @@
     "id":"1",
     "order_id":"1",
     "product_id":"1",
+    "product_name":"精靈箭",
     "price":"700",
     "detail_1":"XL",
     "detail_2":"火雞羽毛",
@@ -11,9 +12,21 @@
     "id":"2",
     "order_id":"1",
     "product_id":"5",
+    "product_name":"普龍弓",
     "price":"600",
     "detail_1":"25吋",
     "detail_2":"金屬",
     "detail_3":"20kg",
+    "quantity":"2"
+},
+{
+    "id":"2",
+    "order_id":"1",
+    "product_id":"5",
+    "product_name":"吊嘎",
+    "price":"600",
+    "detail_1":"XXL",
+    "detail_2":"蠶絲",
+    "detail_3":"純白",
     "quantity":"2"
 }]
