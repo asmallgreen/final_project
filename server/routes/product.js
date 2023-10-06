@@ -1,5 +1,10 @@
 import express from "express";
 import { getAllProduct, getCate, getProductPrice, searchProduct } from "../models/products.js";
+
+
+
+
+
 const router = express.Router();
 const app = express();
 // 中間件：檢查是否是 cateid
@@ -48,39 +53,7 @@ const app = express();
 //   res.send(`顯示產品ID為 ${pid} 的產品詳細資訊`);
 // });
 
-// 篩選(分類、價格、上架日期、商品名稱)
-router.get("/:cate", async (req, res) => {
-  // 透過路由判斷cateid 取得後端資料庫category_id(ex:1,2,3,4)的資料
-  const cate = req.params.cate;
-  let cateid;
-  switch (cate) {
-    case "bow":
-      cateid = 1;
-      break;
-    case "arrow":
-      cateid = 2;
-      break;
-    case "suit":
-      cateid = 3;
-      break;
-    case "other":
-      cateid = 4;
-      break;
-  }
 
-  const catedata = await getCate({ category_id: cateid });
-  // console.log(`cateid:${cateid}`);
-  const launchedData = catedata.filter((data) => data.launched === 1);
-  // console.log(launchedData)
-  // 定義資料庫表格名稱
-  res.json({
-    message: "產品分類 success",
-    code: "200",
-    cate: cateid,
-    catedata,
-    launchedData,
-  });
-});
 
 // 所有商品頁
 router.get("/", async (req, res) => {
@@ -129,8 +102,8 @@ router.get("/api/getProductId", (req, res) => {
   }
 });
 
-router.post("/searchProduct", async (req, res) => {
-  const {keyword}  = req.body;
+router.get("/searchProduct", async (req, res) => {
+  const {keyword}  = req.query;
   console.log(keyword);
   const searchKeyword = {
     name:`%${keyword}%`
@@ -147,9 +120,44 @@ router.post("/searchProduct", async (req, res) => {
     
   // });
   console.log(searchProducts);
-  res.json( {searchProducts} );
+  return res.json( {searchProducts} );
 });
 
+
+
+// 篩選(分類、價格、上架日期、商品名稱)
+router.get("/:cate", async (req, res) => {
+  // 透過路由判斷cateid 取得後端資料庫category_id(ex:1,2,3,4)的資料
+  const cate = req.params.cate;
+  let cateid;
+  switch (cate) {
+    case "bow":
+      cateid = 1;
+      break;
+    case "arrow":
+      cateid = 2;
+      break;
+    case "suit":
+      cateid = 3;
+      break;
+    case "other":
+      cateid = 4;
+      break;
+  }
+
+  const catedata = await getCate({ category_id: cateid });
+  // console.log(`cateid:${cateid}`);
+  const launchedData = catedata.filter((data) => data.launched === 1);
+  // console.log(launchedData)
+  // 定義資料庫表格名稱
+  res.json({
+    message: "產品分類 success",
+    code: "200",
+    cate: cateid,
+    catedata,
+    launchedData,
+  });
+});
 // app.listen(3000, () => {
 //   console.log('Server is running on port 3000');
 // });

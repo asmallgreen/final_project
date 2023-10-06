@@ -64,7 +64,7 @@ const getOrder2 = async (where) => {
 
 // 查詢產品
 const searchProduct =  async (where) => {
-  const { rows } = await find(table, where)
+  const { rows }  = await find(table, where)
   return rows
 }
 

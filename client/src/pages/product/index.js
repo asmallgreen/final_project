@@ -10,12 +10,16 @@ import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
 import FilterBtns from "@/components/product/filter-btns";
 import RecommendedCard from "@/components/product/recommended-card";
 import LaunchedCard from "@/components/product/launched-card";
+import { useProductContext } from "../../hooks/use-product-context.js";
 
 function Product() {
   // const [productList ,setproductList] = useState(null);
   // const [cateData, setCateData] = useState(null);
   const [allProduct, setAllProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
+
+  //navbar搜尋產品
+  const { results } = useProductContext();
 
   // const handleProduct = async (e) => {
   //   const res = await axios.get(
@@ -64,6 +68,27 @@ function Product() {
   // };
   return (
     <>
+      {/* <div>
+        <h2>Product List</h2>
+        <ul>
+          {results.map((product) => (
+            <li key={product.id}>{product.name}</li>
+          ))}
+        </ul>
+      </div> */}
+      {/* {results &&
+        results.searchProducts &&
+        results.searchProducts.length > 0 && (
+          <div>
+            {" "}
+            <ul>
+              {results.searchProducts.map((product) => (
+                <li key={product.id}>{product.name}</li>
+              ))}
+            </ul>
+          </div>
+        )} */}
+
       {/* 商品廣告 */}
       <Row className="ads">
         <Col md="3" className="ad">
@@ -202,11 +227,11 @@ function Product() {
       <Row className="normal-cards-area">
         <Col className="normal-cards">
           <Row className="rows">
-           <RecommendedCard/>
-           <RecommendedCard/>
-           <RecommendedCard/>
-           <RecommendedCard/>
-           <RecommendedCard/>
+            <RecommendedCard />
+            <RecommendedCard />
+            <RecommendedCard />
+            <RecommendedCard />
+            <RecommendedCard />
           </Row>
         </Col>
       </Row>

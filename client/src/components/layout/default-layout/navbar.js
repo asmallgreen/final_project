@@ -9,6 +9,9 @@ import { Button } from "react-bootstrap";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { result } from "lodash";
+import { useProductContext } from '../../../hooks/use-product-context.js';
+
 
 export default function Navbar() {
   const { authJWT, setAuthJWT } = useAuthJWT();
@@ -55,26 +58,36 @@ export default function Navbar() {
 
   // *****************************
   const [keyword, setKeyword] = useState("");
-  const [results, setResults] = useState([]);
-
+  // const [results, setResults] = useState([]);
+  const { updateResults } = useProductContext();
+  console.log(keyword);
+  console.log(updateResults);
   const handleSearch = async () => {
     try {
-      const res = await axios.post("http://localhost:3005/searchProduct", {keyword});
-
-      setResults(res.data.results);
+      const res = await axios.get(
+        `http://localhost:3005/product/searchProduct?keyword=${keyword}`
+      );
+      // setResults(res.data);
+      updateResults(res.data.searchProducts); // 假設 API 回傳的資料結構中有 searchProducts
     } catch (error) {
       console.error("Error:", error.msg);
     }
   };
   // *****************************
-
   return (
     <>
-      <ul>
-        {results.map((product) => (
-          <li key={product.id}>{product.name}</li>
-        ))}
-      </ul>
+      {/* {results &&
+        results.searchProducts &&
+        results.searchProducts.length > 0 && (
+          <div>
+            {" "}
+            <ul>
+              {results.searchProducts.map((product) => (
+                <li key={product.id}>{product.name}</li>
+              ))}
+            </ul>
+          </div>
+        )} */}
 
       {/* 桌機版nav */}
       <div className="table-nav position-relative">
