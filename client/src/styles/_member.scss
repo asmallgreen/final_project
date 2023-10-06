@@ -1,3 +1,7 @@
+body{
+  color: $secondary;
+  font-family: NSimSun;
+}
 .login-bg {
   height: 100%;
   width: 100%;
@@ -289,5 +293,44 @@
 
   @media (max-width: 393px) {
     padding-inline: 35px;
+  }
+}
+
+// 會員中心修改會員資料
+// 頭像
+  .member-profile-img{
+    button{
+      color: #fff;
+      background-color:$secondary;
+      border-radius: 0;
+      &:hover{
+        background-color: $accent;
+        color: #fff;
+      }
+    }
+  }
+// 會員資料內容
+.upload-profile-form{
+  color: $secondary;
+  font-family: NSimSun;
+  input{
+    background-color: #fff;
+    border: 1px solid rgba(204, 197, 197, 0.6);
+    &:focus{
+      background-color: #fff;
+      border: 1px solid $secondary;
+    }
+    &:focus::placeholder{
+      color: transparent;
+    }
+  }
+  button{
+    color: #fff;
+    background-color:$secondary;
+    border-radius: 0;
+    &:hover{
+      background-color: $accent;
+      color: #fff;
+    }
   }
 }

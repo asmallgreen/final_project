@@ -13,7 +13,8 @@ import {
   checkAccount,
   checkEmail,
   forgotPwdGetUser,
-  getUserByAccount
+  getUserByAccount,
+  updateUserById
 } from "../models/members.js";
 
 // 存取`.env`設定檔案使用
@@ -84,81 +85,45 @@ router.post("/login", async (req, res) => {
   }
 
     // 先查詢資料庫是否有同member account/password的資料
-  const isMember = await verifyUser({
-    account,
-    password,
-  })
+  // const isMember = await verifyUser({
+  //   account,
+  //   password,
+  // })
 
-  console.log(isMember)
+  // console.log(isMember)
  
-  if(!isMember) {
-    return res.json({ message: 'verifyUser fail', code: '400' })
-  }
+  // if(!isMember) {
+  //   return res.json({ message: 'verifyUser fail', code: '400' })
+  // }
 
-  // 會員存在，將會員的資料取出
-  const member = await getUser({
-    account,
-    password,
+  // // 會員存在，將會員的資料取出
+  // const member = await getUser({
+  //   account,
+  //   password,
+  // })
+
+  // console.log(member)
+
+  // // const passwordArgon2Check = await argon2.verify(password)
+  // // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
+  // delete member.password
+
+  // // 產生存取令牌(access token)，其中包含會員資料
+  // const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
+  //   expiresIn: '24h',
+  // })
+
+  // // 使用httpOnly cookie來讓瀏覽器端儲存access token
+  // res.cookie('accessToken', accessToken, { httpOnly: true })
+
+  // // 傳送access token回應(react可以儲存在state中使用)
+  // res.json({
+  //   message: 'login success',
+  //   code: '200',
+  //   accessToken,
+  // })
   })
 
-  console.log(member)
-
-  // const passwordArgon2Check = await argon2.verify(password)
-  // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
-  delete member.password
-
-  // 產生存取令牌(access token)，其中包含會員資料
-  const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
-    expiresIn: '24h',
-  })
-
-  // 使用httpOnly cookie來讓瀏覽器端儲存access token
-  res.cookie('accessToken', accessToken, { httpOnly: true })
-
-  // 傳送access token回應(react可以儲存在state中使用)
-  res.json({
-    message: 'login success',
-    code: '200',
-    accessToken,
-  })
-  })
-
-// 假資料測試區
-// if(account === 'abc' && password === '123'){
-
-// // 會員存在，將會員的資料取出
-// const member = {
-//   id: 1,
-//   account,
-//   password,
-//   name: '怡君',
-//   email: 'luna@gmail.com',
-//   level: '2',
-//   created_date: '2023-08-21',
-// }
-
-// // console.log(member)
-
-// // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
-// delete member.password
-//   // res.json({ message: 'success', code: '200' })
-//   // 產生存取令牌(access token)，其中包含會員資料
-// const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
-//   expiresIn: '24h',
-// })
-
-// // 使用httpOnly cookie來讓瀏覽器端儲存access token
-// res.cookie('accessToken', accessToken, { httpOnly: true })
-
-// // 傳送access token回應(react可以儲存在state中使用)
-// res.json({
-//   message: 'login success',
-//   code: '200',
-//   accessToken,
-//   // isAuth:true,
-//   // memberData:member
-// })
-// }
 
 // 登出 -------------------------------------------------------
 router.post("/logout", authenticate, (req, res) => {
@@ -321,6 +286,31 @@ transporter.sendMail(mailOptions, (err, response) => {
 //     }
 //   })
 // })
-
 })
+
+router.put('/:memberId', async (req, res)=>{
+  const memberId = req.params.memberId
+  const member = req.body
+  console.log(memberId, member);
+
+  // 檢查有沒有在網址上抓到 memberId
+  // 如果為空物件則失敗
+  if(!memberId || isEmpty(member)){
+    return res.json({message:'抓不到會員ID或是空物件', code:'400'})
+  }
+
+  // 檢查從 react 來的資料，那些資料是必要的(name, account...)
+  console.log(member);
+
+  // 對資料庫執行update
+  const result = await updateUserById(member, memberId)
+  console.log(result);
+
+  if(!result.affectedRows){
+    return res.json({message:'會員資料修改失敗', code:'400'})
+  }
+  // 更新成功
+  return res.json({message:'會員資料修改成功', code:'400'})
+})
+
 export default router;
