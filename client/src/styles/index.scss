@@ -6,13 +6,25 @@
 
 //各個pages scss
 
+// Homepage scss
+@import 'Homepage/Homepage.scss';
+
 //會員專區
 @import "member.scss";
 @import "member-order.scss";
+@import "member-order-detail.scss";
 @import "member-coupon.scss";
 
 //商品
 @import "product.scss";
+
+
+// Course scss
+@import 'CourseList/CourseList.scss';
+@import 'CourseDetail/CourseDetail.scss';
+
+//jim測試元件用的scss
+//tabs test scss
 
 //購物車 優惠券
 @import "cart.scss";
@@ -35,6 +47,8 @@
 // npm install react-bootstrap bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-// Normalize.css
 // npm install --save normalize.css
 @import "~normalize.css";
+
+//jim測試
+@import "jimtest.scss";

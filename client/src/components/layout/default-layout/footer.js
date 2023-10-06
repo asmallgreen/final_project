@@ -16,17 +16,13 @@ export default function Footer() {
       {/* 電腦footer */}
       <div className="footer">
         <div className="logo">
-          <img className="logo-img" src="/layout/logo-img.svg" />  
+          <img className="logo-img" src="/layout/logo-img.svg" />
           <img className="logo-text" src="/layout/logo-text.svg" />
         </div>
         <div className="footer-buttons">
           <div className="button rounded-0">
-            <div className="btn rounded-0">
-              寫信給良弓
-            </div>
-            <div className="btn rounded-0">
-              聯絡客服
-            </div>
+            <div className="btn rounded-0">寫信給良弓</div>
+            <div className="btn rounded-0">聯絡客服</div>
           </div>
           <ul className="list-unstyled">
             <li>營業時間：10:00-19:00</li>
@@ -45,15 +41,11 @@ export default function Footer() {
       {/* 手機bottom */}
       <div className="bottom-btn">
         <div className="btn home d-flex justify-content-center">
-        <div>
-          <img className="logo-img2" src="/layout/logo2-img-green.svg" />
-          <img className="logo-img " src="/layout/logo-img.svg" />
-        </div>
-        <div>
-          首頁
-        </div>
-    
-          
+          <div>
+            <img className="logo-img2" src="/layout/logo2-img-green.svg" />
+            <img className="logo-img " src="/layout/logo-img.svg" />
+          </div>
+          <div>首頁</div>
         </div>
         <div className="btn position-relative">
           <FontAwesomeIcon
@@ -90,7 +82,6 @@ export default function Footer() {
           ></FontAwesomeIcon>
           會員
         </div>
-
       </div>
     </>
   );

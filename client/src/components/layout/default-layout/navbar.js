@@ -3,18 +3,63 @@ import Link from "next/link";
 import { Form } from "react-bootstrap";
 //fontawesome
 import { FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
+// 登入後才會顯示登出按鈕
+import { FiLogOut } from "react-icons/fi";
+import { Button } from "react-bootstrap";
+import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
+  const { authJWT, setAuthJWT } = useAuthJWT();
+  const router = useRouter();
+  // 首頁路由
+  const homeRoute = "/";
+  // 隱私頁面路由，登出時會，檢查後跳轉至首頁
+  const protectedRoutes = [
+    "/member",
+    "/member/update-profile",
+    "member/update-pwd",
+    "/member/order-list",
+    "/member/coupon",
+    "/member/fav-product",
+    "/cart",
+  ];
+  const handleLogout = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost:3005/member/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      if (res.data.message === "success") {
+        setAuthJWT({
+          isAuth: false,
+          memberData: {
+            id: 0,
+            account: "",
+            name: "",
+            email: "",
+            level: "",
+            created_date: "",
+          },
+        });
+        if (protectedRoutes.includes(router.pathname)) {
+          router.push(homeRoute);
+        }
+      }
+    } catch (error) {}
+  };
   const [searchValue, setSearchValue] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-
-
 
   const handleSearch = () => {
     // 在点击 FaSearch 图标时，只更新 searchValue 的值
     // 搜索请求会在 useEffect 中触发
     setSearchValue(searchValue);
-    console.log(searchValue)
+    console.log(searchValue);
     console.log(searchResults);
   };
   useEffect(() => {
@@ -110,7 +155,6 @@ export default function Navbar() {
               <FaSearch
                 className="fa-magnifying-glass position-absolute"
                 onClick={handleSearch}
-                
               />
             </div>
           </Form>
@@ -124,6 +168,13 @@ export default function Navbar() {
               <FaUser className="fa-user" />
             </Link>
           </li>
+          {authJWT.isAuth && (
+            <li className="list-unstyled">
+              <Button onClick={handleLogout}>
+                <FiLogOut className="fi-logout" />
+              </Button>
+            </li>
+          )}
         </ul>
       </div>
       {/* 在这里显示搜索结果 */}

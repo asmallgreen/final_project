@@ -1,0 +1,19 @@
+[{
+    "id":"1",
+    "order_id":"1",
+    "product_id":"1",
+    "price":"700",
+    "detail_1":"XL",
+    "detail_2":"火雞羽毛",
+    "detail_3":"紅色",
+    "quantity":"1"
+},{
+    "id":"2",
+    "order_id":"1",
+    "product_id":"5",
+    "price":"600",
+    "detail_1":"25吋",
+    "detail_2":"金屬",
+    "detail_3":"20kg",
+    "quantity":"2"
+}]

@@ -1,0 +1,324 @@
+// @import "global.scss";
+
+.homepage-body {
+  font-family: NSimSun;
+  background: $primary;
+  color: $font;
+  padding: 0;
+  margin: 0;
+
+  .arrow-line {
+    width: 318px;
+    height: 1px;
+    position: relative;
+    background: $font;
+  }
+  .arrow-line:after {
+    content: "";
+    display: block;
+    position: absolute;
+    right: -5px;
+    top: -2px;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+    border-left: 7px solid $font;
+  }
+  .homepageHero1 {
+    // background-image: url(../../../public/images/homepage/hero_1.png);
+    width: 100%;
+    height: 885px;
+  }
+
+  .homepageHero2 {
+    width: 100%;
+    height: 950px;
+    text-align: center;
+    p {
+      letter-spacing: 0.1rem;
+      padding-top: 311px;
+      font-weight: 400;
+      font-size: 32px;
+    }
+  }
+
+  .aboutUs {
+    width: 100%;
+    height: 900px;
+    padding: 300px 175px;
+    .aboutUs-container {
+      display: flex;
+      flex: 0 0 auto;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+
+      .left {
+        display: flex;
+        flex: 0 1 auto;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
+        max-width: 104px;
+        font: 400 32px NSimSun;
+        .p1 {
+          flex: 0 0 auto;
+          max-width: 41px;
+          padding-bottom: 111px;
+        }
+        .p2 {
+          flex: 0 1 auto;
+          margin-left: 20px;
+        }
+      }
+      .right {
+        max-width: 100%;
+        p {
+          margin-left: 300px;
+          font-weight: 400;
+          font-size: 20px;
+          letter-spacing: 0.1em;
+        }
+      }
+    }
+  }
+
+  .hr {
+    width: 100%;
+    height: 500px;
+  }
+  .homepage-hr1 {
+    background-image: url(../../../public/images/homepage/hr_1.png);
+  }
+  .homepage-hr2 {
+    background-image: url(../../../public/images/homepage/hr_2.png);
+  }
+  .homepage-hr3 {
+    background-image: url(../../../public/images/homepage/hr_3.png);
+    margin-bottom: 100px;
+  }
+
+  .textarea {
+    width: 100%;
+    height: 500px;
+    padding: 36px 0;
+    text-align: center;
+
+    h1 {
+      font-weight: 400;
+      font-size: 32px;
+      letter-spacing: 0.05em;
+      margin-bottom: 100px;
+    }
+    p {
+      font-weight: 400;
+      font-size: 18px;
+      letter-spacing: 0.2em;
+      line-height: 30px;
+    }
+    .btn {
+      letter-spacing: 0.2em;
+      margin-top: 100px;
+      padding: 20px 0px;
+      width: 454px;
+      font: 800 20px inter;
+      background: $secondary;
+      color: $primary;
+      border-radius: 0%;
+      &:hover {
+        color: $secondary;
+        background-color: $primary;
+      }
+    }
+  }
+
+  .collection {
+    width: 100%;
+    height: 700px;
+    // ul.tab {
+    //   display: flex;
+    //   flex-direction: row;
+    //   align-items: flex-start;
+    //   justify-content: center;
+    //   list-style: none;
+    //   li {
+    //     flex: 0 0 auto;
+    //     max-width: 100px;
+    //     padding: 50px 20px;
+    //     font-weight: 400;
+    //     font-size: 18px;
+    //     letter-spacing: 0.05em;
+    //   }
+    // }
+    // .cards {
+    //   display: flex;
+    //   flex-direction: row;
+    //   align-items: flex-start;
+    //   justify-content: center;
+    //   flex-wrap: wrap;
+
+    //   .card {
+    //     flex: 0 0 auto;
+    //     max-width: 300px;
+    //     margin: 20px;
+    //     .card-img {
+    //       width: 250px;
+    //       height: 300px;
+    //       background: lightblue;
+    //     }
+    //     .card-title {
+    //       font-weight: 400;
+    //       font-size: 18px;
+    //       letter-spacing: 0.05em;
+    //     }
+    //     .card-price {
+    //       font-weight: 400;
+    //       font-size: 18px;
+    //       letter-spacing: 0.05em;
+    //     }
+    //   }
+    // }
+  }
+  .cards {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .card {
+      flex: 0 0 auto;
+      max-width: 300px;
+      margin: 20px;
+      .card-img {
+        width: 250px;
+        height: 300px;
+        background: lightblue;
+      }
+      .card-title {
+        font-weight: 400;
+        font-size: 18px;
+        letter-spacing: 0.05em;
+      }
+      .card-price {
+        font-weight: 400;
+        font-size: 18px;
+        letter-spacing: 0.05em;
+      }
+    }
+  }
+
+  .introduction {
+    width: 100%;
+    height: 1350px;
+    .intro-card {
+      display: block;
+      .intro-card-img {
+        background: lightsalmon;
+        width: 100%;
+        height: 200px;
+      }
+      .ic-img1 {
+        background-image: url(../../../public/images/homepage/product_intro_1.png);
+      }
+      .ic-img2 {
+        background-image: url(../../../public/images/homepage/product_intro_2.png);
+      }
+      .ic-img3 {
+        background-image: url(../../../public/images/homepage/product_intro_3.png);
+      }
+      .ic-img4 {
+        background-image: url(../../../public/images/homepage/product_intro_4.png);
+      }
+      .intro-card-text {
+        display: flex;
+        justify-content: space-around;
+        align-items: first baseline;
+        height: 130px;
+        padding: 50px 0px;
+        .intro-card-title {
+          font-weight: 400;
+          font-size: 32px;
+          letter-spacing: 0.05em;
+        }
+        .intro-card-content {
+          font-weight: 400;
+          font-size: 18px;
+          letter-spacing: 0.05em;
+          width: 300px;
+          // margin-left: -150px;
+        }
+        .intro-card-btn {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          font-weight: 400;
+          font-size: 20px;
+          letter-spacing: 0.05em;
+          // margin-left: 100px;
+          .text-btn {
+            margin-inline: 20px;
+          }
+        }
+      }
+    }
+  }
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-bottom: 10px;
+  }
+  .course-slider {
+    width: 100%;
+    height: 500px;
+    .swiper-pagination-bullet {
+      background: #ffffff;
+    }
+
+    .swiper-pagination-bullet-active {
+      background: $accent;
+    }
+    .course-slider-container {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+
+      .course-img {
+        width: 792px;
+        height: 500px;
+      }
+      .course-text {
+        background-color: rgb(242, 242, 242, 0.75);
+        width: 782px;
+        height: 339px;
+        margin-top: 65.5px;
+        margin-left: -200px;
+        padding-left: 35px;
+        h1 {
+          font-weight: 400;
+          font-size: 32px;
+          letter-spacing: 0.05em;
+          padding: 50px 0px;
+        }
+        p {
+          font-weight: 400;
+          font-size: 18px;
+          letter-spacing: 0.05em;
+          line-height: 20px;
+        }
+      }
+    }
+    .card-btn {
+      display: flex;
+      align-items: center;
+      font-weight: 400;
+      font-size: 20px;
+      letter-spacing: 0.05em;
+      margin-left: -420px;
+      margin-top: 420px;
+      .text-btn {
+        margin-inline: 20px;
+      }
+    }
+  }
+}
