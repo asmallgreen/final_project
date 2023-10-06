@@ -3,11 +3,11 @@ import { ConfigProvider, Tabs, Rate } from "antd";
 import StickyBox from "react-sticky-box";
 
 // 引入Tabs頁面
-import CourseDescription from "./CourseDescription";
-import TeacherDescription from "./TeacherDescription";
-import Syllabus from "./Syllabus";
-import Faq from "./Faq";
-import Review from "./Review";
+import CourseDescription from "../../components/course-detail/CourseDescription";
+import TeacherDescription from "../../components/course-detail/TeacherDescription";
+import Syllabus from "../../components/course-detail/Syllabus";
+import Faq from "../../components/course-detail/Faq";
+import Review from "../../components/course-detail/Review";
 
 // Tabs Index
 const onChange = (key) => {
