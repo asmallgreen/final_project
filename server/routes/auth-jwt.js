@@ -12,7 +12,8 @@ import {
   getCount,
   checkAccount,
   checkEmail,
-  forgotPwdGetUser
+  forgotPwdGetUser,
+  getUserByAccount
 } from "../models/members.js";
 
 // 存取`.env`設定檔案使用
@@ -43,6 +44,44 @@ router.get("/check-login", authenticate, async (req, res) => {
 router.post("/login", async (req, res) => {
   // res.send("後端登入頁")
   const { account, password } = req.body
+  try {
+    // 先檢查資料庫有沒有這個帳號
+    const user = await checkAccount({ account });
+
+    if (!user) {
+      return res.json({ message: '帳號不存在', code: '400' });
+    }else{
+      const member = await getUserByAccount({account})
+      // 使用 argon2.verify 驗證使用者輸入的密碼是否匹配
+    const isPasswordValid = await argon2.verify(member.password, password);
+
+    if (isPasswordValid) {
+      console.log('密碼驗證成功！');
+      // 成功驗證就執行登入成功的邏輯(生成JWT並跳轉)
+      delete member.password
+       // 產生存取令牌(access token)，其中包含會員資料
+      const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
+        expiresIn: '24h',
+      })
+
+      // 使用httpOnly cookie來讓瀏覽器端儲存access token
+      res.cookie('accessToken', accessToken, { httpOnly: true })
+
+      // 傳送access token回應(react可以儲存在state中使用)
+      return res.json({
+        message: 'login success',
+        code: '200',
+        accessToken,
+      })
+    } else {
+      console.log('密碼驗證失敗！');
+      return res.json({ message: '密碼驗證失敗', code: '401' });
+    }
+    }
+  } catch (error) {
+    console.error('登入錯誤：', error);
+    return res.status(500).json({ message: '伺服器出現錯誤', code: '500' });
+  }
 
     // 先查詢資料庫是否有同member account/password的資料
   const isMember = await verifyUser({
@@ -64,6 +103,7 @@ router.post("/login", async (req, res) => {
 
   console.log(member)
 
+  // const passwordArgon2Check = await argon2.verify(password)
   // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
   delete member.password
 

@@ -47,6 +47,8 @@ import {
   const getUser = async ({ account, password }) =>
     await findOne(table, { account, password })
 
+    const getUserByAccount = async ({ account}) =>
+    await findOne(table, { account})
 
   // 其它用途
 
@@ -66,5 +68,6 @@ import {
     verifyUser,
     checkAccount,
     checkEmail,
-    forgotPwdGetUser
+    forgotPwdGetUser,
+    getUserByAccount
   }

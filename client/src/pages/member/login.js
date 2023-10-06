@@ -75,11 +75,7 @@ export default function Login() {
           isAuth: true,
           memberData: parseJwt(res.data.accessToken),
         })
-        if(checked === true){
-          setRememberMe()
-        }else{
-          removeRememberme()
-        }
+   
         router.push(process.env.BASE_URL || '/')
       }
     }catch(error){
@@ -87,16 +83,23 @@ export default function Login() {
     }
 
   };
+  const [checked, setChecked] = useState(false)
 
   // 「記住我」功能
-  const [checked, setChecked] = useState(false)
 
   const setRememberMe = (e) => {
     localStorage.setItem('remember', JSON.stringify(loginData))
   }
   const removeRememberme = (e) => {
-    localStorage.removeItem('remember',JSON.stringify(loginData))
+    localStorage.removeItem('remember')
   }
+  useEffect(()=>{
+    if(checked === true){
+      setRememberMe()
+    }else{
+      removeRememberme()
+    }
+  },[checked])
   useEffect(() => {
     const remember = JSON.parse(localStorage.getItem('remember'))
     if (remember) {
