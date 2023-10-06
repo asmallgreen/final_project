@@ -98,7 +98,6 @@ app.get('/', (req, res)=>{
 })
 app.use('/member', authJwtRouter)
 app.use('/memberDashboard', DashboardRouter)
-// app.use('/member/coupon', memberCouponRouter)
 // app.use('/api/auth', authRouter)
 // app.use('/api/email', emailRouter)
 // app.use('/api/products', productsRouter)
