@@ -12,11 +12,11 @@ import {
 const table = "shopping_cart"
 
 
-const addCart = async () => {
+const getCart = async () => {
     const { rows } = await find(table)
     return rows
 }
 
 export {
-    addCart
+    getCart
 }

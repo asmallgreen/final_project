@@ -25,6 +25,7 @@ export default function StepOne({setstepType}) {
           <Col xs={2}><span className='phoneDNone'>數量</span></Col>
           <Col xs={1}><span className='phoneDNone'>小計</span></Col>
         </div>
+        
 
         <div className="productList">
           <div>

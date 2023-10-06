@@ -1,6 +1,7 @@
 import React, { useState ,useEffect } from 'react';
 import axios from 'axios';
 
+
 import { Container, Row, Col } from 'react-bootstrap';  // import bootstrap components
 import StepOne from '@/components/cart/stepone';
 import StepTwo from '@/components/cart/steptwo';
@@ -11,9 +12,9 @@ import StepFour from '@/components/cart/stepfour';
 export default function Index() {
 
   useEffect(() => {
-    axios.get('http://localhost:3005/')
+    axios.get('http://localhost:3005/cart')
     .then((res) => {
-      console.log(res.data)
+      console.log(res.data.cartList)
     })
     .catch((err) => {
       console.log(err);

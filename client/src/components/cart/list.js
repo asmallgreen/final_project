@@ -1,5 +1,6 @@
 import { useCart } from '@/hooks/use-cart'
 import { useEffect, useState } from 'react'
+import { Container, Row, Col } from 'react-bootstrap'
 
 export default function List() {
   // 使用hooks 解出所需的狀態與函式(自context)
@@ -20,25 +21,8 @@ export default function List() {
   // fix end
 
   return (
-    <div>
-      <table
-        className="table"
-        cellPadding="0"
-        border="1"
-        width="100%"
-        cellSpacing="0"
-      >
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>名稱</th>
-            <th>單價</th>
-            <th>數量</th>
-            <th>小計</th>
-            <th>移除</th>
-          </tr>
-        </thead>
-        <tbody>
+    <>
+        <Row>
           {items.map((v, i) => {
             return (
               <tr key={v.id}>
@@ -85,14 +69,14 @@ export default function List() {
               </tr>
             )
           })}
-        </tbody>
-      </table>
+        </Row>
+      
       <div>
         items: {cart.totalItems} / total: {cart.cartTotal}
         <br />
         {cart.isEmpty && '購物車為空'}
         <hr />
       </div>
-    </div>
+    </>
   )
 }
