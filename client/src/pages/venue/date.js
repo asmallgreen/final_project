@@ -20,6 +20,7 @@ export default function ReserveDate() {
   const [selected, setSelected] = useState();
   const [VenueData, setVenueData] = useState(null)
   const [reserveData, setReserveData] = useState(null);
+  const [selectedDay, setSelectedDay] = useState();
 
   const router = useRouter()
   const { isReady } = router
@@ -65,6 +66,11 @@ export default function ReserveDate() {
     ) : (
       <p>請選擇日期</p>
     );
+    const day = selectedDay ? (
+      <p>You selected {format(selectedDay, )}.</p>
+    ) : (
+      <p>Please pick a day.</p>
+    );
 
   return (
     <>
@@ -77,7 +83,7 @@ export default function ReserveDate() {
           <div>
             <p className='fs-5 fw-bold'>您所選擇的</p>
             <p className='fs-5 fw-bold'>道場：{id}</p>
-            <p className='fs-5 fw-bold'>日期：２０２３／０７／２７</p>
+            <p className='fs-5 fw-bold'>日期：{day}</p>
           </div>
           <hr></hr>
         </div>
