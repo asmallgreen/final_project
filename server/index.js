@@ -2,12 +2,12 @@ import createError from 'http-errors'
 import express from 'express'
 import path from 'path'
 // import cookieParser from 'cookie-parser'
-// import logger from 'morgan'
+import logger from 'morgan'
 import cors from 'cors'
 import session from 'express-session'
 // 使用檔案的session store，存在sessions資料夾
-// import sessionFileStore from 'session-file-store'
-// const FileStore = sessionFileStore(session)
+import sessionFileStore from 'session-file-store'
+const FileStore = sessionFileStore(session)
 
 // 修正 __dirname for esm
 import { fileURLToPath } from "url";
@@ -21,7 +21,7 @@ extendLog() // 執行全域套用
 // console.log呈現顏色用 全域套用
 import "colors";
 // 檔案上傳
-// import fileUpload from 'express-fileupload'
+import fileUpload from 'express-fileupload'
 
 import authJwtRouter from './routes/auth-jwt.js'
 import DashboardRouter from './routes/memberDashboard.js'
@@ -41,7 +41,7 @@ const app = express();
 
 // 檔案上傳
 // 選項參考: https://github.com/richardgirges/express-fileupload
-// app.use(fileUpload())
+app.use(fileUpload())
 
 // 可以使用的CORS要求，options必要
 // app.use(cors())
@@ -57,7 +57,7 @@ app.use(
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
-// app.use(logger('dev'))
+app.use(logger('dev'))
 app.use(express.json())
 
 app.use(express.urlencoded({ extended: false }))

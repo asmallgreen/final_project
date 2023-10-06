@@ -4,6 +4,7 @@ import authenticate from "../middlewares/jwt.js";
 import jsonwebtoken from "jsonwebtoken";
 import nodemailer from 'nodemailer'
 import transporter from '../config/mail.js'
+import multer from 'multer'
 
 import {
   verifyUser,
@@ -288,6 +289,7 @@ transporter.sendMail(mailOptions, (err, response) => {
 // })
 })
 
+// 修改會員資料
 router.put('/:memberId', async (req, res)=>{
   const memberId = req.params.memberId
   const member = req.body
@@ -311,6 +313,28 @@ router.put('/:memberId', async (req, res)=>{
   }
   // 更新成功
   return res.json({message:'會員資料修改成功', code:'400'})
+})
+
+// 修改會員頭像
+router.post('/update-profile-img', async (req, res)=>{
+  // console.log(req);
+// use antd-img-crop to the node back-end
+  const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now() + '.jpg')
+    }
+  })
+  const upload = multer({storage})
+  console.log(req.file);
+  console.log(upload);
+  if(!req.file){
+    return res.json({message:'上傳失敗', code:'400'})
+  }
+  res.json({message:'上傳成功', code:'400', filename:req.file.filename})
+
 })
 
 export default router;
