@@ -314,10 +314,11 @@ router.put('/update-profile-img', upload.single('avatar'), async (req, res)=>{
     console.log('step 4: file upload successfully');
     console.log(req.file);
     const member = {member_img: req.file.filename}
-    const id = req.body.id
+    const id = req.file.id
+    const filename = req.file.filename
     const result = await updateUserById(member,id)
     console.log(result);
-    return res.json({message:'檔案上傳成功', code:'200', result})
+    return res.json({message:'圖片上傳成功', code:'200', filename})
   } else {
     console.log('step 5: file upload failed');
     console.log('檔案上傳失敗');

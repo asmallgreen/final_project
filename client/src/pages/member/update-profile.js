@@ -8,6 +8,9 @@ import axios from "axios";
 import { DatePicker } from "react-rainbow-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
+// import path from 'path'
+// const uploadFolderPath = path.join(__dirname, '..', 'server', 'uploads');
+// console.log(uploadFolderPath); 
 
 export default function UpdateProfile() {
   const { authJWT, setAuthJWT } = useAuthJWT();
@@ -132,8 +135,9 @@ export default function UpdateProfile() {
 // };
   // 重新上傳頭像
   const [selectedFile, setSelectedFile] = useState(null);
-  const [preview, setPreview] = useState(null);
+  const [preview, setPreview] = useState('');
   const [uploaded, setUploaded] = useState(false);
+  const [uploadFileName, setUploadFileName] = useState('')
   let filename;
   const handleFileChange = async (e) => {
       const file = e.target.files[0]
@@ -164,13 +168,24 @@ export default function UpdateProfile() {
             popup: "shadow-sm",
           },
         });
+        console.log(res.data);
         filename = res.data.filename
+        setUploaded(true)
+        setUploadFileName(filename)
       }
       }catch(error){
         console.log(error);
       }
       
   };
+  useEffect(()=>{
+    if(uploadFileName){
+        const imageUrl = `/uploads/${uploadFileName}`
+        setPreview(imageUrl)
+    } else {
+        setPreview('')
+    }
+  },[uploadFileName])
   const handleUpload = async() => {
     if(selectedFile) {
         const formData = new FormData()
@@ -196,16 +211,19 @@ export default function UpdateProfile() {
             <div className="d-flex justify-content-center align-items-center member-profile-img mb-5">
               <div>
                 <div className="text-center">
-                <img
+                {uploaded? <img
                       className="avatar d-block"
-                      src="/Duo/avatar01.jpg"
-                    ></img>
-                {/* {preview? <img
-                      className="avatar d-block"
-                      src={`server/uploads/${filename}`}
+                      src={preview}
                     ></img>:<img
                       className="avatar d-block"
                       src="/Duo/avatar01.jpg"
+                    ></img>}
+                {/* {preview? <img
+                      className="avatar d-block"
+                      src={preview}
+                    ></img>:<img
+                      className="avatar d-block"
+                      src={preview}
                     ></img>} */}
                   
                   <div>
