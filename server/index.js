@@ -1,13 +1,13 @@
-// import createError from 'http-errors'
+import createError from 'http-errors'
 import express from "express";
 import path from "path";
-// import cookieParser from 'cookie-parser'
-// import logger from 'morgan'
+import cookieParser from 'cookie-parser'
+import logger from 'morgan'
 import cors from "cors";
-// import session from 'express-session'
+import session from 'express-session'
 // 使用檔案的session store，存在sessions資料夾
-// import sessionFileStore from 'session-file-store'
-// const FileStore = sessionFileStore(session)
+import sessionFileStore from 'session-file-store'
+const FileStore = sessionFileStore(session)
 
 // 修正 __dirname for esm
 import { fileURLToPath } from "url";
@@ -48,7 +48,7 @@ const app = express();
 // app.use(cors())
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://localhost:3001'],
+    origin: ['http://localhost:3000', 'http://localhost:3001'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   })

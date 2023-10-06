@@ -26,13 +26,15 @@ $link-color:$secondary;
 //全站PC樣式
 html{
   font-size: 16px;
-  font-family: 'Inter','AbeeZee', sans-serif;
+  font-family: NSimSun,'Inter','AbeeZee', sans-serif!important;
+  
   color: $font;
   background-color: $primary;
   // scroll-behavior: smooth;
   overflow-x: hidden;
 }
 body{
+  font-family: NSimSun,'Inter','AbeeZee', sans-serif!important;
   margin: 0  !important ;
   padding: 0 !important;
   box-sizing: border-box;

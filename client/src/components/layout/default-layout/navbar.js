@@ -83,7 +83,7 @@ export default function Navbar() {
       <div className="table-nav position-relative">
         <ul className="nav position-absolute">
           <li className="list-unstyled">
-            <Link href="/product" className="titleLi">
+            <Link href="/" className="titleLi">
               關於良弓
             </Link>
           </li>
@@ -126,12 +126,12 @@ export default function Navbar() {
             <div className="hover-space position-absolute"></div>
           </li>
           <li className="list-unstyled">
-            <Link href="/product" className="titleLi">
+            <Link href="/course-list" className="titleLi">
               弓道課程
             </Link>
           </li>
           <li className="list-unstyled">
-            <Link href="/product" className="titleLi">
+            <Link href="/venue" className="titleLi">
               場地租借
             </Link>
           </li>
@@ -190,13 +190,13 @@ export default function Navbar() {
             <Link href="/">首頁</Link>
           </li>
           <li>
-            <Link href="/">商店</Link>
+            <Link href="/product">商店</Link>
           </li>
           <li>
-            <Link href="/">課程</Link>
+            <Link href="/course-list">課程</Link>
           </li>
           <li>
-            <Link href="/">場地</Link>
+            <Link href="/venue">場地</Link>
           </li>
         </ul>
       </div>
