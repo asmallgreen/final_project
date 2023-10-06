@@ -52,33 +52,30 @@ export default function Navbar() {
       }
     } catch (error) {}
   };
-  const [searchValue, setSearchValue] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
 
-  const handleSearch = () => {
-    // 在点击 FaSearch 图标时，只更新 searchValue 的值
-    // 搜索请求会在 useEffect 中触发
-    setSearchValue(searchValue);
-    console.log(searchValue);
-    console.log(searchResults);
-  };
-  useEffect(() => {
-    //检查 searchValue 经过修剪后的值是否不等于空字符串。
-    if (searchValue.trim() !== "") {
-      // 向后端API发送请求
-      fetch(`http://localhost:3005/prodcut/getProductName?name=${searchValue}`)
-        .then((res) => res.json())
-        .then((data) => {
-          // 处理从后端获取的数据并将结果存储在searchResults状态中
-          setSearchResults(data);
-        })
-        .catch((error) => {
-          console.error("搜索失败", error);
-        });
+  // *****************************
+  const [keyword, setKeyword] = useState("");
+  const [results, setResults] = useState([]);
+
+  const handleSearch = async () => {
+    try {
+      const res = await axios.post("http://localhost:3005/searchProduct", {keyword});
+
+      setResults(res.data.results);
+    } catch (error) {
+      console.error("Error:", error.msg);
     }
-  }, [searchValue]);
+  };
+  // *****************************
+
   return (
     <>
+      <ul>
+        {results.map((product) => (
+          <li key={product.id}>{product.name}</li>
+        ))}
+      </ul>
+
       {/* 桌機版nav */}
       <div className="table-nav position-relative">
         <ul className="nav position-absolute">
@@ -149,8 +146,8 @@ export default function Navbar() {
                 type="text"
                 placeholder="請輸入商品名稱"
                 className="search-product-name rounded-5"
-                onChange={(e) => setSearchValue(e.target.value)}
-                value={searchValue}
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
               />
               <FaSearch
                 className="fa-magnifying-glass position-absolute"
@@ -177,12 +174,7 @@ export default function Navbar() {
           )}
         </ul>
       </div>
-      {/* 在这里显示搜索结果 */}
-      <div>
-        {searchResults.map((result) => (
-          <div key={result.id}>{result.name}</div>
-        ))}
-      </div>
+
       {/* 手機版nav */}
       <div className="phone-nav">
         <ul className="nav">

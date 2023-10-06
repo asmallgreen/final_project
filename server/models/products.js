@@ -56,5 +56,19 @@ const getOrder = async (where) => {
   return rows;
 };
 
+// 排序
+const getOrder2 = async (where) => {
+  const { rows } = await find(table, where);
+  return rows;
+};
+
+// 查詢產品
+const searchProduct =  async (where) => {
+  const { rows } = await find(table, where)
+  return rows
+}
+
+
+
 // 上面定義的函式都要放進來導出
-export { getAllProduct, getCate, getProductPrice, getProductCreate, getProductName };
+export { getAllProduct, getCate, getProductPrice, getProductCreate, getProductName, searchProduct };

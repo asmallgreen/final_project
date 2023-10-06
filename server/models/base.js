@@ -161,7 +161,11 @@ const whereSql = (objOrString, separator = 'AND') => {
 
   const where = []
   for (const [key, value] of Object.entries(objOrString)) {
-    where.push(`${key} = ${sqlString.escape(value)}`)
+    if(typeof value === 'string' && value.includes('%')){
+      where.push(`${key} LIKE ${sqlString.escape(value)}`)
+    } else {
+      where.push(`${key} = ${sqlString.escape(value)}`)
+    }
   }
 
   return `WHERE ${where.join(` ${separator} `)}`

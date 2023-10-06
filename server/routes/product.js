@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllProduct, getCate, getProductPrice } from "../models/products.js";
+import { getAllProduct, getCate, getProductPrice, searchProduct } from "../models/products.js";
 const router = express.Router();
 const app = express();
 // 中間件：檢查是否是 cateid
@@ -67,10 +67,10 @@ router.get("/:cate", async (req, res) => {
       cateid = 4;
       break;
   }
-  
+
   const catedata = await getCate({ category_id: cateid });
   // console.log(`cateid:${cateid}`);
-  const launchedData = catedata.filter(data=>data.launched === 1);
+  const launchedData = catedata.filter((data) => data.launched === 1);
   // console.log(launchedData)
   // 定義資料庫表格名稱
   res.json({
@@ -106,7 +106,7 @@ router.get("/", async (req, res) => {
     // console.log("Time difference:", timeDifference);
     return filterprice && filtername && filtercreatedat;
   });
-  const launchedData = alldata.filter(data=>data.launched === 1);
+  const launchedData = alldata.filter((data) => data.launched === 1);
   // console.log(launchedData)
   res.json({
     message: "getAllProduct success",
@@ -118,10 +118,10 @@ router.get("/", async (req, res) => {
 });
 
 // 创建一个API端点来获取产品ID
-router.get('/api/getProductId', (req, res) => {
+router.get("/api/getProductId", (req, res) => {
   const productId = req.query.id;
-  const product = productsData.find(item => item.id === parseInt(productId));
-  
+  const product = productsData.find((item) => item.id === parseInt(productId));
+
   if (product) {
     res.json({ productId: product.id });
   } else {
@@ -129,16 +129,29 @@ router.get('/api/getProductId', (req, res) => {
   }
 });
 
-router.get('/getProductName', (req, res)=>{
-  const alldata =  getAllProduct();
-  const productName = req.query.name
-  const products = alldata.filter(data => data.name.includes(productName))
-  res.json({products})
-})
+router.post("/searchProduct", async (req, res) => {
+  const {keyword}  = req.body;
+  console.log(keyword);
+  const searchKeyword = {
+    name:`%${keyword}%`
+  }
+  // 在實際應用中，這裡應該是與資料庫進行查詢的地方
+  // 這裡只是一個示例，假設找到相關商品資料
+  // const alldata = await getAllProduct();
+  // log(alldata)
+  //從資料庫中使用searchProduct函式(查詢產品名稱)
+  const searchProducts = await searchProduct(searchKeyword)
+  // const keydata = alldata.filter(data => {
+  //    return data.name.includes(keyword) ;
+  //   // res.json( {keydata} );
+    
+  // });
+  console.log(searchProducts);
+  res.json( {searchProducts} );
+});
 
 // app.listen(3000, () => {
 //   console.log('Server is running on port 3000');
 // });
-
 
 export default router;
