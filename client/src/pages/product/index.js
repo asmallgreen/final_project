@@ -23,6 +23,9 @@ import "swiper/css/navigation";
 import { Navigation, Pagination, History } from "swiper/modules";
 
 function Product() {
+
+
+
   const [allProduct, setAllProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
 

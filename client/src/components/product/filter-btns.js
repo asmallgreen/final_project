@@ -2,7 +2,23 @@ import React, { useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faSort } from "@fortawesome/free-solid-svg-icons";
+import ModalAttr from "./modal-attr";
+import ModalSort from "./modal-sort";
 export default function FilterBtns() {
+
+
+  //篩選&排序Modal
+  const [attrModal, setAttrModal] = useState();
+  const handleAttrModal = () => {
+    setAttrModal(attrModal ? '' : <ModalAttr />);
+  };
+  const [sortModal, setSortModal] = useState()
+  const handleSortModal = () => {
+    setSortModal(sortModal ? '' : <ModalSort />);
+  };
+
+
+
   // 狀態用來存儲所選擇的值
   const [selectedValue, setSelectedValue] = useState("");
   const handleSelectChange = (e) => {
@@ -10,16 +26,7 @@ export default function FilterBtns() {
     setSelectedValue(selectedOptionValue);
     console.log("選擇的值:", selectedOptionValue);
   };
-  // 篩選&排序
-  const [showModal, setShowModal] = useState(false);
-
-  const handleButtonClick = () => {
-    setShowModal(true);
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+  
   return (
     <>
       {/* btn-group */}
@@ -33,12 +40,12 @@ export default function FilterBtns() {
           <button
             type="button"
             className="btn btn-outline-primary"
-            onClick={handleButtonClick}
+            onClick={handleAttrModal}
           >
             <FontAwesomeIcon icon={faFilter} className="fa-solid fa-filter" />
             篩選商品 ({5})
           </button>
-          <button type="button" className="btn btn-outline-primary">
+          <button type="button" className="btn btn-outline-primary" onClick={handleSortModal}>
             <FontAwesomeIcon icon={faSort} className="fa-solid fa-sort" />
             排序
           </button>
@@ -60,24 +67,12 @@ export default function FilterBtns() {
           </Form.Select>
           筆
         </div>
-
-        {/* modal */}
-        <Modal show={showModal} onHide={handleCloseModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>篩選商品</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {/* 在這裡放入你的篩選內容 */}
-            {/* 例如篩選表單、條件等 */}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleCloseModal}>
-              關閉
-            </Button>
-            {/* 其他按鈕或操作 */}
-          </Modal.Footer>
-        </Modal>
       </div>
+      <div className="position-absolute filter-modal">
+      {attrModal}
+      {sortModal}
+      </div>
+      
     </>
   );
 }
