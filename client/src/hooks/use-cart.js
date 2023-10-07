@@ -58,8 +58,19 @@ export const CartProvider = ({
     }
   }
 
-  const removeItem = async (itemId) => {
-    try {
+  const removeItem = async (id) => {
+    //幫我將 state.items 中的 id 符合 itemId 的項目移除
+    //console.log(itemId)
+    //console.log(state.items)
+    //console.log(state.items.some((item) => item.id === itemId))
+    console.log(id)
+    dispatch({ type: 'REMOVE_ITEM', payload: {id} })
+
+    
+
+    //return state.items.some((item) => item.id !== id)
+    
+   /* try {
       const response = await fetch(`${apiUrl}/${itemId}`, {
         method: 'DELETE',
       })
@@ -67,7 +78,7 @@ export const CartProvider = ({
       dispatch({ type: 'REMOVE_ITEM', payload: data })
     } catch (error) {
       console.log(error)
-    }
+    }*/
   }
 
   const updateItem = async (item) => {

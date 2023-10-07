@@ -40,6 +40,7 @@ export default function List({mode}) {
 
             return (
               <div className='listTitle' key={v.id}>
+                <Col><input type='checkbox' data-itemid={v.id} className='expand cartChk' /></Col>
                 <Col>{v.id}</Col>
                 
                 <Col>{v.price}</Col>
@@ -69,28 +70,12 @@ export default function List({mode}) {
                   </div>
                 </Col>
                 <Col>{v.itemTotal}</Col>
-                <Col>
-                  <button
-                    type="button"
-                    className="btn btn-light"
-                    onClick={() => {
-                      removeItem(v.id)
-                    }}
-                  >
-                    x
-                  </button>
-                </Col>
                 </div>
             )
           })}
         
       
-      <div>
-        items: {cart.totalItems} / total: {cart.cartTotal}
-        <br />
-        {cart.isEmpty && '購物車為空'}
-        <hr />
-      </div>
+      
     </>
   )
 }

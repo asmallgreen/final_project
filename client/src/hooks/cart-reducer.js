@@ -46,6 +46,7 @@ export const initialState = {
   }
   
   const removeItem = (state, action) => {
+    
     return state.items.filter((item) => item.id !== action.payload.id)
   }
   
