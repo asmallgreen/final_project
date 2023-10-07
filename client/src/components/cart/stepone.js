@@ -1,5 +1,6 @@
 import React,{ useState } from 'react'
 import { Container, Col } from 'react-bootstrap';
+import List from '@/components/cart/list';
 
 export default function StepOne({setstepType}) {
     
@@ -24,8 +25,11 @@ export default function StepOne({setstepType}) {
           <Col xs={2}><span className='phoneDNone'>單價</span></Col>
           <Col xs={2}><span className='phoneDNone'>數量</span></Col>
           <Col xs={1}><span className='phoneDNone'>小計</span></Col>
+
+          
+
         </div>
-        
+        <List mode="product"/>
 
         <div className="productList">
           <div>
@@ -60,6 +64,7 @@ export default function StepOne({setstepType}) {
           <Col xs={4}><span className='phoneDNone'>課程內容</span></Col>
           <Col xs={3}><span className='phoneDNone'>小計</span></Col>
         </div>
+        <List mode="course"/>
         <div className="productList">
           <Col><button className="deleteBtn">刪除</button><div>{`共  項 , 課程小計 元`}</div>
           </Col>

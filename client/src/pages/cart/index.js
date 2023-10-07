@@ -1,5 +1,6 @@
-import React, { useState ,useEffect } from 'react';
+import React, { useState ,useEffect ,useContext ,createContext } from 'react';
 import axios from 'axios';
+import { CartProvider } from '@/hooks/use-cart'
 
 
 import { Container, Row, Col } from 'react-bootstrap';  // import bootstrap components
@@ -7,14 +8,21 @@ import StepOne from '@/components/cart/stepone';
 import StepTwo from '@/components/cart/steptwo';
 import StepThree from '@/components/cart/stepthree';
 import StepFour from '@/components/cart/stepfour';
+import { useCart } from '@/hooks/use-cart.js';
 
 
 export default function Index() {
 
+  
+  const [cartList, setCartList] = useState([])
   useEffect(() => {
-    axios.get('http://localhost:3005/cart')
+    axios.post('http://localhost:3005/cart' , {test:'123'})
     .then((res) => {
       console.log(res.data.cartList)
+      setCartList(res.data.cartList)
+    
+      
+
     })
     .catch((err) => {
       console.log(err);
@@ -22,12 +30,14 @@ export default function Index() {
   }, [])
 
   const [stepType, setStepType] = useState(1)
-
+  console.log(123)
   const handleStepChange = (newStep) => {
     setStepType(newStep);
   };
   return (
     <Container fluid={"xxl"}>
+    
+    
       <Row className="stepBar">
         <Col className={`step ${stepType === 1 && 'nowStep'}`}>
           <div className="stepBox">
@@ -70,10 +80,14 @@ export default function Index() {
           </div>
         </Col>
       </Row>
+      <CartProvider cartList={cartList}>
       {stepType === 1 && <StepOne setstepType={handleStepChange} />}
       {stepType === 2 && <StepTwo setstepType={handleStepChange} />}
       {stepType === 3 && <StepThree setstepType={handleStepChange} />}
       {stepType === 4 && <StepFour setstepType={handleStepChange} />}
+      
+      </CartProvider>
+    
     </Container>
   );
 }

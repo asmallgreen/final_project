@@ -156,6 +156,8 @@ export const initialState = {
   
   export const reducer = (state, action) => {
     switch (action.type) {
+      case 'INIT':
+        return generateCartState(state, action.payload )
       case 'ADD_ITEM':
         return generateCartState(state, addItem(state, action))
       case 'REMOVE_ITEM':

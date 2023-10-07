@@ -5,12 +5,15 @@ import { executeQuery } from '../routes/database.js';
 
 import { getCart } from '../models/cart.js'
 
-router.get('/', async (req, res) =>{
-    const cartList = await getCart()
+router.post('/', async (req, res) =>{
+    
+
+     const cartList = await getCart()
+     console.log(cartList)
     return res.json({
         message:"search success",
         code:"200",
-        cartList
+        cartList:cartList
     })
 });
 

@@ -2,7 +2,11 @@ import { useCart } from '@/hooks/use-cart'
 import { useEffect, useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 
-export default function List() {
+
+export default function List({mode}) {
+
+  
+
   // 使用hooks 解出所需的狀態與函式(自context)
   const { cart, items, plusOne, minusOne, removeItem } = useCart()
 
@@ -19,17 +23,27 @@ export default function List() {
     return null
   }
   // fix end
+  // 請把items中product_id為null的移除
+  
+  const newItems = items.filter((v, i) => {
+    return v[mode+"_id"] !== null
+  })
+  
+
+
 
   return (
     <>
-        <Row>
-          {items.map((v, i) => {
+        
+          {newItems.map((v, i) => {
+            
+
             return (
-              <tr key={v.id}>
-                <td>{v.id}</td>
-                <td>{v.name} </td>
-                <td>{v.price}</td>
-                <td>
+              <div className='listTitle' key={v.id}>
+                <Col>{v.id}</Col>
+                
+                <Col>{v.price}</Col>
+                <Col>
                   <div className="btn-group mr-2" role="group">
                     <button
                       type="button"
@@ -53,9 +67,9 @@ export default function List() {
                       +
                     </button>
                   </div>
-                </td>
-                <td>{v.itemTotal}</td>
-                <td>
+                </Col>
+                <Col>{v.itemTotal}</Col>
+                <Col>
                   <button
                     type="button"
                     className="btn btn-light"
@@ -65,11 +79,11 @@ export default function List() {
                   >
                     x
                   </button>
-                </td>
-              </tr>
+                </Col>
+                </div>
             )
           })}
-        </Row>
+        
       
       <div>
         items: {cart.totalItems} / total: {cart.cartTotal}
