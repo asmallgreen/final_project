@@ -1,5 +1,4 @@
 // 產品頁=>新品上架/相關商品卡片樣式
-import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -11,10 +10,7 @@ export default function LaunchedCard(props) {
       const res = await axios.get(
         `http://localhost:3005/product/productInfo?id=${idData}`
       );
-      const aa = res.data.alldata;
-      // setProductId(idData)
-      console.log(aa);
-      // console.log(productId);
+
       console.log(idData);
     } catch (err) {
       console.error("Error:", err.msg);

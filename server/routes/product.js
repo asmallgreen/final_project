@@ -3,49 +3,51 @@ import { getLimit, getAllProduct, searchProduct } from "../models/products.js";
 
 const router = express.Router();
 
-
+// let limitValue;
 
 // 每頁顯示幾筆
-router.use(express.json());
-router.post("/", async (req, res) => {
-  const limitValue = req.body.limit;
-  // const limitdata = await getLimit();
-  res.json({
-    msg: "success",
-    code: 200,
-    limitdata
-  });
-  // console.log(limitValue);
-  console.log(limitdata);
-});
+// router.use(express.json());
+// router.post("/", async (req, res) => {
+//    limitValue = req.body.limit;
+  
+//   res.json({
+//     msg: "success",
+//     code: 200,
+//     limitdata
+//   });
+//   console.log(limitValue);
+//   console.log(limitdata);
+// });
 
+//***********產品頁************
 router.get("/", async (req, res) => {
-  // const pid = req.params.pid;
-  // 定義資料庫表格名稱
-  const limitdata = await getLimit();
   const alldata = await getAllProduct();
-  // const pricedata = await getProductPrice("WHERE price>8000");
-  const filteredData = alldata.filter((data) => {
-    //----------------價格
-    const filterprice = data.price > 6000;
-    //----------------姓名
-    const filtername = data.name.includes("弓");
-    //----------------時間
-    const currentTime = new Date();
-    const createdat = new Date(data.created_at);
-    const timeDifference = currentTime.getTime() - createdat.getTime();
-    const daysDifference = timeDifference / (1000 * 3600 * 24);
-    const filtercreatedat = daysDifference < 15;
-    return filterprice && filtername && filtercreatedat;
-  });
-  const launchedData = alldata.filter((data) => data.launched === 1);
-  console.log(launchedData);
+  const launchdata = await alldata.filter((data) => data.launched === 1);
+  const limitdata = await getLimit();
+  const filterdata = await getLimit()
+  
+
+  // const filteredData = alldata.filter((data) => {
+  //   //----------------價格
+  //   const filterprice = data.price > 6000;
+  //   //----------------姓名
+  //   const filtername = data.name.includes("弓");
+  //   //----------------時間
+  //   const currentTime = new Date();
+  //   const createdat = new Date(data.created_at);
+  //   const timeDifference = currentTime.getTime() - createdat.getTime();
+  //   const daysDifference = timeDifference / (1000 * 3600 * 24);
+  //   const filtercreatedat = daysDifference < 15;
+  //   return filterprice && filtername && filtercreatedat;
+  // });
+  console.log(launchdata);
   res.json({
     message: "getAllProduct success",
     code: "200",
     alldata,
-    launchedData,
-    // limitdata,
+    launchdata,
+    limitdata,
+    filterdata,
   });
 });
 router.get("/:pid", async (req, res) => {

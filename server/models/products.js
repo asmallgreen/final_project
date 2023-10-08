@@ -15,10 +15,10 @@ import {
 const table = "product";
 // 所需的資料處理函式
 
-const getLimit = async (aa) => {
+const getLimit = async () => {
   const where = ''
   const order = { id: "ASC" };
-  const limit = aa
+  const limit = 2
   const { rows } = await find(table, where, order, limit);
   return rows;
 };

@@ -6,43 +6,19 @@ import ModalAttr from "./modal-attr";
 import ModalSort from "./modal-sort";
 
 export default function FilterBtns() {
+  
   // 狀態用來存儲每頁幾筆狀態
   const [selectedValue, setSelectedValue] = useState();
-  const handleSelectChange = (e) => {
+  const handleLimit = (e) => {
     const selectedOptionValue = e.target.value;
     setSelectedValue(selectedOptionValue);
     // console.log("選擇的值:", selectedValue);
-    getLimit(selectedOptionValue);
+    // getLimit(selectedOptionValue);
+    console.log(selectedOptionValue);
   };
-  //API送到路由'/'取得每頁幾筆資料
-  const getLimit = (newValue) => {
-    (async () => {
-      try {
-        const res = await fetch("http://localhost:3005/product", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          //確保limit值是最新的
-          body: JSON.stringify({ limit: newValue }),
-        });
-        //檢查請求是否成功
-        if (!res.ok) {
-          throw new Error(`HTTP error! Status: ${res.status}`);
-        }
-        // 解析JSON響應
-        const data = await res.json();
-        const limitdata = data.limitdata;
-        console.log(limitdata);
-        console.log("Response from server:", data);
+  console.log(selectedValue);
 
-        setLimitData(data.limitdata);
-      } catch (err) {
-        console.log("err", err.msg);
-      }
-    })();
-  };
-  const [limitdata, setLimitData] = useState([]);
+
   // ******************************
   //篩選&排序Modal
   const [attrModal, setAttrModal] = useState();
@@ -88,7 +64,7 @@ export default function FilterBtns() {
             className="btn btn-primary dropdown-toggle"
             aria-label="Default select example"
             // 添加 onChange 事件處理函數
-            onChange={handleSelectChange}
+            onChange={handleLimit}
             // 如果你希望設定預設值，可以透過 value 屬性設定
             value={selectedValue}
           >

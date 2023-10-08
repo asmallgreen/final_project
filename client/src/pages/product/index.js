@@ -26,38 +26,36 @@ import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 function Product() {
   const [allProduct, setAllProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
-
-  //navbar搜尋產品
-  const { results } = useProductContext();
-
-  // const handleProduct = async (e) => {
-  //   const res = await axios.get(
-  //     "http://localhost:3005/product",
-  //     {},
-  //     {
-  //       withCredentials: true,
-  //     }
-  //   );
-  //   console.log(res.data);
-  // };
+  const [limitPrdouct, setLimitProduct] = useState([]);
+  const [filterProduct, setFilterProduct] = useState([]);
+  console.log("所有產品資料:");
+  console.log(allProduct);
+  console.log("新上架產品資料:");
+  console.log(newProduct);
+  console.log(limitPrdouct);
+  console.log(filterProduct);
+  //抓所有產品和新上架產品
   useEffect(() => {
     (async () => {
       try {
         const res = await axios.get("http://localhost:3005/product", []);
         setAllProduct(res.data.alldata);
-        setNewProduct(res.data.launchedData);
+        setNewProduct(res.data.launchdata);
+        setLimitProduct(res.data.limitdata);
+        setFilterProduct(res.data.filterdata);
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
-
   useEffect(() => {
-    // console.log(allProduct);
-    // console.log(newProduct);
-  }, [allProduct, newProduct]);
+  }, [allProduct, newProduct, limitPrdouct, filterProduct]);
 
-  // const handleCate = async (e) => {
+
+
+  //navbar搜尋產品
+  const { results } = useProductContext();
+
   //   const res = await axios.get(
   //     "http://localhost:3005/product",
   //     { cateData },
@@ -114,52 +112,52 @@ function Product() {
         <SwiperSlide>
           <Row className="ads">
             <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img"/>
+              <img src="/product/top1.jpg" alt="img" />
             </Col>
             <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img"/>
+              <img src="/product/top2.jpg" alt="img" />
             </Col>
             <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img"/>
+              <img src="/product/top3.jpg" alt="img" />
             </Col>
           </Row>
         </SwiperSlide>
         <SwiperSlide>
           <Row className="ads">
             <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="top1.jpg"/>
+              <img src="/product/top1.jpg" alt="top1.jpg" />
             </Col>
             <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img"/>
+              <img src="/product/top2.jpg" alt="img" />
             </Col>
             <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img"/>
+              <img src="/product/top3.jpg" alt="img" />
             </Col>
           </Row>
         </SwiperSlide>
         <SwiperSlide>
           <Row className="ads">
             <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img"/>
+              <img src="/product/top1.jpg" alt="img" />
             </Col>
             <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img"/>
+              <img src="/product/top2.jpg" alt="img" />
             </Col>
             <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img"/>
+              <img src="/product/top3.jpg" alt="img" />
             </Col>
           </Row>
         </SwiperSlide>
         <SwiperSlide>
           <Row className="ads">
             <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img"/>
+              <img src="/product/top1.jpg" alt="img" />
             </Col>
             <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img"/>
+              <img src="/product/top2.jpg" alt="img" />
             </Col>
             <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img"/>
+              <img src="/product/top3.jpg" alt="img" />
             </Col>
           </Row>
         </SwiperSlide>
@@ -257,7 +255,7 @@ function Product() {
       <Row className="filter-cards-area">
         <Col md="auto" className="filter-cards">
           <Row className="rows">
-            {allProduct.map((data) => {
+            {filterProduct.map((data) => {
               return <FilterProductCard key={data.id} filterProduct={data} />;
             })}
           </Row>
