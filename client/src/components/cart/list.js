@@ -1,19 +1,27 @@
-import { useCart} from '@/hooks/use-cart'
-import { useEffect, useState } from 'react'
+import { useCart } from '@/hooks/use-cart'
+import { useEffect, useState ,useReducer } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
-
+import { reducer } from '@/hooks/cart-reducer.js'
 
 export default function List({ mode }) {
 
-
-
   // 使用hooks 解出所需的狀態與函式(自context)
-  const { cart, items, plusOne, minusOne, removeItem } = useCart()
+  const { cart, items, plusOne, minusOne, removeItem ,setChecked} = useCart()
 
-  const [checkValue, setCheckValue] = useState(false)
+
+
+
+  
 
   const handleCheckboxChange = (event) => {
-    setCheckValue(event.target.checked);
+    let thisEle = event.target
+    let itemid = +thisEle.getAttribute("data-itemid")
+    let isChecked = thisEle.checked
+
+    setChecked(itemid,isChecked)
+    // console.log(items)
+    //setCheckValue();
+    
   };
   // 修正 Next hydration 錯誤
   // https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html
@@ -28,14 +36,14 @@ export default function List({ mode }) {
     return null
   }
   // fix end
+  
+
   // 請把items中product_id為null的移除
 
   const newItems = items.filter((v, i) => {
     return v[mode + "_id"] !== null
   })
-
-  
-
+ console.log(newItems)
 
   return (
     <>
@@ -50,7 +58,6 @@ export default function List({ mode }) {
               data-itemid={v.id}
               className='expand cartChk'
               onChange={handleCheckboxChange}
-              checked={checkValue}
 
             /></Col>
             <Col>{v.id}</Col>

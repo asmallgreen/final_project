@@ -22,6 +22,18 @@ export const initialState = {
   //   size: '',
   // }
   
+  const setChecked = (state, action) => {
+
+    for(let i = 0; i < state.items.length; i++){
+      console.log(555)
+      if(state.items[i].id === action.payload.id){
+        console.log( state.items[i])
+        state.items[i].isChecked = action.payload.isChecked
+        console.log( state.items[i].isChecked)
+      }
+    }
+    return state.items
+  }
   const addItem = (state, action) => {
     // 尋找是否有已存在的索引值
     const existingItemIndex = state.items.findIndex(
@@ -143,7 +155,7 @@ export const initialState = {
       return items.filter((v, i) => {
         return v.product_id !== null
       }
-      ).reduce((total, item) => total + item.quantity * item.price, 0)
+      ).reduce((total, item) => (item.isChecked ? total + item.quantity * item.price :total), 0)
     }
   }
 
@@ -152,7 +164,7 @@ export const initialState = {
       return items.filter((v, i) => {
         return v.course_id !== null
       }
-      ).reduce((total, item) => total + item.quantity * item.price, 0)
+      ).reduce((total, item) =>  (item.isChecked ? total + item.quantity * item.price :total), 0, 0)
     }
   }
 
@@ -161,7 +173,7 @@ export const initialState = {
       return items.filter((v, i) => {
         return v.product_id !== null
       }
-      ).reduce((sum, item) => sum + item.quantity, 0)
+      ).reduce((sum, item) =>  (item.isChecked ? sum + item.quantity : sum), 0)
     }
   }
   
@@ -170,17 +182,17 @@ export const initialState = {
       return items.filter((v, i) => {
         return v.course_id !== null
       }
-      ).reduce((sum, item) => sum + item.quantity, 0)
+      ).reduce((sum, item) => (item.isChecked ? sum + item.quantity : sum), 0)
     }
   }
   
   
 
   const calculateTotal = (items) =>
-    items.reduce((total, item) => total + item.quantity * item.price, 0)
+    items.reduce((total, item) => (item.isChecked ? total + item.quantity * item.price : total), 0)
   
   const calculateTotalItems = (items) =>
-    items.reduce((sum, item) => sum + item.quantity, 0)
+    items.reduce((sum, item) => (item.isChecked ? sum + item.quantity : sum), 0);
   
   // 最後將更新後的state，與initialState整理成新的state
   const generateCartState = (state, items) => {
@@ -193,6 +205,7 @@ export const initialState = {
       ...initialState,
       ...state,
       items: calculateItemTotals(items),
+      
       totalItems: calculateTotalItems(items),
       cartTotal: calculateTotal(items),
       productTotal: calProductsTotal(items),
@@ -222,6 +235,8 @@ export const initialState = {
         return generateCartState(state, plusItemQuantityOnce(state, action))
       case 'MINUS_ONE':
         return generateCartState(state, minusItemQuantityOnce(state, action))
+      case 'SET_CHECKED':
+        return generateCartState(state, setChecked(state, action))
       case 'CLEAR_CART':
         return initialState
       default:

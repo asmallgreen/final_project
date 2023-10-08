@@ -1,4 +1,4 @@
-import React, { useState ,useReducer ,useEffect} from 'react'
+import React, { useState, useReducer, useEffect } from 'react'
 import { Container, Col } from 'react-bootstrap';
 import List from '@/components/cart/list';
 import { useCart } from '@/hooks/use-cart';
@@ -6,11 +6,11 @@ import { reducer } from '@/hooks/cart-reducer.js'
 
 export default function StepOne({ setstepType }) {
 
-  const { cart, removeItem , items } = useCart();
+  const { cart, removeItem, items, setChecked } = useCart();
 
   const [selectedValue, setSelectedValue] = useState(1);
 
-  const discountPrice = selectedValue > 1 ? cart.productTotal-selectedValue : cart.productTotal*selectedValue
+  const discountPrice = selectedValue > 1 &&  cart.productTotal > selectedValue ? cart.productTotal - selectedValue : cart.productTotal * selectedValue
 
   const handleSelectChange = (event) => {
     const selectedOptionValue = event.target.value; // 获取选中的<option>的值
@@ -18,13 +18,23 @@ export default function StepOne({ setstepType }) {
   };
 
 
-  
+
 
   const sendData = () => {
     // 在子组件中调用父组件传递的回调函数，并传递数据
     setstepType(2);
   };
-  
+
+  const handleCheckboxChange = (event) => {
+    let thisEle = event.target
+    let itemid = +thisEle.getAttribute("data-itemid")
+    let isChecked = thisEle.checked
+
+    setChecked(itemid,isChecked)
+    // console.log(items)
+    //setCheckValue();
+    
+  };
 
   return (
     <Container>
@@ -38,7 +48,7 @@ export default function StepOne({ setstepType }) {
             document.querySelectorAll('.productList .cartChk').forEach(function (element) {
 
               element.checked = thisChk.checked
-
+              setChecked(+element.getAttribute("data-itemid"), thisChk.checked)
 
             })
           }}
@@ -56,7 +66,7 @@ export default function StepOne({ setstepType }) {
             document.querySelectorAll('.productList .cartChk').forEach(function (element) {
 
               element.checked = thisChk.checked
-
+              setChecked(+element.getAttribute("data-itemid"), thisChk.checked)
 
             })
           }}
@@ -100,7 +110,7 @@ export default function StepOne({ setstepType }) {
           </div>
         </Col>
       </div>
-     
+
 
       <div className="listTitle">
         <Col xs={1} ><input
@@ -111,6 +121,7 @@ export default function StepOne({ setstepType }) {
 
             document.querySelectorAll('.courseList .cartChk').forEach(function (element) {
               element.checked = thisChk.checked
+              setChecked(+element.getAttribute("data-itemid"), thisChk.checked)
             })
           }}
         /></Col>
@@ -126,6 +137,7 @@ export default function StepOne({ setstepType }) {
 
             document.querySelectorAll('.courseList .cartChk').forEach(function (element) {
               element.checked = thisChk.checked
+              setChecked(+element.getAttribute("data-itemid"), thisChk.checked)
             })
           }}
         /></Col>
@@ -156,24 +168,28 @@ export default function StepOne({ setstepType }) {
       </div>
       <div className='totalSection'>
         <label>
-          <input 
-          type='checkbox' 
-          onChange={(event) => {
-            let thisChk = event.target
+          <input
+            type='checkbox'
+            onChange={(event) => {
+              let thisChk = event.target
 
             document.querySelectorAll('.cartChk').forEach(function (element) {
 
               element.checked = thisChk.checked
-
+              setChecked(+element.getAttribute("data-itemid"), thisChk.checked)
 
             })
-          }} 
+            }}
           />
           {`全選`}
         </label>
         <div className='total'>
-          <div>{`總金額(共${cart.totalItems}項)`}<span>${`${discountPrice+cart.courseTotal}`}</span></div>
-          <div className='discount'>{`優惠券折抵 $ `}{`${selectedValue > 1 ? selectedValue : cart.productTotal - Number(cart.productTotal*selectedValue)  }`}</div>
+          <div>{`總金額(共${cart.totalItems}項)`}
+            <span>${`${discountPrice + cart.courseTotal}`}</span>
+          </div>
+          <div className='discount'>
+            {`優惠券折抵 $ `}{`${selectedValue > 1 ? selectedValue : cart.productTotal - Number(cart.productTotal * selectedValue)}`}
+          </div>
           <span className=''>
             <span>{`確認訂單金額    `}</span>
             <button

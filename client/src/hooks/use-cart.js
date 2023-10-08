@@ -41,7 +41,14 @@ export const CartProvider = ({
 
   //state.items = cartList
   // console.log(state)
+  const setChecked = async (id,isChecked) => {
+   
+    console.log(id)
+    console.log(isChecked)
+    
+    dispatch({ type: 'SET_CHECKED', payload: {id,isChecked} })
 
+  }
   const addItem = async (item) => {
     try {
       const response = await fetch(apiUrl, {
@@ -146,6 +153,7 @@ export const CartProvider = ({
         isInCart,
         plusOne,
         minusOne,
+        setChecked,
       }}
     >
      {children}
