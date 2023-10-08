@@ -28,7 +28,7 @@ function Product() {
   const [newProduct, setNewProduct] = useState([]);
   const [limitPrdouct, setLimitProduct] = useState([]);
   const [filterProduct, setFilterProduct] = useState([]);
-  console.log("所有產品資料:");
+  console.log('所有產品資料:');
   console.log(allProduct);
   console.log("新上架產品資料:");
   console.log(newProduct);
@@ -36,7 +36,8 @@ function Product() {
   console.log(filterProduct);
   //抓所有產品和新上架產品
   useEffect(() => {
-    (async () => {
+    if(typeof window !== 'undefined'){
+      (async () => {
       try {
         const res = await axios.get("http://localhost:3005/product", []);
         setAllProduct(res.data.alldata);
@@ -47,14 +48,16 @@ function Product() {
         console.log(error);
       }
     })();
+    
+    }
   }, []);
-  useEffect(() => {
-  }, [allProduct, newProduct, limitPrdouct, filterProduct]);
+  // useEffect(() => {
+  // }, [allProduct, newProduct, limitPrdouct, filterProduct]);
 
 
 
   //navbar搜尋產品
-  const { results } = useProductContext();
+  // const { results } = useProductContext();
 
   //   const res = await axios.get(
   //     "http://localhost:3005/product",

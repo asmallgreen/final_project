@@ -1,5 +1,5 @@
 // 產品頁=>所有商品(包含篩選過)卡片樣式
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -8,28 +8,30 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function FilterProductCard(props) {
-  const { filterProduct } = props;
-  // 切換愛心的實心和空心狀態
-  const [isSolidHeart, setIsSolidHeart] = useState(true);
-  // Toggle切換
-  const handleToggle = () => {
-    setIsSolidHeart((prevState) => !prevState );
-  };
-  const handleAddCart = () => {
-    // 发送GET请求到后端，获取filterProduct.id
-    fetch(`/api/getProductId?id=${filterProduct.id}`)
-      .then(res => res.json())
-      .then(data => {
-        const productId = data.productId;
-        // 在这里使用productId进行其他操作
-        console.log(productId);
-      })
-      .catch(error => {
-        console.error("Error fetching product ID:", error);
-      });
-  }
+    
+      const { filterProduct } = props;
+      // 切換愛心的實心和空心狀態
+      const [isSolidHeart, setIsSolidHeart] = useState(true);
+      // Toggle切換
+      const handleToggle = () => {
+        setIsSolidHeart((prevState) => !prevState);
+      };
+      const handleAddCart = () => {
+        // 发送GET请求到后端，获取filterProduct.id
+        fetch(`product/getProductId/id=${filterProduct.id}`)
+          .then((res) => res.json())
+          .then((data) => {
+            const productId = data.productId;
+            // 在这里使用productId进行其他操作
+            console.log(productId);
+          })
+          .catch((error) => {
+            console.error("Error fetching product ID:", error);
+          });
+      
+    }
 
-  
+
   // console.log(filterProduct);
   return (
     <>
@@ -43,7 +45,6 @@ export default function FilterProductCard(props) {
               className={isSolidHeart ? "fa-heart" : "far-heart"}
               onClick={handleToggle}
             />
-            
           </button>
         </div>
         <div className="content">

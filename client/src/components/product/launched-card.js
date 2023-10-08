@@ -1,17 +1,16 @@
 // 產品頁=>新品上架/相關商品卡片樣式
 import axios from "axios";
 import { Link } from "react-router-dom";
+// import { useState } from "react";
 
 export default function LaunchedCard(props) {
   const idData = props.filterNewProduct.id;
-  // const [productId, setProductId] = useState(idData)
+  
   const handleInfo = async () => {
     try {
-      const res = await axios.get(
-        `http://localhost:3005/product/productInfo?id=${idData}`
-      );
-
-      console.log(idData);
+      const res = await axios.get("http://localhost:3005/product", []);
+      console.log(`上架商品ID:${idData}`);
+      const alldata = res.data.alldata
     } catch (err) {
       console.error("Error:", err.msg);
     }

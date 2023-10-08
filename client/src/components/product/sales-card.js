@@ -1,9 +1,10 @@
 // 產品頁=>優惠專區(橫式)卡片樣式
 import React from "react";
 export default function SalesCard() {
+  
   return (
     <>
-        <div className="sales">
+        <div className="sales" >
           <div className="sales-row">
             <div className="card p-0 m-2">
               <div className="d-flex">

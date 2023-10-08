@@ -25,22 +25,7 @@ router.get("/", async (req, res) => {
   const launchdata = await alldata.filter((data) => data.launched === 1);
   const limitdata = await getLimit();
   const filterdata = await getLimit()
-  
 
-  // const filteredData = alldata.filter((data) => {
-  //   //----------------價格
-  //   const filterprice = data.price > 6000;
-  //   //----------------姓名
-  //   const filtername = data.name.includes("弓");
-  //   //----------------時間
-  //   const currentTime = new Date();
-  //   const createdat = new Date(data.created_at);
-  //   const timeDifference = currentTime.getTime() - createdat.getTime();
-  //   const daysDifference = timeDifference / (1000 * 3600 * 24);
-  //   const filtercreatedat = daysDifference < 15;
-  //   return filterprice && filtername && filtercreatedat;
-  // });
-  console.log(launchdata);
   res.json({
     message: "getAllProduct success",
     code: "200",
@@ -51,30 +36,44 @@ router.get("/", async (req, res) => {
   });
 });
 router.get("/:pid", async (req, res) => {
-  const alldata = await getAllProduct();
-  res.json({
-    message: "getAllProduct success",
-    code: "200",
-    alldata,
-  });
+
+  // const alldata = getAllProduct();
+  // console.log(alldata);
+  // const productId = req.query.id;
+  // console.log(productId);
+  // const product = productsData.find((item) => item.id === parseInt(productId));
+
+  // if (product) {
+  //   res.json({ productId: product.id });
+  // } else {
+  //   res.status(404).json({ error: "Product not found" });
+  // }
+  // res.json({
+  //   message: "getAllProduct success",
+  //   code: "200",
+  //   alldata,
+  //   productId,
+  // });
+
+
 });
 // 创建一个API端点来获取产品ID
 router.get("/getProductId", (req, res) => {
-  const alldata = getAllProduct();
-  console.log(alldata);
-  const productId = req.query.id;
-  console.log(productId);
-  const product = productsData.find((item) => item.id === parseInt(productId));
+  // const alldata = getAllProduct();
+  // console.log(alldata);
+  // const productId = req.query.id;
+  // console.log(productId);
+  // const product = productsData.find((item) => item.id === parseInt(productId));
 
-  if (product) {
-    res.json({ productId: product.id });
-  } else {
-    res.status(404).json({ error: "Product not found" });
-  }
-  res.json({
-    alldata,
-    productId,
-  });
+  // if (product) {
+  //   res.json({ productId: product.id });
+  // } else {
+  //   res.status(404).json({ error: "Product not found" });
+  // }
+  // res.json({
+  //   alldata,
+  //   productId,
+  // });
 });
 
 // ***********test***********
