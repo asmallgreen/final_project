@@ -1,79 +1,49 @@
-// 產品頁=>新品上架/相關商品卡片樣式
 import axios from "axios";
-import { Link } from "react-router-dom";
-// import { useState } from "react";
+import { useEffect } from "react";
+import Link from "next/link";
 
-export default function LaunchedCard(props) {
-  const idData = props.filterNewProduct.id;
-  
+function LaunchedCard(props) {
+ 
+  const { filterNewProduct } = props;
+  const idData = filterNewProduct.id;
+
   const handleInfo = async () => {
     try {
-      const res = await axios.get("http://localhost:3005/product", []);
+      const res = await axios.get(`http://localhost:3005/product/${idData}`);
       console.log(`上架商品ID:${idData}`);
-      const alldata = res.data.alldata
+      const alldata = res.data.alldata;
+      // 处理 alldata，如果需要的话
     } catch (err) {
-      console.error("Error:", err.msg);
+      console.error("Error:", err.message);
     }
   };
 
-  const { filterNewProduct } = props;
-
-  // ***************test**********************
-
-  // console.log(data);
-  // *************************************
+  useEffect(() => {
+    // 在组件加载时调用 handleInfo
+    handleInfo();
+  }, []); // 空依赖数组确保只在组件加载时调用一次
 
   return (
-    <>
-      <Link
-        to={`/product/id=${idData}`}
-        onClick={handleInfo}
-        className="normal-cards-area "
-      >
-        <div className="normal-cards">
-          <div className="rows">
-            <div className="card">
-              <div className="img position-relative">
-                <img src={filterNewProduct.img1} alt="Product Image"></img>
-                <div className="tag position-absolute">NEW</div>
-              </div>
-              <div className="content">
-                <div className="product-name">{filterNewProduct.name}</div>
-                <div className="description">{filterNewProduct.summary}</div>
-                <div className="price text-end">
-                  NT${filterNewProduct.price}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Link>
-
-      {/* <div className="card">
+    <Link href={`/product/${idData}`} className="normal-cards-area">
+      <div className="normal-cards">
+        <div className="rows">
+          <div className="card">
             <div className="img position-relative">
-              <img src={filterNewProduct.img1} alt="Product Image"></img>
+              <img src={filterNewProduct.img1} alt="Product Image" />
               <div className="tag position-absolute">NEW</div>
             </div>
             <div className="content">
               <div className="product-name">{filterNewProduct.name}</div>
               <div className="description">{filterNewProduct.summary}</div>
-              <div className="price text-end">NT${filterNewProduct.price}</div>
+              <div className="price text-end">
+                NT${filterNewProduct.price}
+              </div>
             </div>
-          </div> */}
-
-      {/* <div className="card">
-        <div className="img position-relative">
-         <img src={filterNewProduct.img1}></img>
-          <div className="tag position-absolute">NEW</div>
-        </div>
-        <div className="content">
-          <div className="product-name">
-            {filterNewProduct.name}
           </div>
-          <div className="description">{filterNewProduct.summary}</div>
-          <div className="price text-end">NT${filterNewProduct.price}</div>
         </div>
-      </div> */}
-    </>
+      </div>
+    </Link>
   );
 }
+
+export default LaunchedCard;
