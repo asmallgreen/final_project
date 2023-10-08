@@ -5,6 +5,10 @@ export const initialState = {
     isEmpty: true,
     totalItems: 0,
     cartTotal: 0,
+    productTotal:0,
+    courseTotal:0,
+    productTotalItems:0,
+    courseTotalItems:0,
   }
   
   // 置於上述items陣列中的每個項目的物件模型
@@ -34,12 +38,15 @@ export const initialState = {
       const quantity = payloadQuantity
         ? item.quantity + payloadQuantity
         : item.quantity + 1
-  
+      
+      const isChecked = document.querySelector(`.cartChk[data-itemid="${id}"]`)
+
       const action = {
         type: 'UPDATE_ITEM',
-        payload: { id, quantity },
+        payload: { id, quantity ,isChecked},
       }
-  
+      
+      
       return updateItem(state, action)
     }
     return [...state.items, action.payload]
@@ -129,6 +136,46 @@ export const initialState = {
       itemTotal: item.price * item.quantity,
     }))
   
+  
+
+  const calProductsTotal = (items) => {
+    if(items.product_id !== null){
+      return items.filter((v, i) => {
+        return v.product_id !== null
+      }
+      ).reduce((total, item) => total + item.quantity * item.price, 0)
+    }
+  }
+
+  const calCoursesTotal = (items) => {
+    if(items.course_id !== null){
+      return items.filter((v, i) => {
+        return v.course_id !== null
+      }
+      ).reduce((total, item) => total + item.quantity * item.price, 0)
+    }
+  }
+
+  const calProductsTotalItems = (items) => {
+    if(items.product_id !== null){
+      return items.filter((v, i) => {
+        return v.product_id !== null
+      }
+      ).reduce((sum, item) => sum + item.quantity, 0)
+    }
+  }
+  
+  const calCoursesTotalItems = (items) => {
+    if(items.course_id !== null){
+      return items.filter((v, i) => {
+        return v.course_id !== null
+      }
+      ).reduce((sum, item) => sum + item.quantity, 0)
+    }
+  }
+  
+  
+
   const calculateTotal = (items) =>
     items.reduce((total, item) => total + item.quantity * item.price, 0)
   
@@ -138,7 +185,9 @@ export const initialState = {
   // 最後將更新後的state，與initialState整理成新的state
   const generateCartState = (state, items) => {
     // isEmpty為布林值
-    const isEmpty = items.length === 0
+  const isEmpty = items.length === 0
+
+  
   
     return {
       ...initialState,
@@ -146,6 +195,10 @@ export const initialState = {
       items: calculateItemTotals(items),
       totalItems: calculateTotalItems(items),
       cartTotal: calculateTotal(items),
+      productTotal: calProductsTotal(items),
+      courseTotal: calCoursesTotal(items),
+      productTotalItems: calProductsTotalItems(items),
+      courseTotalItems: calCoursesTotalItems(items),
       isEmpty,
     }
   }

@@ -30,7 +30,7 @@ export default function Index() {
   }, [])
 
   const [stepType, setStepType] = useState(1)
-  console.log(123)
+  
   const handleStepChange = (newStep) => {
     setStepType(newStep);
   };

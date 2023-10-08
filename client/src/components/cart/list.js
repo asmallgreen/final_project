@@ -1,15 +1,20 @@
-import { useCart } from '@/hooks/use-cart'
+import { useCart} from '@/hooks/use-cart'
 import { useEffect, useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 
 
-export default function List({mode}) {
+export default function List({ mode }) {
 
-  
+
 
   // 使用hooks 解出所需的狀態與函式(自context)
   const { cart, items, plusOne, minusOne, removeItem } = useCart()
 
+  const [checkValue, setCheckValue] = useState(false)
+
+  const handleCheckboxChange = (event) => {
+    setCheckValue(event.target.checked);
+  };
   // 修正 Next hydration 錯誤
   // https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html
   const [hydrated, setHydrated] = useState(false)
@@ -24,58 +29,71 @@ export default function List({mode}) {
   }
   // fix end
   // 請把items中product_id為null的移除
-  
-  const newItems = items.filter((v, i) => {
-    return v[mode+"_id"] !== null
-  })
-  
 
+  const newItems = items.filter((v, i) => {
+    return v[mode + "_id"] !== null
+  })
+
+  
 
 
   return (
     <>
-        
-          {newItems.map((v, i) => {
-            
 
-            return (
-              <div className='listTitle' key={v.id}>
-                <Col><input type='checkbox' data-itemid={v.id} className='expand cartChk' /></Col>
-                <Col>{v.id}</Col>
-                
-                <Col>{v.price}</Col>
-                <Col>
-                  <div className="btn-group mr-2" role="group">
-                    <button
-                      type="button"
-                      className="btn btn-light"
-                      onClick={() => {
-                        minusOne(v.id)
-                      }}
-                    >
-                      -
-                    </button>
-                    <button type="button" className="btn btn-light">
-                      {v.quantity}
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-light"
-                      onClick={() => {
-                        plusOne(v.id)
-                      }}
-                    >
-                      +
-                    </button>
-                  </div>
-                </Col>
-                <Col>{v.itemTotal}</Col>
-                </div>
-            )
-          })}
-        
-      
-      
+      {newItems.map((v, i) => {
+
+
+        return (
+          <div className={`${mode}List`} key={v.id}>
+            <Col xs={1}><input
+              type='checkbox'
+              data-itemid={v.id}
+              className='expand cartChk'
+              onChange={handleCheckboxChange}
+              checked={checkValue}
+
+            /></Col>
+            <Col>{v.id}</Col>
+            <Col className={mode === 'course' ? 'd-none' : ''}>
+              <select className='m-0'>
+                <option value="0">請選擇</option>
+                <option value="1">S</option>
+                <option value="2">M</option>
+              </select>
+            </Col>
+            <Col>
+              <div className="btn-group mr-2" role="group">
+                <button
+                  type="button"
+                  className="btn btn-light"
+                  onClick={() => {
+                    minusOne(v.id)
+                  }}
+                >
+                  -
+                </button>
+                <button type="button" className="btn btn-light">
+                  {v.quantity}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-light"
+                  onClick={() => {
+                    plusOne(v.id)
+                  }}
+                >
+                  +
+                </button>
+              </div>
+            </Col>
+            <Col>{v.price}</Col>
+            <Col>{v.itemTotal}</Col>
+          </div>
+        )
+      })}
+
+
+
     </>
   )
 }

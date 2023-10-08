@@ -40,7 +40,7 @@ export const CartProvider = ({
 
 
   //state.items = cartList
-  console.log(state)
+  // console.log(state)
 
   const addItem = async (item) => {
     try {
