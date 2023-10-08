@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router } from "react-router-dom";
 import axios from "axios";
 import Link from "next/link";
 import { Row, Col } from "react-bootstrap";
@@ -20,12 +21,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import { Navigation, Pagination, History } from "swiper/modules";
+import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
 function Product() {
-
-
-
   const [allProduct, setAllProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
 
@@ -46,12 +44,8 @@ function Product() {
     (async () => {
       try {
         const res = await axios.get("http://localhost:3005/product", []);
-        // console.log(res.data);
-        // console.log(res.data.products);
         setAllProduct(res.data.alldata);
         setNewProduct(res.data.launchedData);
-        // console.log(allProduct);
-        // console.log(newProduct);
       } catch (error) {
         console.log(error);
       }
@@ -101,106 +95,107 @@ function Product() {
           </div>
         )} */}
       {/* **************** */}
+
       <Swiper
-        slidesPerView={2}
+        spaceBetween={0}
+        slidesPerView={1}
         centeredSlides={true}
-        spaceBetween={30}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
         pagination={{
           clickable: true,
         }}
-        modules={[Pagination]}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper ad-swiper"
       >
         <SwiperSlide>
           <Row className="ads">
-            <Col md="12" className="ad">
-              <img src="/product/top1.jpg" />
+            <Col md="3" className="ad">
+              <img src="/product/top1.jpg" alt="img"/>
+            </Col>
+            <Col md="6" className="ad main">
+              <img src="/product/top2.jpg" alt="img"/>
+            </Col>
+            <Col md="3" className="ad">
+              <img src="/product/top3.jpg" alt="img"/>
             </Col>
           </Row>
         </SwiperSlide>
         <SwiperSlide>
           <Row className="ads">
-            <Col md="12" className="ad">
-              <img src="/product/top2.jpg" />
+            <Col md="3" className="ad">
+              <img src="/product/top1.jpg" alt="top1.jpg"/>
+            </Col>
+            <Col md="6" className="ad main">
+              <img src="/product/top2.jpg" alt="img"/>
+            </Col>
+            <Col md="3" className="ad">
+              <img src="/product/top3.jpg" alt="img"/>
             </Col>
           </Row>
         </SwiperSlide>
         <SwiperSlide>
           <Row className="ads">
-            <Col md="12" className="ad">
-              <img src="/product/top3.jpg" />
+            <Col md="3" className="ad">
+              <img src="/product/top1.jpg" alt="img"/>
+            </Col>
+            <Col md="6" className="ad main">
+              <img src="/product/top2.jpg" alt="img"/>
+            </Col>
+            <Col md="3" className="ad">
+              <img src="/product/top3.jpg" alt="img"/>
             </Col>
           </Row>
         </SwiperSlide>
         <SwiperSlide>
           <Row className="ads">
-            <Col md="12" className="ad">
-              <img src="/product/top1.jpg" />
+            <Col md="3" className="ad">
+              <img src="/product/top1.jpg" alt="img"/>
             </Col>
-          </Row>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Row className="ads">
-            <Col md="12" className="ad">
-              <img src="/product/top2.jpg" />
+            <Col md="6" className="ad main">
+              <img src="/product/top2.jpg" alt="img"/>
             </Col>
-          </Row>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Row className="ads">
-            <Col md="12" className="ad">
-              <img src="/product/top3.jpg" />
+            <Col md="3" className="ad">
+              <img src="/product/top3.jpg" alt="img"/>
             </Col>
           </Row>
         </SwiperSlide>
       </Swiper>
-
-      {/* ****************************** */}
-      {/* 商品廣告 */}
-      {/* <Row className="ads">
-        <Col md="3" className="ad">
-          <img src="/product/top1.jpg" />
-        </Col>
-        <Col md="6" className="ad main">
-          <img src="/product/top2.jpg" />
-        </Col>
-        <Col md="3" className="ad">
-          <img src="/product/top3.jpg" />
-        </Col>
-      </Row> */}
       <div className="phone-ad">
-        <img src="/product/top1.jpg"></img>
+        <img src="/product/top1.jpg" alt="img"></img>
       </div>
       {/* 新品上架 */}
       <div className="product-page-title">
         <p>新品上架</p>
       </div>
-      <Row className="normal-cards-area">
-        <Col className="normal-cards">
-          <Row className="rows">
-            {/* <div>
-        {newProduct.map((data) => {
-          return <div key={data.id}>{data.name}</div>;
-        })}
-      </div> */}
-            {newProduct.map((data) => {
-              return <LaunchedCard key={data.id} filterNewProduct={data} />;
-            })}
-            {/* <LaunchedCard/> */}
-            {/* <NormalCard newProduct/>
-            <NormalCard />
-            <NormalCard />
-            <NormalCard /> */}
-          </Row>
-        </Col>
-      </Row>
+      <Router>
+        <Swiper
+          spaceBetween={10}
+          slidesPerView={4}
+          navigation={true}
+          pagination={true}
+          modules={[Navigation, Pagination]}
+          className="mySwiper launched-product-swiper"
+        >
+          {newProduct.map((data) => {
+            return (
+              <SwiperSlide>
+                <LaunchedCard key={data.id} filterNewProduct={data} />
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+      </Router>
 
       {/* 分類 */}
       <div className="category position-relative">
         <div className="type-title">｜ 產品分類 ｜</div>
         <div className="type">
           <Link href="/product/category/bow" className="item">
-            <img src="/product/cate1.jpg"></img>
+            <img src="/product/cate1.jpg" alt="img"></img>
             <span className="text-decoration-none">良弓</span>
             <div className="animate-content-circle position-absolute">
               <ConcentricCircles />
@@ -210,7 +205,7 @@ function Product() {
             </div>
           </Link>
           <Link href="/product/category/arrow" className="item">
-            <img src="/product/cate2.jpg"></img>
+            <img src="/product/cate2.jpg" alt="img"></img>
             <span className="text-decoration-none">羽箭</span>
             <div className="animate-content-circle position-absolute">
               <ConcentricCircles />
@@ -220,7 +215,7 @@ function Product() {
             </div>
           </Link>
           <Link href="/product/category/suit" className="item">
-            <img src="/product/cate3.jpg"></img>
+            <img src="/product/cate3.jpg" alt="img"></img>
             <span className="text-decoration-none">道服</span>
             <div className="animate-content-circle position-absolute">
               <ConcentricCircles />
@@ -230,7 +225,7 @@ function Product() {
             </div>
           </Link>
           <Link href="/product/category/other" className="item">
-            <img src="/product/cate4.jpg"></img>
+            <img src="/product/cate4.jpg" alt="img"></img>
             <span className="text-decoration-none">其他</span>
             <div className="animate-content-circle position-absolute">
               <ConcentricCircles />
@@ -268,103 +263,56 @@ function Product() {
           </Row>
         </Col>
       </Row>
-
       {/* btn */}
       <LunaPagination />
-
       {/* 優惠專區 */}
       <div className="product-page-title">
         <p>優惠專區</p>
       </div>
-      {/* ************** */}
       <Swiper
-        spaceBetween={50}
-        slidesPerView={3}
+        spaceBetween={10}
+        slidesPerView={2}
         navigation={true}
         pagination={true}
-        history={{
-          key: "slide",
-        }}
         modules={[Navigation, Pagination, History]}
         className="mySwiper sale-product-swiper pt-5"
       >
-        <SwiperSlide data-history="1">
-          <Row className="sales">
-            <Col md="12" xs="8" className="">
-              <Row className="sales-row">
-                <Col md="auto" xs="6" className="card p-0 m-2">
-                  <SalesCard />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+        <SwiperSlide>
+          <SalesCard />
         </SwiperSlide>
-        <SwiperSlide data-history="Slide 2">
-          <Row className="sales">
-            <Col md="12" xs="8" className="">
-              <Row className="sales-row">
-                <Col md="auto" xs="6" className="card p-0 m-2">
-                  <SalesCard />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+        <SwiperSlide>
+          <SalesCard />
         </SwiperSlide>
-        <SwiperSlide data-history="3">
-          <Row className="sales">
-            <Col md="12" xs="8" className="">
-              <Row className="sales-row">
-                <Col md="auto" xs="6" className="card p-0 m-2">
-                  <SalesCard />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+        <SwiperSlide>
+          <SalesCard />
         </SwiperSlide>
-        <SwiperSlide data-history="Slide 4">
-          <Row className="sales">
-            <Col md="12" xs="8" className="">
-              <Row className="sales-row">
-                <Col md="auto" xs="6" className="card p-0 m-2">
-                  <SalesCard />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+        <SwiperSlide>
+          <SalesCard />
         </SwiperSlide>
-        <SwiperSlide data-history="5">
-          <Row className="sales">
-            <Col md="12" xs="8" className="">
-              <Row className="sales-row">
-                <Col md="auto" xs="6" className="card p-0 m-2">
-                  <SalesCard />
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+        <SwiperSlide>
+          <SalesCard />
         </SwiperSlide>
-        <SwiperSlide data-history="Slide 6"></SwiperSlide>
-        {/* <SwiperSlide data-history="7"></SwiperSlide>
-        <SwiperSlide data-history="Slide 8"></SwiperSlide>
-        <SwiperSlide data-history="9"></SwiperSlide> */}
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
       </Swiper>
-
-      {/* ************** */}
-
-      {/* <Row className="sales">
-        <Col md="12" xs="8" className="">
-          <Row className="sales-row">
-            <Col md="auto" xs="6" className="card p-0 m-2">
-              <SalesCard />
-            </Col>
-          </Row>
-        </Col>
-      </Row> */}
       {/* 手機板 優惠專區 */}
       <div className="phone-sales">
         <div className="cards">
           <div className="img">
-            <img src=""></img>
+            <img src="" alt="img"></img>
           </div>
           <div className="content">
             <div className="tag tag1">HOT</div>
@@ -376,22 +324,46 @@ function Product() {
       </div>
       {/* inter */}
       <div className="inter-block text-center">真誠面對傳統，超越傳統。</div>
-
       {/* 相關商品推薦 */}
       <div className="product-page-title">
         <p>相關商品推薦</p>
       </div>
-      <Row className="normal-cards-area">
-        <Col className="normal-cards">
-          <Row className="rows">
-            <RecommendedCard />
-            <RecommendedCard />
-            <RecommendedCard />
-            <RecommendedCard />
-            <RecommendedCard />
-          </Row>
-        </Col>
-      </Row>
+      <Swiper
+        spaceBetween={10}
+        slidesPerView={6}
+        navigation={true}
+        pagination={true}
+        modules={[Navigation, Pagination]}
+        className="mySwiper recommend-product-swiper"
+      >
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+      </Swiper>
       <div className="product-under-space"></div>
 
       {/* *************TEST**************** */}

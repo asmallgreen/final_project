@@ -60,7 +60,7 @@ export default function Navbar() {
   const [keyword, setKeyword] = useState("");
   // const [results, setResults] = useState([]);
   const { updateResults } = useProductContext();
-  console.log(keyword);
+  // console.log(keyword);
   console.log(updateResults);
   const handleSearch = async () => {
     try {

@@ -25,9 +25,10 @@ body {
   height: 500px;
   .ad {
     padding: 0;
+    
     height: 100%;
     img {
-      width: 100%;
+      width: 150%;
       height: 100%;
       object-fit: cover;
     }
@@ -125,10 +126,7 @@ body {
 }
 //卡片在各自component
 // 優惠卡片的swiper
-.sale-product-swiper {
-  border-bottom: 1px solid $secondary !important;
-  .swiper-wrapper {
-  }
+.launched-product-swiper, .recommend-product-swiper, .sale-product-swiper{
   .swiper-button-next {
     color: $secondary !important;
   }
@@ -140,7 +138,7 @@ body {
         background-color: $secondary !important;
       }
     }
-  }
+}
 //手機板 優惠專區
 .phone-sales {
   display: none;
@@ -201,6 +199,7 @@ body {
 }
 .category {
   // height: 320px;
+  margin-top: 80px;
   .type-title {
     position: absolute;
     display: flex;

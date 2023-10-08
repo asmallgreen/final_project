@@ -1,65 +1,28 @@
 import express from "express";
-import { getAllProduct, getCate, getProductPrice, searchProduct } from "../models/products.js";
-
-
-
-
+import { getLimit, getAllProduct, searchProduct } from "../models/products.js";
 
 const router = express.Router();
-const app = express();
-// 中間件：檢查是否是 cateid
-// router.param("cateid", (req, res, next, value) => {
-//   if (["category1", "category2", "category3", "category4"].includes(value)) {
-//     // 是 cateid，將其存儲在 req 中
-//     req.cateid = value;
-//     next();
-//   } else {
-//     // 不是有效的 cateid
-//     res.status(404).send("無效的分類");
-//   }
-// });
-
-// 路由處理程序：處理 cateid
-// router.get("/:cateid", async (req, res) => {
-//   const cateid = req.cateid;
-//   // 判斷 cateid 的值來決定要呈現的內容
-//   if (cateid === "bow") {
-//     console.log(req.body);
-//     const { cateData } = req.body;
-//     // 返回分類1的商品列表
-//     res.send("顯示分類1的商品列表");
-//   } else if (cateid === "category2") {
-//     // 返回分類2的商品列表
-//     res.send("顯示分類2的商品列表");
-//   } else if (cateid === "category3") {
-//     // 返回分類3的商品列表
-//     res.send("顯示分類3的商品列表");
-//   } else if (cateid === "category4") {
-//     // 返回分類4的商品列表
-//     res.send("顯示分類4的商品列表");
-//   } else if (parseInt(cateid)) {
-//     // 如果 cateid 是數字，假設它是產品ID，然後處理產品頁面
-//     res.send(`顯示產品ID為 ${cateid} 的產品詳細資訊`);
-//   } else {
-//     // 其他情況，可能是無效的 cateid
-//     res.send("無效的分類或產品ID");
-//   }
-//   res.send(`顯示分類 ${cateid} 的商品列表`);
-// });
-
-// 路由處理程序：處理 pid
-// router.get("/:pid", (req, res) => {
-//   const pid = req.params.pid;
-//   res.send(`顯示產品ID為 ${pid} 的產品詳細資訊`);
-// });
 
 
 
-// 所有商品頁
+// 每頁顯示幾筆
+router.use(express.json());
+router.post("/", async (req, res) => {
+  const limitValue = req.body.limit;
+  // const limitdata = await getLimit();
+  res.json({
+    msg: "success",
+    code: 200,
+    limitdata
+  });
+  // console.log(limitValue);
+  console.log(limitdata);
+});
+
 router.get("/", async (req, res) => {
   // const pid = req.params.pid;
   // 定義資料庫表格名稱
-
+  const limitdata = await getLimit();
   const alldata = await getAllProduct();
   // const pricedata = await getProductPrice("WHERE price>8000");
   const filteredData = alldata.filter((data) => {
@@ -73,26 +36,32 @@ router.get("/", async (req, res) => {
     const timeDifference = currentTime.getTime() - createdat.getTime();
     const daysDifference = timeDifference / (1000 * 3600 * 24);
     const filtercreatedat = daysDifference < 15;
-    // console.log("daysDifference:", daysDifference);
-    // console.log("filtercreatedat",filtercreatedat);
-    // console.log("Created at:", filterdata.created_at);
-    // console.log("Time difference:", timeDifference);
     return filterprice && filtername && filtercreatedat;
   });
   const launchedData = alldata.filter((data) => data.launched === 1);
-  // console.log(launchedData)
+  console.log(launchedData);
   res.json({
     message: "getAllProduct success",
     code: "200",
     alldata,
-    // filteredData,
     launchedData,
+    // limitdata,
   });
 });
-
+router.get("/:pid", async (req, res) => {
+  const alldata = await getAllProduct();
+  res.json({
+    message: "getAllProduct success",
+    code: "200",
+    alldata,
+  });
+});
 // 创建一个API端点来获取产品ID
-router.get("/api/getProductId", (req, res) => {
+router.get("/getProductId", (req, res) => {
+  const alldata = getAllProduct();
+  console.log(alldata);
   const productId = req.query.id;
+  console.log(productId);
   const product = productsData.find((item) => item.id === parseInt(productId));
 
   if (product) {
@@ -100,30 +69,37 @@ router.get("/api/getProductId", (req, res) => {
   } else {
     res.status(404).json({ error: "Product not found" });
   }
+  res.json({
+    alldata,
+    productId,
+  });
 });
+
+// ***********test***********
+router.get("/productInfo", async (req, res) => {
+  // const productId = alldata.filter(data=>data.id)
+  const aa = req.query;
+  const alldata = await getAllProduct();
+  // console.log(aa);
+  res.json({
+    msg: "產品ID success",
+    code: 200,
+    alldata,
+  });
+});
+// **********************
 
 router.get("/searchProduct", async (req, res) => {
-  const {keyword}  = req.query;
-  console.log(keyword);
+  const { keyword } = req.query;
+  // console.log(keyword);
   const searchKeyword = {
-    name:`%${keyword}%`
-  }
-  // 在實際應用中，這裡應該是與資料庫進行查詢的地方
-  // 這裡只是一個示例，假設找到相關商品資料
-  // const alldata = await getAllProduct();
-  // log(alldata)
+    name: `%${keyword}%`,
+  };
   //從資料庫中使用searchProduct函式(查詢產品名稱)
-  const searchProducts = await searchProduct(searchKeyword)
-  // const keydata = alldata.filter(data => {
-  //    return data.name.includes(keyword) ;
-  //   // res.json( {keydata} );
-    
-  // });
+  const searchProducts = await searchProduct(searchKeyword);
   console.log(searchProducts);
-  return res.json( {searchProducts} );
+  return res.json({ searchProducts });
 });
-
-
 
 // 篩選(分類、價格、上架日期、商品名稱)
 router.get("/category/:cate", async (req, res) => {
@@ -158,8 +134,5 @@ router.get("/category/:cate", async (req, res) => {
     launchedData,
   });
 });
-// app.listen(3000, () => {
-//   console.log('Server is running on port 3000');
-// });
 
 export default router;

@@ -1,28 +1,72 @@
 // 產品頁=>新品上架/相關商品卡片樣式
-// 使用方法:
-// import { Row, Col } from "react-bootstrap";
+import React, { useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
-//  <Row className="justify-content-md-center py-5">
-//  <Col md="auto" xs="2" className="cards d-flex offset-auto">
-//   <Row className="rows">
-//     <ProductCard />
-//     <ProductCard />
-//     <ProductCard />
-//     <ProductCard />
-//     <ProductCard />
-//     <ProductCard />
-//   </Row>
-// </Col>
-// </Row>
-
-
-import React from "react";
 export default function LaunchedCard(props) {
+  const idData = props.filterNewProduct.id;
+  // const [productId, setProductId] = useState(idData)
+  const handleInfo = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:3005/product/productInfo?id=${idData}`
+      );
+      const aa = res.data.alldata;
+      // setProductId(idData)
+      console.log(aa);
+      // console.log(productId);
+      console.log(idData);
+    } catch (err) {
+      console.error("Error:", err.msg);
+    }
+  };
+
   const { filterNewProduct } = props;
-  // console.log(filterNewProduct);
+
+  // ***************test**********************
+
+  // console.log(data);
+  // *************************************
+
   return (
     <>
-      <div className="card">
+      <Link
+        to={`/product?id=${idData}`}
+        onClick={handleInfo}
+        className="normal-cards-area "
+      >
+        <div className="normal-cards">
+          <div className="rows">
+            <div className="card">
+              <div className="img position-relative">
+                <img src={filterNewProduct.img1} alt="Product Image"></img>
+                <div className="tag position-absolute">NEW</div>
+              </div>
+              <div className="content">
+                <div className="product-name">{filterNewProduct.name}</div>
+                <div className="description">{filterNewProduct.summary}</div>
+                <div className="price text-end">
+                  NT${filterNewProduct.price}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Link>
+
+      {/* <div className="card">
+            <div className="img position-relative">
+              <img src={filterNewProduct.img1} alt="Product Image"></img>
+              <div className="tag position-absolute">NEW</div>
+            </div>
+            <div className="content">
+              <div className="product-name">{filterNewProduct.name}</div>
+              <div className="description">{filterNewProduct.summary}</div>
+              <div className="price text-end">NT${filterNewProduct.price}</div>
+            </div>
+          </div> */}
+
+      {/* <div className="card">
         <div className="img position-relative">
          <img src={filterNewProduct.img1}></img>
           <div className="tag position-absolute">NEW</div>
@@ -34,7 +78,7 @@ export default function LaunchedCard(props) {
           <div className="description">{filterNewProduct.summary}</div>
           <div className="price text-end">NT${filterNewProduct.price}</div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

@@ -28,6 +28,7 @@ export default function FilterProductCard(props) {
         console.error("Error fetching product ID:", error);
       });
   }
+
   
   // console.log(filterProduct);
   return (
