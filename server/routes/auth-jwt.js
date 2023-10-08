@@ -193,8 +193,15 @@ router.post("/register", async (req, res) => {
     member.password = hashedPassword;
     // 抓到當下時間
     const currentDateTime = new Date();
-    const created_at = currentDateTime.toISOString();
-    member.created_at = created_at
+    const year = currentDateTime.getFullYear();
+    const month = String(currentDateTime.getMonth() + 1).padStart(2, '0'); // 月份從0開始，需要加1，並且補零
+    const day = String(currentDateTime.getDate()).padStart(2, '0'); // 日需要補零
+    const hours = String(currentDateTime.getHours()).padStart(2, '0'); // 小時需要補零
+    const minutes = String(currentDateTime.getMinutes()).padStart(2, '0'); // 分鐘需要補零
+    const seconds = String(currentDateTime.getSeconds()).padStart(2, '0'); // 秒需要補零
+
+    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    member.created_at = formattedDateTime
     const newMember = await createUser(member);
     if (!newMember.insertId) {
       return res.json({ message: "fail", code: "400" });
