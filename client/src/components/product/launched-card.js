@@ -26,7 +26,7 @@ export default function LaunchedCard(props) {
   return (
     <>
       <Link
-        to={`/product?id=${idData}`}
+        to={`/product/id=${idData}`}
         onClick={handleInfo}
         className="normal-cards-area "
       >
