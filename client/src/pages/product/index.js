@@ -3,7 +3,7 @@ import axios from "axios";
 import Link from "next/link";
 import { Row, Col } from "react-bootstrap";
 import SalesCard from "@/components/product/sales-card";
-import FilterProductCard from "@/components/product/filter-product-card";
+import FilterProductCard from "@/components/product/filter-card";
 import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import LunaPagination from "@/components/pagination/luna-pagination";
 import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
@@ -35,8 +35,8 @@ function Product() {
         // console.log(res.data.products);
         setAllProduct(res.data.alldata);
         setNewProduct(res.data.launchedData);
-        console.log(allProduct);
-        console.log(newProduct);
+        // console.log(allProduct);
+        // console.log(newProduct);
       } catch (error) {
         console.log(error);
       }
@@ -44,8 +44,8 @@ function Product() {
   }, []);
 
   useEffect(() => {
-    console.log(allProduct);
-    console.log(newProduct);
+    // console.log(allProduct);
+    // console.log(newProduct);
   }, [allProduct, newProduct]);
 
   // const handleCate = async (e) => {
@@ -77,7 +77,7 @@ function Product() {
         </Col>
       </Row>
       <div className="phone-ad">
-        <img src=""></img>
+        <img src="/product/top1.jpg"></img>
       </div>
       {/* 新品上架 */}
       <div className="product-page-title">
@@ -109,19 +109,19 @@ function Product() {
         <div className="type">
           <Link href="/product/bow" className="item">
             <img src="/product/cate1.jpg"></img>
-            <span>弓</span>
+            <span className="text-decoration-none">弓</span>
           </Link>
           <Link href="/product/arrow" className="item">
             <img src="/product/cate2.jpg"></img>
-            <span>箭</span>
+            <span className="text-decoration-none">箭</span>
           </Link>
           <Link href="/product/suit" className="item">
             <img src="/product/cate3.jpg"></img>
-            <span>道服</span>
+            <span className="text-decoration-none">道服</span>
           </Link>
           <Link href="/product/other" className="item">
             <img src="/product/cate4.jpg"></img>
-            <span>其他</span>
+            <span className="text-decoration-none">其他</span>
           </Link>
         </div>
       </div>
@@ -143,24 +143,12 @@ function Product() {
         <BreadCrumb currentCate="所有商品" />
       </div>
       {/* 所有產品card */}
-
-      {/* <div>
-        {allProduct.map((product) => {
-          return <div key={product.id}>{product.name}</div>;
-        })}
-      </div> */}
-
       <Row className="filter-cards-area">
         <Col md="auto" className="filter-cards">
           <Row className="rows">
             {allProduct.map((data) => {
               return <FilterProductCard key={data.id} filterProduct={data} />;
             })}
-
-            {/* <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard /> */}
           </Row>
         </Col>
       </Row>
