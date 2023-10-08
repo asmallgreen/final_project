@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Form from "react-bootstrap/Form";
+import { Form } from "react-bootstrap";
 //fontawesome
 import { FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
 // 登入後才會顯示登出按鈕
@@ -11,47 +11,79 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 export default function Navbar() {
-  const {authJWT , setAuthJWT} = useAuthJWT()
-  const router = useRouter()
+  const { authJWT, setAuthJWT } = useAuthJWT();
+  const router = useRouter();
   // 首頁路由
-  const homeRoute = '/'
+  const homeRoute = "/";
   // 隱私頁面路由，登出時會，檢查後跳轉至首頁
-  const protectedRoutes = ['/member', '/member/update-profile', 'member/update-pwd', '/member/order-list', '/member/coupon', '/member/fav-product','/cart', ]
+  const protectedRoutes = [
+    "/member",
+    "/member/update-profile",
+    "member/update-pwd",
+    "/member/order-list",
+    "/member/coupon",
+    "/member/fav-product",
+    "/cart",
+  ];
   const handleLogout = async () => {
-    try{
-      const res = await axios.post('http://localhost:3005/member/logout',{},
-      {
-        withCredentials:true
-      })
-      if(res.data.message === 'success'){
+    try {
+      const res = await axios.post(
+        "http://localhost:3005/member/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      if (res.data.message === "success") {
         setAuthJWT({
-          isAuth:false,
+          isAuth: false,
           memberData: {
             id: 0,
-            account: '',
-            name: '',
-            email: '',
-            level: '',
-            created_date: '',
-        }
-        })
+            account: "",
+            name: "",
+            email: "",
+            level: "",
+            created_date: "",
+          },
+        });
         if (protectedRoutes.includes(router.pathname)) {
-        router.push(homeRoute)
+          router.push(homeRoute);
+        }
       }
-      }
-    }catch(error){
+    } catch (error) {}
+  };
+  const [searchValue, setSearchValue] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
+  const handleSearch = () => {
+    // 在点击 FaSearch 图标时，只更新 searchValue 的值
+    // 搜索请求会在 useEffect 中触发
+    setSearchValue(searchValue);
+    console.log(searchValue);
+    console.log(searchResults);
+  };
+  useEffect(() => {
+    //检查 searchValue 经过修剪后的值是否不等于空字符串。
+    if (searchValue.trim() !== "") {
+      // 向后端API发送请求
+      fetch(`http://localhost:3005/prodcut/getProductName?name=${searchValue}`)
+        .then((res) => res.json())
+        .then((data) => {
+          // 处理从后端获取的数据并将结果存储在searchResults状态中
+          setSearchResults(data);
+        })
+        .catch((error) => {
+          console.error("搜索失败", error);
+        });
     }
-  }
+  }, [searchValue]);
   return (
     <>
       {/* 桌機版nav */}
       <div className="table-nav position-relative">
         <ul className="nav position-absolute">
           <li className="list-unstyled">
-            <Link href="/product" className="titleLi">
-              關於良弓
-            </Link>
+            <Link href="/product" className="titleLi">關於良弓</Link>
           </li>
           <li className="list-unstyled product-page">
             <Link href="/product">商品介紹</Link>
@@ -92,14 +124,10 @@ export default function Navbar() {
             <div className="hover-space position-absolute"></div>
           </li>
           <li className="list-unstyled">
-            <Link href="/product" className="titleLi">
-              弓道課程
-            </Link>
+            <Link href="/course-list" className="titleLi">弓道課程</Link>
           </li>
           <li className="list-unstyled">
-            <Link href="/product" className="titleLi">
-              場地租借
-            </Link>
+            <Link href="/venue" className="titleLi">場地租借</Link>
           </li>
           <li className="list-unstyled">
             <Link href="/product" className="titleLi">
@@ -110,13 +138,18 @@ export default function Navbar() {
 
         <ul className="nav-fk">
           <Form className="list-unstyled search-form">
-            <div className="position-relative">
+          <div className="position-relative">
               <Form.Control
                 type="text"
                 placeholder="請輸入商品名稱"
                 className="search-product-name rounded-5"
+                onChange={(e) => setSearchValue(e.target.value)}
+                value={searchValue}
               />
-              <FaSearch className="fa-magnifying-glass position-absolute " />
+              <FaSearch
+                className="fa-magnifying-glass position-absolute"
+                onClick={handleSearch}
+              />
             </div>
           </Form>
           <li className="list-unstyled">
@@ -129,14 +162,21 @@ export default function Navbar() {
               <FaUser className="fa-user" />
             </Link>
           </li>
-          {authJWT.isAuth && (<li className="list-unstyled">
-          <Button onClick={handleLogout}>
-          <FiLogOut className="fi-logout"/>
-          </Button>
-          </li>)}
+          {authJWT.isAuth && (
+            <li className="list-unstyled">
+              <Button onClick={handleLogout}>
+                <FiLogOut className="fi-logout" />
+              </Button>
+            </li>
+          )}
         </ul>
       </div>
-
+      {/* 在这里显示搜索结果 */}
+      <div>
+        {searchResults.map((result) => (
+          <div key={result.id}>{result.name}</div>
+        ))}
+      </div>
       {/* 手機版nav */}
       <div className="phone-nav">
         <ul className="nav">
@@ -144,13 +184,13 @@ export default function Navbar() {
             <Link href="/">首頁</Link>
           </li>
           <li>
-            <Link href="/">商店</Link>
+            <Link href="/product">商店</Link>
           </li>
           <li>
-            <Link href="/">課程</Link>
+            <Link href="/course-list">課程</Link>
           </li>
           <li>
-            <Link href="/">場地</Link>
+            <Link href="/venue">場地</Link>
           </li>
         </ul>
       </div>

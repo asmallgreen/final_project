@@ -1,6 +1,7 @@
 import express from "express";
 import { getAllProduct, getCate, getProductPrice } from "../models/products.js";
 const router = express.Router();
+const app = express();
 // 中間件：檢查是否是 cateid
 // router.param("cateid", (req, res, next, value) => {
 //   if (["category1", "category2", "category3", "category4"].includes(value)) {
@@ -66,10 +67,11 @@ router.get("/:cate", async (req, res) => {
       cateid = 4;
       break;
   }
-  const launchedData = alldata.filter(data=>data.launched === 1);
+  
   const catedata = await getCate({ category_id: cateid });
-  console.log(launchedData)
-  console.log(`cateid:${cateid}`);
+  // console.log(`cateid:${cateid}`);
+  const launchedData = catedata.filter(data=>data.launched === 1);
+  // console.log(launchedData)
   // 定義資料庫表格名稱
   res.json({
     message: "產品分類 success",
@@ -105,10 +107,7 @@ router.get("/", async (req, res) => {
     return filterprice && filtername && filtercreatedat;
   });
   const launchedData = alldata.filter(data=>data.launched === 1);
-  console.log(launchedData)
-
-
-
+  // console.log(launchedData)
   res.json({
     message: "getAllProduct success",
     code: "200",
@@ -117,6 +116,29 @@ router.get("/", async (req, res) => {
     launchedData,
   });
 });
+
+// 创建一个API端点来获取产品ID
+router.get('/api/getProductId', (req, res) => {
+  const productId = req.query.id;
+  const product = productsData.find(item => item.id === parseInt(productId));
+  
+  if (product) {
+    res.json({ productId: product.id });
+  } else {
+    res.status(404).json({ error: "Product not found" });
+  }
+});
+
+router.get('/getProductName', (req, res)=>{
+  const alldata =  getAllProduct();
+  const productName = req.query.name
+  const products = alldata.filter(data => data.name.includes(productName))
+  res.json({products})
+})
+
+// app.listen(3000, () => {
+//   console.log('Server is running on port 3000');
+// });
 
 
 export default router;

@@ -100,69 +100,73 @@ router.post("/login", async (req, res) => {
     console.error('登入錯誤：', error);
     return res.status(500).json({ message: '伺服器出現錯誤', code: '500' });
   }
-
-    // 先查詢資料庫是否有同member account/password的資料
+  // // 先查詢資料庫是否有同member account/password的資料
   // const isMember = await verifyUser({
   //   account,
   //   password,
   // })
 
   // console.log(isMember)
- 
-  // if(!isMember) {
-  //   return res.json({ message: 'verifyUser fail', code: '400' })
+
+  // if (!isMember) {
+  //   return res.json({ message: 'fail', code: '400' })
   // }
 
-  // // 會員存在，將會員的資料取出
-  // const member = await getUser({
-  //   account,
-  //   password,
-  // })
+// // 會員存在，將會員的資料取出
+// const member = {
+//   id: 1,
+//   account,
+//   password,
+//   name: '怡君',
+//   email: 'luna@gmail.com',
+//   level: '2',
+//   created_date: '2023-08-21',
+// }
 
-  // console.log(member)
+// // console.log(member)
 
-  // // const passwordArgon2Check = await argon2.verify(password)
   // // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
   // delete member.password
 
-  // // 產生存取令牌(access token)，其中包含會員資料
-  // const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
-  //   expiresIn: '24h',
-  // })
+  // // // 產生存取令牌(access token)，其中包含會員資料
+  // // const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
+  // //   expiresIn: '24h',
+  // // })
 
-  // // 使用httpOnly cookie來讓瀏覽器端儲存access token
-  // res.cookie('accessToken', accessToken, { httpOnly: true })
+  // // // 使用httpOnly cookie來讓瀏覽器端儲存access token
+  // // res.cookie('accessToken', accessToken, { httpOnly: true })
 
-  // // 傳送access token回應(react可以儲存在state中使用)
-  // res.json({
-  //   message: 'login success',
-  //   code: '200',
-  //   accessToken,
-  // })
+  // // // 傳送access token回應(react可以儲存在state中使用)
+  // // res.json({
+  // //   message: 'success',
+  // //   code: '200',
+  // //   accessToken,
+  // // })
   })
 
 
 // 登出 -------------------------------------------------------
-router.post("/logout", authenticate, (req, res) => {
-  // 清除cookie
-  cookieParser()(req, res, () => {
-    res.clearCookie("accessToken", { httpOnly: true });
+  router.post('/logout', authenticate, (req, res) => {
+    // 清除cookie
+    cookieParser()(req, res, ()=>{
+    res.clearCookie('accessToken', { httpOnly: true })
+  
+    res.json({ message: 'success', code: '200' })      
+    })
 
-    res.json({ message: "success", code: "200" });
-  });
-});
-
-router.post("/logout-ssl-proxy", authenticate, (req, res) => {
-  // 清除cookie
-  res.clearCookie("accessToken", {
-    httpOnly: true,
-    sameSite: "none",
-    secure: true,
-  });
-
-  res.json({ message: "success", code: "200" });
-});
-
+  })
+  
+  router.post('/logout-ssl-proxy', authenticate, (req, res) => {
+    // 清除cookie
+    res.clearCookie('accessToken', {
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true,
+    })
+  
+    res.json({ message: 'success', code: '200' })
+  })
+  
 // 註冊頁面 --------------------------------------------------
 router.post("/register", async (req, res) => {
   console.log("使用者填入的註冊資料:", req.body);

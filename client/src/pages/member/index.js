@@ -8,10 +8,7 @@ import { useAuthJWT } from '@/hooks/use-auth-jwt';
 
 export default function MemberCenter() {
   const {authJWT, setAuthJWT} = useAuthJWT()
-useEffect(()=>{
-
-},[])
-
+  
   return (
     <>
   <Row>

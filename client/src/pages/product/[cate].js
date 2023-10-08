@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { Row, Col } from "react-bootstrap";
 import SalesCard from "@/components/product/sales-card";
-import FilterProductCard from "@/components/product/filter-product-card";
+import FilterProductCard from "@/components/product/filter-card";
 import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import LunaPagination from "@/components/pagination/luna-pagination";
 import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
@@ -32,36 +32,35 @@ function Product() {
     // let newCate
     switch (currentUrl) {
       case "/product/bow":
-        newCate = "所有「弓」相關商品";
+        newCate = "所有「弓」商品";
         break;
       case "/product/arrow":
-        newCate = "所有「箭」相關商品";
+        newCate = "所有「箭」商品";
         break;
       case "/product/suit":
-        newCate = "所有「道服」相關商品";
+        newCate = "所有「道服」商品";
         break;
       case "/product/other":
-        newCate = "所有「其他」相關商品";
+        newCate = "所有「其他」商品";
         break;
       default:
         newCate = "所有商品";
         break;
     }
     setCategory(newCate);
-    
   }, [router.asPath, category]);
 
   useEffect(() => {
     (async () => {
       try {
         const currentUrl = router.asPath;
-        console.log(currentUrl)
+        console.log(currentUrl);
         const res = await axios.get(`http://localhost:3005${currentUrl}`, []);
         console.log(res.data);
         // console.log(res.data.products);
         setCateProduct(res.data.catedata);
         setNewProduct(res.data.launchedData);
-        console.log(cateProduct)
+        console.log(cateProduct);
       } catch (error) {
         console.log(error);
       }
@@ -69,9 +68,9 @@ function Product() {
   }, [router.asPath]);
 
   useEffect(() => {
-    console.log(newProduct)
+    console.log(newProduct);
     console.log(cateProduct);
-  }, [cateProduct,newProduct]);
+  }, [cateProduct, newProduct]);
 
   return (
     <>
@@ -97,7 +96,7 @@ function Product() {
         </Col>
       </Row>
       <div className="phone-ad">
-        <img src=""></img>
+        <img src="/product/top1.jpg"></img>
       </div>
       {/* 新品上架 */}
       <div className="product-page-title">
@@ -106,7 +105,7 @@ function Product() {
       <Row className="normal-cards-area">
         <Col className="normal-cards">
           <Row className="rows">
-          {newProduct.map((data) => {
+            {newProduct.map((data) => {
               return <LaunchedCard key={data.id} filterNewProduct={data} />;
             })}
           </Row>
@@ -223,11 +222,11 @@ function Product() {
       <Row className="normal-cards-area">
         <Col className="normal-cards">
           <Row className="rows">
-           <RecommendedCard/>
-           <RecommendedCard/>
-           <RecommendedCard/>
-           <RecommendedCard/>
-           <RecommendedCard/>
+            <RecommendedCard />
+            <RecommendedCard />
+            <RecommendedCard />
+            <RecommendedCard />
+            <RecommendedCard />
           </Row>
         </Col>
       </Row>

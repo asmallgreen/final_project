@@ -1,9 +1,9 @@
 import createError from 'http-errors'
-import express from 'express'
-import path from 'path'
-// import cookieParser from 'cookie-parser'
+import express from "express";
+import path from "path";
+import cookieParser from 'cookie-parser'
 import logger from 'morgan'
-import cors from 'cors'
+import cors from "cors";
 import session from 'express-session'
 // 使用檔案的session store，存在sessions資料夾
 import sessionFileStore from 'session-file-store'
@@ -32,10 +32,11 @@ import DashboardRouter from './routes/memberDashboard.js'
 // import resetPasswordRouter from './routes/reset-password.js'
 // import usersRouter from './routes/users.js'
 import googleLoginRouter from './routes/google-login.js'
-// import lineLoginRouter from './routes/line-login.js'
-// import facebookLoginRouter from './routes/facebook-login.js'
+// // import lineLoginRouter from './routes/line-login.js'
+// // import facebookLoginRouter from './routes/facebook-login.js'
 import productRouter from './routes/product.js'
-// import favoriteRouter from './routes/favorite.js'
+// // import favoriteRouter from './routes/favorite.js'
+import courseRouter from './routes/course.js'
 
 const app = express();
 
@@ -47,7 +48,7 @@ const app = express();
 // app.use(cors())
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'https://localhost:9000','https://localhost:3001','https://localhost:3005'],
+    origin: ['http://localhost:3000', 'http://localhost:3001'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   })
@@ -61,7 +62,7 @@ app.use(logger('dev'))
 app.use(express.json())
 
 app.use(express.urlencoded({ extended: false }))
-// app.use(cookieParser())
+app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 // fileStore的選項
@@ -105,6 +106,7 @@ app.use('/google-login', googleLoginRouter)
 // app.use('/api/facebook-login', facebookLoginRouter)
 // app.use('/api/favorite', favoriteRouter)
 app.use('/product', productRouter)
+app.use('/course', courseRouter)
 
 app.listen(3005, ()=>{
   console.log("服務已啟動於 http://localhost:3005");
@@ -112,9 +114,8 @@ app.listen(3005, ()=>{
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
-});
-
+  next(createError(404))
+})
 
 // error handler
 app.use(function (err, req, res, next) {
@@ -123,7 +124,9 @@ app.use(function (err, req, res, next) {
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
   // render the error page
-  res.status(err.status || 500).json({ error: err });
+  res.status(err.status || 500)
+  // 更改為錯誤訊息預設為JSON格式
+  res.status(500).send({ error: err })
 })
 
 export default app;

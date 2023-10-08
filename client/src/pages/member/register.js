@@ -14,8 +14,26 @@ import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 import { useAuthJWT } from '@/hooks/use-auth-jwt';
 import { useRouter } from 'next/router';
 // import "dotenv/config.js";
+import React, { useState, useEffect} from "react";
+import {
+  Form,
+  Col,
+  Row,
+  Button,
+} from "react-bootstrap";
+import Link from "next/link";
+import Swal from "sweetalert2";
+import axios from "axios";
+import { DatePicker } from 'react-rainbow-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { useAuthJWT } from '@/hooks/use-auth-jwt';
+import { useRouter } from 'next/router';
+// import "dotenv/config.js";
 
 
+export default function Login({ formType, setFormType }) {
+  // react 表單檢查(不可空白欄位)
 export default function Login({ formType, setFormType }) {
   // react 表單檢查(不可空白欄位)
   const [validated, setValidated] = useState(false);
@@ -171,6 +189,26 @@ export default function Login({ formType, setFormType }) {
         },
       });
       return;
+      // 先檢查是否有填寫必填欄位
+      e.stopPropagation();
+    } else if (member.password !== member.repassword) {
+      // 這裡檢查密碼是否填寫一致
+      e.preventDefault();
+      e.stopPropagation();
+      setPasswordCheck(false);
+      await Swal.fire({
+        icon: "error",
+        title: "密碼填寫不一致",
+        showConfirmButton: false,
+        timer: 1500,
+        backdrop: `rgba(255, 255, 255, 0.55)`,
+        width: "35%",
+        padding: "0 0 3.25em",
+        customClass: {
+          popup: "shadow-sm",
+        },
+      });
+      return;
     }
     setValidated(true);
 
@@ -237,6 +275,7 @@ export default function Login({ formType, setFormType }) {
       console.log(error);
     }
   };
+
 
   return (
     <>
@@ -475,7 +514,259 @@ export default function Login({ formType, setFormType }) {
                   </Form.Control.Feedback>
                 </Form.Group>
               </Row>
+      <div className="login-bg">
+        <div className="position-relative d-flex justify-content-center align-items-center bt-container ">
+          <div className="login-block my-3">
+            <Form
+              noValidate
+              validated={validated}
+              onSubmit={handleRegisterSubmit}
+              className="login-block-container"
+            >
+              <div className="d-flex justify-content-around fs-3 mb-3">
+                <div className="login-border-bottom d-flex justify-content-center login-link">
+                  <Link
+                    href="/member/register"
+                    className="text-decoration-none"
+                  >
+                    註冊
+                  </Link>
+                </div>
+                <div>
+                  <p>|</p>
+                </div>
+                <div className="login-border-bottom d-flex justify-content-center ">
+                  <Link href="/member/login" className="text-decoration-none">
+                    登入
+                  </Link>
+                </div>
+              </div>
+              <Row>
+                <Form.Group
+                  as={Col}
+                  md="12"
+                  controlId="validationCustom01"
+                  className="mb-2"
+                >
+                  <Form.Label className="mb-0">帳號</Form.Label>
+                  <Form.Control
+                    required
+                    type="text"
+                    name="account"
+                    placeholder="註冊後無法修改"
+                    onChange={handleChange}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    請輸入帳號
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group
+                  as={Col}
+                  md="12"
+                  controlId="validationCustom02"
+                  className="mb-2"
+                >
+                  <Form.Label className="mb-0">密碼</Form.Label>
+                  <Form.Control
+                    required
+                    type="password"
+                    name="password"
+                    placeholder="請輸入至少6位英文大小寫及數字"
+                    onChange={handleChange}
+                    onBlur={handlepwdReg}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    請輸入密碼
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group
+                  as={Col}
+                  md="12"
+                  controlId="validationCustom03"
+                  className="mb-2"
+                >
+                  <Form.Label className="mb-0">請再次輸入密碼</Form.Label>
+                  <Form.Control
+                    required
+                    type="password"
+                    name="repassword"
+                    onChange={handleChange}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    再次輸入密碼
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Row>
+              <Row className="justify-content-between">
+                <Form.Group
+                  as={Col}
+                  md="6"
+                  xs="6"
+                  controlId="validationCustom04"
+                  className="mb-2"
+                >
+                  <Form.Label className="mb-0">姓名</Form.Label>
+                  <Form.Control
+                    required
+                    type="text"
+                    name="name"
+                    onChange={handleChange}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    請輸入姓名
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group
+                  as={Col}
+                  md="5"
+                  xs="5"
+                  controlId="validationCustom05"
+                  className="mb-2 "
+                >
+                  <Form.Label className="mb-0 text-end">性別</Form.Label>
+                  <Form.Select onChange={handleChange} name="gender">
+                    <option>請選擇</option>
+                    <option value="1">男</option>
+                    <option value="2">女</option>
+                  </Form.Select>
+                </Form.Group>
+              </Row>
+              <Row className="d-flex">
+                <Form.Group
+                  as={Col}
+                  md="4"
+                  xs="4"
+                  controlId="validationCustom06"
+                  className="mb-2"
+                >
+                  <Form.Label className="mb-0">生日</Form.Label>
+                  {/* <Form.Control
+                    type="text"
+                    name="year"
+                    placeholder="西元年"
+                    className="text-end"
+                    onChange={handleChange}
+                  /> */}
+                  
+                </Form.Group>
+                {/* <Form.Group
+                  as={Col}
+                  md="4"
+                  xs="4"
+                  controlId="validationCustom07"
+                  className="mb-2"
+                >
+                  <Form.Label className="mb-0"></Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="month"
+                    placeholder="月"
+                    className="text-end"
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group
+                  as={Col}
+                  md="4"
+                  xs="4"
+                  controlId="validationCustom08"
+                  className="mb-2"
+                >
+                  <Form.Label className="mb-0"></Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="day"
+                    placeholder="日"
+                    className="text-end"
+                    onChange={handleChange}
+                  />
+                </Form.Group> */}
+                <DatePicker
+                borderRadius='semi-square'
+            id="datePicker-19"
+            placeholder="選擇生日"
+            value={birthday.date}
+            onChange={handleBirthdateChange}
+            icon={<FontAwesomeIcon icon={faCalendar} />}
+        />
+              </Row>
+              <Row>
+                <Form.Group
+                  as={Col}
+                  md="12"
+                  controlId="validationCustom09"
+                  className="mb-2"
+                >
+                  <Form.Label className="mb-0">Email</Form.Label>
+                  <Form.Control
+                    required
+                    type="mail"
+                    name="email"
+                    onChange={handleChange}
+                    onBlur={handleEmailReg}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    請輸入Email
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Row>
+              <Row>
+                <Form.Group
+                  as={Col}
+                  md="12"
+                  controlId="validationCustom10"
+                  className="mb-2"
+                >
+                  <Form.Label className="mb-0">手機號碼</Form.Label>
+                  <Form.Control
+                    required
+                    type="tel"
+                    name="phone"
+                    onChange={handleChange}
+                    onBlur={handlePhoneReg}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    請輸入手機號碼
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Row>
+              <Row>
+                <Form.Group
+                  as={Col}
+                  md="12"
+                  controlId="validationCustom11"
+                  className="mb-2"
+                >
+                  <Form.Label className="mb-0">地址</Form.Label>
+                  <Form.Control
+                    required
+                    type="text"
+                    name="address"
+                    onChange={handleChange}
+                  />
+                  <Form.Control.Feedback type="invalid">
+                    請輸入地址
+                  </Form.Control.Feedback>
+                </Form.Group>
+              </Row>
 
+              <Row className="mt-3 d-flex justify-content-center">
+                <Form.Group as={Col} md="12" xs="12" className="p-0 text-end">
+                  <Button
+                    type="submit"
+                    className="login-button mb-4 update-profile-btn"
+                    onClick={handleRegisterSubmit}
+                  >
+                    送出
+                  </Button>
+                </Form.Group>
+              </Row>
+            </Form>
+          </div>
+        </div>
+      </div>
+    </>
+  );
               <Row className="mt-3 d-flex justify-content-center">
                 <Form.Group as={Col} md="12" xs="12" className="p-0 text-end">
                   <Button
