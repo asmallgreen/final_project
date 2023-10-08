@@ -4,7 +4,24 @@ import authenticate from "../middlewares/jwt.js";
 import jsonwebtoken from "jsonwebtoken";
 import nodemailer from 'nodemailer'
 import transporter from '../config/mail.js'
+import multer from 'multer'
 
+// 定義頭像上傳後存放的地方
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+
+
+    console.log('step 1: destination');
+    cb(null, './uploads/')
+  },
+  filename: function (req, file, cb) {
+    console.log('step 2: filename');
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix); // 使用唯一的檔案名稱
+    console.log(file.fieldname);
+  }
+})
+const upload = multer({storage:storage})
 import {
   verifyUser,
   getUser,
@@ -12,7 +29,9 @@ import {
   getCount,
   checkAccount,
   checkEmail,
-  forgotPwdGetUser
+  forgotPwdGetUser,
+  getUserByAccount,
+  updateUserById,
 } from "../models/members.js";
 
 // 存取`.env`設定檔案使用
@@ -43,82 +62,85 @@ router.get("/check-login", authenticate, async (req, res) => {
 router.post("/login", async (req, res) => {
   // res.send("後端登入頁")
   const { account, password } = req.body
+  try {
+    // 先檢查資料庫有沒有這個帳號
+    const user = await checkAccount({ account });
 
-    // 先查詢資料庫是否有同member account/password的資料
-  const isMember = await verifyUser({
-    account,
-    password,
-  })
+    if (!user) {
+      return res.json({ message: '帳號不存在', code: '400' });
+    }else{
+      const member = await getUserByAccount({account})
+      // 使用 argon2.verify 驗證使用者輸入的密碼是否匹配
+    const isPasswordValid = await argon2.verify(member.password, password);
 
-  console.log(isMember)
- 
-  if(!isMember) {
-    return res.json({ message: 'verifyUser fail', code: '400' })
+    if (isPasswordValid) {
+      console.log('密碼驗證成功！');
+      // 成功驗證就執行登入成功的邏輯(生成JWT並跳轉)
+      delete member.password
+       // 產生存取令牌(access token)，其中包含會員資料
+      const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
+        expiresIn: '24h',
+      })
+
+      // 使用httpOnly cookie來讓瀏覽器端儲存access token
+      res.cookie('accessToken', accessToken, { httpOnly: true })
+
+      // 傳送access token回應(react可以儲存在state中使用)
+      return res.json({
+        message: 'login success',
+        code: '200',
+        accessToken,
+      })
+    } else {
+      console.log('密碼驗證失敗！');
+      return res.json({ message: '密碼驗證失敗', code: '401' });
+    }
+    }
+  } catch (error) {
+    console.error('登入錯誤：', error);
+    return res.status(500).json({ message: '伺服器出現錯誤', code: '500' });
   }
 
-  // 會員存在，將會員的資料取出
-  const member = await getUser({
-    account,
-    password,
+    // 先查詢資料庫是否有同member account/password的資料
+  // const isMember = await verifyUser({
+  //   account,
+  //   password,
+  // })
+
+  // console.log(isMember)
+ 
+  // if(!isMember) {
+  //   return res.json({ message: 'verifyUser fail', code: '400' })
+  // }
+
+  // // 會員存在，將會員的資料取出
+  // const member = await getUser({
+  //   account,
+  //   password,
+  // })
+
+  // console.log(member)
+
+  // // const passwordArgon2Check = await argon2.verify(password)
+  // // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
+  // delete member.password
+
+  // // 產生存取令牌(access token)，其中包含會員資料
+  // const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
+  //   expiresIn: '24h',
+  // })
+
+  // // 使用httpOnly cookie來讓瀏覽器端儲存access token
+  // res.cookie('accessToken', accessToken, { httpOnly: true })
+
+  // // 傳送access token回應(react可以儲存在state中使用)
+  // res.json({
+  //   message: 'login success',
+  //   code: '200',
+  //   accessToken,
+  // })
   })
 
-  console.log(member)
-
-  // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
-  delete member.password
-
-  // 產生存取令牌(access token)，其中包含會員資料
-  const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
-    expiresIn: '24h',
-  })
-
-  // 使用httpOnly cookie來讓瀏覽器端儲存access token
-  res.cookie('accessToken', accessToken, { httpOnly: true })
-
-  // 傳送access token回應(react可以儲存在state中使用)
-  res.json({
-    message: 'login success',
-    code: '200',
-    accessToken,
-  })
-  })
-
-// 假資料測試區
-// if(account === 'abc' && password === '123'){
-
-// // 會員存在，將會員的資料取出
-// const member = {
-//   id: 1,
-//   account,
-//   password,
-//   name: '怡君',
-//   email: 'luna@gmail.com',
-//   level: '2',
-//   created_date: '2023-08-21',
-// }
-
-// // console.log(member)
-
-// // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
-// delete member.password
-//   // res.json({ message: 'success', code: '200' })
-//   // 產生存取令牌(access token)，其中包含會員資料
-// const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
-//   expiresIn: '24h',
-// })
-
-// // 使用httpOnly cookie來讓瀏覽器端儲存access token
-// res.cookie('accessToken', accessToken, { httpOnly: true })
-
-// // 傳送access token回應(react可以儲存在state中使用)
-// res.json({
-//   message: 'login success',
-//   code: '200',
-//   accessToken,
-//   // isAuth:true,
-//   // memberData:member
-// })
-// }
 
 // 登出 -------------------------------------------------------
 router.post("/logout", authenticate, (req, res) => {
@@ -281,6 +303,55 @@ transporter.sendMail(mailOptions, (err, response) => {
 //     }
 //   })
 // })
-
 })
+
+// 修改會員頭像
+router.put('/update-profile-img', upload.single('avatar'), async (req, res)=>{
+  console.log('step 3: entering router');
+  console.log((req.file, req.body));
+
+  if(req.file){
+    console.log('step 4: file upload successfully');
+    console.log(req.file);
+    const member = {member_img: req.file.filename}
+    const id = req.file.id
+    const filename = req.file.filename
+    const result = await updateUserById(member,id)
+    console.log(result);
+    return res.json({message:'圖片上傳成功', code:'200', filename})
+  } else {
+    console.log('step 5: file upload failed');
+    console.log('檔案上傳失敗');
+    return res.json({message:'檔案上傳失敗', code:'409'})
+  }
+})
+
+
+// 修改會員資料
+router.put('/:memberId', async (req, res)=>{
+  const memberId = req.params.memberId
+  const member = req.body
+  console.log(memberId, member);
+
+  // 檢查有沒有在網址上抓到 memberId
+  // 如果為空物件則失敗
+  if(!memberId || isEmpty(member)){
+    return res.json({message:'抓不到會員ID或是空物件', code:'400'})
+  }
+
+  // 檢查從 react 來的資料，那些資料是必要的(name, account...)
+  console.log(member);
+
+  // 對資料庫執行update
+  const result = await updateUserById(member, memberId)
+  console.log(result);
+
+  if(!result.affectedRows){
+    return res.json({message:'會員資料修改失敗', code:'400'})
+  }
+  // 更新成功
+  return res.json({message:'會員資料修改成功', code:'400'})
+})
+
+
 export default router;
