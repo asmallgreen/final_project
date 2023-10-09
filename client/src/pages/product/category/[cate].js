@@ -7,7 +7,6 @@ import SalesCard from "@/components/product/sales-card";
 import FilterProductCard from "@/components/product/filter-card";
 import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import LunaPagination from "@/components/pagination/luna-pagination";
-import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
 import FilterBtns from "@/components/product/filter-btns";
 import RecommendedCard from "@/components/product/recommended-card";
 import LaunchedCard from "@/components/product/launched-card";
@@ -31,16 +30,16 @@ function Product() {
     let newCate = category;
     // let newCate
     switch (currentUrl) {
-      case "/product/bow":
+      case "/product/category/bow":
         newCate = "所有「弓」商品";
         break;
-      case "/product/arrow":
+      case "/product/category/arrow":
         newCate = "所有「箭」商品";
         break;
-      case "/product/suit":
+      case "/product/category/suit":
         newCate = "所有「道服」商品";
         break;
-      case "/product/other":
+      case "/product/category/other":
         newCate = "所有「其他」商品";
         break;
       default:
@@ -77,9 +76,6 @@ function Product() {
       {/* test */}
 
       <div>
-        {/* <p>當前網頁的網址是：{currentUrl}</p> */}
-        {/* <p>當前的newCate：{newCate}</p> */}
-        {/* <p>當前的setCategory：{category}</p> */}
       </div>
 
       {/* //////////////////////////////////// */}
@@ -116,19 +112,19 @@ function Product() {
       <div className="category position-relative">
         <div className="type-title">｜ 產品分類 ｜</div>
         <div className="type">
-          <Link href="/product/bow" className="item">
+          <Link href="/product/category/bow" className="item">
             <img src="/product/cate1.jpg"></img>
             <span>弓</span>
           </Link>
-          <Link href="/product/arrow" className="item">
+          <Link href="/product/category/arrow" className="item">
             <img src="/product/cate2.jpg"></img>
             <span>箭</span>
           </Link>
-          <Link href="/product/suit" className="item">
+          <Link href="/product/category/suit" className="item">
             <img src="/product/cate3.jpg"></img>
             <span>道服</span>
           </Link>
-          <Link href="/product/other" className="item">
+          <Link href="/product/category/other" className="item">
             <img src="/product/cate4.jpg"></img>
             <span>其他</span>
           </Link>
@@ -163,12 +159,6 @@ function Product() {
                 />
               );
             })}
-            {/* <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard /> */}
           </Row>
         </Col>
       </Row>

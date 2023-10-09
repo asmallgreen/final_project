@@ -1,4 +1,5 @@
 .normal-cards-area {
+  display: block;
   padding-block: 48px;
   justify-content: center;
   .normal-cards {
@@ -9,6 +10,7 @@
       justify-content: center;
     }
     .card {
+      cursor: pointer;
       // border-radius: 0;
       width: 230px;
       margin: 10px 5px;
