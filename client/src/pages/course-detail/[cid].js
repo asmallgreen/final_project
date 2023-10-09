@@ -42,6 +42,8 @@ export default function CourseDetail() {
 
   // 取得課程資料
   const [CourseDateById, setCourseDateById] = useState(null);
+  const [TeacherDateById, setTeacherDateById] = useState(null);
+  const [items, setItems] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,29 +51,11 @@ export default function CourseDetail() {
         const response = await axios.get(`http://localhost:3005/course/${cid}`);
         // console.log("伺服器回應:", response.data);
         setCourseDateById(response.data);
-      } catch (error) {
-        console.error("錯誤：請確認後台API功能", error);
-      }
-    };
-
-    fetchData(); // 呼叫包裹的 async 函數
-  }, [cid]);
-  // console.log(AllCourseDate);
-
-  // 處理老師資料(關聯課程)
-  // console.log(CourseDateById.teacher_id);
-  const [TeacherDateById, setTeacherDateById] = useState(null);
-  const [items, setItems] = useState(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (CourseDateById !== null) {
-          const response = await axios.get(
-            `http://localhost:3005/teacher/${CourseDateById.teacher_id}`
+        if (response.data !== null) {
+          const teacherResponse = await axios.get(
+            `http://localhost:3005/teacher/${response.data.teacher_id}`
           );
-          // console.log("伺服器回應:", response.data);
-          setTeacherDateById(response.data);
+          setTeacherDateById(teacherResponse.data);
         }
       } catch (error) {
         console.error("錯誤：請確認後台API功能", error);
@@ -80,7 +64,6 @@ export default function CourseDetail() {
 
     fetchData(); // 呼叫包裹的 async 函數
 
-    // 在這裡處理Tabs的資料呼叫
     const items = [
       // {
       //   key: "1",
@@ -116,7 +99,7 @@ export default function CourseDetail() {
       },
     ];
     setItems(items);
-  }, [CourseDateById, TeacherDateById]);
+  }, [cid, CourseDateById, TeacherDateById]);
 
   return CourseDateById !== null && TeacherDateById !== null ? (
     <div className="course-detail-body">
