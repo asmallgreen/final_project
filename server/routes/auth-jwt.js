@@ -208,7 +208,7 @@ router.post("/register", async (req, res) => {
     }
     // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
     delete newMember.password;
-
+    console.log(newMember);
     // 產生存取令牌(access token)，其中包含會員資料
     const accessToken = jsonwebtoken.sign(
       { ...newMember, id: newMember.insertId },
@@ -315,27 +315,34 @@ transporter.sendMail(mailOptions, (err, response) => {
 //   })
 // })
 })
-
-// 修改會員頭像
+// 確定上傳頭像
+router.put('/update-profile-img-confirm', async(req, res)=>{
+  console.log('確定要上傳的檔名與id：',req.body);
+    const member = {member_img: req.body.filename}
+    const id = req.body.id
+    const result = await updateUserById(member,id)
+    console.log(result);
+  res.json({message:'圖片成功更新至資料表', code:'200'})
+})
+// 修改會員頭像(選擇檔案並預覽)
 router.put('/update-profile-img', upload.single('avatar'), async (req, res)=>{
   console.log('step 3: entering router');
   console.log((req.file, req.body));
 
   if(req.file){
     console.log('step 4: file upload successfully');
-    console.log(req.file);
-    const member = {member_img: req.file.filename}
-    const id = req.file.id
+    console.log('req.file',req.file);
+    // console.log('req.body',req.body);
     const filename = req.file.filename
-    const result = await updateUserById(member,id)
-    console.log(result);
-    return res.json({message:'圖片上傳成功', code:'200', filename})
+    
+    return res.json({message:'圖片成功傳入後端指定資料夾', code:'200', filename})
   } else {
     console.log('step 5: file upload failed');
-    console.log('檔案上傳失敗');
-    return res.json({message:'檔案上傳失敗', code:'409'})
+    console.log('檔案傳入失敗');
+    return res.json({message:'檔案傳入失敗', code:'409'})
   }
 })
+
 
 
 // 修改會員資料

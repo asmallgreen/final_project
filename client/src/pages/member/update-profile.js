@@ -8,6 +8,7 @@ import axios from "axios";
 import { DatePicker } from "react-rainbow-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
+import { upload } from "@testing-library/user-event/dist/upload";
 // import path from 'path'
 // const uploadFolderPath = path.join(__dirname, '..', 'server', 'uploads');
 // console.log(uploadFolderPath); 
@@ -133,7 +134,7 @@ export default function UpdateProfile() {
 //     }
 //   }
 // };
-  // 重新上傳頭像
+  // 重新上傳頭像(選擇檔案後預覽)
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState('');
   const [uploaded, setUploaded] = useState(false);
@@ -149,25 +150,17 @@ export default function UpdateProfile() {
         reader.readAsDataURL(file)
       }
       const formData = new FormData()
+      console.log('file:' +file);
       formData.append('avatar', file)
+      console.log('memberData:'+authJWT.memberData.id);
       formData.append('id', authJWT.memberData.id)
+      console.log(formData);
       try{
         const res = await axios.put('http://localhost:3005/member/update-profile-img', formData, { withCredentials:true,
         timeout: 10000 })
       console.log(res.data);
-      if(res.data.message === '圖片上傳成功'){
-        await Swal.fire({
-          icon: "success",
-          title: "圖片上傳成功",
-          showConfirmButton: false,
-          timer: 1500,
-          backdrop: `rgba(255, 255, 255, 0.55)`,
-          width: "35%",
-          padding: "0 0 3.25em",
-          customClass: {
-            popup: "shadow-sm",
-          },
-        });
+      if(res.data.message === '圖片成功傳入後端指定資料夾'){
+
         console.log(res.data);
         filename = res.data.filename
         setUploaded(true)
@@ -180,25 +173,44 @@ export default function UpdateProfile() {
   };
   useEffect(()=>{
     if(uploadFileName){
-        const imageUrl = `/uploads/${uploadFileName}`
+        const imageUrl = `http://localhost:3005/${uploadFileName}`
         setPreview(imageUrl)
     } else {
         setPreview('')
     }
   },[uploadFileName])
+  // 確定上傳圖片
   const handleUpload = async() => {
-    if(selectedFile) {
-        const formData = new FormData()
-        formData.append('avatar', selectedFile)
-
-        try{
-            await axios.post('http://localhost:3005/member/update-profile-img', formData)
-            setUploaded(true)
-        }catch(error){
-            console.log(error);
-        }
+    const fileAndId = {
+      filename:uploadFileName,
+      id:authJWT.memberData.id
+    }
+    console.log(fileAndId);
+    try{
+      const res = await axios.put('http://localhost:3005/member/update-profile-img-confirm',fileAndId,{withCredentials:true})
+      console.log(res.data);
+      if(res.data.message === '圖片成功更新至資料表'){
+         setAuthJWT({...authJWT,memberData:{...authJWT.memberData,member_img:uploadFileName}})
+        await Swal.fire({
+               icon: "success",
+               title: "圖片上傳成功",
+               showConfirmButton: false,
+               timer: 1500,
+               backdrop: `rgba(255, 255, 255, 0.55)`,
+               width: "35%",
+               padding: "0 0 3.25em",
+               customClass: {
+                 popup: "shadow-sm",
+               },
+             });
+      }
+    }catch(error){
+      console.log(error);
     }
   }
+  useEffect(()=>{
+
+  },[authJWT])
   return (
     <>
       <Row>
@@ -211,21 +223,15 @@ export default function UpdateProfile() {
             <div className="d-flex justify-content-center align-items-center member-profile-img mb-5">
               <div>
                 <div className="text-center">
+                <div className="text-center m-auto img-object-fit">
                 {uploaded? <img
-                      className="avatar d-block"
+                      className="avatar"
                       src={preview}
                     ></img>:<img
-                      className="avatar d-block"
-                      src="/Duo/avatar01.jpg"
+                      className="avatar"
+                      src={authJWT.memberData.member_img === 'avatar01.jpg'?'/Duo/avatar01.jpg':`http://localhost:3005/${authJWT.memberData.member_img}`}
                     ></img>}
-                {/* {preview? <img
-                      className="avatar d-block"
-                      src={preview}
-                    ></img>:<img
-                      className="avatar d-block"
-                      src={preview}
-                    ></img>} */}
-                  
+                </div>
                   <div>
                     <input
                     name="avatar"
