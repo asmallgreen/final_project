@@ -256,9 +256,10 @@ router.post("/register", async (req, res) => {
 // 電子郵件文字訊息樣版
 const mailText = (otpToken) => `親愛的會員 您好，
 以下為重設密碼所需要的驗証碼，
-請輸入以下的6位數字，重設密碼頁面的"電子郵件驗証碼"欄位中。
+請在重設密碼頁面的"電子郵件驗証碼"欄位中輸入下方的OTP驗證碼，。
 請注意驗証碼將於寄送後30分鐘後到期，如有任何問題請洽網站客服人員:
     
+您的OTP驗證碼為：
 ${otpToken}
     
 敬上
@@ -284,14 +285,15 @@ router.post('/otp', async (req, res) => {
     subject: '良弓製販所-會員重設密碼驗証信',
     text: mailText(otp.token),
   }
-
+  const token = otp.token 
   transporter.sendMail(mailOptions, (err, response) => {
     if (err) {
       // 失敗處理
       return res.status(400).json({ message: 'email fail', detail: err })
+      console.log(err);
     } else {
       // 成功回覆的json
-      return res.json({ message: 'email sent', code: '200' })
+      return res.json({ message: 'OTP驗證信已寄出', code: '200',token })
     }
   })
 })

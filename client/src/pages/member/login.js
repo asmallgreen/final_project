@@ -114,7 +114,8 @@ export default function Login() {
 
   return (
     <>
-    {formType? (<div className='login-bg'>
+    {/* {formType? ( */}
+    <div className='login-bg'>
 
       <div className='position-relative d-flex justify-content-center align-items-center bt-container'>
         <div className='login-block my-3'>
@@ -171,7 +172,7 @@ export default function Login() {
       </Row>
     <Row className='d-flex justify-content-center'>
       <Form.Group as={Col} md='7' xs='5' className='p-0 '>
-        <Link href='/' className='forgetpwd-link' onClick={(e)=>{e.preventDefault();setFormType(false) }}>忘記密碼</Link>
+        <Link href='/member/reset-password' className='forgetpwd-link'>忘記密碼</Link>
       </Form.Group>
       <Form.Group as={Col} md='5' xs='5' className='p-0 text-end'>
         <Button type="submit" className='login-button bgc-primary update-profile-btn' onClick={handleSubmit}>登入</Button>
@@ -190,11 +191,12 @@ export default function Login() {
         </div>
       </div>
 
-      </div>):(<div className='login-bg'><div className='position-relative d-flex justify-content-center align-items-center bt-container'>
+      </div>
+      {/* ):(<div className='login-bg'><div className='position-relative d-flex justify-content-center align-items-center bt-container'>
         <ForgotPwd formType={formType} setFormType={setFormType}/>
       </div>
       
-      </div>)}
+      </div>)} */}
       
     </>
   )

@@ -1,8 +1,9 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Container, Form, InputGroup, Col, Row, Button} from 'react-bootstrap'
 import axios from 'axios';
 import Swal from 'sweetalert2'
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 export default function ResetPassword( {formType, setFormType} ) {
   const [validated, setValidated] = useState(false);
@@ -14,6 +15,11 @@ export default function ResetPassword( {formType, setFormType} ) {
   const [opt, setOpt] = useState({
     opt:'',
   })
+  // 設定存放token
+  const [tokenValue, setTokenValue] = useState()
+  const [tokenInput, setTokenInput] = useState()
+  // 設定顯示輸入新密碼
+  const [show, setShow] = useState(false)
   // 設定函式抓使用者的輸入並寫入存放的狀態
   const handleMemberEmail = (e) => {
     setMemberEmail({...memberEmail, [e.target.name]: e.target.value})
@@ -27,14 +33,38 @@ export default function ResetPassword( {formType, setFormType} ) {
         withCredentials:true,
       })
       console.log(res.data);
+      if(res.data.message === 'OTP驗證信已寄出'){
+        setTokenValue(res.data.token)
+        await Swal.fire({
+          icon: 'success',
+          title: '信件已寄出',
+          text: '請於30分鐘內使用信件內驗證碼完成重設密碼',
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: `rgba(255, 255, 255, 0.55)`,
+          width: '35%',
+          padding: '0 0 3.25em',
+          customClass: {
+          }
+        })
+      }
     }catch(error){
       console.log(error);
     }
   }
   // 檢查OTP是否正確
   const handleCheckOTP = (e) => {
-    
+    setTokenInput(e.target.value)
+    console.log(tokenInput);
+
   }
+  useEffect(()=>{
+    console.log(tokenInput);
+    console.log(tokenValue);
+    if(tokenInput == tokenValue){
+      setShow(!show)
+    }
+  },[tokenInput,tokenValue])
   // 送出後需送至後端驗證並寄信
   const handleForgotSubmit= async (e) => {
     e.preventDefault();
@@ -69,7 +99,9 @@ export default function ResetPassword( {formType, setFormType} ) {
       console.log(error);
     }
   }
+  const handleNewPasswordChange = (e) => {
 
+  }
   return (
     <>
     <div className='login-bg'>
@@ -99,15 +131,40 @@ export default function ResetPassword( {formType, setFormType} ) {
           <Form.Control
             required
             type="text"
-            name='otp'
+            name='token'
             onChange={handleCheckOTP}
           />
           <Button type='button' className='otp-button' onClick={getOTP}>取得驗證碼</Button>
         </Form.Group>
       </Row>
+      {show? '': ( <div>
+      <Row className="mb-3">
+        <Form.Group as={Col} md="12" controlId="">
+          <Form.Label>請輸入新密碼</Form.Label>
+          <Form.Control
+            required
+            type="mail"
+            name='email'
+            keyDown={handleNewPasswordChange}
+          />
+        </Form.Group>
+      </Row>
+      <Row className="mb-3">
+        <Form.Group as={Col} md="12" controlId="">
+          <Form.Label>再次輸入新密碼</Form.Label>
+          <Form.Control
+            required
+            type="mail"
+            name='email'
+            onChange={handleNewPasswordChange}
+          />
+        </Form.Group>
+      </Row>
+      </div>)}
+
       <Row className='mb-3'>
       <Form.Group as={Col} md='12' xs='12' className='my-4 d-flex justify-content-between'>
-      <Button className='login-button' onClick={()=>{setFormType(true)}}>返回</Button>
+      <Link className='login-button'href='/member/login'>返回</Link>
         <Button type="submit" className='login-button' >送出</Button>
       </Form.Group>
       </Row>
