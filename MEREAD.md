@@ -90,15 +90,23 @@
 - [ ] filter-card找catedata
 
 ### 20231009
-#### 所有商品分頁
+#### 所有商品，每頁顯示limit筆
 - [v] 在filter-btn中使用 e.target.value取得select option的值，使用useEffect確保limit為最新的值，並依賴localLimit改變及時回傳到index
-- [ ] 在localLimit值更新時，回傳到filter-btn確保即時更新
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
+- [v] 在localLimit值更新時，回傳到filter-btn確保即時更新
+- [v] 用axios回傳，req.query將limit值傳至modal的product.js，在index用useEffet將limit放入依賴，確保每次更新product.js也能更新 
+- [v] product中的limit放入getPage函式中，的參數改變資料庫篩選條件
 
+#### 所有商品分頁
+- [ ] 先處理頁籤
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] Object.entries(allProduct).length抓出所有產品筆數
+- [ ] Math.ceil計算分頁，判斷餘數大於0時，page+1
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
 ### 問題
 
 -

@@ -27,14 +27,11 @@ function Product() {
   const [limit, setLimit] = useState(5);
   const [allProduct, setAllProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
-  const [limitPrdouct, setLimitProduct] = useState([]);
-  const [filterProduct, setFilterProduct] = useState([]);
-  console.log(limit);
-  console.log("所有產品資料:");
-  console.log(allProduct);
-  console.log("新上架產品資料:");
-  console.log(newProduct);
-  console.log(limitPrdouct);
+
+ 
+  // console.log(`目前顯示頁數:${limit}`);
+  // console.log(`所有產品:${allProduct}`);
+  // console.log(`新上架產品:${newProduct}`);
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
   };
@@ -45,28 +42,29 @@ function Product() {
     if (typeof window !== "undefined") {
       (async () => {
         try {
-          const res = await axios.get("http://localhost:3005/product");
-          setAllProduct(res.data.alldata);
-          setNewProduct(res.data.launchdata);
-          setLimitProduct(res.data.limitdata);
-          setFilterProduct(res.data.alldata);
-          // const dataLength = Object.entries(allProduct).length;
-          // console.log(dataLength);
-          // const dataLength = 19; // 資料總數
-          // const dataLimit = 3; // 每頁的資料限制
-          // let pageLength;
-          // const page = Math.ceil(dataLength / dataLimit);
-          // // 如果資料總數小於等於每頁資料限制，只需一頁
-          // pageLength = dataLength <= dataLimit ? 1 : page;
-          // console.log(`總頁數: ${pageLength}`);
-          // console.log({allProduct});
-          // console.log(filterProduct);
+          // const newLimitData = { limit:limit}
+          const res = await axios.get("http://localhost:3005/product",{params:{limit}});
+          
+          setAllProduct(res.data.pagedata);
+          setNewProduct(res.data.newdata);
+          
+          
+          // 所有商品總筆數
+          const dataLength = Object.entries(allProduct).length;
+          console.log(`資料共${dataLength}筆`);
+          const dataLimit = 3; // 每頁的資料限制
+          let pageLength;
+          const page = Math.ceil(dataLength / dataLimit);
+          // 如果資料總數小於等於每頁資料限制，只需一頁
+          pageLength = dataLength <= dataLimit ? 1 : page;
+          console.log(`總頁數: ${pageLength}`);
+          
         } catch (error) {
           console.log(error);
         }
       })();
     }
-  }, [router.pathname]);
+  }, [router.pathname,limit]);
   // useEffect(() => {
   // }, [allProduct, newProduct, limitPrdouct, filterProduct]);
 
@@ -278,7 +276,7 @@ function Product() {
       <Row className="filter-cards-area">
         <Col md="auto" className="filter-cards">
           <Row className="rows">
-            {filterProduct.map((data) => {
+            {allProduct.map((data) => {
               return <FilterProductCard key={data.id} filterProduct={data} />;
             })}
           </Row>

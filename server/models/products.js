@@ -15,29 +15,23 @@ import {
 const table = "product";
 // 所需的資料處理函式
 
-const getPage = async ()=>{
+const getPage = async (limit, offset)=>{
   const where = ''
   const order = {id: 'ASC'}
-
-
-
-
   const { rows } = await find(table, where, order,limit, offset)
   return rows;
 
 
 }
 
-const getLimit = async () => {
-  const where = ''
-  const order = { id: "ASC" };
-  const limit = 2
-  const { rows } = await find(table, where, order, limit);
+const getNew = async () => {
+  const where = { launched : 1 }
+  const { rows } = await find(table, where);
   return rows;
-};
+}
 
 // 抓全部產品的程式碼
-const getAllProduct = async () => {
+const getAll = async () => {
   const { rows } = await find(table);
   return rows;
 };
@@ -51,4 +45,4 @@ const searchProduct = async (where) => {
 };
 
 // 上面定義的函式都要放進來導出
-export { getLimit, getAllProduct, searchProduct, getPage };
+export { searchProduct, getPage, getNew, getAll };

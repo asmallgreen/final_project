@@ -1,5 +1,5 @@
 import express from "express";
-import { getLimit, getAllProduct, searchProduct, getPage } from "../models/products.js";
+import { getAll, getNew, getPage, searchProduct } from "../models/products.js";
 
 const router = express.Router();
 
@@ -21,20 +21,22 @@ const router = express.Router();
 
 //***********產品頁************
 router.get("/", async (req, res) => {
-  const alldata = await getAllProduct();
-  const launchdata = await alldata.filter((data) => data.launched === 1);
-  const limitdata = await getLimit();
-  const filterdata = await getLimit()
-  // const pagedata = await getPage()
+  const limit = req.query.limit;
+  console.log('req.body值:',limit);
 
+  
+  // const launchdata = await alldata.filter((data) => data.launched === 1);
+  const alldata = await getAll();
+  const newdata = await getNew()
+  const pagedata = await getPage(limit,2)
+// console.log(pagedata);
   res.json({
     message: "getAllProduct success",
     code: "200",
     alldata,
-    launchdata,
-    limitdata,
-    filterdata,
-    // pagedata
+    // launchdata,
+    newdata,
+    pagedata
   });
 });
 router.get("/:pid", async (req, res) => {
@@ -59,24 +61,7 @@ router.get("/:pid", async (req, res) => {
 
 
 });
-// 创建一个API端点来获取产品ID
-router.get("/getProductId", (req, res) => {
-  // const alldata = getAllProduct();
-  // console.log(alldata);
-  // const productId = req.query.id;
-  // console.log(productId);
-  // const product = productsData.find((item) => item.id === parseInt(productId));
 
-  // if (product) {
-  //   res.json({ productId: product.id });
-  // } else {
-  //   res.status(404).json({ error: "Product not found" });
-  // }
-  // res.json({
-  //   alldata,
-  //   productId,
-  // });
-});
 
 // ***********test***********
 router.get("/productInfo", async (req, res) => {
