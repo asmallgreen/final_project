@@ -15,13 +15,7 @@ import { upload } from "@testing-library/user-event/dist/upload";
 
 export default function UpdateProfile() {
   const { authJWT, setAuthJWT } = useAuthJWT();
-  const [profileInput, setProfileInput] = useState({
-    name: authJWT.memberData.name || "",
-    birthday: authJWT.memberData.birthday || "",
-    email: authJWT.memberData.email || "",
-    phone: authJWT.memberData.phone || "",
-    address: authJWT.memberData.address || "",
-  });
+  const [profileInput, setProfileInput] = useState(authJWT.memberData);
   // 驗證信箱的正規表達式
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   // 驗證手機號碼的正規表達式
@@ -31,11 +25,15 @@ export default function UpdateProfile() {
   // 抓住所有填寫的 input 內容
   const handleInputChange = (e) => {
     // 輸入後更新存放內容的物件
-    setProfileInput({
+const { name, value } = e.target
+    setProfileInput((profileInput)=>({
       ...profileInput,
-      [e.target.name]: e.target.value,
-    });
+      [name]: value,
+    }));
   };
+  useEffect(()=>{
+      console.log('this is profileInput',profileInput);
+  },[profileInput])
   // 抓到生日的 Date 寫入 member 物件
   const handleBirthdateChange = (date) => {
     // 先將 data 放入 Birthday的狀態儲存
@@ -97,16 +95,28 @@ export default function UpdateProfile() {
   };
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
+    console.log(profileInput);
+    delete profileInput.exp
+    delete profileInput.iat
     try {
       const res = await axios.put(
-        `http://localhost:3005/member/${authJWT.memberData.id}`,
+        'http://localhost:3005/member/update-profile',
         profileInput,
         {
           withCredentials: true,
         }
       );
+      console.log('res.data:',res.data);
+      const updatedMember = res.data.updatedMember
+      console.log('res.data.updatedMember:',updatedMember);
       if (res.data.message === "會員資料修改成功") {
-        setAuthJWT(updateProfile);
+        setAuthJWT({
+          ...authJWT,
+          memberData:{
+            ...authJWT.memberData,
+            ...updatedMember
+          }
+        });
         await Swal.fire({
           icon: "success",
           title: "會員資料修改成功",
@@ -208,9 +218,7 @@ export default function UpdateProfile() {
       console.log(error);
     }
   }
-  useEffect(()=>{
 
-  },[authJWT])
   return (
     <>
       <Row>

@@ -32,8 +32,8 @@ export default function MemberCenter() {
                 <div className='mt-5'>
                   <p className='text-center'>
                   會員等級：
-                  {authJWT.level === 1 ? '竹弓會員' : 
-                  authJWT.level === 2 ? '銀弓會員' : 
+                  {authJWT.memberData.level === 1 ? '竹弓會員' : 
+                  authJWT.memberData.level === 2 ? '銀弓會員' : 
                   '金弓會員'}</p>
                   <p className='text-center'>加入日期：{authJWT.memberData.created_at}</p>
                 </div>

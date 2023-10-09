@@ -3,12 +3,12 @@ import { insertOne, findOne, updateById, removeById } from './base.js'
 import { generateToken } from '../config/otp.js'
 
 const otpTable = 'otp'
-const userTable = 'member'
+const memberTable = 'member'
 
 // 預設 exp = 30 分鐘到期(對應的是otp資料表中的exp_timestamp)
 const createOtp = async (email, exp = 30) => {
   // 檢查使用者email是否存在
-  const member = await findOne(table, { email })
+  const member = await findOne(memberTable, { email })
 
   if (!member.id) return {}
 
@@ -48,7 +48,7 @@ const createOtp = async (email, exp = 30) => {
 // 內部用不導出: 尋找合法的(未過期的)otp記錄
 // 有找到會回傳otp物件，沒找到會回傳空物件{}
 const findOneValidOtp = async (email, token) => {
-  // 回傳 {id, user_id, email, token, exp_timestamp}
+  // 回傳 {id, member_id, email, token, exp_timestamp}
   const otp = await findOne(otpTable, { email, token })
 
   // 沒找到資料
@@ -72,7 +72,7 @@ const updatePassword = async (email, token, password) => {
   if (!otp.id) return false
 
   // 修改密碼
-  await updateById(table, { password }, otp.user_id)
+  await updateById(memberTable, { password }, otp.member_id)
 
   // 移除otp記錄
   await removeOtpById(otp.id)

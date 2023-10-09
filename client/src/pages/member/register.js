@@ -230,7 +230,6 @@ export default function Login({ formType, setFormType }) {
           popup: 'shadow-sm',
         },
       })
-      console.log(process.env.BASE_URL || '/');
         router.push(process.env.BASE_URL || '/')
       }
     } catch (error) {

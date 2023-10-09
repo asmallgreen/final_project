@@ -34,6 +34,7 @@ import {
   forgotPwdGetUser,
   getUserByAccount,
   updateUserById,
+  getUserById,
 } from "../models/members.js";
 
 // 存取`.env`設定檔案使用
@@ -73,7 +74,13 @@ router.post("/login", async (req, res) => {
     }else{
       const member = await getUserByAccount({account})
       // 使用 argon2.verify 驗證使用者輸入的密碼是否匹配
-    const isPasswordValid = await argon2.verify(member.password, password);
+      // 使用註冊時設定的 Argon2 加密哈希參數
+      const options = {
+      timeCost: 4, // 迭代次數
+      memoryCost: 2 ** 16, // 内存成本（以字節為單位）
+      parallelism: 1, // 並行性參數
+      };
+    const isPasswordValid = await argon2.verify(member.password, password, options);
 
     if (isPasswordValid) {
       console.log('密碼驗證成功！');
@@ -191,7 +198,13 @@ router.post("/register", async (req, res) => {
   // 檢查完存入資料庫
   try {
     delete member.repassword;
-    const hashedPassword = await argon2.hash(member.password);
+    // Argon2 使用的加密哈希參數
+    const options = {
+    timeCost: 4, // 迭代次數
+    memoryCost: 2 ** 16, // 内存成本（以字節為單位）
+    parallelism: 1, // 並行性參數
+    };
+    const hashedPassword = await argon2.hash(member.password,options);
     member.password = hashedPassword;
     // 抓到當下時間
     const currentDateTime = new Date();
@@ -204,21 +217,25 @@ router.post("/register", async (req, res) => {
 
     const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     member.created_at = formattedDateTime
-    const newMember = await createUser(member);
-    if (!newMember.insertId) {
+    const account = member.account
+    const createNewMember = await createUser(member);
+    console.log('createNewMember',createNewMember);
+    if (!createNewMember.insertId) {
       return res.json({ message: "fail", code: "400" });
     }
+    const newMember = await getUserByAccount({account})
     // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
     delete newMember.password;
-    console.log(newMember);
+    console.log('newMember',newMember);
     // 產生存取令牌(access token)，其中包含會員資料
     const accessToken = jsonwebtoken.sign(
-      { ...newMember, id: newMember.insertId },
+      newMember,
       accessTokenSecret,
       {
         expiresIn: "24h",
       }
     );
+    console.log('second newMember',newMember);
 
     // 使用httpOnly cookie來讓瀏覽器端儲存access token
     res.cookie("accessToken", accessToken, { httpOnly: true });
@@ -248,30 +265,59 @@ ${otpToken}
 
 良弓制販所`
 
+// create otp
+router.post('/otp', async (req, res) => {
+  const { email } = req.body
+
+  if (!email) return res.json({ message: 'fail to get email', code: '400' })
+
+  // 建立otp資料表記錄，成功回傳otp記錄物件，失敗為空物件{}
+  const otp = await createOtp(email)
+
+  if (!otp.token) return res.json({ message: 'otp token not found', code: '400' })
+
+  // 寄送email
+  const mailOptions = {
+    // 這裡要改寄送人名稱，email在.env檔中代入
+    from: `"良弓製販所"<${process.env.SMTP_TO_EMAIL}>`,
+    to: email,
+    subject: '良弓製販所-會員重設密碼驗証信',
+    text: mailText(otp.token),
+  }
+
+  transporter.sendMail(mailOptions, (err, response) => {
+    if (err) {
+      // 失敗處理
+      return res.status(400).json({ message: 'email fail', detail: err })
+    } else {
+      // 成功回覆的json
+      return res.json({ message: 'email sent', code: '200' })
+    }
+  })
+})
+
+// 重設密碼用
+router.post('/reset', async (req, res, next) => {
+  const { email, token, password } = req.body
+
+  if (!token) return res.json({ message: 'fail', code: '400' })
+
+  // updatePassword中會驗証otp的存在與合法性(是否有到期)
+  const result = await updatePassword(email, token, password)
+
+  if (!result) return res.json({ message: 'fail', code: '400' })
+
+  return res.json({ message: 'success', code: '200' })
+})
+
 
 router.post('/forgotpwd', async(req, res)=>{
   console.log('使用者填入的忘記密碼資料:',req.body)
-  const { account, email } = req.body
-  const isMemberAccount = await checkAccount(
-    {account}
-  )
-  console.log(isMemberAccount);
-if(!isMemberAccount){
-  return res.json({ message: 'no account', code: '400' })
-}
-  const isMemberEmail = await checkEmail(
-    {email}
-  )
-  console.log(isMemberEmail);
+  const { email } = req.body
+    // 建立otp資料表記錄，成功回傳otp記錄物件，失敗為空物件{}
+    const otp = await createOtp(email)
+    if (!otp.token) return res.json({ message: 'fail', code: '400' })
 
-  if(!isMemberEmail){
-    return res.json({ message: 'no email', code: '400' })
-  }
-  const isMember = await forgotPwdGetUser({account, email})
-  console.log(isMember);
-  if(!isMember){
-    return res.json({message:'信箱和帳號不匹配', code:'400'})
-  }
 
 const mailOptions = {
   from: `"良弓製販所"<${process.env.SMTP_TO_EMAIL}>`,
@@ -333,11 +379,25 @@ transporter.sendMail(mailOptions, (err, response) => {
 // 確定上傳頭像
 router.put('/update-profile-img-confirm', async(req, res)=>{
   console.log('確定要上傳的檔名與id：',req.body);
+  if(!req.body){
+    res.json({message:'請選擇檔案', code:'400'})
+  }
     const member = {member_img: req.body.filename}
     const id = req.body.id
     const result = await updateUserById(member,id)
     console.log(result);
-  res.json({message:'圖片成功更新至資料表', code:'200'})
+    const updatedMember = await getUserById(id)
+    // 先清除原本的cookie
+    cookieParser()(req, res, ()=>{
+      res.clearCookie('accessToken', { httpOnly: true })     
+      })
+      const accessToken = jsonwebtoken.sign({ ...updatedMember }, accessTokenSecret, {
+        expiresIn: '24h',
+      })
+    
+      // 使用httpOnly cookie來讓瀏覽器端儲存access token
+      res.cookie('accessToken', accessToken, { httpOnly: true })
+  res.json({message:'圖片成功更新至資料表', code:'200',accessToken})
 })
 // 修改會員頭像(選擇檔案並預覽)
 router.put('/update-profile-img', upload.single('avatar'), async (req, res)=>{
@@ -371,29 +431,42 @@ router.put('/update-pwd', async (req, res)=>{
 })
 
 // 修改會員資料
-router.put('/:memberId', async (req, res)=>{
-  const memberId = req.params.memberId
+router.put('/update-profile', async (req, res)=>{
   const member = req.body
-  console.log(memberId, member);
+  console.log(member);
 
   // 檢查有沒有在網址上抓到 memberId
   // 如果為空物件則失敗
-  if(!memberId || isEmpty(member)){
+  if(!member.id || isEmpty(member)){
     return res.json({message:'抓不到會員ID或是空物件', code:'400'})
   }
 
   // 檢查從 react 來的資料，那些資料是必要的(name, account...)
   console.log(member);
-
+  const id = member.id
   // 對資料庫執行update
-  const result = await updateUserById(member, memberId)
+  const result = await updateUserById(member, id)
   console.log(result);
+  const updatedMember = await getUserById(id)
 
   if(!result.affectedRows){
     return res.json({message:'會員資料修改失敗', code:'400'})
   }
+  // 先清除原先的 token
+      // 清除cookie
+    cookieParser()(req, res, ()=>{
+    res.clearCookie('accessToken', { httpOnly: true })   
+    })
+
+  const accessToken = jsonwebtoken.sign({ ...updatedMember }, accessTokenSecret, {
+    expiresIn: '24h',
+  })
+
+  // 使用httpOnly cookie來讓瀏覽器端儲存access token
+  res.cookie('accessToken', accessToken, { httpOnly: true })
+
   // 更新成功
-  return res.json({message:'會員資料修改成功', code:'400'})
+  return res.json({message:'會員資料修改成功', code:'400', accessToken,updatedMember})
 })
 
 
