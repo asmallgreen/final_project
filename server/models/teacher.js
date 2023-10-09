@@ -18,4 +18,6 @@ import {
     return rows;
   };
 
-  export { getAllTeacher };
+  const getTeacherById = async (id) => await findOneById(table, id);
+
+  export { getAllTeacher, getTeacherById };

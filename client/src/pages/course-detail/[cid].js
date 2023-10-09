@@ -2,45 +2,18 @@ import React, { useState, useEffect } from "react";
 import { ConfigProvider, Tabs, Rate } from "antd";
 import StickyBox from "react-sticky-box";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 // 引入Tabs頁面
-import CourseDescription from "../../components/course-detail/CourseDescription";
+// import CourseDescription from "../../components/course-detail/CourseDescription";
 import TeacherDescription from "../../components/course-detail/TeacherDescription";
 import Syllabus from "../../components/course-detail/Syllabus";
 import Faq from "../../components/course-detail/Faq";
 import Review from "../../components/course-detail/Review";
 
-// Tabs Index
 const onChange = (key) => {
   // console.log(key);
 };
-const items = [
-  {
-    key: "1",
-    label: "課程介紹",
-    children: <CourseDescription />,
-  },
-  {
-    key: "2",
-    label: "講師介紹",
-    children: <TeacherDescription />,
-  },
-  {
-    key: "3",
-    label: "課程大綱",
-    children: <Syllabus />,
-  },
-  {
-    key: "4",
-    label: "常見問題",
-    children: <Faq />,
-  },
-  {
-    key: "5",
-    label: "學員評價",
-    children: <Review />,
-  },
-];
 
 export default function CourseDetail() {
   //處理antd的tabBar的sticky效果
@@ -62,24 +35,90 @@ export default function CourseDetail() {
     </StickyBox>
   );
 
-  const [AllCourseDate, setAllCourseDate] = useState(null);
+  // 處理動態路由
+  const router = useRouter();
+  const { cid } = router.query;
+  // console.log("cid", cid);
+
+  // 取得課程資料
+  const [CourseDateById, setCourseDateById] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3005/course/");
-        // console.log("伺服器回應:", response.data.allCourse);
-        setAllCourseDate(response.data.allCourse);
+        const response = await axios.get(`http://localhost:3005/course/${cid}`);
+        // console.log("伺服器回應:", response.data);
+        setCourseDateById(response.data);
       } catch (error) {
         console.error("錯誤：請確認後台API功能", error);
       }
     };
 
     fetchData(); // 呼叫包裹的 async 函數
-  }, []);
-  console.log(AllCourseDate);
+  }, [cid]);
+  // console.log(AllCourseDate);
 
-  return (
+  // 處理老師資料(關聯課程)
+  // console.log(CourseDateById.teacher_id);
+  const [TeacherDateById, setTeacherDateById] = useState(null);
+  const [items, setItems] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (CourseDateById !== null) {
+          const response = await axios.get(
+            `http://localhost:3005/teacher/${CourseDateById.teacher_id}`
+          );
+          // console.log("伺服器回應:", response.data);
+          setTeacherDateById(response.data);
+        }
+      } catch (error) {
+        console.error("錯誤：請確認後台API功能", error);
+      }
+    };
+
+    fetchData(); // 呼叫包裹的 async 函數
+
+    // 在這裡處理Tabs的資料呼叫
+    const items = [
+      // {
+      //   key: "1",
+      //   label: "課程介紹",
+      //   children: <CourseDescription />,
+      // },
+      {
+        key: "2",
+        label: "講師介紹",
+        children: (
+          <TeacherDescription
+            teacherPhoto={TeacherDateById ? TeacherDateById.photo : ""}
+            teacherName={TeacherDateById ? TeacherDateById.name : ""}
+            teacherRank={TeacherDateById ? TeacherDateById.rank : ""}
+            teacherParagraph={TeacherDateById ? TeacherDateById.description : ""}
+          />
+        ),
+      },
+      {
+        key: "3",
+        label: "課程大綱",
+        children: <Syllabus />,
+      },
+      {
+        key: "4",
+        label: "常見問題",
+        children: <Faq />,
+      },
+      {
+        key: "5",
+        label: "學員評價",
+        children: <Review />,
+      },
+    ];
+    setItems(items);
+  }, [CourseDateById, TeacherDateById]);
+
+  return CourseDateById !== null && TeacherDateById !== null ? (
     <div className="course-detail-body">
       <div className="container">
         <div className="bread-crumb">
@@ -87,36 +126,39 @@ export default function CourseDetail() {
         </div>
         <div className="course-detail-info">
           <div className="left">
-            <div className="course-detail-img"></div>
+            <div className="course-detail-img">
+              <img src={CourseDateById.images} alt=""></img>
+            </div>
           </div>
           <div className="right ">
             <div className="course-detail-text">
-              <div className="title">  </div>
-              <div className="intro">
-                且而抱樹小空誰拉邊了就車吉固，蝶貓年真快。師跑亭眼；午哥兆說合眼動把習爪右安頁常許，遠校候「魚隻幾抄園」。登也身司光北具，月枝巴登寺主羽，下早急房訴玩月美夏，葉造新雄給頁來品知游後大飽。圓河毛夕文員快犬訴貝苦坐反再良點實。
-                <br />
-                <br />
-                歡男米己去雲原。花今詞兌爪時雪毛菜尼像夏我爬朱，冬發公害亭八洋院果根親具姊坐久老，故虎兆五水冒生吉菜「包子連畫木首反戊布占」己次坐課抱冬跑冬荷昔；瓜麻扒雄寺眼牛乍平里位見視忍科。雲呢己豆心尾。里語借十用昌種假冰尺棵爬心竹蝴幼地，他斥九，土喝明哭奶寫少固因百乍好年道，歡言丁了躲助內連童棵果采聽「物」訴扒光，可屋像果家封乾畫由戶公房詞口造方象了；歌進送綠黃帶祖好休黑八一休。
-              </div>
+              <div className="title">{CourseDateById.name}</div>
+              <div
+                className="intro"
+                dangerouslySetInnerHTML={{ __html: CourseDateById.intro }}
+              ></div>
               <div className="course-detail-items">
-                人數限制：25人
+                人數限制　{CourseDateById.capacity}人
                 <br />
-                報名截止：2023-00-00
+                報名截止　{CourseDateById.deadline}
                 <br />
-                課程時間：2023-00-00 — 2023-00-00
+                課程時間　{CourseDateById.start_date} 至{" "}
+                {CourseDateById.end_date}
                 <br />
-                課程長度　2小時
+                單堂時數　{CourseDateById.hour} 小時
                 <br />
-                上課地點　北道場
+                上課地點　{CourseDateById.location}
                 <br />
-                授課教師　衛宮士郎
+                授課教師　{TeacherDateById.name}
                 <br />
               </div>
               <div className="course-rating">
-                <h2 className="price">NT$8000</h2>
+                <h2 className="price">
+                  <small>NT$</small> {CourseDateById.price}
+                </h2>
                 <div className="stars">
-                  <Rate disabled defaultValue={2} />
-                  <div className="counting">888人已評價</div>
+                  <Rate disabled defaultValue={0} />
+                  <div className="counting">XXXXXX人已評價</div>
                 </div>
               </div>
             </div>
@@ -124,27 +166,14 @@ export default function CourseDetail() {
               <div className="btn course-detail-btn like-btn">加入收藏</div>
               <div className="btn course-detail-btn cart-btn">加入購物車</div>
             </div>
-            {/* <div className="course-detail-items">
-              <span>人數限制　25人</span>
-              <span>報名截止　2023-00-00</span>
-              <span>課程時間　2023-00-00 — 2023-00-00</span>
-              <span>課程長度　2小時</span>
-              <span>上課地點　北道場</span>
-              <span>授課教師　衛宮士郎</span>
-              <span>NT$8000</span>
-            </div>
-            <div className="btns">
-              <div className="like-btn"></div>
-              <div className="cart-btn"></div>
-            </div> */}
           </div>
         </div>
         <div className="course-detail-tabs">
           <ConfigProvider
             theme={{
-              token: {
-                fontFamily: "Inter, AbeeZee",
-              },
+              // token: {
+              //   fontFamily: "Inter, AbeeZee",
+              // },
 
               components: {
                 Tabs: {
@@ -168,11 +197,13 @@ export default function CourseDetail() {
               defaultActiveKey="1"
               renderTabBar={renderTabBar}
               items={items}
-              onChange={onChange}
+              // onChange={onChange}
             />
           </ConfigProvider>
         </div>
       </div>
     </div>
+  ) : (
+    <h1>loading</h1>
   );
 }

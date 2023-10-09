@@ -9,82 +9,89 @@
 
     .left {
       .course-detail-img {
-        background-image: url(https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image1.png?raw=true);
-        width: 621px;
+        // background-image: url(https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image1.png?raw=true);
+        // background-size: cover;
+        max-width: 621px;
         height: 670px;
-        background-size: cover;
+        overflow: hidden;
       }
     }
-    .right {
-      // background: lightpink;
-      width: calc(100% - 621px - 80px);
-      // max-height: 673px;
-      margin-left: 80px;
-      // 處理btns的位置
-      display: flex;
-      flex-direction: column;
-      .course-detail-text {
-        // background: lightgoldenrodyellow;
-        //佔滿除了btns的空間
-        flex-grow: 1;
-        .title {
-          font-size: 30px;
-          font-weight: 800;
-        }
-        .intro {
-          font-size: 16px;
-          margin-block: 43px;
-          max-height: 240px;
-        }
+  }
+  .right {
+    // background: lightpink;
+    width: calc(100% - 621px - 80px);
+    // min-height: 673px;
+    margin-left: 80px;
+    // 處理btns的位置
+    display: flex;
+    flex-direction: column;
+    .course-detail-text {
+      // background: lightgoldenrodyellow;
+      //佔滿除了btns的空間
+      flex-grow: 1;
+      .title {
+        margin-top: -10px;
+        font-size: 30px;
+        font-weight: 800;
       }
-      .course-detail-items {
+      .intro {
         font-size: 16px;
-        line-height: 30px;
+        margin-top: 30px;
+        margin-bottom: 60px;
+        // 固定高度暫時方案
+        min-height: 250px;
+        max-height: 250px;
       }
-      .course-rating {
+    }
+    .course-detail-items {
+      font-weight: 800;
+      font-size: 16px;
+      line-height: 30px;
+    }
+    .course-rating {
+      display: flex;
+      align-items: first baseline;
+      justify-content: space-between;
+      .price {
+        font-size: 35px;
+        color: $accent;
+        letter-spacing: 0.1em;
+        margin: 0;
+      }
+      .stars {
         display: flex;
-        align-items: first baseline;
-        justify-content: space-between;
-        .price {
-          font-size: 35px;
-          color: $accent;
-          letter-spacing: 0.1em;
-          margin: 0;
-        }
-        .stars {
-          display: flex;
-          margin-block: 20px;
-          .star {
-            font-size: 22.5px;
-            letter-spacing: 5px;
-          }
-        }
-        .counting {
-          font-style: 14px;
-          margin-left: 14px;
+        margin-block: 20px;
+        .star {
+          font-size: 22.5px;
+          letter-spacing: 5px;
         }
       }
-      .btns {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        .course-detail-btn {
-          letter-spacing: 0.1em;
-          padding: 12px 0px;
-          width: 290px;
-          font: 800 14px inter;
-          background: $secondary;
-          color: $primary;
-          border-radius: 0%;
-          &:hover {
-            color: $secondary;
-            background-color: $primary;
-          }
+      .counting {
+        font-style: 14px;
+        margin-left: 14px;
+      }
+    }
+    .btns {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      .course-detail-btn {
+        letter-spacing: 0.1em;
+        padding: 12px 0px;
+        width: 290px;
+        font: 800 14px inter;
+        background: $secondary;
+        color: $primary;
+        border-radius: 0%;
+        &:hover {
+          color: $secondary;
+          background-color: $primary;
         }
       }
     }
   }
 }
+
 // tabs邊距
 .course-detail-tabs {
   margin-top: 60px;
@@ -134,7 +141,7 @@
 
 // 教師介紹樣式
 .teacher-description-container {
-  padding:0;
+  padding: 0;
   height: 300px;
   background: #f0f0f0;
   border-radius: 10px;
@@ -145,9 +152,10 @@
     width: 300px;
     border-radius: 10px;
     overflow: hidden;
-    img{
+    img {
       position: absolute;
-      top: 50%; left: 50%;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
       object-fit: scale-down;
     }
@@ -157,12 +165,12 @@
     margin-block: 15px;
     height: 270px;
     width: calc(100% - 300px - 30px);
-    .teacher-rank{
+    .teacher-rank {
       font-size: 14px;
       color: #999;
       margin-bottom: 10px;
     }
-    .teacher-paragraph{
+    .teacher-paragraph {
       font-size: 16px;
       line-height: 30px;
       overflow: hidden;
