@@ -343,7 +343,17 @@ router.put('/update-profile-img', upload.single('avatar'), async (req, res)=>{
   }
 })
 
-
+// 修改會員密碼
+router.put('/update-pwd', async (req, res)=>{
+  console.log(req.body);
+  delete req.body.reNewPassword;
+  const hashedPassword = await argon2.hash(req.body.newPassword);
+  const id = req.body.id
+  const newPassword = {password:hashedPassword}
+  const result = await updateUserById(newPassword,id)
+  res.json({message:'密碼修改成功', code:'200'})
+  
+})
 
 // 修改會員資料
 router.put('/:memberId', async (req, res)=>{
@@ -370,6 +380,7 @@ router.put('/:memberId', async (req, res)=>{
   // 更新成功
   return res.json({message:'會員資料修改成功', code:'400'})
 })
+
 
 
 export default router;
