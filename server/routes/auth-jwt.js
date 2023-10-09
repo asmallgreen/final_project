@@ -5,6 +5,8 @@ import jsonwebtoken from "jsonwebtoken";
 import nodemailer from 'nodemailer'
 import transporter from '../config/mail.js'
 import multer from 'multer'
+import { createOtp, updatePassword } from '../models/otp.js'
+import 'dotenv/config.js'
 
 // 定義頭像上傳後存放的地方
 const storage = multer.diskStorage({
@@ -234,6 +236,19 @@ router.post("/register", async (req, res) => {
 });
 
 // 忘記密碼 ------------------------------------------------------
+// 電子郵件文字訊息樣版
+const mailText = (otpToken) => `親愛的會員 您好，
+以下為重設密碼所需要的驗証碼，
+請輸入以下的6位數字，重設密碼頁面的"電子郵件驗証碼"欄位中。
+請注意驗証碼將於寄送後30分鐘後到期，如有任何問題請洽網站客服人員:
+    
+${otpToken}
+    
+敬上
+
+良弓制販所`
+
+
 router.post('/forgotpwd', async(req, res)=>{
   console.log('使用者填入的忘記密碼資料:',req.body)
   const { account, email } = req.body
