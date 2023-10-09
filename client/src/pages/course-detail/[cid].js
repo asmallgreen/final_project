@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { ConfigProvider, Tabs, Rate } from "antd";
 import StickyBox from "react-sticky-box";
 import axios from "axios";
@@ -38,68 +38,79 @@ export default function CourseDetail() {
   // 處理動態路由
   const router = useRouter();
   const { cid } = router.query;
-  // console.log("cid", cid);
 
   // 取得課程資料
   const [CourseDateById, setCourseDateById] = useState(null);
   const [TeacherDateById, setTeacherDateById] = useState(null);
-  const [items, setItems] = useState(null);
+  const [SyllabusDateByCourseId, setSyllabusDateByCourseId] = useState(null);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3005/course/${cid}`);
-        // console.log("伺服器回應:", response.data);
-        setCourseDateById(response.data);
-        if (response.data !== null) {
+        const courseResponse = await axios.get(
+          `http://localhost:3005/course/${cid}`
+        );
+        setCourseDateById(courseResponse.data);
+
+        if (courseResponse.data && courseResponse.data.teacher_id) {
           const teacherResponse = await axios.get(
-            `http://localhost:3005/teacher/${response.data.teacher_id}`
+            `http://localhost:3005/teacher/${courseResponse.data.teacher_id}`
           );
           setTeacherDateById(teacherResponse.data);
         }
+
+        if (courseResponse.data && courseResponse.data.syllabus_id) {
+          const syllabusResponse = await axios.get(
+            `http://localhost:3005/syllabus/${courseResponse.data.syllabus_id}`
+          );
+          setSyllabusDateByCourseId(syllabusResponse);
+        }
+        // console.log(SyllabusDateByCourseId.data)
+        // console.log(courseResponse.data.syllabus_id)
+
+      // console.log(TeacherDateById)
+        // 在擁有所有必要資料後，定義一次items陣列。
+        const newItems = [
+          {
+            key: "2",
+            label: "講師介紹",
+            children: (
+              <TeacherDescription
+                teacherPhoto={TeacherDateById ? TeacherDateById.photo : ""}
+                teacherName={TeacherDateById ? TeacherDateById.name : ""}
+                teacherRank={TeacherDateById ? TeacherDateById.rank : ""}
+                teacherParagraph={
+                  TeacherDateById ? TeacherDateById.description : ""
+                }
+              />
+            ),
+          },
+          {
+            key: "3",
+            label: "課程大綱",
+            children: <Syllabus syllabusData={SyllabusDateByCourseId.data} />, // 使用SyllabusDateByCourseId
+          },
+          {
+            key: "4",
+            label: "常見問題",
+            children: <Faq />,
+          },
+          {
+            key: "5",
+            label: "學員評價",
+            children: <Review />,
+          },
+        ];
+        
+        setItems(newItems);
       } catch (error) {
         console.error("錯誤：請確認後台API功能", error);
       }
+      
     };
-
-    fetchData(); // 呼叫包裹的 async 函數
-
-    const items = [
-      // {
-      //   key: "1",
-      //   label: "課程介紹",
-      //   children: <CourseDescription />,
-      // },
-      {
-        key: "2",
-        label: "講師介紹",
-        children: (
-          <TeacherDescription
-            teacherPhoto={TeacherDateById ? TeacherDateById.photo : ""}
-            teacherName={TeacherDateById ? TeacherDateById.name : ""}
-            teacherRank={TeacherDateById ? TeacherDateById.rank : ""}
-            teacherParagraph={TeacherDateById ? TeacherDateById.description : ""}
-          />
-        ),
-      },
-      {
-        key: "3",
-        label: "課程大綱",
-        children: <Syllabus />,
-      },
-      {
-        key: "4",
-        label: "常見問題",
-        children: <Faq />,
-      },
-      {
-        key: "5",
-        label: "學員評價",
-        children: <Review />,
-      },
-    ];
-    setItems(items);
-  }, [cid, CourseDateById, TeacherDateById]);
+    fetchData();
+  }, [cid, CourseDateById, TeacherDateById, SyllabusDateByCourseId]);
 
   return CourseDateById !== null && TeacherDateById !== null ? (
     <div className="course-detail-body">
