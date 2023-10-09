@@ -1,23 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faSort } from "@fortawesome/free-solid-svg-icons";
 import ModalAttr from "./modal-attr";
 import ModalSort from "./modal-sort";
 
-export default function FilterBtns() {
-  
+export default function FilterBtns(props) {
+  // const {limit} = props;
   // 狀態用來存儲每頁幾筆狀態
-  const [selectedValue, setSelectedValue] = useState();
-  const handleLimit = (e) => {
-    const selectedOptionValue = e.target.value;
-    setSelectedValue(selectedOptionValue);
-    // console.log("選擇的值:", selectedValue);
-    // getLimit(selectedOptionValue);
-    console.log(selectedOptionValue);
-  };
-  console.log(selectedValue);
+  const [localLimit, setLocalLimit] = useState(props.limit);
+  const handleClick = (e) => {
+    const limitValue = e.target.value;
+    // setLocalLimit(limitValue)
+    setLocalLimit(limitValue);
 
+  };
+  // const handleInputChange = (e) => {
+  //   // 在 input 變更時更新 localLimit
+  //   setLocalLimit(e.target.value);
+  // };
+  console.log(localLimit);
+useEffect(()=>{
+  // console.log(localLimit);
+  props.setLimit(localLimit);
+},[handleClick])
 
   // ******************************
   //篩選&排序Modal
@@ -44,6 +50,7 @@ export default function FilterBtns() {
             type="button"
             className="btn btn-outline-primary"
             onClick={handleAttrModal}
+            //  onChange={handleInputChange}
           >
             <FontAwesomeIcon icon={faFilter} className="fa-solid fa-filter" />
             篩選商品 ({5})
@@ -64,9 +71,11 @@ export default function FilterBtns() {
             className="btn btn-primary dropdown-toggle"
             aria-label="Default select example"
             // 添加 onChange 事件處理函數
-            onChange={handleLimit}
+            // onChange={handleInputChange}
+            onChange={handleClick}
+            
             // 如果你希望設定預設值，可以透過 value 屬性設定
-            value={selectedValue}
+            value={localLimit}
           >
             <option value="5">5</option>
             <option value="10">10</option>

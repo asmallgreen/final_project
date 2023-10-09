@@ -17,8 +17,8 @@ export default function LunaPagination() {
             />
           </button>
           <button className="btn">1</button>
-          <button className="btn">2</button>
-          <button className="btn">3</button>
+          {/* <button className="btn">2</button> */}
+          {/* <button className="btn">3</button> */}
           <button className="btn">
             <FontAwesomeIcon
               icon={faArrowRight}

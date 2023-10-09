@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
 import { Row, Col } from "react-bootstrap";
@@ -24,37 +24,51 @@ import "swiper/css/navigation";
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
 function Product() {
+  const [limit, setLimit] = useState(5);
   const [allProduct, setAllProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
   const [limitPrdouct, setLimitProduct] = useState([]);
   const [filterProduct, setFilterProduct] = useState([]);
-  console.log('所有產品資料:');
+  console.log(limit);
+  console.log("所有產品資料:");
   console.log(allProduct);
   console.log("新上架產品資料:");
   console.log(newProduct);
   console.log(limitPrdouct);
-  console.log(filterProduct);
+  const updateLimit = (newLimit) => {
+    setLimit(newLimit);
+  };
+  // console.log(filterProduct);
   //抓所有產品和新上架產品
+  const router = useRouter();
   useEffect(() => {
-    if(typeof window !== 'undefined'){
+    if (typeof window !== "undefined") {
       (async () => {
-      try {
-        const res = await axios.get("http://localhost:3005/product", []);
-        setAllProduct(res.data.alldata);
-        setNewProduct(res.data.launchdata);
-        setLimitProduct(res.data.limitdata);
-        setFilterProduct(res.data.filterdata);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-    
+        try {
+          const res = await axios.get("http://localhost:3005/product");
+          setAllProduct(res.data.alldata);
+          setNewProduct(res.data.launchdata);
+          setLimitProduct(res.data.limitdata);
+          setFilterProduct(res.data.alldata);
+          // const dataLength = Object.entries(allProduct).length;
+          // console.log(dataLength);
+          // const dataLength = 19; // 資料總數
+          // const dataLimit = 3; // 每頁的資料限制
+          // let pageLength;
+          // const page = Math.ceil(dataLength / dataLimit);
+          // // 如果資料總數小於等於每頁資料限制，只需一頁
+          // pageLength = dataLength <= dataLimit ? 1 : page;
+          // console.log(`總頁數: ${pageLength}`);
+          // console.log({allProduct});
+          // console.log(filterProduct);
+        } catch (error) {
+          console.log(error);
+        }
+      })();
     }
-  }, []);
+  }, [router.pathname]);
   // useEffect(() => {
   // }, [allProduct, newProduct, limitPrdouct, filterProduct]);
-
-
 
   //navbar搜尋產品
   // const { results } = useProductContext();
@@ -75,6 +89,12 @@ function Product() {
 
   return (
     <>
+      {/* <ul>
+    {filterProduct.map((test)=>
+      <li key={test.id}>{test.name}</li>
+    )}
+    </ul> */}
+
       {/* <div>
         <h2>Product List</h2>
         <ul>
@@ -172,24 +192,24 @@ function Product() {
       <div className="product-page-title">
         <p>新品上架</p>
       </div>
-      <Router>
-        <Swiper
-          spaceBetween={10}
-          slidesPerView={4}
-          navigation={true}
-          pagination={true}
-          modules={[Navigation, Pagination]}
-          className="mySwiper launched-product-swiper"
-        >
-          {newProduct.map((data) => {
-            return (
-              <SwiperSlide>
-                <LaunchedCard key={data.id} filterNewProduct={data} />
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
-      </Router>
+      {/* <Router> */}
+      <Swiper
+        spaceBetween={10}
+        slidesPerView={4}
+        navigation={true}
+        pagination={true}
+        modules={[Navigation, Pagination]}
+        className="mySwiper launched-product-swiper"
+      >
+        {newProduct.map((data) => {
+          return (
+            <SwiperSlide>
+              <LaunchedCard key={data.id} filterNewProduct={data} />
+            </SwiperSlide>
+          );
+        })}
+      </Swiper>
+      {/* </Router> */}
 
       {/* 分類 */}
       <div className="category position-relative">
@@ -246,7 +266,7 @@ function Product() {
               <p>所有商品</p>
             </div>
             <div className="p-0">
-              <FilterBtns />
+              <FilterBtns limit={limit} setLimit={updateLimit} />
             </div>
           </div>
         </div>
@@ -264,6 +284,7 @@ function Product() {
           </Row>
         </Col>
       </Row>
+      {/* <FilterProductCard/> */}
       {/* btn */}
       <LunaPagination />
       {/* 優惠專區 */}

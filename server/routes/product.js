@@ -1,5 +1,5 @@
 import express from "express";
-import { getLimit, getAllProduct, searchProduct } from "../models/products.js";
+import { getLimit, getAllProduct, searchProduct, getPage } from "../models/products.js";
 
 const router = express.Router();
 
@@ -25,6 +25,7 @@ router.get("/", async (req, res) => {
   const launchdata = await alldata.filter((data) => data.launched === 1);
   const limitdata = await getLimit();
   const filterdata = await getLimit()
+  // const pagedata = await getPage()
 
   res.json({
     message: "getAllProduct success",
@@ -33,6 +34,7 @@ router.get("/", async (req, res) => {
     launchdata,
     limitdata,
     filterdata,
+    // pagedata
   });
 });
 router.get("/:pid", async (req, res) => {

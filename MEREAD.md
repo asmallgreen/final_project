@@ -31,7 +31,7 @@
 - [ ]
 - [ ]
 
-#### 每筆顯示幾頁
+#### 每頁顯示幾筆
 
 - [ ] 已取得${limit}，api 傳送到後端
 - [ ] 函式(WHERE id LIMIT ${limit})篩選成 filterdata，用 axios 發送請求儲存到 filterData
@@ -72,7 +72,32 @@
 #### 加入購物車
 #### 加入收藏
 
+##筆記
+###後端data
+- [ ] alldata
+- [ ] newdata
+- [ ] limitdata
+- [ ] catedata (/category/[cate])
+- [ ] onedata(/[pid])
+###前端
+- [ ] index
+####prop方式接收
+- [ ] launched-card 
+- [ ] filter-card
+###元件
+- [ ] launched-card找newdata
+- [ ] filter-card找limitdata
+- [ ] filter-card找catedata
 
+### 20231009
+#### 所有商品分頁
+- [v] 在filter-btn中使用 e.target.value取得select option的值，使用useEffect確保limit為最新的值，並依賴localLimit改變及時回傳到index
+- [ ] 在localLimit值更新時，回傳到filter-btn確保即時更新
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
 
 ### 問題
 
