@@ -13,7 +13,8 @@ export const AuthProviderJWT = ({ children }) => {
             email: '',
             level: '',
             created_date: '',
-        }
+        },
+        memberCoupon: [],
     })
 
     const router = useRouter()
@@ -30,9 +31,12 @@ const checkAuth = async () => {
         withCredentials: true,
       }
     )
+    const memberId = res.data.memberData.id;
+    const couponRes = await axios.get(`http://localhost:3005/memberDashboard/findMemberCoupon?memberId=${memberId}`
+    )
     if (res.data.message === 'authorized') {
       console.log('checklogin ahthorized');
-      setAuthJWT({ isAuth: true, memberData: res.data.memberData })
+      setAuthJWT({ isAuth: true, memberData: res.data.memberData, memberCoupon:[couponRes.data] })
     }
     // 可以在這裡實作跳轉
     else {
