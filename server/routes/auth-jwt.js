@@ -270,12 +270,12 @@ ${otpToken}
 router.post('/otp', async (req, res) => {
   const { email } = req.body
 
-  if (!email) return res.json({ message: 'fail to get email', code: '400' })
+  if (!email) return res.json({ message: '此信箱並未註冊過', code: '400' })
 
   // 建立otp資料表記錄，成功回傳otp記錄物件，失敗為空物件{}
   const otp = await createOtp(email)
 
-  if (!otp.token) return res.json({ message: 'otp token not found', code: '400' })
+  if (!otp.token) return res.json({ message: 'OTP碼輸入錯誤', code: '400' })
 
   // 寄送email
   const mailOptions = {
@@ -299,85 +299,26 @@ router.post('/otp', async (req, res) => {
 })
 
 // 重設密碼用
-router.post('/reset', async (req, res, next) => {
-  const { email, token, password } = req.body
-
-  if (!token) return res.json({ message: 'fail', code: '400' })
+router.post('/resetpassword', async (req, res, next) => {
+  const { email, token, newPassword } = req.body
+  // 使用 argon2.verify 驗證使用者輸入的密碼是否匹配
+  // 使用註冊時設定的 Argon2 加密哈希參數
+  const options = {
+    timeCost: 4, // 迭代次數
+    memoryCost: 2 ** 16, // 内存成本（以字節為單位）
+    parallelism: 1, // 並行性參數
+  };
+  const argon2Password = await argon2.hash(newPassword,options)
+  if (!token) return res.json({ message: '請確認token已正確輸入', code: '400' })
 
   // updatePassword中會驗証otp的存在與合法性(是否有到期)
-  const result = await updatePassword(email, token, password)
+  const result = await updatePassword(email, token, argon2Password)
 
-  if (!result) return res.json({ message: 'fail', code: '400' })
+  if (!result) return res.json({ message: '後端路由 /resetpassword 失敗', code: '400' })
 
-  return res.json({ message: 'success', code: '200' })
+  return res.json({ message: '成功修改密碼', code: '200' })
 })
 
-
-router.post('/forgotpwd', async(req, res)=>{
-  console.log('使用者填入的忘記密碼資料:',req.body)
-  const { email } = req.body
-    // 建立otp資料表記錄，成功回傳otp記錄物件，失敗為空物件{}
-    const otp = await createOtp(email)
-    if (!otp.token) return res.json({ message: 'fail', code: '400' })
-
-
-const mailOptions = {
-  from: `"良弓製販所"<${process.env.SMTP_TO_EMAIL}>`,
-  to: 'k7891532002@gmail.com',
-  subject: '良弓製販所-重新設定密碼',
-  // html: `
-  // <div>
-  //     <a href=${process.env.FRONTEND_URL}/resetPassword/${mail}>請點此處重置密碼</a>
-  //     <p>或是直接複製下列網址貼到瀏覽器上重置密碼</p>
-  //     <span>${process.env.FRONTEND_URL}/resetPassword/${mail}</span>
-  // </div>
-  //     `,
-}
-
-// 寄送
-transporter.sendMail(mailOptions, (err, response) => {
-  if (err) {
-    // 失敗處理
-    return res.status(400).json({ message: 'Failure', detail: err })
-  } else {
-    // 成功回覆的json
-    return res.json({ message: 'Success sending' })
-  }
-})
-
-// 使用 nodemailer
-// const transporter = nodemailer.createTransport({
-//   host: "smtp.forwardemail.net",
-//   port: 465,
-//   auth:{
-//     user:'k7891532002@gmai.com',
-//     pass:''
-//   }
-// })
-
-
-// 忘記密碼寄發驗證信
-// router.get('/send', function (req, res, next) {
-//   // email內容
-//   const mailOptions = {
-//     from: `"yoibow"<${process.env.SMTP_TO_EMAIL}>`,
-//     to: mail,
-//     subject: '這是一封測試電子郵件',
-//     text: `你好， \r\n通知你有關第一封郵件的事。\r\n\r\n敬上\r\n開發團隊`,
-//   }
-
-//   // 寄送
-//   transporter.sendMail(mailOptions, (err, response) => {
-//     if (err) {
-//       // 失敗處理
-//       return res.status(400).json({ message: 'Failure', detail: err })
-//     } else {
-//       // 成功回覆的json
-//       return res.json({ message: 'Success sending' })
-//     }
-//   })
-// })
-})
 // 確定上傳頭像
 router.put('/update-profile-img-confirm', async(req, res)=>{
   console.log('確定要上傳的檔名與id：',req.body);
@@ -424,7 +365,14 @@ router.put('/update-profile-img', upload.single('avatar'), async (req, res)=>{
 router.put('/update-pwd', async (req, res)=>{
   console.log(req.body);
   delete req.body.reNewPassword;
-  const hashedPassword = await argon2.hash(req.body.newPassword);
+  // 使用 argon2.verify 驗證使用者輸入的密碼是否匹配
+  // 使用註冊時設定的 Argon2 加密哈希參數
+  const options = {
+    timeCost: 4, // 迭代次數
+    memoryCost: 2 ** 16, // 内存成本（以字節為單位）
+    parallelism: 1, // 並行性參數
+  };
+  const hashedPassword = await argon2.hash(req.body.newPassword, options);
   const id = req.body.id
   const newPassword = {password:hashedPassword}
   const result = await updateUserById(newPassword,id)
