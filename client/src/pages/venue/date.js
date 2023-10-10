@@ -1,4 +1,5 @@
 import React from 'react'
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap'
 import { format } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
@@ -7,6 +8,8 @@ import 'react-day-picker/dist/style.css';
 import { zhTW } from 'date-fns/locale';
 import axios from 'axios'
 import { useRouter } from 'next/router';
+// import Reserve from './reserve';
+
 
 const css = `
 .my-selected{
@@ -16,16 +19,17 @@ const css = `
 
 `
 
-export default function ReserveDate() {
-  const [selected, setSelected] = useState();
-  const [VenueData, setVenueData] = useState(null)
+  export default function ReserveDate() {
+  const [selected, setSelected] = useState([]);
+  const [VenueData, setVenueData] = useState(null);
   const [reserveData, setReserveData] = useState(null);
-  // const [selectedDay, setSelectedDay] = useState();
 
-  const router = useRouter()
-  const { isReady } = router
-  const { id } = router.query
 
+  const router = useRouter();
+  const { isReady } = router;
+  const { id } = router.query;
+
+  const [days, setDays] = useState([]); // 創建一個新的狀態變數用於存儲日期
 
   useEffect(() => {
     async function fetchVenueData(id) {
@@ -40,25 +44,25 @@ export default function ReserveDate() {
       try {
         const response = await axios.get('http://127.0.0.1:3005/venue_reserve');
         setReserveData(response.data.allVenueReserve);
-
       } catch (error) {
         console.error('資料庫連結錯誤:', error);
       }
     }
-    if(isReady){
+    if (isReady) {
       fetchVenueData(id);
-      fetchVenueReserveData()
+      fetchVenueReserveData();
     }
-  }, [isReady])
 
-
-  // const [footer , setFooter] = useState(message)
-
-  // if (selected) {
-  //   message = <p>您所選擇的日期為</p>
-  //   setFooter(message)
-  // }
-  // const [days, setDays] = useState()
+    // 在這裡賦值日期到狀態變數
+    if (selected && selected.length > 0) {
+      const selectedDates = selected.map((selectedDate, index) => (
+        <span key={index}>{selectedDate.toLocaleDateString('zh-TW')} </span>
+      ));
+      setDays(selectedDates);
+    } else {
+      setDays(['請選擇日期']);
+    }
+  }, [isReady, selected, id]);
 
   const footer =
     selected && selected.length > 0 ? (
@@ -66,24 +70,8 @@ export default function ReserveDate() {
     ) : (
       <p>請選擇日期</p>
     );
-  // const day = 
-  //   selected && selected.length > 0  ? (
-  //     <p>You selected {selected.get(0)}.</p>
-  //   ) : (
-  //     <p>Please pick a day.</p>
-  //   );
 
-  const days =
-  selected && selected.length > 0 ? (
-      <p>
-        {/* You selected {selected.length} day(s):{' '} */}
-        {selected.map((selected, index) => (
-          <span key={index}>{selected.toLocaleDateString('zh-TW')} </span>
-        ))}
-      </p>
-    ) : (
-      <p>請選擇日期</p>
-    );
+
 
   return (
     <>
@@ -115,6 +103,7 @@ export default function ReserveDate() {
             }}
           />
         </div>
+        {/* <Reserve selected={selected} /> */}
 
 
         <div className='d-flex justify-content-center'>
@@ -123,11 +112,16 @@ export default function ReserveDate() {
               返回上一步
             </button>
           </a>
-          <a href='/venue/reserve'>
+          {/* <a href='/venue/reserve'>
             <button className='mx-4 mt-2 mb-5 reserve-bt2' type='submit'>
               下一步
             </button>
-          </a>
+          </a> */}
+          <a href={`/venue/reserve?days=${encodeURIComponent(days)}`}>
+  <button className='mx-4 mt-2 mb-5 reserve-bt2' type='submit'>
+    下一步
+  </button>
+</a>
         </div>
       </Container>
     </>
