@@ -4,8 +4,32 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faSort } from "@fortawesome/free-solid-svg-icons";
 import ModalAttr from "./modal-attr";
 import ModalSort from "./modal-sort";
-
+// note props子傳父:
+// 父元件 在引入的子元件後面加上屬性={處理子元件傳遞回來的function}
+// handle函式(接收參數)=>{要處理的事ex:更新值}
 export default function FilterBtns(props) {
+  //子元件的屬性
+  console.log(props);
+  const handleSortChange = (sortState) => {
+    // 在这里处理从子组件传递回来的 sortState
+    console.log(sortState);
+    props.setSort(sortState)
+    // 进行其他操作...
+  };
+  // ******************************
+  //篩選&排序Modal
+  const [attrModal, setAttrModal] = useState();
+  //觸發篩選modal
+  const handleAttrModal = () => {
+    setAttrModal(attrModal ? "" : <ModalAttr />);
+  };
+  const [sortModal, setSortModal] = useState();
+  //觸發排序modal
+  const handleSortModal = (sortState) => {
+    setSortModal(sortModal ? "" : <ModalSort sortChange={handleSortChange} />);
+  };
+  // ******************************
+
   // const {limit} = props;
   // 狀態用來存儲每頁幾筆狀態
   const [localLimit, setLocalLimit] = useState(props.limit);
@@ -13,29 +37,13 @@ export default function FilterBtns(props) {
     const limitValue = e.target.value;
     // setLocalLimit(limitValue)
     setLocalLimit(limitValue);
+  };
+  //每次進入網站都要回傳值給父元件index
+  useEffect(() => {
+    props.setLimit(localLimit);
 
-  };
-  // const handleInputChange = (e) => {
-  //   // 在 input 變更時更新 localLimit
-  //   setLocalLimit(e.target.value);
-  // };
-  // console.log(localLimit);
-useEffect(()=>{
-  // console.log(localLimit);
-  props.setLimit(localLimit);
-},[handleClick])
+  }, [handleClick]);
 
-  // ******************************
-  //篩選&排序Modal
-  const [attrModal, setAttrModal] = useState();
-  const handleAttrModal = () => {
-    setAttrModal(attrModal ? "" : <ModalAttr />);
-  };
-  const [sortModal, setSortModal] = useState();
-  const handleSortModal = () => {
-    setSortModal(sortModal ? "" : <ModalSort />);
-  };
-  // ******************************
   return (
     <>
       {/* btn-group */}
@@ -58,6 +66,7 @@ useEffect(()=>{
           <button
             type="button"
             className="btn btn-outline-primary"
+            // 觸發handleSortModal函式
             onClick={handleSortModal}
           >
             <FontAwesomeIcon icon={faSort} className="fa-solid fa-sort" />
@@ -73,7 +82,6 @@ useEffect(()=>{
             // 添加 onChange 事件處理函數
             // onChange={handleInputChange}
             onChange={handleClick}
-            
             // 如果你希望設定預設值，可以透過 value 屬性設定
             value={localLimit}
           >

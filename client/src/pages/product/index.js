@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
@@ -25,6 +25,7 @@ import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
 function Product() {
   // const [offset, setOffset] = useState(0);
+  const [sort, setSort] = useState('')
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [dataLength, setDataLength] = useState();
@@ -32,13 +33,13 @@ function Product() {
   const [allProduct, setAllProduct] = useState([]);
   const [product, setProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
-  // console.log(`目前offset:${offset}`);
-  console.log(`目前點選頁數:${page}`);
-  console.log(`目前顯示頁數:${limit}`);
-  console.log(`目前顯示產品:${product}`);
-  // console.log(`新上架產品:${newProduct}`);
-  console.log(`產品共${dataLength}筆`);
-  console.log(`分頁長度:${pageLength}`);
+  
+  console.log(`排序:${sort}`);
+  // console.log(`目前點選頁數:${page}`);
+  // console.log(`目前顯示頁數:${limit}`);
+  // console.log(`目前顯示產品:${product}`);
+  // console.log(`產品共${dataLength}筆`);
+  // console.log(`分頁長度:${pageLength}`);
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
   };
@@ -50,6 +51,10 @@ function Product() {
       setPage(1);
     }
   };
+  const updateSort = (newSort) => {
+    console.log(newSort);
+    setSort(newSort)
+  }
 
   useEffect(() => {
     // updateLimit();
@@ -67,76 +72,25 @@ function Product() {
           // setDataLength(length);
           // setPageLength(pageLength);
           const res = await axios.get("http://localhost:3005/product", {
-            params: { limit, page },
+            params: { limit, page, sort },
           });
-          console.log(page);
+          console.log(sort);
+          // console.log(page);
           // console.log(length);
-          console.log(pageLength);
-          console.log(limit);
+          // console.log(pageLength);
+          // console.log(limit);
           setAllProduct(res.data.alldata);
-          setProduct(res.data.pagedata);
+          setProduct(res.data.filterdata);
           setNewProduct(res.data.newdata);
         } catch (error) {
           console.log(error);
         }
       })();
     }
-  }, [dataLength, pageLength, limit, page]);
-
-  // console.log(newPage);
-
-  // console.log(filterProduct);
-  //抓所有產品和新上架產品
-  const router = useRouter();
-
-  // useEffect(() => {
-  // }, [allProduct, newProduct, limitPrdouct, filterProduct]);
-
-  //navbar搜尋產品
-  // const { results } = useProductContext();
-
-  //   const res = await axios.get(
-  //     "http://localhost:3005/product",
-  //     { cateData },
-  //     {
-  //       withCredentials: true,
-  //     }
-  //   );
-  //   console.log(res.data);
-  //   if (res.data.message === "getAllProduct success") {
-  //     setAllProduct(res.data.product);
-  //   }
-  //   console.log(allProduct);
-  // };
-
+  }, [dataLength, pageLength, limit, page, sort]);
+  // const router = useRouter();
   return (
     <>
-      {/* <ul>
-    {filterProduct.map((test)=>
-      <li key={test.id}>{test.name}</li>
-    )}
-    </ul> */}
-
-      {/* <div>
-        <h2>Product List</h2>
-        <ul>
-          {results.map((product) => (
-            <li key={product.id}>{product.name}</li>
-          ))}
-        </ul>
-      </div> */}
-      {/* {results &&
-        results.searchProducts &&
-        results.searchProducts.length > 0 && (
-          <div>
-            {" "}
-            <ul>
-              {results.searchProducts.map((product) => (
-                <li key={product.id}>{product.name}</li>
-              ))}
-            </ul>
-          </div>
-        )} */}
       {/* **************** */}
 
       <Swiper
@@ -288,7 +242,7 @@ function Product() {
               <p>所有商品</p>
             </div>
             <div className="p-0">
-              <FilterBtns limit={limit} setLimit={updateLimit} />
+              <FilterBtns limit={limit} setLimit={updateLimit} setSort={updateSort}/>
             </div>
           </div>
         </div>
@@ -306,7 +260,6 @@ function Product() {
           </Row>
         </Col>
       </Row>
-      {/* <FilterProductCard/> */}
       {/* btn */}
       <LunaPagination
         dataLength={dataLength}

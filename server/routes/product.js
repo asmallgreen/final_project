@@ -1,64 +1,60 @@
 import express from "express";
-import { getAll, getNew, getPage, searchProduct } from "../models/products.js";
+import {
+  getAll,
+  getNew,
+  getFilter,
+  searchProduct,
+} from "../models/products.js";
 
 const router = express.Router();
 
 //***********產品頁************
 router.get("/", async (req, res) => {
-  
-  const { limit, page } = req.query;
-  const limitValue = parseInt(limit)
-  const pageValue = parseInt(page)
-  // const pageLengthValue = parseInt(pageLength)
-  const offset =(pageValue-1)*limitValue
-  console.log(limitValue);
-  console.log(pageValue);
-  // console.log(pageLengthValue);
-  // console.log(limit);
-  // console.log(pageLength);
-  console.log(offset);
-  // const offset = (pageLengthValue - 1) / limitValue;
-  // console.log(req.query);
-  // const limit = req.query.limit;
-  // console.log("req.body值:", {limit});
-  // console.log("req.body值:", {offset});
-  const a = 3;
-  // console.log(a);
-  // console.log("req.query值:", localPage);
+  const { limit, page, sort } = req.query;
+  const limitValue = parseInt(limit);
+  const pageValue = parseInt(page);
+  const offset = (pageValue - 1) * limitValue;
+  let sortValue;
+  switch (sort) {
+    case "default":
+      sortValue = { id: "ASC" };
+    case "hot":
+      sortValue = { hot: "asc" };
+      break;
+    case "launched":
+      sortValue = { launched: "asc" };
+      break;
+    case "priceAsc":
+      sortValue = { price: "desc" };
+      break;
+    case "priceDesc":
+      sortValue = { price: "asc" };
+      break;
+    case "nameAZ":
+      sortValue = { name: "desc" };
+      break;
+  }
+  // const sortValue = sort : 'ASC'
+  // console.log(limitValue);
+  // console.log(pageValue);
+  // console.log(offset);
+  console.log({ sort });
+
+  // console.log(sortValue);
 
   const alldata = await getAll();
   const newdata = await getNew();
-  // const pagedata = await getPage(5, 0);
-  const pagedata = await getPage(limitValue, offset);
-  // console.log(pagedata);
+  const filterdata = await getFilter(sortValue, limitValue, offset);
+
   res.json({
     message: "getAllProduct success",
     code: "200",
-    // limit:limit,
-    // offset:offset,
-    pagedata,
+    filterdata,
     alldata,
     newdata,
   });
 });
-router.get("/:pid", async (req, res) => {
-  // const alldata = getAllProduct();
-  // console.log(alldata);
-  // const productId = req.query.id;
-  // console.log(productId);
-  // const product = productsData.find((item) => item.id === parseInt(productId));
-  // if (product) {
-  //   res.json({ productId: product.id });
-  // } else {
-  //   res.status(404).json({ error: "Product not found" });
-  // }
-  // res.json({
-  //   message: "getAllProduct success",
-  //   code: "200",
-  //   alldata,
-  //   productId,
-  // });
-});
+router.get("/:pid", async (req, res) => {});
 
 // ***********test***********
 router.get("/productInfo", async (req, res) => {

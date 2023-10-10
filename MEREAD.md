@@ -38,9 +38,7 @@
 
 #### 排序
 
-- [ ] 點擊按鈕取得${sort}，api 回傳後端
-- [ ] 後端寫判斷，使用函式(ORDER BY 'ASC')篩選出 filterdata
-- [ ] 前端 axios 接收，切換 filterData 狀態值
+
 
 #### 加入購物車
 
@@ -104,8 +102,12 @@
 
 ### 20231010
 
-- [v] 分頁dubug
-- [ ]
+#### 所有商品分頁
+- [v] 分頁dubug，慕朵庭寬測試OK
+
+#### 所有商品排序
+- [v] modal-sort點擊按鈕取得button值，更新sortState狀態，但是在onClick套用按鈕時，才將更新的sortValue用props傳到filter-btn，相同方式傳到index，最後index傳回後端product.js
+- [v] 後端product.js，將getPage函式更改為getFilter，新增order參數，用前端傳回來的sort值，判斷button值改成sql格式(ex:{price:'acs'})，篩選出filterdata
 - [ ]
 - [ ]
 - [ ]

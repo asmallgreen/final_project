@@ -15,10 +15,10 @@ import {
 const table = "product";
 // 所需的資料處理函式
 
-const getPage = async (limit, offset)=>{
+const getFilter = async (order, limit, offset)=>{
   const where = ''
-  const order = {id: 'ASC'}
-  const { rows } = await find(table, where, order,limit, offset)
+  // const order = {id: 'ASC'}
+  const { rows } = await find(where, table, order, limit, offset)
   return rows;
 
 
@@ -45,4 +45,4 @@ const searchProduct = async (where) => {
 };
 
 // 上面定義的函式都要放進來導出
-export { searchProduct, getPage, getNew, getAll };
+export { searchProduct, getFilter, getNew, getAll };
