@@ -187,12 +187,7 @@ export default function Navbar() {
           )}
         </ul>
       </div>
-      {/* 在这里显示搜索结果 */}
-      <div>
-        {searchResults.map((result) => (
-          <div key={result.id}>{result.name}</div>
-        ))}
-      </div>
+
       {/* 手機版nav */}
       <div className="phone-nav">
         <ul className="nav">

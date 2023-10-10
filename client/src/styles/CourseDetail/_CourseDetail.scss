@@ -6,7 +6,6 @@
     // background: lightgray;
     display: flex;
     align-items: center;
-
     .left {
       .course-detail-img {
         // background-image: url(https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image1.png?raw=true);
@@ -27,8 +26,7 @@
     flex-direction: column;
     .course-detail-text {
       // background: lightgoldenrodyellow;
-      //佔滿除了btns的空間
-      flex-grow: 1;
+
       .title {
         margin-top: -10px;
         font-size: 30px;

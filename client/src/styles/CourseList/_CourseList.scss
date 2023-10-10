@@ -95,71 +95,80 @@ body {
 }
 
 .course-list {
-  background: lightgray;
-  width: 100%;
-  // padding-block: 40px;
-  .course-list-item {
+  .course-list-info {
     display: flex;
-    margin: 40px;
-    .course-list-img {
-      background: lightblue;
-      width: 600px;
-      height: 400px;
-    }
-    .course-list-text {
-      background: lightyellow;
-      width: 760px;
-      height: 400px;
-      padding-inline: 40px;
-      .title {
-        font-size: 22px;
-        padding: 12px 0px;
-        font-weight: 600;
-      }
-      .intro {
-        font-size: 16px;
-        line-height: 19px;
-      }
-      .items {
-        font-style: 16px;
-        line-height: 30px;
-        letter-spacing: 0.1em;
-      }
-      .course-rating {
+    align-items: center;
+    margin-block: 50px;
+    .left {
+      .course-list-img {
+        max-width: 600px;
+        max-height: 400px;
+        overflow: hidden;
         display: flex;
-        align-items: first baseline;
-
-        .stars {
-          display: flex;
-          margin-block: 20px;
-          .star {
-            font-size: 22.5px;
-            letter-spacing: 5px;
+        img {
+          object-fit: cover;
+        }
+      }
+    }
+    .right {
+      width: calc(100% - 600px - 40px);
+      margin-left: 40px;
+      display: flex;
+      flex-direction: column;
+      .course-list-text {
+        .title {
+          // margin-top: -10px;
+          font-size: 22px;
+          font-weight: 600;
+        }
+        .intro-wrapper {
+          font-size: 16px;
+          margin-top: 20px;
+          margin-bottom: 20px;
+          min-height: 120px;
+          max-height: 120px;
+          .intro {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 5; /* number of lines to show */
+            -webkit-box-orient: vertical;
           }
         }
-        .counting {
-          font-style: 14px;
-          margin-left: 14px;
+        .course-list-items {
+          font-weight: 800;
+          font-size: 16px;
+          line-height: 30px;
+        }
+        .course-rating {
+          display: flex;
+          align-items: first baseline;
+          margin-top: 10px;
+          margin-bottom: 20px;
+          .counting {
+            font-style: 14px;
+            margin-left: 14px;
+          }
         }
       }
-      .bottom {
+      .course-list-bottom {
         display: flex;
-        align-items: flex-end;
         justify-content: space-between;
+        align-items: flex-end;
         .price {
-          font-size: 28px;
+          font-size: 35px;
           color: $accent;
           letter-spacing: 0.1em;
           margin: 0;
         }
         .moreBtn {
-            letter-spacing: 0.1em;
-            padding: 12px 0px;
-            width: 250px;
-            font: 800 14px inter;
-            background: $secondary;
-            color: $primary;
-            border-radius: 0%;
+          letter-spacing: 0.1em;
+          padding: 12px 0px;
+          width: 290px;
+          font: 800 14px inter;
+          background: $secondary;
+          color: $primary;
+          border-radius: 0%;
           &:hover {
             color: $secondary;
             background-color: $primary;
@@ -169,6 +178,101 @@ body {
     }
   }
 }
+
+// .course-list {
+//   // width: 100%;
+//   // padding-block: 40px;
+//   .course-list-item {
+//     display: flex;
+//     margin: 40px;
+//     .course-list-img {
+//       img {
+//         max-width: 600px;
+//         max-height: 400px;
+//         overflow: hidden;
+//       }
+//     }
+//     .course-list-info {
+//       width: calc(100% - 600px);
+//       // 處理btns的位置
+//       display: flex;
+//       flex-direction: column;
+//       .course-list-text {
+//         //佔滿除了btns的空間
+//         flex-grow: 1;
+//         // width: 760px;
+//         // height: 400px;
+//         padding-inline: 40px;
+//         .title {
+//           margin-block-end: 12px;
+//           font-size: 22px;
+//           font-weight: 600;
+//         }
+//         .intro {
+//           min-height: 100px;
+//           font-size: 16px;
+//           line-height: 19px;
+//           margin-block: 12px;
+//           .intro-text {
+//             overflow: hidden;
+//             text-overflow: ellipsis;
+//             display: -webkit-box;
+//             -webkit-line-clamp: 5; /* number of lines to show */
+//             -webkit-box-orient: vertical;
+//           }
+//         }
+//         .items {
+//           font-style: 16px;
+//           line-height: 30px;
+//           font-weight: 600;
+//           letter-spacing: 0.1em;
+//           margin-block: 12px;
+//         }
+//         .course-rating {
+//           display: flex;
+//           align-items: first baseline;
+
+//           .stars {
+//             display: flex;
+//             margin-block: 20px;
+//             .star {
+//               font-size: 22.5px;
+//               letter-spacing: 5px;
+//             }
+//           }
+//           .counting {
+//             font-style: 14px;
+//             margin-left: 14px;
+//           }
+//         }
+//       }
+//       .course-list-bottom {
+//         display: flex;
+//         align-items: flex-end;
+//         justify-content: space-between;
+//         .price {
+//           font-size: 28px;
+//           color: $accent;
+//           letter-spacing: 0.1em;
+//           margin: 0;
+//         }
+//         .moreBtn {
+//           letter-spacing: 0.1em;
+//           padding: 12px 0px;
+//           width: 250px;
+//           font: 800 14px inter;
+//           background: $secondary;
+//           color: $primary;
+//           border-radius: 0%;
+//           &:hover {
+//             color: $secondary;
+//             background-color: $primary;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
 
 .pagination {
   background: lightyellow;

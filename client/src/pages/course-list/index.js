@@ -1,104 +1,193 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
+import Link from "next/link";
+import { Row, Col } from "react-bootstrap";
+import FilterProductCard from "@/components/product/filter-card";
+import CourseListItemCard from "@/components/course-list/CourseListItemCard";
+import BreadCrumb from "@/components/bread-crumb/bread-crumb";
+import LunaPagination from "@/components/pagination/luna-pagination";
+import FilterBtns from "@/components/product/filter-btns";
+import LaunchedCard from "@/components/product/launched-card";
 import { Container } from "react-bootstrap";
+//AnimatedArrow
+// 廣告
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
-export default function CourseList() {
+import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
+
+function CourseList() {
+  const [limit, setLimit] = useState(5);
+  const [allCourse, setAllCourse] = useState([]);
+
+  // console.log(`目前顯示頁數:${limit}`);
+  // console.log(`所有產品:${allProduct}`);
+  // console.log(`新上架產品:${newProduct}`);
+  const updateLimit = (newLimit) => {
+    setLimit(newLimit);
+  };
+  // console.log(filterProduct);
+  //抓所有課程
+  const router = useRouter();
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      (async () => {
+        try {
+          // const newLimitData = { limit:limit}
+          const res = await axios.get("http://localhost:3005/course", {
+            params: { limit },
+          });
+          //   console.log(res.data)
+          setAllCourse(res.data.coursePageAsc);
+
+          //   // 所有商品總筆數
+          //   const dataLength = Object.entries(allProduct).length;
+          //   console.log(`資料共${dataLength}筆`);
+          //   const dataLimit = 3; // 每頁的資料限制
+          //   let pageLength;
+          //   const page = Math.ceil(dataLength / dataLimit);
+          //   // 如果資料總數小於等於每頁資料限制，只需一頁
+          //   pageLength = dataLength <= dataLimit ? 1 : page;
+          //   console.log(`總頁數: ${pageLength}`);
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    }
+  }, [router.pathname, limit]);
+
   return (
     <>
-      <div className="dm">
-        <div className="dm-img"></div>
+      <Swiper
+        spaceBetween={0}
+        slidesPerView={1}
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="mySwiper ad-swiper"
+      >
+        <SwiperSlide>
+          <Row className="ads">
+            <Col md="3" className="ad">
+              <img src="/product/top1.jpg" alt="img" />
+            </Col>
+            <Col md="6" className="ad main">
+              <img src="/product/top2.jpg" alt="img" />
+            </Col>
+            <Col md="3" className="ad">
+              <img src="/product/top3.jpg" alt="img" />
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide>
+          <Row className="ads">
+            <Col md="3" className="ad">
+              <img src="/product/top1.jpg" alt="top1.jpg" />
+            </Col>
+            <Col md="6" className="ad main">
+              <img src="/product/top2.jpg" alt="img" />
+            </Col>
+            <Col md="3" className="ad">
+              <img src="/product/top3.jpg" alt="img" />
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide>
+          <Row className="ads">
+            <Col md="3" className="ad">
+              <img src="/product/top1.jpg" alt="img" />
+            </Col>
+            <Col md="6" className="ad main">
+              <img src="/product/top2.jpg" alt="img" />
+            </Col>
+            <Col md="3" className="ad">
+              <img src="/product/top3.jpg" alt="img" />
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide>
+          <Row className="ads">
+            <Col md="3" className="ad">
+              <img src="/product/top1.jpg" alt="img" />
+            </Col>
+            <Col md="6" className="ad main">
+              <img src="/product/top2.jpg" alt="img" />
+            </Col>
+            <Col md="3" className="ad">
+              <img src="/product/top3.jpg" alt="img" />
+            </Col>
+          </Row>
+        </SwiperSlide>
+      </Swiper>
+      <div className="phone-ad">
+        <img src="/product/top1.jpg" alt="img"></img>
       </div>
-      <div className="titlearea">
-        <Container>
-          <h1>所有課程</h1>
-        </Container>
-      </div>
-      <div className="hr-line"></div>
-      <div className="nav-bar">
-        <Container className="d-flex">
-          <div className="bread-crumb">
-            <div className="breadCrumb"></div>
-          </div>
-          <div className="function-btns">
-            <div className="btn filterBtn">
-              <div className="icon"></div>
-              <p>篩選(0)</p>
+      {/* <Router> */}
+      <Swiper
+        spaceBetween={10}
+        slidesPerView={4}
+        navigation={true}
+        pagination={true}
+        modules={[Navigation, Pagination]}
+        className="mySwiper launched-product-swiper"
+      >
+        {/* {newProduct.map((data) => {
+          return (
+            <SwiperSlide>
+              <LaunchedCard key={data.id} filterNewProduct={data} />
+            </SwiperSlide>
+          );
+        })} */}
+      </Swiper>
+      {/* </Router> */}
+
+      {/* 手機板slogan */}
+      <div className="phone-slogan">SLOGAN HERE</div>
+      <div className="filter-area container-fluid">
+        <div className="container">
+          <div className="all-product">
+            <div className="p-0">
+              <p>所有課程</p>
             </div>
-            <div className="btn orderBtn">
-              <div className="icon"></div>
-              <p>排序</p>
+            <div className="p-0">
+              <FilterBtns limit={limit} setLimit={updateLimit} />
             </div>
-            <div className="btn paginationBtn">每頁顯示(15)筆</div>
           </div>
-        </Container>
+        </div>
       </div>
+      <div className="container">
+        <BreadCrumb currentCate="所有課程" />
+      </div>
+      {/* 所有產品card */}
       <div className="course-list">
         <Container>
-          <div className="course-list-item">
-            <div className="course-list-img"></div>
-            <div className="course-list-text">
-              <div className="title">初探：射法八節</div>
-              <div className="intro">
-                且而抱樹小空誰拉邊了就車吉固，蝶貓年真快。師跑亭眼；午哥兆說合眼動把習爪右安頁常許，遠校候「魚隻幾抄園」。登也身司光北具，月枝巴登寺主羽，下早急房訴玩月美夏，葉造新雄給頁來品知游後大飽。圓河毛夕文員快犬訴貝苦坐反再良點實。歡男米己去雲原。
-              </div>
-              <div className="items">
-                <br />
-                人數限制：25人
-                <br />
-                報名截止：2023-00-00
-                <br />
-                課程時間：2023-00-00 — 2023-00-00
-              </div>
-              <div className="course-rating">
-                <div className="stars">
-                  <div className="star">1</div>
-                  <div className="star">2</div>
-                  <div className="star">3</div>
-                  <div className="star">4</div>
-                  <div className="star">5</div>
-                </div>
-                <div className="counting">888人已評價</div>
-              </div>
-              <div className="bottom">
-                <h2 className="price">NT$8000</h2>
-                <div className="btn moreBtn">詳細資訊</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="course-list-item">
-            <div className="course-list-img"></div>
-            <div className="course-list-text">
-              <div className="title">初探：射法八節</div>
-              <div className="intro">
-                且而抱樹小空誰拉邊了就車吉固，蝶貓年真快。師跑亭眼；午哥兆說合眼動把習爪右安頁常許，遠校候「魚隻幾抄園」。登也身司光北具，月枝巴登寺主羽，下早急房訴玩月美夏，葉造新雄給頁來品知游後大飽。圓河毛夕文員快犬訴貝苦坐反再良點實。歡男米己去雲原。
-              </div>
-              <div className="items">
-                <br />
-                人數限制：25人
-                <br />
-                報名截止：2023-00-00
-                <br />
-                課程時間：2023-00-00 — 2023-00-00
-              </div>
-              <div className="course-rating">
-                <div className="stars">
-                  <div className="star">1</div>
-                  <div className="star">2</div>
-                  <div className="star">3</div>
-                  <div className="star">4</div>
-                  <div className="star">5</div>
-                </div>
-                <div className="counting">888人已評價</div>
-              </div>
-              <div className="bottom">
-                <h2 className="price">NT$8000</h2>
-                <div className="btn moreBtn">詳細資訊</div>
-              </div>
-            </div>
-          </div>
+          {allCourse.map((data) => {
+            console.log(data);
+            return <CourseListItemCard key={data.id} CourseData={data} />;
+          })}
         </Container>
       </div>
-      <div className="pagination"></div>
+      {/* <FilterProductCard/> */}
+      {/* btn */}
+      <LunaPagination />
+      {/* 優惠專區 */}
+
+      <div className="product-under-space"></div>
+
+      {/* *************TEST**************** */}
+      <p></p>
     </>
   );
 }
+export default CourseList;
