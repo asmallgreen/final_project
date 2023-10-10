@@ -197,7 +197,9 @@ export default function StepOne({ setstepType }) {
               onClick={() => {
                 sendData();
 
-              }}>下一步</button>
+              }}
+              disabled={cart.totalItems === 0}
+              >下一步</button>
           </span>
 
         </div>

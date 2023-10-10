@@ -17,9 +17,9 @@ router.post('/', async (req, res) =>{
     })
 });
 
-// router.get('/findAllCart', async (req, res)=> {
-    
-// });
+router.get('/findAllCart', async (req, res)=> {
+    res.send('findAllCart')
+});
 
 
 
