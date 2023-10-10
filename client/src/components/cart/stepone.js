@@ -4,7 +4,8 @@ import { Container, Col } from "react-bootstrap";
 import { useProductCart } from "@/hooks/use-product-cart";
 import { useCourseCart } from "@/hooks/use-course-cart";
 
-import List from '@/components/cart/product-list.js'
+import ProductList from "@/components/cart/product-list.js";
+import CourseList from "@/components/cart/course-list.js";
 
 export default function StepOne({ setstepType }) {
   const sendData = () => {
@@ -36,6 +37,68 @@ export default function StepOne({ setstepType }) {
 
   return (
     <Container>
+      <div>{/* 以下為測試按鈕 */}
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            addProduct({
+              id: "1",
+              name: "商品1",
+              detail_1: "紅色",
+              detail_2: "火雞毛",
+              detail_3: "30公分",
+              quantity: 1,
+              price: 200,
+            });
+          }}
+        >
+          add product (id=1, x1)
+        </button>
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            addProduct({
+              id: "22",
+              name: "商品22",
+              detail_1: "金屬",
+              detail_2: "300吋",
+              detail_3: "1945",
+              quantity: 1,
+              price: 5000,
+            });
+          }}
+        >
+          add product (id=22, x1)
+        </button>
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            addCourse({
+              id: "1",
+              name: "課程1",
+              quantity: 1,
+              price: 81000,
+              // quantity不可省略，要計算total
+            });
+          }}
+        >
+          add course (id=1)
+        </button>
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => {
+            addCourse({
+              id: "55",
+              name: "課程55",
+              quantity: 1,
+              price: 55,
+              // quantity不可省略，要計算total
+            });
+          }}
+        >
+          add course (id=55)
+        </button>
+      </div>
       <div className="listTitle">
         <Col xs={1}>
           <input type="checkbox" className="expand pcDNone" />
@@ -65,52 +128,9 @@ export default function StepOne({ setstepType }) {
           <span className="phoneDNone">小計</span>
         </Col>
       </div>
-      <List />
+      <ProductList />
       <div className="productList">
         <div>
-          <button
-            className="btn btn-outline-secondary"
-            onClick={() => {
-              addProduct({
-                id: "1",
-                detail_1: "紅色",
-                detail_2: "火雞毛",
-                detail_3: "30公分",
-                quantity: 1,
-                price: 200,
-              });
-            }}
-          >
-            add product (id=1, x1)
-          </button>
-          <button
-            className="btn btn-outline-secondary"
-            onClick={() => {
-              addProduct({
-                id: "22",
-                detail_1: "金屬",
-                detail_2: "300吋",
-                detail_3: "1945",
-                quantity: 1,
-                price: 5000,
-              });
-            }}
-          >
-            add product (id=22, x1)
-          </button>
-          <button
-            className="btn btn-outline-secondary"
-            onClick={() => {
-              addCourse({
-                id: "1",
-                quantity: 1,
-                price: 81000,
-                // quantity不可省略，要計算total
-              });
-            }}
-          >
-            add course (id=1, price=81000)
-          </button>
           <button className="deleteBtn">刪除</button>
           <div className="couponSection">
             <select>
@@ -154,6 +174,7 @@ export default function StepOne({ setstepType }) {
           <span className="phoneDNone">小計</span>
         </Col>
       </div>
+      <CourseList />
       <div className="productList">
         <Col>
           <button className="deleteBtn">刪除</button>

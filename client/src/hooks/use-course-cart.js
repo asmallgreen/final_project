@@ -63,11 +63,15 @@ export const CourseCartProvider = ({
      * @returns {void}
      */
     const addCourse = (item) => {
-      dispatch({
-        type: 'ADD_ITEM',
-        payload: item,
-      })
-    }
+      if (isInCourseCart(item.id)) {
+        alert(`課程 ${item.id} 已存在於購物車中`);
+      } else {
+        dispatch({
+          type: 'ADD_ITEM',
+          payload: item,
+        });
+      }
+    };
   
     /**
      * 給定一id值，將這商品移出陣列中

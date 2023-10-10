@@ -32,6 +32,7 @@ export default function List() {
           <tr>
             <th>id</th>
             <th>名稱</th>
+            <th>規格</th>
             <th>單價</th>
             <th>數量</th>
             <th>小計</th>
@@ -44,6 +45,11 @@ export default function List() {
               <tr key={v.id}>
                 <td>{v.id}</td>
                 <td>{v.name} </td>
+                <td>
+                  <div>{v.detail_1}</div>
+                  <div>{v.detail_2}</div>
+                  <div>{v.detail_3}</div>
+                </td>
                 <td>{v.price}</td>
                 <td>
                   <div className="btn-group mr-2" role="group">
