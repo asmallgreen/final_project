@@ -3,6 +3,7 @@ import {
   getAll,
   getNew,
   getFilter,
+  getOne,
   searchProduct,
 } from "../models/products.js";
 
@@ -34,13 +35,6 @@ router.get("/", async (req, res) => {
       sortValue = { name: "desc" };
       break;
   }
-  // const sortValue = sort : 'ASC'
-  // console.log(limitValue);
-  // console.log(pageValue);
-  // console.log(offset);
-  console.log({ sort });
-
-  // console.log(sortValue);
 
   const alldata = await getAll();
   const newdata = await getNew();
@@ -54,7 +48,25 @@ router.get("/", async (req, res) => {
     newdata,
   });
 });
-router.get("/:pid", async (req, res) => {});
+router.get("/:pid", async (req, res) => {
+  const id = req.params.pid;
+  // console.log('req.query:', req.query);
+  console.log(id);
+// const where = {id:2}
+const where = {id:id}
+  // const alldata = await getAll();
+  const data = await getOne(where)
+  // const filterdata = await getFilter(sortValue, limitValue, offset);
+
+  res.json({
+    message: "getAllProduct success",
+    code: "200",
+    // filterdata,
+    // alldata,
+    data,
+   
+  });
+});
 
 // ***********test***********
 router.get("/productInfo", async (req, res) => {

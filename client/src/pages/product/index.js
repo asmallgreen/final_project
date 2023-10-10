@@ -25,21 +25,25 @@ import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
 function Product() {
   // const [offset, setOffset] = useState(0);
-  const [sort, setSort] = useState('')
+  const [sort, setSort] = useState("");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [dataLength, setDataLength] = useState();
-  const [pageLength, setPageLength] = useState(1);
+  const [pageLength, setPageLength] = useState();
   const [allProduct, setAllProduct] = useState([]);
   const [product, setProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
-  
+
   console.log(`排序:${sort}`);
   // console.log(`目前點選頁數:${page}`);
   // console.log(`目前顯示頁數:${limit}`);
   // console.log(`目前顯示產品:${product}`);
   // console.log(`產品共${dataLength}筆`);
   // console.log(`分頁長度:${pageLength}`);
+  console.log(allProduct);
+  console.log(dataLength);
+  console.log(pageLength);
+
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
   };
@@ -53,32 +57,18 @@ function Product() {
   };
   const updateSort = (newSort) => {
     console.log(newSort);
-    setSort(newSort)
-  }
-
-  useEffect(() => {
-    // updateLimit();
-    // updatePage();
-  }, []);
-
+    setSort(newSort);
+  };
   useEffect(() => {
     if (typeof window !== "undefined") {
       (async () => {
         try {
-          setDataLength(Object.entries(allProduct).length)
-          // const length = Object.entries(allProduct).length;
-          setPageLength(Math.ceil(dataLength / limit))
-          // const pageLength = Math.ceil(length / limit);
-          // setDataLength(length);
-          // setPageLength(pageLength);
+          setDataLength(Object.entries(allProduct).length);
+          setPageLength(Math.ceil(dataLength / limit));
           const res = await axios.get("http://localhost:3005/product", {
             params: { limit, page, sort },
           });
           console.log(sort);
-          // console.log(page);
-          // console.log(length);
-          // console.log(pageLength);
-          // console.log(limit);
           setAllProduct(res.data.alldata);
           setProduct(res.data.filterdata);
           setNewProduct(res.data.newdata);
@@ -88,6 +78,9 @@ function Product() {
       })();
     }
   }, [dataLength, pageLength, limit, page, sort]);
+
+
+
   // const router = useRouter();
   return (
     <>
@@ -242,7 +235,11 @@ function Product() {
               <p>所有商品</p>
             </div>
             <div className="p-0">
-              <FilterBtns limit={limit} setLimit={updateLimit} setSort={updateSort}/>
+              <FilterBtns
+                limit={limit}
+                setLimit={updateLimit}
+                setSort={updateSort}
+              />
             </div>
           </div>
         </div>

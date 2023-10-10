@@ -104,22 +104,24 @@
 
 #### 所有商品分頁
 - [v] 分頁dubug，慕朵庭寬測試OK
-
 #### 所有商品排序
 - [v] modal-sort點擊按鈕取得button值，更新sortState狀態，但是在onClick套用按鈕時，才將更新的sortValue用props傳到filter-btn，相同方式傳到index，最後index傳回後端product.js
 - [v] 後端product.js，將getPage函式更改為getFilter，新增order參數，用前端傳回來的sort值，判斷button值改成sql格式(ex:{price:'acs'})，篩選出filterdata
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
+#### 商品詳情
+- [v] 從/product/index.js的卡片連結至[:pid]
+- [v] 使用useRouter取得網址(商品id)，回傳id值到後端getOne函式選出對應id商品資料
+- [v] UI資料連接資料庫
+- [ ] 按鈕切換狀態
+    - [ ] 數量+/-改變數字狀態
+    - [ ] 
+    - [ ] 
+    - [ ] 
+    - [ ] 
+
 
 ### 問題
 
--
--
--
--
--
+- [ ] 重整網頁時luna-pagination無法即時取得pageLength，導致按鈕陣列為空值，改變limit值後可以
+- [ ] luna-pagination的handlePrev/handleNext函式中的pageLength無法被及時更新，點選後不變
+- [ ]
+- [ ]
