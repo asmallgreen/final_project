@@ -17,6 +17,12 @@ const getCart = async () => {
     return rows
 }
 
+const getOrder = async () =>{
+    const { rows } = await find("order_list")
+    return rows
+}
+
 export {
-    getCart
+    getCart,
+    getOrder
 }

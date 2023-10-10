@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Col, Form } from 'react-bootstrap';
 import SweetAlert2 from 'react-sweetalert2';
+import { useCart } from '@/hooks/use-cart';
 
 export default function StepThree({ setstepType }) {
+
+  const { cart } = useCart();
 
   const [swalProps, setSwalProps] = useState({});
 

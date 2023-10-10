@@ -25,7 +25,7 @@ export const initialState = {
   const setChecked = (state, action) => {
 
     for(let i = 0; i < state.items.length; i++){
-      console.log(555)
+      
       if(state.items[i].id === action.payload.id){
         console.log( state.items[i])
         state.items[i].isChecked = action.payload.isChecked

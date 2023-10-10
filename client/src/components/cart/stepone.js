@@ -4,19 +4,30 @@ import List from '@/components/cart/list';
 import { useCart } from '@/hooks/use-cart';
 import { reducer } from '@/hooks/cart-reducer.js'
 
-export default function StepOne({ setstepType }) {
 
-  const { cart, removeItem, items, setChecked } = useCart();
+export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmount }) {
+
+  const { cart, removeItem, setChecked } = useCart();
 
   const [selectedValue, setSelectedValue] = useState(1);
 
-  const discountPrice = selectedValue > 1 &&  cart.productTotal > selectedValue ? cart.productTotal - selectedValue : cart.productTotal * selectedValue
+  const discountPrice = selectedValue > 1 && cart.productTotal > selectedValue ? Number(cart.productTotal - selectedValue) : Number(cart.productTotal * selectedValue)
+
+
+
+  const discountAmount = selectedValue > 1 ? Number(selectedValue) : Number(cart.productTotal - cart.productTotal * selectedValue)
+
+ 
 
   const handleSelectChange = (event) => {
     const selectedOptionValue = event.target.value; // 获取选中的<option>的值
     setSelectedValue(selectedOptionValue); // 更新状态变量的值
+    
   };
-
+  const sendDiscount=()=>{
+    setDiscountPrice(discountPrice)
+    setDiscountAmount(discountAmount)
+  }
 
 
 
@@ -30,10 +41,10 @@ export default function StepOne({ setstepType }) {
     let itemid = +thisEle.getAttribute("data-itemid")
     let isChecked = thisEle.checked
 
-    setChecked(itemid,isChecked)
+    setChecked(itemid, isChecked)
     // console.log(items)
     //setCheckValue();
-    
+
   };
 
   return (
@@ -106,7 +117,10 @@ export default function StepOne({ setstepType }) {
               <option value={200}>折200</option>
               <option value={0.8}>8折</option>
             </select>
-            <span>{`共${cart.productTotalItems}項 , 商品小計${discountPrice} 元`}</span>
+            <span
+
+
+            >{`共${cart.productTotalItems}項 , 商品小計${discountPrice} 元`}</span>
           </div>
         </Col>
       </div>
@@ -173,12 +187,13 @@ export default function StepOne({ setstepType }) {
             onChange={(event) => {
               let thisChk = event.target
 
-            document.querySelectorAll('.cartChk').forEach(function (element) {
+              document.querySelectorAll('.cartChk').forEach(function (element) {
 
-              element.checked = thisChk.checked
-              setChecked(+element.getAttribute("data-itemid"), thisChk.checked)
+                element.checked = thisChk.checked
+                setChecked(+element.getAttribute("data-itemid"), thisChk.checked)
 
-            })
+              })
+
             }}
           />
           {`全選`}
@@ -187,8 +202,11 @@ export default function StepOne({ setstepType }) {
           <div>{`總金額(共${cart.totalItems}項)`}
             <span>${`${discountPrice + cart.courseTotal}`}</span>
           </div>
-          <div className='discount'>
-            {`優惠券折抵 $ `}{`${selectedValue > 1 ? selectedValue : cart.productTotal - Number(cart.productTotal * selectedValue)}`}
+          <div
+            className='discount'
+
+          >
+            {`優惠券折抵 $ `}{`${discountAmount}`}
           </div>
           <span className=''>
             <span>{`確認訂單金額    `}</span>
@@ -196,10 +214,10 @@ export default function StepOne({ setstepType }) {
               className='nextStepBtn'
               onClick={() => {
                 sendData();
-
+                sendDiscount();
               }}
               disabled={cart.totalItems === 0}
-              >下一步</button>
+            >下一步</button>
           </span>
 
         </div>

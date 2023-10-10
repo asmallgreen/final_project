@@ -1,6 +1,5 @@
 import React, { useReducer, useContext, createContext, useEffect , useState} from 'react'
 import { reducer, init } from './cart-reducer.js'
-import List from '@/components/cart/list.js'
 
 
 const CartContext = createContext()

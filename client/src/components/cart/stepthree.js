@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Form, Col } from 'react-bootstrap';
+import { useCart } from '@/hooks/use-cart';
 
 export default function StepThree({ setstepType }) {
+
+  const { cart } = useCart();
 
   const sendData = (n) => {
     // 在子组件中调用父组件传递的回调函数，并传递数据

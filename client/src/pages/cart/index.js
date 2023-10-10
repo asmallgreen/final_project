@@ -1,4 +1,4 @@
-import React, { useState ,useEffect ,useContext ,createContext } from 'react';
+import React, { useState, useEffect, useContext, createContext } from 'react';
 import axios from 'axios';
 import { CartProvider } from '@/hooks/use-cart'
 
@@ -13,31 +13,35 @@ import { useCart } from '@/hooks/use-cart.js';
 
 export default function Index() {
 
-  
+
   const [cartList, setCartList] = useState([])
   useEffect(() => {
-    axios.post('http://localhost:3005/cart' , {test:'123'})
-    .then((res) => {
-      console.log(res.data.cartList)
-      setCartList(res.data.cartList)
-    
-      
+    axios.post('http://localhost:3005/cart')
+      .then((res) => {
 
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+        setCartList(res.data.cartList)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }, [])
 
+
+
+  const [discountPrice, setDiscountPrice] = useState(0)
+
+  const [discountAmount, setDiscountAmount] = useState(0)
+
   const [stepType, setStepType] = useState(1)
-  
+
   const handleStepChange = (newStep) => {
     setStepType(newStep);
   };
   return (
     <Container fluid={"xxl"}>
-    
-    
+
+
+
       <Row className="stepBar">
         <Col className={`step ${stepType === 1 && 'nowStep'}`}>
           <div className="stepBox">
@@ -81,13 +85,13 @@ export default function Index() {
         </Col>
       </Row>
       <CartProvider cartList={cartList}>
-      {stepType === 1 && <StepOne setstepType={handleStepChange} />}
-      {stepType === 2 && <StepTwo setstepType={handleStepChange} />}
-      {stepType === 3 && <StepThree setstepType={handleStepChange} />}
-      {stepType === 4 && <StepFour setstepType={handleStepChange} />}
-      
+        {stepType === 1 && <StepOne setstepType={handleStepChange} setDiscountPrice={setDiscountPrice} setDiscountAmount={setDiscountAmount} />}
+        {stepType === 2 && <StepTwo setstepType={handleStepChange} discountPrice={discountPrice} discountAmount={discountAmount} />}
+        {stepType === 3 && <StepThree setstepType={handleStepChange} discountPrice={discountPrice} discountAmount={discountAmount} />}
+        {stepType === 4 && <StepFour setstepType={handleStepChange} discountPrice={discountPrice} discountAmount={discountAmount} />}
+
       </CartProvider>
-    
+
     </Container>
   );
 }

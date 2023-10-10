@@ -8,11 +8,6 @@ export default function List({ mode }) {
   // 使用hooks 解出所需的狀態與函式(自context)
   const { cart, items, plusOne, minusOne, removeItem ,setChecked} = useCart()
 
-
-
-
-  
-
   const handleCheckboxChange = (event) => {
     let thisEle = event.target
     let itemid = +thisEle.getAttribute("data-itemid")
@@ -43,7 +38,7 @@ export default function List({ mode }) {
   const newItems = items.filter((v, i) => {
     return v[mode + "_id"] !== null
   })
- console.log(newItems)
+
 
   return (
     <>
@@ -59,6 +54,8 @@ export default function List({ mode }) {
               className='expand cartChk'
               onChange={handleCheckboxChange}
 
+              checked={v.isChecked ? v.isChecked : ''}
+              
             /></Col>
             <Col>{v.id}</Col>
             <Col className={mode === 'course' ? 'd-none' : ''}>
