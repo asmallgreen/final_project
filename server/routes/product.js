@@ -3,50 +3,45 @@ import { getAll, getNew, getPage, searchProduct } from "../models/products.js";
 
 const router = express.Router();
 
-// let limitValue;
-
-// 每頁顯示幾筆
-// router.use(express.json());
-// router.post("/", async (req, res) => {
-//    limitValue = req.body.limit;
-  
-//   res.json({
-//     msg: "success",
-//     code: 200,
-//     limitdata
-//   });
-//   console.log(limitValue);
-//   console.log(limitdata);
-// });
-
 //***********產品頁************
 router.get("/", async (req, res) => {
-  const limit = req.query.limit;
-  console.log('req.body值:',limit);
-
   
-  // const launchdata = await alldata.filter((data) => data.launched === 1);
+  const { limit, page } = req.query;
+  const limitValue = parseInt(limit)
+  const pageValue = parseInt(page)
+  const offset =(pageValue-1)*limitValue
+  console.log(limitValue);
+  console.log(pageValue);
+  console.log(offset);
+  // const offset = (page - 1) / limit;
+  // console.log(req.query);
+  // const limit = req.query.limit;
+  // console.log("req.body值:", {limit});
+  // console.log("req.body值:", {offset});
+  const a = 3;
+  // console.log(a);
+  // console.log("req.query值:", localPage);
+
   const alldata = await getAll();
-  const newdata = await getNew()
-  const pagedata = await getPage(limit,2)
-// console.log(pagedata);
+  const newdata = await getNew();
+  const pagedata = await getPage(limit, offset);
+  // console.log(pagedata);
   res.json({
     message: "getAllProduct success",
     code: "200",
+    // limit:limit,
+    // offset:offset,
+    pagedata,
     alldata,
-    // launchdata,
     newdata,
-    pagedata
   });
 });
 router.get("/:pid", async (req, res) => {
-
   // const alldata = getAllProduct();
   // console.log(alldata);
   // const productId = req.query.id;
   // console.log(productId);
   // const product = productsData.find((item) => item.id === parseInt(productId));
-
   // if (product) {
   //   res.json({ productId: product.id });
   // } else {
@@ -58,15 +53,12 @@ router.get("/:pid", async (req, res) => {
   //   alldata,
   //   productId,
   // });
-
-
 });
-
 
 // ***********test***********
 router.get("/productInfo", async (req, res) => {
   // const productId = alldata.filter(data=>data.id)
-  const aa = req.query;
+  // const aa = req.query;
   const alldata = await getAllProduct();
   // console.log(aa);
   res.json({

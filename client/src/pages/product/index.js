@@ -24,16 +24,29 @@ import "swiper/css/navigation";
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
 function Product() {
+  // const [offset, setOffset] = useState(0);
+  const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
+  const [dataLength, setDataLength] = useState();
+  const [pageLength, setPageLength] = useState(1);
   const [allProduct, setAllProduct] = useState([]);
+  const [product, setProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
-
- 
-  // console.log(`目前顯示頁數:${limit}`);
-  // console.log(`所有產品:${allProduct}`);
+  // console.log(`目前offset:${offset}`);
+  console.log(`目前點選頁數:${page}`);
+  console.log(`目前顯示頁數:${limit}`);
+  console.log(`目前顯示產品:${product}`);
   // console.log(`新上架產品:${newProduct}`);
+  // console.log(`產品共${dataLength}筆`);
+  // console.log(`分頁長度:${pageLength}`);
+
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
+
+  };
+  const updatePage = (newPage) => {
+    setPage(newPage);
+    // console.log(newPage);
   };
   // console.log(filterProduct);
   //抓所有產品和新上架產品
@@ -41,30 +54,37 @@ function Product() {
   useEffect(() => {
     if (typeof window !== "undefined") {
       (async () => {
+
+        
         try {
-          // const newLimitData = { limit:limit}
-          const res = await axios.get("http://localhost:3005/product",{params:{limit}});
-          
-          setAllProduct(res.data.pagedata);
+          const res = await axios.get("http://localhost:3005/product", {
+            params: { limit, page },
+          });
+          console.log(page);
+          console.log(limit);
+          setAllProduct(res.data.alldata);
+          setProduct(res.data.pagedata);
           setNewProduct(res.data.newdata);
-          
-          
+
           // 所有商品總筆數
-          const dataLength = Object.entries(allProduct).length;
-          console.log(`資料共${dataLength}筆`);
-          const dataLimit = 3; // 每頁的資料限制
-          let pageLength;
-          const page = Math.ceil(dataLength / dataLimit);
-          // 如果資料總數小於等於每頁資料限制，只需一頁
-          pageLength = dataLength <= dataLimit ? 1 : page;
-          console.log(`總頁數: ${pageLength}`);
-          
+          const length = Object.entries(allProduct).length;
+          setDataLength(length);
+          //共幾頁
+          const pageValue = Math.ceil(dataLength / limit);
+          // setPage(pageValue)
+          // console.log(pageValue);
+          // 如果總筆數/顯示筆數有餘數則+1
+          const pageLength = dataLength % limit ? pageValue : pageValue + 1;
+          setPageLength(pageLength);
+          // const offsetValue = (pageValue - 1) * limit;
+          // setOffset(offsetValue);
+          // console.log(offsetValue);
         } catch (error) {
           console.log(error);
         }
       })();
     }
-  }, [router.pathname,limit]);
+  }, [router.pathname,limit,page]);
   // useEffect(() => {
   // }, [allProduct, newProduct, limitPrdouct, filterProduct]);
 
@@ -276,7 +296,7 @@ function Product() {
       <Row className="filter-cards-area">
         <Col md="auto" className="filter-cards">
           <Row className="rows">
-            {allProduct.map((data) => {
+            {product.map((data) => {
               return <FilterProductCard key={data.id} filterProduct={data} />;
             })}
           </Row>
@@ -284,7 +304,13 @@ function Product() {
       </Row>
       {/* <FilterProductCard/> */}
       {/* btn */}
-      <LunaPagination />
+      <LunaPagination
+        dataLength={dataLength}
+        pageLength={pageLength}
+        setPage={updatePage}
+        // setPage={page}
+      />
+      {/* setPage={updatePage} */}
       {/* 優惠專區 */}
       <div className="product-page-title">
         <p>優惠專區</p>

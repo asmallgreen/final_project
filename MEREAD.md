@@ -15,9 +15,6 @@
 - [ ] 相關商品推薦條件?
 - [V] 點擊卡片切換到商品詳情
 
-
-
-
 ### 產品分類(點擊分類:更改網址、列出該類別所有商品)
 
 - [ ] button 設定路由:/product/category/${tpye}點擊更改網址
@@ -31,15 +28,6 @@
 - [ ]
 - [ ]
 
-#### 每頁顯示幾筆
-
-- [ ] 已取得${limit}，api 傳送到後端
-- [ ] 函式(WHERE id LIMIT ${limit})篩選成 filterdata，用 axios 發送請求儲存到 filterData
-
-#### 分頁()
-
-- [ ] 按鈕的頁數狀態
-- [ ] 更新 filterData 狀態
 
 #### 篩選
 
@@ -66,47 +54,56 @@
 ### 產品詳情
 
 #### 頁面渲染(取得商品類別對應的屬性)
-- [ ] useRouter取得${id}
-- [ ] api回傳${id}，找出對應category_id，關聯資料表
+
+- [ ] useRouter 取得${id}
+- [ ] api 回傳${id}，找出對應 category_id，關聯資料表
+
 #### 點擊按鈕取值
+
 #### 加入購物車
+
 #### 加入收藏
 
-##筆記
-###後端data
-- [ ] alldata
-- [ ] newdata
-- [ ] limitdata
+## 筆記
+
+### 後端 data
+
+- [v] alldata
+- [v] newdata
 - [ ] catedata (/category/[cate])
 - [ ] onedata(/[pid])
-###前端
-- [ ] index
-####prop方式接收
-- [ ] launched-card 
-- [ ] filter-card
-###元件
-- [ ] launched-card找newdata
-- [ ] filter-card找limitdata
-- [ ] filter-card找catedata
+
+### 前端
+#### prop 方式接收
+
+- launched-card
+- filter-card
+
+### 元件
+
+- launched-card 找 newdata
+- filter-card 找 limitdata
+- filter-card 找 catedata
 
 ### 20231009
-#### 所有商品，每頁顯示limit筆
-- [v] 在filter-btn中使用 e.target.value取得select option的值，使用useEffect確保limit為最新的值，並依賴localLimit改變及時回傳到index
-- [v] 在localLimit值更新時，回傳到filter-btn確保即時更新
-- [v] 用axios回傳，req.query將limit值傳至modal的product.js，在index用useEffet將limit放入依賴，確保每次更新product.js也能更新 
-- [v] product中的limit放入getPage函式中，的參數改變資料庫篩選條件
+
+#### 所有商品，每頁顯示 limit 筆
+
+- [v] 在 filter-btn 中使用 e.target.value 取得 select option 的值，使用 useEffect 確保 limit 為最新的值，並依賴 localLimit 改變及時回傳到 index
+- [v] 在 localLimit 值更新時，回傳到 filter-btn 確保即時更新
+- [v] 用 axios 回傳，req.query 將 limit 值傳至 modal 的 product.js，在 index 用 useEffet 將 limit 放入依賴，確保每次更新 product.js 也能更新
+- [v] product 中的 limit 放入 getPage 函式中，的參數改變資料庫篩選條件
 
 #### 所有商品分頁
-- [ ] 先處理頁籤
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] Object.entries(allProduct).length抓出所有產品筆數
-- [ ] Math.ceil計算分頁，判斷餘數大於0時，page+1
-- [ ] 
-- [ ] 
-- [ ] 
-- [ ] 
+
+- [v] Object.entries(allProduct).length 抓出所有產品筆數
+- [v] luna-pagination 用迴圈 push 出頁數陣列 pageIndex，在用 map 建立 button 標籤
+- [v] 建立公式(Math.ceil 計算分頁，判斷餘數大於 0 時，page+1)
+- [v] 點擊 button 時取得 page 的值，傳回 index 再由 index 回傳{limit, page}至後端 req.query
+- [v] 在後端計算，用 parseInt 確保回傳值為整數，將計算出的 offset 值帶入 getPage()
+
+### 20231010
+
 ### 問題
 
 -

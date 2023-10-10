@@ -19,7 +19,7 @@ export default function FilterBtns(props) {
   //   // 在 input 變更時更新 localLimit
   //   setLocalLimit(e.target.value);
   // };
-  console.log(localLimit);
+  // console.log(localLimit);
 useEffect(()=>{
   // console.log(localLimit);
   props.setLimit(localLimit);
