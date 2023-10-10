@@ -9,11 +9,15 @@ router.get("/", async (req, res) => {
   const { limit, page } = req.query;
   const limitValue = parseInt(limit)
   const pageValue = parseInt(page)
+  // const pageLengthValue = parseInt(pageLength)
   const offset =(pageValue-1)*limitValue
   console.log(limitValue);
   console.log(pageValue);
+  // console.log(pageLengthValue);
+  // console.log(limit);
+  // console.log(pageLength);
   console.log(offset);
-  // const offset = (page - 1) / limit;
+  // const offset = (pageLengthValue - 1) / limitValue;
   // console.log(req.query);
   // const limit = req.query.limit;
   // console.log("req.body值:", {limit});
@@ -24,7 +28,8 @@ router.get("/", async (req, res) => {
 
   const alldata = await getAll();
   const newdata = await getNew();
-  const pagedata = await getPage(limit, offset);
+  // const pagedata = await getPage(5, 0);
+  const pagedata = await getPage(limitValue, offset);
   // console.log(pagedata);
   res.json({
     message: "getAllProduct success",

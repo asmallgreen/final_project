@@ -37,54 +37,58 @@ function Product() {
   console.log(`目前顯示頁數:${limit}`);
   console.log(`目前顯示產品:${product}`);
   // console.log(`新上架產品:${newProduct}`);
-  // console.log(`產品共${dataLength}筆`);
-  // console.log(`分頁長度:${pageLength}`);
-
+  console.log(`產品共${dataLength}筆`);
+  console.log(`分頁長度:${pageLength}`);
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
-
   };
   const updatePage = (newPage) => {
-    setPage(newPage);
-    // console.log(newPage);
+    console.log(newPage);
+    if (newPage !== undefined) {
+      setPage(newPage);
+    } else {
+      setPage(1);
+    }
   };
-  // console.log(filterProduct);
-  //抓所有產品和新上架產品
-  const router = useRouter();
+
+  useEffect(() => {
+    // updateLimit();
+    // updatePage();
+  }, []);
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       (async () => {
-
-        
         try {
+          setDataLength(Object.entries(allProduct).length)
+          // const length = Object.entries(allProduct).length;
+          setPageLength(Math.ceil(dataLength / limit))
+          // const pageLength = Math.ceil(length / limit);
+          // setDataLength(length);
+          // setPageLength(pageLength);
           const res = await axios.get("http://localhost:3005/product", {
             params: { limit, page },
           });
           console.log(page);
+          // console.log(length);
+          console.log(pageLength);
           console.log(limit);
           setAllProduct(res.data.alldata);
           setProduct(res.data.pagedata);
           setNewProduct(res.data.newdata);
-
-          // 所有商品總筆數
-          const length = Object.entries(allProduct).length;
-          setDataLength(length);
-          //共幾頁
-          const pageValue = Math.ceil(dataLength / limit);
-          // setPage(pageValue)
-          // console.log(pageValue);
-          // 如果總筆數/顯示筆數有餘數則+1
-          const pageLength = dataLength % limit ? pageValue : pageValue + 1;
-          setPageLength(pageLength);
-          // const offsetValue = (pageValue - 1) * limit;
-          // setOffset(offsetValue);
-          // console.log(offsetValue);
         } catch (error) {
           console.log(error);
         }
       })();
     }
-  }, [router.pathname,limit,page]);
+  }, [dataLength, pageLength, limit, page]);
+
+  // console.log(newPage);
+
+  // console.log(filterProduct);
+  //抓所有產品和新上架產品
+  const router = useRouter();
+
   // useEffect(() => {
   // }, [allProduct, newProduct, limitPrdouct, filterProduct]);
 
@@ -308,7 +312,8 @@ function Product() {
         dataLength={dataLength}
         pageLength={pageLength}
         setPage={updatePage}
-        // setPage={page}
+        page={page}
+        limit={limit}
       />
       {/* setPage={updatePage} */}
       {/* 優惠專區 */}

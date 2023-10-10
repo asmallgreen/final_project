@@ -6,34 +6,43 @@ import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 export default function LunaPagination(props) {
   const router = useRouter();
   // 資料總筆數
-  const { dataLength, pageLength } = props;
-  const [localPage, setLocalPage] = useState(props.page);
-  // const [localPage, setLocalPage] = useState(1);
+  const { dataLength, pageLength, limit } = props;
 
+  // const [localPage, setLocalPage] = useState(props.page);
+  const [pageIndex, setPageIndex] = useState([]);
+  const [localPage, setLocalPage] = useState();
+  console.log("每頁顯示:", limit);
   console.log("資料筆數:", dataLength);
   console.log("總頁數:", pageLength);
   console.log("現在頁數:", localPage);
 
-  
   const getCurrentPage = (page) => {
     setLocalPage(page);
+    props.setPage(page);
   };
   useEffect(() => {
+    setLocalPage(1);
+  }, [limit]);
+  useEffect(() => {
     props.setPage(localPage);
-  }, [getCurrentPage]);
+    // getCurrentPage()
+  }, [localPage]);
+
+  useEffect(() => {
+    setPageIndex(Array.from({ length: pageLength }, (_, index) => index + 1));
+  }, [pageLength]);
+
   // 迴圈push按鈕數量
 
-  
-  
-  const pageIndex = [];
+  console.log(pageIndex);
   // setPageIndex(index);
-  for (let i = 1; i <= pageLength; i++) {
-    pageIndex.push(i);
-  }
-  useEffect(() => {
-    getCurrentPage();
-    props.setPage(localPage);
-  }, [router.pathname]);
+  // for (let i = 1; i <= pageLength; i++) {
+  //   pageIndex.push(i);
+  // }
+  // useEffect(() => {
+  //   getCurrentPage();
+  //   props.setPage(localPage);
+  // }, []);
   return (
     <>
       {/* btn */}
@@ -50,8 +59,16 @@ export default function LunaPagination(props) {
             
           })} */}
           {pageIndex.map((page) => {
-              return <button className="btn" key={page} onClick={()=>getCurrentPage(page)}>{page}</button>
-            })}
+            return (
+              <button
+                className="btn"
+                key={page}
+                onClick={() => getCurrentPage(page)}
+              >
+                {page}
+              </button>
+            );
+          })}
 
           {/* {generateButtons()} */}
           {/* <button className="btn">1</button> */}
