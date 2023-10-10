@@ -48,9 +48,18 @@ const app = express();
 // app.use(cors())
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    origin: [
+      'http://localhost:3000', 
+      'http://localhost:3001',
+      'https://accounts.google.com',
+      'https://google-login.firebaseapp.com',
+      'https://console.firebase.google.com',
+      'https://login-700a1.firebaseapp.com',
+      'login-700a1.web.app',
+      'https://login-700a1-default-rtdb.firebaseio.com'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'Other-Header'],
   })
 );
 
@@ -127,6 +136,7 @@ app.use(function (err, req, res, next) {
   app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // 允許前端網站的 URL
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
     next();
   });
   
