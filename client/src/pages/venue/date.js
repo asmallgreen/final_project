@@ -18,8 +18,8 @@ const css = `
 
 export default function ReserveDate() {
   const [selected, setSelected] = useState();
-  // const [VenueData, setVenueData] = useState(null)
-  // const [reserveData, setReserveData] = useState(null);
+  const [VenueData, setVenueData] = useState(null)
+  const [reserveData, setReserveData] = useState(null);
   // const [selectedDay, setSelectedDay] = useState();
 
   const router = useRouter()

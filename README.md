@@ -36,7 +36,7 @@
  - [ ] Jim
  - [ ] Luna
  - [ ] Ciro
- - [ ] Kwa
+ - [x] Kwa
 
 
 ### 404 Not Found Page
