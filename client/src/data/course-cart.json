@@ -1,0 +1,37 @@
+[
+  {
+    "member_id": 1,
+    "course_id": 1,
+    "course_name": "初級課程"
+  },
+  {
+    "member_id": 1,
+    "course_id": 2,
+    "course_name": "中級課程"
+  },
+  {
+    "member_id": 1,
+    "course_id": 3,
+    "course_name": "高級課程"
+  },
+  {
+    "member_id": 2,
+    "course_id": 1,
+    "course_name": "初級課程"
+  },
+  {
+    "member_id": 2,
+    "course_id": 3,
+    "course_name": "高級課程"
+  },
+  {
+    "member_id": 3,
+    "course_id": 1,
+    "course_name": "初級課程"
+  },
+  {
+    "member_id": 3,
+    "course_id": 2,
+    "course_name": "中級課程"
+  }
+]

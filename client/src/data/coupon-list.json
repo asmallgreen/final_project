@@ -9,7 +9,7 @@
     },
     {
       "id":2,
-        "name": "中秋射月亮",
+        "name": "中秋搗月兔",
         "type": 1,
         "discount": 9,
         "deadline": "2999-12-31",
@@ -51,7 +51,7 @@
         "id":7,
         "name": "清明踏青",
         "type": 2,
-        "discount": 80,
+        "discount": 800,
         "deadline": "2024-04-04",
         "valid":1
       },

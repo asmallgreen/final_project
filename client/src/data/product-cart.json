@@ -1,0 +1,34 @@
+[
+    {
+        "member_id": 1,
+        "product_id": 1,
+        "product_name":"弓道服",
+        "price":300,
+        "detail_1": "XL",
+        "detail_2":"棉布",
+        "detail_3":"白色",
+        "quantity":1
+    },
+    {
+        "member_id": 1,
+        "product_id": 2,
+        "product_name":"火雞箭",
+        "price":1500,
+        "detail_1": "1945",
+        "detail_2":"火雞毛",
+        "detail_3":"三吋半",
+        "quantity":10
+    },
+    {
+        "member_id": "1",
+        "product_id": "3",
+        "product_name":"竹炭弓",
+        "price":5000,
+        "detail_1": "20kg",
+        "detail_2":"30cm",
+        "detail_3":"竹炭",
+        "quantity":1
+    }
+]
+
+// product_name, price要砍掉

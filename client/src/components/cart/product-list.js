@@ -1,9 +1,9 @@
-import { useCart } from '@/hooks/use-cart'
+import { useProductCart } from '@/hooks/use-product-cart'
 import { useEffect, useState } from 'react'
 
 export default function List() {
   // 使用hooks 解出所需的狀態與函式(自context)
-  const { cart, items, plusOne, minusOne, removeItem } = useCart()
+  const { productCart, products, plusOneProduct, minusOneProduct, removeProduct } = useProductCart()
 
   // 修正 Next hydration 錯誤
   // https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html
@@ -39,7 +39,7 @@ export default function List() {
           </tr>
         </thead>
         <tbody>
-          {items.map((v, i) => {
+          {products.map((v, i) => {
             return (
               <tr key={v.id}>
                 <td>{v.id}</td>
@@ -51,7 +51,7 @@ export default function List() {
                       type="button"
                       className="btn btn-light"
                       onClick={() => {
-                        minusOne(v.id)
+                        minusOneProduct(v.id)
                       }}
                     >
                       -
@@ -63,7 +63,7 @@ export default function List() {
                       type="button"
                       className="btn btn-light"
                       onClick={() => {
-                        plusOne(v.id)
+                        plusOneProduct(v.id)
                       }}
                     >
                       +
@@ -76,7 +76,7 @@ export default function List() {
                     type="button"
                     className="btn btn-light"
                     onClick={() => {
-                      removeItem(v.id)
+                      removeProduct(v.id)
                     }}
                   >
                     x
@@ -88,9 +88,9 @@ export default function List() {
         </tbody>
       </table>
       <div>
-        items: {cart.totalItems} / total: {cart.cartTotal}
+        items: {productCart.totalItems} / total: {productCart.cartTotal}
         <br />
-        {cart.isEmpty && '購物車為空'}
+        {productCart.isEmpty && '購物車為空'}
         <hr />
       </div>
     </div>

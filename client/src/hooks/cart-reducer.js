@@ -1,21 +1,25 @@
-// 初始化狀態
-// isEmpty, totalItems, cartTotal為最後計算得出
+// 初始化購物車狀態
 export const initialState = {
-  items: [],
-  isEmpty: true,
-  totalItems: 0,
-  cartTotal: 0,
-}
+    items: [],
+    isEmpty: true,
+    totalItems: 0,
+    cartTotal: 0,
+  }
 
-// 置於上述items陣列中的每個項目的物件模型
-// id, quantity, price為必要屬性
-// const item = {
-//   id: '',
-//   quantity: 0,
-//   name: '',
-//   price: 0,
-//   color: '',
-//   size: '',
+//product的格式
+// const product = {
+//     id: '',
+//     detail_1:'',
+//     detail_2:'',
+//     detail_3:'',
+//     quantity: 0,
+//     price: 0,
+// }
+
+//course的格式
+// const course = {
+//     id: '',
+//     price: 0,
 // }
 
 /**

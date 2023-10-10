@@ -1,8 +1,8 @@
-import React, { useReducer, useContext, createContext, useEffect } from 'react'
-import { reducer, init } from './cart-reducer'
-import useLocalStorage from './use-localstorage'
+import React, { useReducer, useContext, createContext, useEffect } from "react";
+import { reducer, init } from "./cart-reducer";
+import useLocalStorage from "./use-localstorage";
 
-const CartContext = createContext(null)
+const ProductCartContext = createContext(null);
 
 // initialState = {
 //   items: [],
@@ -11,57 +11,60 @@ const CartContext = createContext(null)
 //   cartTotal: 0,
 // }
 
-// item = {
-//   id: '',
-//   quantity: 0,
-//   name: '',
-//   price: 0,
+// const item = {
+//     id: '',
+//     detail_1:'',
+//     detail_2:'',
+//     detail_3:'',
+//     quantity: 0,
+//     price: 0,
 // }
 
-export const CartProvider = ({
+//以後要取用的話，就用useProductCart()，就可以取得商品購物車的資料
+export const useProductCart = () => useContext(ProductCartContext);
+
+export const ProductCartProvider = ({
   children,
   initialCartItems = [], //初始化購物車的加入項目
-  localStorageKey = 'cart', //初始化localStorage的鍵名
+  localStorageKey = "product-cart", //初始化localStorage的鍵名
 }) => {
-  // 如果localStorage有此鍵中的值，則套入使用作為初始items
-  // localStorage中只儲存 items
-  let items = initialCartItems
+  let items = initialCartItems;
 
+  //若items為空陣列，則從localStorage取得資料
   if (!items.length) {
     try {
-      // Get from local storage by key
-      // fix next issue
-      if (typeof window !== 'undefined') {
-        const item = window.localStorage.getItem(localStorageKey)
+      // Get from local storage by key "product-cart"
+      if (typeof window !== "undefined") {
+        const localStorage = window.localStorage.getItem(localStorageKey);
         // Parse stored json or if none return initialValue
-        items = item ? JSON.parse(item) : []
+        items = localStorage ? JSON.parse(localStorage) : [];
       }
     } catch (error) {
-      items = []
-      console.log(error)
+      items = [];
+      console.log(error);
     }
   }
 
   // init state, init來自cartReducer中
-  const [state, dispatch] = useReducer(reducer, items, init)
+  const [state, dispatch] = useReducer(reducer, items, init);
 
   // init setValue(localStoage), setValue用於存入localStorage中
-  const [storedValue, setValue] = useLocalStorage(localStorageKey, items)
+  const [storedValue, setValue] = useLocalStorage(localStorageKey, items);
 
   // 當 state.items 更動時 -> 更動 localStorage 中的值
   useEffect(() => {
     // 使用字串比較
     if (JSON.stringify(state.items) !== storedValue) {
-      setValue(state.items)
+      setValue(state.items);
     }
-  }, [state])
+  }, [state]);
 
   /**
    * 加入新項目(quantity:1)，重覆項目 quantity: quantity + 1
    * @param  {Object} item
    * @returns {void}
    */
-  const addItem = (item) => {
+  const addProduct = (item) => {
     dispatch({
       type: 'ADD_ITEM',
       payload: item,
@@ -73,7 +76,7 @@ export const CartProvider = ({
    * @param {string} id
    * @returns {void}
    */
-  const removeItem = (id) => {
+  const removeProduct = (id) => {
     dispatch({
       type: 'REMOVE_ITEM',
       payload: {
@@ -87,7 +90,7 @@ export const CartProvider = ({
    * @param {Object} item
    * @returns {void}
    */
-  const updateItem = (item) => {
+  const updateProduct = (item) => {
     dispatch({
       type: 'UPDATE_ITEM',
       payload: item,
@@ -98,7 +101,7 @@ export const CartProvider = ({
    * 清空整個購物車
    * @returns {void}}
    */
-  const clearCart = () => {
+  const clearProductCart = () => {
     dispatch({
       type: 'CLEAR_CART',
     })
@@ -109,7 +112,7 @@ export const CartProvider = ({
    * @param {string} id
    * @returns {boolean}
    */
-  const isInCart = (id) => {
+  const isInProductCart = (id) => {
     return state.items.some((item) => item.id === id)
   }
 
@@ -118,7 +121,7 @@ export const CartProvider = ({
    * @param {string} id
    * @returns {void}
    */
-  const plusOne = (id) => {
+  const plusOneProduct = (id) => {
     return dispatch({
       type: 'PLUS_ONE',
       payload: {
@@ -132,7 +135,7 @@ export const CartProvider = ({
    * @param {string} id
    * @returns {void}
    */
-  const minusOne = (id) => {
+  const minusOneProduct = (id) => {
     return dispatch({
       type: 'MINUS_ONE',
       payload: {
@@ -142,22 +145,20 @@ export const CartProvider = ({
   }
 
   return (
-    <CartContext.Provider
+    <ProductCartContext.Provider
       value={{
-        cart: state,
-        items: state.items,
-        addItem,
-        removeItem,
-        updateItem,
-        clearCart,
-        isInCart,
-        plusOne,
-        minusOne,
+        productCart: state,
+        products: state.items,
+        addProduct,
+        removeProduct,
+        updateProduct,
+        clearProductCart,
+        isInProductCart,
+        plusOneProduct,
+        minusOneProduct,
       }}
     >
       {children}
-    </CartContext.Provider>
-  )
-}
-
-export const useCart = () => useContext(CartContext)
+    </ProductCartContext.Provider>
+  );
+};

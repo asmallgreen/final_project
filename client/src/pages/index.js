@@ -105,7 +105,7 @@ export default function Homepage() {
     <>
       <div className="homepage-body">
         <div className="homepageHero1">
-          <video
+          {/* <video
             autoPlay={true}
             muted={true}
             loop={true}
@@ -114,7 +114,7 @@ export default function Homepage() {
             width={1902}
             data-object-fit="cover"
             data-object-position="45% 45%"
-          ></video>
+          ></video> */}
         </div>
         <div className="homepageHero2">
           <p className="">探求弓道的本質</p>
