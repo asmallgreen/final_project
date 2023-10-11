@@ -27,7 +27,7 @@ export default function MemberCenter() {
 <div className='text-end fav-select-all'>
         <input type='checkbox'/> 全選
         <Button className='mx-3 update-profile-btn'>取消收藏</Button>
-        <Button className='update-profile-btn'>加入購物車</Button>
+        {/* <Button className='update-profile-btn'>加入購物車</Button> */}
       </div>
 {/* 收藏的商品內容 */}
         <FavProductCard/>
@@ -38,7 +38,7 @@ export default function MemberCenter() {
       <div className='text-end fav-select-all'>
         <input type='checkbox'/> 全選
         <Button className='mx-3 update-profile-btn'>取消收藏</Button>
-        <Button className='update-profile-btn'>加入購物車</Button>
+        {/* <Button className='update-profile-btn'>加入購物車</Button> */}
       </div>
 {/* 收藏的課程內容 */}
           <FavCourseCard/>

@@ -67,7 +67,7 @@ export default function UpdatePwd() {
 <Col md='7' className='p-3'>
 <Container className='my-5'>
                 <div className="fs-2 mb-5">修改密碼</div>
-                <Form className="ms-3" onSubmit={handleNewPwdSubmit}>
+                <Form className="ms-3 update-pwd-form" onSubmit={handleNewPwdSubmit}>
                     
                     <Form.Group
                         as={Row}

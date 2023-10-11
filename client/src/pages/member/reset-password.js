@@ -168,7 +168,7 @@ export default function ResetPassword( {formType, setFormType} ) {
           icon: 'success',
           title:'成功修改密碼',
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2500,
           backdrop: `rgba(255, 255, 255, 0.55)`,
           width: '35%',
           padding: '0 0 3.25em',
@@ -244,7 +244,7 @@ export default function ResetPassword( {formType, setFormType} ) {
 
       <Row className='mb-3'>
       <Form.Group as={Col} md='12' xs='12' className='my-4 d-flex justify-content-between'>
-      <Link className='login-button'href='/member/login'>返回</Link>
+      <Link className='login-button forgot-pwd-back'href='/member/login'>返回</Link>
         <Button type="submit" className='login-button' >送出</Button>
       </Form.Group>
       </Row>

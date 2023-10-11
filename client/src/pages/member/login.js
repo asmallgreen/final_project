@@ -197,8 +197,8 @@ export default function Login() {
             
         </Form.Group>
       </Row>
-    <Row className='d-flex justify-content-center'>
-      <Form.Group as={Col} md='7' xs='5' className='p-0 '>
+    <Row className='d-flex justify-content-center px-2'>
+      <Form.Group as={Col} md='7' xs='5'>
         <Link href='/member/reset-password' className='forgetpwd-link'>忘記密碼</Link>
       </Form.Group>
       <Form.Group as={Col} md='5' xs='5' className='p-0 text-end'>

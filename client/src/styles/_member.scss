@@ -183,6 +183,12 @@ body{
       height: 280px;
     }
     .course-list-text {
+      position: relative;
+      input{
+        position: absolute;
+        right:15px;
+        top: 10px;
+      }
       background: lightyellow;
       width: 560px;
       height: 280px;
@@ -345,6 +351,16 @@ body{
     }
   }
 }
+// 會員中心修改密碼
+.update-pwd-form{
+  input{
+    background-color: #fff;
+    &:focus{
+      background-color: #fff;
+      border: 1px solid $secondary;
+    }
+  }
+}
 .forgot-pwd-container{
   .forget-pwd-header{
     font-size: 24px;
@@ -358,7 +374,7 @@ body{
       position: absolute;
       background-color: $accent;
       color: #fff;
-      right: 13px;
+      right: 12px;
       top: 32px;
     }
   }
@@ -366,5 +382,9 @@ body{
     border: 1px dashed $secondary-light;
     
   }
-
+  .forgot-pwd-back{
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
 }
