@@ -21,7 +21,7 @@ import "swiper/css/navigation";
 
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
-function Category() {
+function Pid() {
   const router = useRouter();
   const [product, setProduct] = useState([]);
   console.log(product);
@@ -73,7 +73,7 @@ function Category() {
             <img src={product.img1}></img>
           </div>
         </Col>
-        <Col xl="4" md="5" className="product-info-select">
+        <Col xl="5" md="5" className="product-info-select">
           <div className="product-info-des">
             <Description pidData={product}/>
           </div>
@@ -147,4 +147,4 @@ function Category() {
     </>
   );
 }
-export default Category;
+export default Pid;

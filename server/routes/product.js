@@ -50,24 +50,53 @@ router.get("/", async (req, res) => {
 });
 router.get("/:pid", async (req, res) => {
   const id = req.params.pid;
-  // console.log('req.query:', req.query);
   console.log(id);
-// const where = {id:2}
-const where = {id:id}
-  // const alldata = await getAll();
-  const data = await getOne(where)
-  // const filterdata = await getFilter(sortValue, limitValue, offset);
-
+  const where = { id: id };
+  const data = await getOne(where);
   res.json({
     message: "getAllProduct success",
     code: "200",
-    // filterdata,
-    // alldata,
     data,
-   
   });
 });
+router.get('/category/:cate', async(req, res)=>{
+  // const { limit, page, sort } = req.query;
+  // const limitValue = parseInt(limit);
+  // const pageValue = parseInt(page);
+  // const offset = (pageValue - 1) * limitValue;
+  // let sortValue;
+  // switch (sort) {
+  //   case "default":
+  //     sortValue = { id: "ASC" };
+  //   case "hot":
+  //     sortValue = { hot: "asc" };
+  //     break;
+  //   case "launched":
+  //     sortValue = { launched: "asc" };
+  //     break;
+  //   case "priceAsc":
+  //     sortValue = { price: "desc" };
+  //     break;
+  //   case "priceDesc":
+  //     sortValue = { price: "asc" };
+  //     break;
+  //   case "nameAZ":
+  //     sortValue = { name: "desc" };
+  //     break;
+  // }
 
+  const alldata = await getAll();
+  const newdata = await getNew();
+  // const filterdata = await getFilter(sortValue, limitValue, offset);
+
+  res.json({
+    msg: "產品分類頁 success",
+    code: 200,
+    alldata,
+    newdata,
+    
+  });
+})
 // ***********test***********
 router.get("/productInfo", async (req, res) => {
   // const productId = alldata.filter(data=>data.id)

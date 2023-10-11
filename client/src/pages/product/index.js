@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
@@ -163,8 +163,8 @@ function Product() {
       </div>
       {/* <Router> */}
       <Swiper
-        spaceBetween={10}
-        slidesPerView={4}
+        spaceBetween={0}
+        slidesPerView={5}
         navigation={true}
         pagination={true}
         modules={[Navigation, Pagination]}
@@ -184,7 +184,7 @@ function Product() {
       <div className="category position-relative">
         <div className="type-title">｜ 產品分類 ｜</div>
         <div className="type">
-          <Link href="/product/category/bow" className="item">
+          <Link href="/product/category/1" className="item">
             <img src="/product/cate1.jpg" alt="img"></img>
             <span className="text-decoration-none">良弓</span>
             <div className="animate-content-circle position-absolute">
@@ -194,7 +194,7 @@ function Product() {
               <AnimatedArrow />
             </div>
           </Link>
-          <Link href="/product/category/arrow" className="item">
+          <Link href="/product/category/2" className="item">
             <img src="/product/cate2.jpg" alt="img"></img>
             <span className="text-decoration-none">羽箭</span>
             <div className="animate-content-circle position-absolute">
@@ -204,7 +204,7 @@ function Product() {
               <AnimatedArrow />
             </div>
           </Link>
-          <Link href="/product/category/suit" className="item">
+          <Link href="/product/category/3" className="item">
             <img src="/product/cate3.jpg" alt="img"></img>
             <span className="text-decoration-none">道服</span>
             <div className="animate-content-circle position-absolute">
@@ -214,7 +214,7 @@ function Product() {
               <AnimatedArrow />
             </div>
           </Link>
-          <Link href="/product/category/other" className="item">
+          <Link href="/product/category/4" className="item">
             <img src="/product/cate4.jpg" alt="img"></img>
             <span className="text-decoration-none">其他</span>
             <div className="animate-content-circle position-absolute">

@@ -17,7 +17,7 @@
 
 //商品
 @import "product.scss";
-
+@import "pid.scss";
 
 // Course scss
 @import 'CourseList/CourseList.scss';
@@ -36,8 +36,6 @@
 @import "reserve.scss";
 @import "check.scss";
 
-//category
-@import "category.scss";
 
 // bootstrap
 // npm install react-bootstrap bootstrap

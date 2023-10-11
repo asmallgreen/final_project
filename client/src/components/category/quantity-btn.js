@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 
 export default function QuantityBtn() {
   const [quantity, setQuantity] = useState(0);
-
+  
   const handleAdd = () => {
     quantity < 99 ? setQuantity(quantity + 1) : setQuantity(99);
   };
   const handleDec = () => {
     quantity > 1 ? setQuantity(quantity - 1) : setQuantity(0);
   };
+ 
   return (
     <>
       <div className="product-info-button">
