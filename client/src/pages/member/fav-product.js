@@ -30,8 +30,10 @@ export default function MemberCenter() {
 
   useEffect(() => {
     getProducts()
+    getCourses()
   }, [])
 console.log('products:',products);
+console.log('courses:',courses);
 
   const triggerProductFav = (products, id) => {
     return products.map((v, i) => {
@@ -44,34 +46,30 @@ console.log('products:',products);
     setProducts(triggerProductFav(products, id))
   }
 //   // 收藏的課程----------------------------------------
-//   const getCourses = async () => {
-//     const res = await axios.get(
-//       'http://localhost:3005/member/all-courses',
-//       {
-//         withCredentials: true,
-//       }
-//     )
-//       console.log('this is res.data:',res.data);
-//     if (res.data.products) {
-//       setCourses(res.data.courses)
-//     }
-//   }
+  const getCourses = async () => {
+    const res = await axios.get(
+      'http://localhost:3005/member/all-courses',
+      {
+        withCredentials: true,
+      }
+    )
+      console.log('this is res.data:',res.data);
+    if (res.data.courses) {
+      setCourses(res.data.courses)
+    }
+  }
 
-//   useEffect(() => {
-//     getCourses()
-//   }, [])
-// console.log('courses:',courses);
 
-//   const triggerCourseFav = (courses, id) => {
-//     return courses.map((v, i) => {
-//       if (v.id === id) return { ...v, is_favorite: !v.is_favorite }
-//       return { ...v }
-//     })
-//   }
+  const triggerCourseFav = (courses, id) => {
+    return courses.map((v, i) => {
+      if (v.id === id) return { ...v, is_favorite: !v.is_favorite }
+      return { ...v }
+    })
+  }
 
-//   const handleTriggerCourseFav = (id) => {
-//     setCourses(triggerCourseFav(courses, id))
-//   }
+  const handleTriggerCourseFav = (id) => {
+    setCourses(triggerCourseFav(courses, id))
+  }
   return (
     <>
   <Row>
@@ -106,7 +104,7 @@ console.log('products:',products);
         {/* <Button className='update-profile-btn'>加入購物車</Button> */}
       </div>
 {/* 收藏的課程內容 */}
-          <FavCourseCard/>
+          <FavCourseCard courses={courses}/>
       </Tab>
     </Tabs>
 

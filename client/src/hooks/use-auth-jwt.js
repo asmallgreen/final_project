@@ -85,30 +85,30 @@ const checkAuth = async () => {
   }, [authJWT])
 
   // 收藏的課程
-  // const [favoriteCourses, setFavoriteCourses] = useState([])
-  //   // 得到會員的課程收藏清單
-  // const getFavoriteCourses = async () => {
-  //   const res = await axios.get(
-  //     'http://localhost:3005/member/favorite-course-id',
-  //     {
-  //       withCredentials: true,
-  //     }
-  //   )
-  //     console.log('this is fav course:',res.data);
-  //   if (res.data.favoriteCourses) {
-  //     setFavoriteCourses(res.data.favoriteCourses)
-  //   }
-  // }
+  const [favoriteCourses, setFavoriteCourses] = useState([])
+    // 得到會員的課程收藏清單
+  const getFavoriteCourses = async () => {
+    const res = await axios.get(
+      'http://localhost:3005/member/favorite-course-id',
+      {
+        withCredentials: true,
+      }
+    )
+      console.log('this is fav course:',res.data);
+    if (res.data.favoriteCourses) {
+      setFavoriteCourses(res.data.favoriteCourses)
+    }
+  }
 
-  // useEffect(() => {
-  //   if (authJWT.isAuth) {
-  //     // 成功登入後要執行一次向伺服器取得商品收藏清單
-  //     getFavoriteCourses()
-  //   } else {
-  //     // 登出時要設回空陣列
-  //     setFavoriteCourses([])
-  //   }
-  // }, [authJWT])
+  useEffect(() => {
+    if (authJWT.isAuth) {
+      // 成功登入後要執行一次向伺服器取得商品收藏清單
+      getFavoriteCourses()
+    } else {
+      // 登出時要設回空陣列
+      setFavoriteCourses([])
+    }
+  }, [authJWT])
 
   return (
     <AuthContextJWT.Provider

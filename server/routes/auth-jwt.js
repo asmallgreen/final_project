@@ -421,6 +421,7 @@ router.put('/update-profile', async (req, res)=>{
 })
 
 // 會員商品收藏---------------------------------------------------------
+// 先抓到關聯資料表中的商品id
 router.get('/favorite-product-id', authenticate, async (req, res, next) => {
   const sql = `SELECT f.product_id
         FROM fav_product AS f
@@ -432,21 +433,6 @@ router.get('/favorite-product-id', authenticate, async (req, res, next) => {
   const favoriteProducts = rows.map((v) => v.product_id)
 
   res.json({ favoriteProducts })
-})
-
-// 會員課程收藏
-// 先抓到關聯資料表中的商品id
-router.get('/favorite-course-id', authenticate, async (req, res, next) => {
-  const sql = `SELECT f.course_id
-        FROM fav_course AS f
-        WHERE f.member_id = ${req.member.id}
-        ORDER BY f.course_id ASC;`
-
-  const { rows } = await executeQuery(sql)
-  // 將結果中的course_id取出變為一個純資料的陣列
-  const favoriteCourses = rows.map((v) => v.course_id)
-
-  res.json({ favoriteCourses })
 })
 // 再去產品資料表拿收藏的商品資料
 router.get('/all-products', authenticate, async (req, res, next) => {
@@ -469,9 +455,48 @@ router.get('/all-products', authenticate, async (req, res, next) => {
     is_favorite: v.is_favorite === 'true',
   }))
 
-  console.log(products)
+  // console.log(products)
 
   res.json({ products })
+})
+// 會員課程收藏---------------------------------------------------------
+// 先抓到關聯資料表中的課程id
+router.get('/favorite-course-id', authenticate, async (req, res, next) => {
+  const sql = `SELECT f.course_id
+        FROM fav_course AS f
+        WHERE f.member_id = ${req.member.id}
+        ORDER BY f.course_id ASC;`
+
+  const { rows } = await executeQuery(sql)
+  // 將結果中的course_id取出變為一個純資料的陣列
+  const favoriteCourses = rows.map((v) => v.course_id)
+
+  res.json({ favoriteCourses })
+})
+// 再去課程資料表拿收藏的課程資料
+router.get('/all-courses', authenticate, async (req, res, next) => {
+  const member = req.member
+  const mid = member.id
+
+  const sql = `SELECT c.*, IF(fc.id, 'true', 'false') AS is_favorite
+    FROM course AS c
+    LEFT JOIN fav_course AS fc ON fc.course_id = c.id
+    AND fc.member_id = ${mid}
+    ORDER BY c.id ASC`
+
+  const { rows } = await executeQuery(sql)
+
+  console.log(rows)
+
+  // cast boolean
+  const courses = rows.map((v) => ({
+    ...v,
+    is_favorite: v.is_favorite === 'true',
+  }))
+
+  // console.log(courses)
+
+  res.json({ courses })
 })
 
 export default router;
