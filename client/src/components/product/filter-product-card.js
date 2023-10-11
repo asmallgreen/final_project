@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function FilterProductCard(props) {
-  const { filterProduct } = props
+  const { filterProduct, id, is_favorite, handleTriggerProductFav } = props
   console.log(filterProduct);
   return (
     <>
@@ -31,6 +31,9 @@ export default function FilterProductCard(props) {
               <FontAwesomeIcon
                 icon={faCartShopping}
                 className="fa-solid fa-cart-shopping"
+                id={id}
+                is_favorite={is_favorite}
+                handleTriggerFav={handleTriggerProductFav}
               />
             </button>
           </div>

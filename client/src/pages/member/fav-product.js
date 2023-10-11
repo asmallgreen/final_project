@@ -17,7 +17,7 @@ export default function MemberCenter() {
 // 收藏的商品----------------------------------------
   const getProducts = async () => {
     const res = await axios.get(
-      'http://localhost:3005/member/all-products',
+      'http://localhost:3005/member/fav-products',
       {
         withCredentials: true,
       }
@@ -35,20 +35,11 @@ export default function MemberCenter() {
 console.log('products:',products);
 console.log('courses:',courses);
 
-  const triggerProductFav = (products, id) => {
-    return products.map((v, i) => {
-      if (v.id === id) return { ...v, is_favorite: !v.is_favorite }
-      return { ...v }
-    })
-  }
 
-  const handleTriggerProductFav = (id) => {
-    setProducts(triggerProductFav(products, id))
-  }
 //   // 收藏的課程----------------------------------------
   const getCourses = async () => {
     const res = await axios.get(
-      'http://localhost:3005/member/all-courses',
+      'http://localhost:3005/member/fav-courses',
       {
         withCredentials: true,
       }

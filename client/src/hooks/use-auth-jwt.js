@@ -117,8 +117,8 @@ const checkAuth = async () => {
         setAuthJWT,
         favoriteProducts,
         setFavoriteProducts,
-        // favoriteCourses,
-        // setFavoriteCourses,
+        favoriteCourses,
+        setFavoriteCourses,
       }}
     >
       {children}

@@ -62,6 +62,18 @@ function Product() {
   //   }
   //   console.log(allProduct);
   // };
+  const [products, setProducts] = useState([])
+
+  const triggerProductFav = (products, id) => {
+    return products.map((v, i) => {
+      if (v.id === id) return { ...v, is_favorite: !v.is_favorite }
+      return { ...v }
+    })
+  }
+
+  const handleTriggerProductFav = (id) => {
+    setProducts(triggerProductFav(products, id))
+  }
   return (
     <>
       {/* 商品廣告 */}
@@ -147,7 +159,7 @@ function Product() {
         <Col md="auto" className="filter-cards">
           <Row className="rows">
             {allProduct.map((data) => {
-              return <FilterProductCard key={data.id} filterProduct={data} />;
+              return <FilterProductCard key={data.id} id={data.id} filterProduct={data} is_favorite={data.is_favorite} handleTriggerProductFav={handleTriggerProductFav}/>;
             })}
           </Row>
         </Col>

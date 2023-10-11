@@ -435,29 +435,45 @@ router.get('/favorite-product-id', authenticate, async (req, res, next) => {
   res.json({ favoriteProducts })
 })
 // 再去產品資料表拿收藏的商品資料
-router.get('/all-products', authenticate, async (req, res, next) => {
+// router.get('/all-products', authenticate, async (req, res, next) => {
+//   const member = req.member
+//   const mid = member.id
+
+//   const sql = `SELECT p.*, IF(fp.id, 'true', 'false') AS is_favorite
+//     FROM product AS p
+//     LEFT JOIN fav_product AS fp ON fp.product_id = p.id
+//     AND fp.member_id = ${mid}
+//     ORDER BY p.id ASC`
+
+//   const { rows } = await executeQuery(sql)
+
+//   console.log(rows)
+
+//   // cast boolean
+//   const products = rows.map((v) => ({
+//     ...v,
+//     is_favorite: v.is_favorite === 'true',
+//   }))
+
+//   // console.log(products)
+
+//   res.json({ products })
+// })
+router.get('/fav-products', authenticate, async (req, res, next) => {
   const member = req.member
   const mid = member.id
 
-  const sql = `SELECT p.*, IF(fp.id, 'true', 'false') AS is_favorite
-    FROM product AS p
-    LEFT JOIN fav_product AS fp ON fp.product_id = p.id
-    AND fp.member_id = ${mid}
-    ORDER BY p.id ASC`
+  const sql = `SELECT p.*
+FROM product AS p
+    INNER JOIN fav_product AS f ON f.product_id = p.id
+    AND f.member_id = ${mid}
+ORDER BY p.id ASC`
 
   const { rows } = await executeQuery(sql)
 
   console.log(rows)
 
-  // cast boolean
-  const products = rows.map((v) => ({
-    ...v,
-    is_favorite: v.is_favorite === 'true',
-  }))
-
-  // console.log(products)
-
-  res.json({ products })
+  res.json({ products: rows })
 })
 // 會員課程收藏---------------------------------------------------------
 // 先抓到關聯資料表中的課程id
@@ -474,29 +490,44 @@ router.get('/favorite-course-id', authenticate, async (req, res, next) => {
   res.json({ favoriteCourses })
 })
 // 再去課程資料表拿收藏的課程資料
-router.get('/all-courses', authenticate, async (req, res, next) => {
+// router.get('/all-courses', authenticate, async (req, res, next) => {
+//   const member = req.member
+//   const mid = member.id
+
+//   const sql = `SELECT c.*, IF(fc.id, 'true', 'false') AS is_favorite
+//     FROM course AS c
+//     LEFT JOIN fav_course AS fc ON fc.course_id = c.id
+//     AND fc.member_id = ${mid}
+//     ORDER BY c.id ASC`
+
+//   const { rows } = await executeQuery(sql)
+
+//   console.log(rows)
+
+//   // cast boolean
+//   const courses = rows.map((v) => ({
+//     ...v,
+//     is_favorite: v.is_favorite === 'true',
+//   }))
+
+//   // console.log(courses)
+
+//   res.json({ courses })
+// })
+router.get('/fav-courses', authenticate, async (req, res, next) => {
   const member = req.member
   const mid = member.id
 
-  const sql = `SELECT c.*, IF(fc.id, 'true', 'false') AS is_favorite
-    FROM course AS c
-    LEFT JOIN fav_course AS fc ON fc.course_id = c.id
-    AND fc.member_id = ${mid}
-    ORDER BY c.id ASC`
+  const sql = `SELECT c.*
+FROM course AS c
+    INNER JOIN fav_course AS f ON f.course_id = c.id
+    AND f.member_id = ${mid}
+ORDER BY c.id ASC`
 
   const { rows } = await executeQuery(sql)
 
   console.log(rows)
 
-  // cast boolean
-  const courses = rows.map((v) => ({
-    ...v,
-    is_favorite: v.is_favorite === 'true',
-  }))
-
-  // console.log(courses)
-
-  res.json({ courses })
+  res.json({ courses: rows })
 })
-
 export default router;
