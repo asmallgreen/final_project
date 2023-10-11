@@ -15,6 +15,7 @@ export default function MemberCoupon() {
   const [allCouponData, setAllCouponData] = useState([]);
   const [showValidCoupon, setShowValidCoupon] = useState(false);
 
+  const [UsedCoupon, setUsedCoupon] = useState([]);
 
   // 過濾checkbox切換
   const handleValidCoupon = () => {
@@ -25,17 +26,17 @@ export default function MemberCoupon() {
     try {
       const response = await axios.get(
         `http://localhost:3005/memberDashboard//DeleteUnvalidCoupon?memberId=${memberId}`
-      )
+      );
       if (response.data.code === "200") {
-        alert('刪除失效優惠券成功');
-        showAllCouponData()
+        alert("刪除失效優惠券成功");
+        showAllCouponData();
       } else {
-        alert('刪除失效優惠券失敗')
+        alert("刪除失效優惠券失敗");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
   //讀取member-coupon & 過濾失效coupon
   const showAllCouponData = async () => {
     try {
@@ -49,21 +50,34 @@ export default function MemberCoupon() {
           const deadlineDate = new Date(coupon.deadline);
           const currentDate = new Date();
           return deadlineDate >= currentDate;
-        })
-        setAllCouponData(validCoupon)
+        });
+        setAllCouponData(validCoupon);
       } else {
-        setAllCouponData(allCoupon)
+        setAllCouponData(allCoupon);
       }
+    } catch (error) {
+      console.log(error);
     }
-    catch (error) {
-      console.log(error)
+  };
+
+  //讀取訂單已使用coupon
+  const showUsedCouponData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3005/memberDashboard//FindUsedCoupon?memberId=${memberId}`
+      );
+      const UsedCoupon = response.data.UsedCoupons;
+      setUsedCoupon(UsedCoupon);
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-    showAllCouponData()
+    showAllCouponData();
+    showUsedCouponData();
   }, [showValidCoupon, memberId]);
-  
+
   return (
     <>
       <Row>
@@ -94,7 +108,10 @@ export default function MemberCoupon() {
                           <span>僅顯示可使用的優惠券</span>
                         </label>
                       </div>
-                      <div className="col-12 col-lg-6 text-center py-1 coupon-clear" onClick={handleClearInvalidCoupon}>
+                      <div
+                        className="col-12 col-lg-6 text-center py-1 coupon-clear"
+                        onClick={handleClearInvalidCoupon}
+                      >
                         一鍵清空失效的優惠券
                       </div>
                     </div>
@@ -125,26 +142,24 @@ export default function MemberCoupon() {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          <CouponCard type={1} />
-                        </td>
-                        <td>
-                          <Link href="/">A123456</Link>
+                      {UsedCoupon.map((coupon, index) => (
+                        <tr key={index}>
+                          <td>
+                            <CouponCard
+                            name={coupon.coupon_name}
+                            type={coupon.coupon_type}
+                            discount={coupon.coupon_discount}
+                            deadline={coupon.coupon_deadline}
+                            />
+                          </td>
+                          <td>
+                          <Link href="/">{coupon.order_id}</Link>
                         </td>
                         <td>$500</td>
                         <td>$1000</td>
                         <td>2023-09-12</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <CouponCard type={2} />
-                        </td>
-                        <td>A123456</td>
-                        <td>$500</td>
-                        <td>$1000</td>
-                        <td>2023-09-12</td>
-                      </tr>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </Tab>
