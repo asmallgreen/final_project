@@ -1,0 +1,22 @@
+
+  .scrolls {
+    right: calc(50% - 66px);
+    display: flex;
+    justify-content: center;
+    //   left: 50%;
+    //   transform: translateX(-50%);
+    .circle {
+      width: 12px;
+      height: 12px;
+      background-color: $primary;
+      border: 1px solid $secondary;
+      border-radius: 50%;
+      cursor: pointer;
+      &:hover {
+        background-color: $secondary;
+        border: 1px solid $primary;
+      }
+    }
+  }
+
+

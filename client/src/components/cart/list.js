@@ -57,9 +57,21 @@ export default function List({ mode }) {
               checked={v.isChecked ? v.isChecked : ''}
               
             /></Col>
-            <Col>{v.id}</Col>
-            <Col className={mode === 'course' ? 'd-none' : ''}>
-              <select className='m-0'>
+            <Col>{v.name}</Col>
+            <Col>{v.name}</Col>
+            <Col className={`${mode === 'course' ? 'd-none' : ''} d-flex flex-column g-1`} >
+              <select className='m-1'>
+                <option value="0">請選擇</option>
+                <option value="1">S</option>
+                <option value="2">M</option>
+              </select>
+
+              <select className='m-1'>
+                <option value="0">請選擇</option>
+                <option value="1">S</option>
+                <option value="2">M</option>
+              </select>
+              <select className='m-1'>
                 <option value="0">請選擇</option>
                 <option value="1">S</option>
                 <option value="2">M</option>

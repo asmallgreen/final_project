@@ -1,0 +1,43 @@
+    .attr {
+      // justify-content: center;
+      margin: 0;
+      align-items: center;
+      margin-block: 10px;
+      .attr-name {
+        font-size: 24px;
+        color: $secondary;
+        margin-right: 20px;
+      }
+      .attr-items {
+        .item {
+          border-radius: 0;
+          border: 1px solid $secondary;
+          background-color: #ffffff;
+          padding: 8px 20px;
+          margin-inline: 5px;
+          text-align: center;
+          color: $secondary;
+          font-size: 18px;
+          &:hover{
+            background-color: $secondary;
+            color: $primary;
+          }
+        }
+        // 下拉選單
+        // .btn-primary {
+        //   text-align: start;
+        //   padding: 10px 15px;
+        //   width: 275px;
+        //   height: 45px;
+        //   font-size: 20px;
+        //   border: 1px solid $secondary;
+        //   border-radius: 0;
+        //   background-color: #ffffff;
+        //   color: $secondary;
+        //   &:hover {
+        //     background-color: $secondary;
+        //     color: $primary;
+        //   }
+        // }
+      }
+  }

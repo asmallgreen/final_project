@@ -148,15 +148,19 @@
     padding: 20px;
     border-inline: 1px solid #616153;
     border-bottom: 1px solid #616153;
-    justify-content: space-between;
+    display: flex;
 }
 
 .productList div {
     margin-block: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
+}
+.productList .deleteSection{
+    justify-content: space-between;
+    padding-inline: 15px;
 }
 
 .productList .couponSection {
@@ -175,7 +179,19 @@
         padding: 10px 15px;
     }
 }
-
+.courseList{
+    padding: 20px;
+    border-inline: 1px solid #616153;
+    border-bottom: 1px solid #616153;
+    display: flex;
+    justify-content: space-between;
+}
+.courseList div{
+    margin-block: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .deleteBtn {
     background-color: #B16464;
     border: #B16464 1px solid;

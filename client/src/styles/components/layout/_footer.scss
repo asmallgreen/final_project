@@ -1,0 +1,123 @@
+//footer
+.footer {
+  // margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: 50px 0px;
+  background-color: $secondary;
+  height: 300px;
+  color: $primary;
+  font-size: 20px;
+  .logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    .logo-img {
+      height: 85px;
+      margin-bottom: 15px;
+    }
+    .logo-text {
+      height: 54px;
+    }
+  }
+  .footer-buttons {
+    display: flex;
+    .button {
+      display: flex;
+      flex-direction: column;
+      border-left: 3px solid $primary;
+      padding-inline: 100px;
+      margin-left: 90px;
+      .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 80px;
+        width: 180px;
+        color: $primary;
+        border: 2px solid $primary;
+        font-size: 20px;
+        padding: 15px;
+        margin: 10px;
+        &:hover {
+          color: $secondary;
+          background-color: $primary;
+        }
+      }
+    }
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 10px;
+  }
+}
+.bottom-btn {
+  display: none !important;
+}
+@media screen and (max-width: 768px) {
+  .footer {
+    display: none;
+  }
+}
+@media screen and (max-width: 393px) {
+  // 手機button
+  .bottom-btn {
+    position: fixed;
+    bottom: 0;
+    display: flex !important;
+    justify-content: space-between;
+    // width: 393px;
+    height: 62px;
+    background-color: $primary;
+    .btn {
+      width: 78px;
+      border-radius: 0;
+      color: $secondary;
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      // justify-content: space-between;
+      padding-inline: 15px;
+      div {
+        height: 50%;
+      }
+      &:hover {
+        background-color: #616153;
+        color: $primary;
+        .logo-img2 {
+          display: none;
+          height: 0;
+        }
+        .logo-img {
+          height: 25px;
+          display: block;
+        }
+      }
+      .logo-img2 {
+        // height: 25px;
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+      .logo-img {
+        display: none;
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+
+      .notify {
+        background-color: $accent;
+        width: 20px;
+        height: 20px;
+        color: $primary;
+        right: 15px;
+      }
+    }
+  }
+}
