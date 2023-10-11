@@ -1,25 +1,54 @@
 //全域 + 元件scss
 @import "global.scss";
+
 @import "components.scss";
+
 
 //各個pages scss
 
+// Homepage scss
+@import 'Homepage/Homepage.scss';
+
 //會員專區
-@import "member.scss";
 @import "member-order.scss";
+@import "member-order-detail.scss";
 @import "member-coupon.scss";
 
 //商品
 @import "product.scss";
 
+
+// Course scss
+@import 'CourseList/CourseList.scss';
+@import 'CourseDetail/CourseDetail.scss';
+
+//jim測試元件用的scss
+//tabs test scss
+
 //購物車 優惠券
 @import "cart.scss";
 @import "publicCoupon.scss";
 
+//場地
+@import "venue.scss";
+@import "date.scss";
+@import "reserve.scss";
+@import "check.scss";
+
+//category
+@import "category.scss";
+
+//商品頁篩選、排序
+@import "tmp.scss";
+
+
 // bootstrap
 // npm install react-bootstrap bootstrap
 @import "~bootstrap/scss/bootstrap";
+@import "member.scss";
 
-// Normalize.css
 // npm install --save normalize.css
 @import "~normalize.css";
+
+//jim測試
+@import "jimtest.scss";
