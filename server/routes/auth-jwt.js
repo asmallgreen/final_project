@@ -7,6 +7,7 @@ import transporter from '../config/mail.js'
 import multer from 'multer'
 import { createOtp, updatePassword } from '../models/otp.js'
 import 'dotenv/config.js'
+import { executeQuery } from '../models/base.js'
 
 // 定義頭像上傳後存放的地方
 const storage = multer.diskStorage({
@@ -419,6 +420,58 @@ router.put('/update-profile', async (req, res)=>{
   return res.json({message:'會員資料修改成功', code:'400', accessToken,updatedMember})
 })
 
+// 會員商品收藏---------------------------------------------------------
+router.get('/favorite-product-id', authenticate, async (req, res, next) => {
+  const sql = `SELECT f.product_id
+        FROM fav_product AS f
+        WHERE f.member_id = ${req.member.id}
+        ORDER BY f.product_id ASC;`
 
+  const { rows } = await executeQuery(sql)
+  // 將結果中的product_id取出變為一個純資料的陣列
+  const favoriteProducts = rows.map((v) => v.product_id)
+
+  res.json({ favoriteProducts })
+})
+
+// 會員課程收藏
+// 先抓到關聯資料表中的商品id
+router.get('/favorite-course-id', authenticate, async (req, res, next) => {
+  const sql = `SELECT f.course_id
+        FROM fav_course AS f
+        WHERE f.member_id = ${req.member.id}
+        ORDER BY f.course_id ASC;`
+
+  const { rows } = await executeQuery(sql)
+  // 將結果中的course_id取出變為一個純資料的陣列
+  const favoriteCourses = rows.map((v) => v.course_id)
+
+  res.json({ favoriteCourses })
+})
+// 再去產品資料表拿收藏的商品資料
+router.get('/all-products', authenticate, async (req, res, next) => {
+  const member = req.member
+  const mid = member.id
+
+  const sql = `SELECT p.*, IF(fp.id, 'true', 'false') AS is_favorite
+    FROM product AS p
+    LEFT JOIN fav_product AS fp ON fp.product_id = p.id
+    AND fp.member_id = ${mid}
+    ORDER BY p.id ASC`
+
+  const { rows } = await executeQuery(sql)
+
+  console.log(rows)
+
+  // cast boolean
+  const products = rows.map((v) => ({
+    ...v,
+    is_favorite: v.is_favorite === 'true',
+  }))
+
+  console.log(products)
+
+  res.json({ products })
+})
 
 export default router;
