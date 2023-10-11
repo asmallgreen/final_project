@@ -14,7 +14,6 @@ export const AuthProviderJWT = ({ children }) => {
       level: "",
       created_date: "",
     },
-    memberCoupon: [],
   });
 
   const router = useRouter();
@@ -37,19 +36,12 @@ export const AuthProviderJWT = ({ children }) => {
       withCredentials: true,
     });
 
+
     if (res.data.message === "authorized") {
+      
+
       console.log("checklogin ahthorized");
-
-      const memberId = res.data.memberData.id;
-      const couponRes = await axios.get(
-        `http://localhost:3005/memberDashboard/findMemberCoupon?memberId=${memberId}`
-      );
-
-      setAuthJWT({
-        isAuth: true,
-        memberData: res.data.memberData,
-        memberCoupon: couponRes.data.memberCoupon,
-      });
+      setAuthJWT({ isAuth: true, memberData: res.data.memberData});
     }
     // 可以在這裡實作跳轉
     else {
@@ -58,6 +50,25 @@ export const AuthProviderJWT = ({ children }) => {
       }
     }
   };
+
+  //撈取memberCoupon的state
+  const [memberCoupon, setMemberCoupon] = useState([]);
+  const getMemberCoupon = async () => {
+    const res = await axios.get(
+      `http://localhost:3005/memberDashboard/findMemberCoupon?memberId=${authJWT.memberData.id}`
+    );
+    // console.log(res.data.memberCoupon);
+    if (res.data.memberCoupon) {
+      setMemberCoupon(res.data.memberCoupon);
+    }
+  };
+  useEffect(() => {
+    if (authJWT.isAuth) {
+      getMemberCoupon();
+    }else{
+      setMemberCoupon([]);
+    }
+  }, [authJWT]);
 
   // // didMount(初次渲染)後，向伺服器要求檢查會員是否登入中
   useEffect(() => {
@@ -68,7 +79,7 @@ export const AuthProviderJWT = ({ children }) => {
     // 如果有比對到是隱私路由，就執行跳轉到登入頁面工作
     // 注意有可能會造成向伺服器要求多次，此為簡單的實作範例
     // eslint-disable-next-line
-  }, [router.isReady, router.pathname]);
+  }, [router.isReady, router.pathname, authJWT.isAuth]);
 
   return (
     <AuthContextJWT.Provider
@@ -77,6 +88,8 @@ export const AuthProviderJWT = ({ children }) => {
         setAuthJWT,
         // favorites,
         // setFavorites,
+        memberCoupon,
+        setMemberCoupon,
       }}
     >
       {children}
