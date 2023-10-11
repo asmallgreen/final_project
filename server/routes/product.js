@@ -38,37 +38,54 @@ router.get("/", async (req, res) => {
   }
   //篩選改where
   // let arrValue={category_id:1}
-  let attrValue
+  let attrValue;
   switch (attr) {
     case "default":
-      attrValue = '';
+      attrValue = "";
       break;
     case "attr1":
-      attrValue = {category_id:1};
+      attrValue = { category_id: 1 };
       break;
     case "attr2":
-      attrValue = {category_id:2};
+      attrValue = { category_id: 2 };
       break;
     case "attr3":
-      attrValue = {category_id:3};
+      attrValue = { category_id: 3 };
       break;
     case "attr4":
-      attrValue = {category_id:4};
+      attrValue = { category_id: 4 };
       break;
   }
   console.log(attrValue);
-// const where = {id:1}
+  // const where = {id:1}
   const alldata = await getAll();
   const newdata = await getNew();
   const filterdata = await getFilter(attrValue, sortValue, limitValue, offset);
+
+  // /////////////////////////////////
+  // 裡面的table變數跟需要抓的欄位請務必自己修改，有使用上的問題可以來找我
+  const sql = `SELECT attr.product_id
+  FROM product_arrow_length AS attr
+  WHERE attr.arrow_length_id = 1
+  ORDER BY attr.product_id ASC`;
+  //從arrow_length資料表中找到arrow_length_id=1(EX:碳箭)的所有product_id值，並回傳成陣列
+
+  const { rows } = await executeQuery(sql);
+  // 將結果中的product_id取出變為一個純資料的陣列
+  const arrow_length = rows.map((v) => v.product_id);
+console.log(arrow_length );
+  // /////////////關聯資料表////////////////////
+
   // const filterdata = await getFilter(where, sortValue, 5, 0);
 
   res.json({
+    // arrow_length,
     message: "getAllProduct success",
     code: "200",
     filterdata,
     alldata,
     newdata,
+    
   });
 });
 router.get("/:pid", async (req, res) => {
