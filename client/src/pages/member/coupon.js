@@ -153,7 +153,7 @@ export default function MemberCoupon() {
                             />
                           </td>
                           <td>
-                          <Link href="/">{coupon.order_id}</Link>
+                          <Link href={`/member/order-detail/${coupon.order_id}`}>{coupon.order_id}</Link>
                         </td>
                         <td>$500</td>
                         <td>$1000</td>
