@@ -103,8 +103,6 @@ const css = `
             }}
           />
         </div>
-        {/* <Reserve selected={selected} /> */}
-
 
         <div className='d-flex justify-content-center'>
           <a href='/venue/reserve'>
@@ -112,16 +110,35 @@ const css = `
               返回上一步
             </button>
           </a>
-          {/* <a href='/venue/reserve'>
-            <button className='mx-4 mt-2 mb-5 reserve-bt2' type='submit'>
-              下一步
-            </button>
-          </a> */}
-          <a href={`/venue/reserve?days=${encodeURIComponent(days)}`}>
-  <button className='mx-4 mt-2 mb-5 reserve-bt2' type='submit'>
-    下一步
-  </button>
-</a>
+              {/* <button className='mx-4 mt-2 mb-5 reserve-bt2' type='submit'
+                onClick={()=>{
+                  if (selected && selected.length > 0) {
+                    const selectedDates = selected.map((selectedDate, index) => (
+                      selectedDate.toLocaleDateString('zh-TW')
+                    ));
+                    localStorage.setItem('selectedDates',selectedDates)
+                  } 
+                  router.push(`/venue/reserve`)
+                  }} */}
+                  <button
+                    className='mx-4 mt-2 mb-5 reserve-bt2'
+                    type='submit'
+                    onClick={() => {
+                      if (selected && selected.length > 0) {
+                        const selectedDates = selected.map((selectedDate, index) => (
+                          selectedDate.toLocaleDateString('zh-TW')
+                        ));
+                        localStorage.setItem('selectedDates', selectedDates);
+                        router.push(`/venue/reserve`);
+                      } else {
+                        // 使用者未選擇日期，你可以添加一個提示或其他操作
+                        alert('請選擇至少一天');
+                      }
+                    }}
+              >
+                下一步
+              </button>
+          
         </div>
       </Container>
     </>
