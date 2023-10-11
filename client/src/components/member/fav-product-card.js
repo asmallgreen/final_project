@@ -4,6 +4,9 @@ import Link from 'next/link'
 
 
 export default function FavProductCard() {
+    const handleInput = (e) => {
+        e.stopPropagation()
+    }
   return (
     <>
         <Row className='justify-content-md-center my-5'>
@@ -11,7 +14,7 @@ export default function FavProductCard() {
             <Row>
             <Col lg='6' md='12' className='d-flex justify-content-center mb-3'>
                 <Link href='/' className='d-flex position-relative text-center fav-section'>
-                    <input type='checkbox'/>
+                    <input type='checkbox' onClick={handleInput}/>
                         <div className='me-2'>
                             <img src='/Duo/avatar01.jpg'></img>
                         </div>
@@ -31,7 +34,7 @@ export default function FavProductCard() {
             </Col>
             <Col lg='6' md='12' className='d-flex justify-content-center mb-3'>
                 <Link href='/' className='d-flex position-relative fav-section'>
-                    <input type='checkbox'/>
+                    <input type='checkbox' onClick={handleInput}/>
                         <div className='me-2'>
                             <img src='/Duo/avatar01.jpg'></img>
                         </div>
