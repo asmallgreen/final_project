@@ -34,4 +34,9 @@ const getCoursePageAsc = async (limit, offset)=>{
 //   return rows;
 // } 
 
-export { getAllCourse, getCourseById, getCoursePageAsc };
+const searchCourse = async (where) => {
+  const { rows } = await find(table, where);
+  return rows;
+}; 
+
+export { getAllCourse, getCourseById, getCoursePageAsc, searchCourse };

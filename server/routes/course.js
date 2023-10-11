@@ -3,6 +3,7 @@ import {
   getAllCourse,
   getCourseById,
   getCoursePageAsc,
+  searchCourse
 } from "../models/course.js";
 const router = express.Router();
 
@@ -42,5 +43,16 @@ router.get("/:cid", async (req, res, next) => {
 });
 
 //
+router.get("/search/:keyword", async (req, res) => { 
+  const keyword = req.params.keyword;
+  const where = { name: keyword };
+  const search = await searchCourse(where);
+  // console.log(search);
+  res.json({
+    message: "success to get search course",
+    code: "200",
+    search,
+  });
+});
 
 export default router;
