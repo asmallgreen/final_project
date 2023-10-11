@@ -31,10 +31,10 @@
 
 #### 篩選
 
-- [ ] useRouter 取得路由:/product/category/${tpye}
+- [v] useRouter 取得路由:/product/category/${tpye}
 - [ ] 關聯資料表找出對應屬性、屬性值，將結果渲染到頁面上
-- [ ] 點擊 attr-btn 取得 value，api 將值回傳到後端(有空做:顯示結果筆數)
-- [ ] 後端篩選出 filterdata 回傳，前端 axios 接收、改變 filterData 狀態值
+- [v] 點擊 attr-btn 取得 value，api 將值回傳到後端(有空做:顯示結果筆數)
+- [v] 後端篩選出 filterdata 回傳，前端 axios 接收、改變 filterData 狀態值
 
 #### 排序
 
@@ -68,8 +68,8 @@
 
 - [v] alldata
 - [v] newdata
-- [ ] catedata (/category/[cate])
-- [ ] onedata(/[pid])
+- [v] catedata (/category/[cate])
+- [v] onedata(/[pid])
 
 ### 前端
 #### prop 方式接收
@@ -118,8 +118,14 @@
 
 ### 20231011
 
-#### 所有商品
-- [ ] 篩選只有四大類可以選擇，modal-attr
+#### 所有商品篩選功能
+- [v] 所有商品的篩選只有四大類，modal-attr
+- [v] modal-attry在onclick取得button值，傳到filter-btn和index，在從後端抓資料
+- [v] 點選查看結果才會跑資料
+- [ ] modal切換時，無法正常運行功能
+- [ ] 建立屬性中介表、屬性資料表
+- [ ] modal裡面的title和attr-btn用資料庫取值(不同category屬性不同)
+- [ ] 
 - [ ] 
 #### 分類頁
 - [ ] 麵包屑用useRouter抓當下路由，判斷後面的值
@@ -135,5 +141,15 @@
 
 - [ ] 重整網頁時luna-pagination無法即時取得pageLength，導致按鈕陣列為空值，改變limit值後可以
 - [ ] luna-pagination的handlePrev/handleNext函式中的pageLength無法被及時更新，點選後不變
+- [ ]
+- [ ]
+
+### TODO LATER
+- [ ] filter-btn篩選商品(抓dataLength)
+- [ ] modal-attr查看{dataLength}筆結果
+- [ ]
+- [ ]
+- [ ]
+- [ ]
 - [ ]
 - [ ]

@@ -129,13 +129,15 @@ function Cate(props) {
     if (typeof window !== "undefined") {
       (async () => {
         try {
-          const res = await axios.get(`http://localhost:3005/product/category/${cate}`, {
-  //           params: { },
-          });
+          const res = await axios.get(
+            `http://localhost:3005/product/category/${cate}`,
+            {
+              //           params: { },
+            }
+          );
           setAllProduct(res.data.alldata);
           setNewProduct(res.data.newdata);
           // setProduct(res.data.filterdata);
-          
         } catch (error) {
           console.log(error);
         }
@@ -146,7 +148,7 @@ function Cate(props) {
   return (
     <>
       {/* **************** */}
-
+      {/* 廣告 */}
       <Swiper
         spaceBetween={0}
         slidesPerView={1}
@@ -289,7 +291,7 @@ function Cate(props) {
       </div>
       {/* 手機板slogan */}
       <div className="phone-slogan">全店優惠滿$1,000 ，即可免運</div>
-      {/* filterBtn待處理 */}
+      {/*/////////////// filterBtn待處理 ///////////////*/}
       <div className="filter-area container-fluid">
         <div className="container">
           <div className="all-product">
@@ -329,10 +331,10 @@ function Cate(props) {
       /> */}
       {/* setPage={updatePage} */}
       {/* 優惠專區 */}
-      {/* <div className="product-page-title">
+      <div className="product-page-title">
         <p>優惠專區</p>
-      </div> */}
-      {/* <Swiper
+      </div>
+      <Swiper
         spaceBetween={10}
         slidesPerView={2}
         navigation={true}
@@ -370,9 +372,9 @@ function Cate(props) {
         <SwiperSlide>
           <SalesCard />
         </SwiperSlide>
-      </Swiper> */}
+      </Swiper>
       {/* 手機板 優惠專區 */}
-      {/* <div className="phone-sales">
+      <div className="phone-sales">
         <div className="cards">
           <div className="img">
             <img src="" alt="img"></img>
@@ -384,14 +386,14 @@ function Cate(props) {
             <div className="price">$3000</div>
           </div>
         </div>
-      </div> */}
+      </div>
       {/* inter */}
       <div className="inter-block text-center">真誠面對傳統，超越傳統。</div>
       {/* 相關商品推薦 */}
-      {/* <div className="product-page-title">
+      <div className="product-page-title">
         <p>相關商品推薦</p>
-      </div> */}
-      {/* <Swiper
+      </div>
+      <Swiper
         spaceBetween={10}
         slidesPerView={6}
         navigation={true}
@@ -426,8 +428,8 @@ function Cate(props) {
         <SwiperSlide>
           <RecommendedCard />
         </SwiperSlide>
-      </Swiper> */}
-      {/* <div className="product-under-space"></div> */}
+      </Swiper>
+      <div className="product-under-space"></div>
 
       {/* *************TEST**************** */}
     </>

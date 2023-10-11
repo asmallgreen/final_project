@@ -11,10 +11,11 @@ const router = express.Router();
 
 //***********產品頁************
 router.get("/", async (req, res) => {
-  const { limit, page, sort } = req.query;
+  const { limit, page, sort, attr } = req.query;
   const limitValue = parseInt(limit);
   const pageValue = parseInt(page);
   const offset = (pageValue - 1) * limitValue;
+  //排序改order
   let sortValue;
   switch (sort) {
     case "default":
@@ -35,10 +36,32 @@ router.get("/", async (req, res) => {
       sortValue = { name: "desc" };
       break;
   }
-
+  //篩選改where
+  // let arrValue={category_id:1}
+  let attrValue
+  switch (attr) {
+    case "default":
+      attrValue = '';
+      break;
+    case "attr1":
+      attrValue = {category_id:1};
+      break;
+    case "attr2":
+      attrValue = {category_id:2};
+      break;
+    case "attr3":
+      attrValue = {category_id:3};
+      break;
+    case "attr4":
+      attrValue = {category_id:4};
+      break;
+  }
+  console.log(attrValue);
+// const where = {id:1}
   const alldata = await getAll();
   const newdata = await getNew();
-  const filterdata = await getFilter(sortValue, limitValue, offset);
+  const filterdata = await getFilter(attrValue, sortValue, limitValue, offset);
+  // const filterdata = await getFilter(where, sortValue, 5, 0);
 
   res.json({
     message: "getAllProduct success",
@@ -59,7 +82,7 @@ router.get("/:pid", async (req, res) => {
     data,
   });
 });
-router.get('/category/:cate', async(req, res)=>{
+router.get("/category/:cate", async (req, res) => {
   // const { limit, page, sort } = req.query;
   // const limitValue = parseInt(limit);
   // const pageValue = parseInt(page);
@@ -94,9 +117,8 @@ router.get('/category/:cate', async(req, res)=>{
     code: 200,
     alldata,
     newdata,
-    
   });
-})
+});
 // ***********test***********
 router.get("/productInfo", async (req, res) => {
   // const productId = alldata.filter(data=>data.id)

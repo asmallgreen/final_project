@@ -19,7 +19,8 @@ export default function FilterProductCard(props) {
   // 切換愛心的實心和空心狀態
   const [isSolidHeart, setIsSolidHeart] = useState(true);
   // Toggle切換
-  const handleToggle = () => {
+  const handleToggle = (e) => {
+    e.stopPropagation();
     setIsSolidHeart((prevState) => !prevState);
   };
   const handleAddCart = () => {
@@ -86,9 +87,12 @@ export default function FilterProductCard(props) {
           </div>
         </div>
       </div> */}
-      <Link href={`/product/${idData}`} className="card">
+      <div className="card">
         <div className="img position-relative">
-          <img src={filterProduct.img1} onClick={handleInfo}></img>
+          <Link href={`/product/${idData}`}>
+            <img src={filterProduct.img1} onClick={handleInfo}></img>
+          </Link>
+
           <div className="tag position-absolute">NEW</div>
           <button className="p-0 position-absolute">
             <FontAwesomeIcon
@@ -112,7 +116,7 @@ export default function FilterProductCard(props) {
             </button>
           </div>
         </div>
-      </Link>
+      </div>
     </>
   );
 }

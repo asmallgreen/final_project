@@ -25,6 +25,7 @@ import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
 function Product() {
   // const [offset, setOffset] = useState(0);
+  const [attr, setAttr] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
@@ -33,7 +34,7 @@ function Product() {
   const [allProduct, setAllProduct] = useState([]);
   const [product, setProduct] = useState([]);
   const [newProduct, setNewProduct] = useState([]);
-
+  console.log(`篩選:${attr}`);
   console.log(`排序:${sort}`);
   // console.log(`目前點選頁數:${page}`);
   // console.log(`目前顯示頁數:${limit}`);
@@ -59,6 +60,11 @@ function Product() {
     console.log(newSort);
     setSort(newSort);
   };
+  const updateAttr = (newAttr) => {
+    console.log(newAttr);
+    setAttr(newAttr);
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       (async () => {
@@ -66,7 +72,7 @@ function Product() {
           setDataLength(Object.entries(allProduct).length);
           setPageLength(Math.ceil(dataLength / limit));
           const res = await axios.get("http://localhost:3005/product", {
-            params: { limit, page, sort },
+            params: { limit, page, sort, attr },
           });
           console.log(sort);
           setAllProduct(res.data.alldata);
@@ -77,9 +83,7 @@ function Product() {
         }
       })();
     }
-  }, [dataLength, pageLength, limit, page, sort]);
-
-
+  }, [dataLength, pageLength, limit, page, sort, attr]);
 
   // const router = useRouter();
   return (
@@ -239,6 +243,8 @@ function Product() {
                 limit={limit}
                 setLimit={updateLimit}
                 setSort={updateSort}
+                setAttr={updateAttr}
+                dataLength={dataLength}
               />
             </div>
           </div>

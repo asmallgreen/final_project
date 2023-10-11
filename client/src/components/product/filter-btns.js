@@ -8,22 +8,27 @@ import ModalSort from "./modal-sort";
 // 父元件 在引入的子元件後面加上屬性={處理子元件傳遞回來的function}
 // handle函式(接收參數)=>{要處理的事ex:更新值}
 export default function FilterBtns(props) {
+  const [attrModal, setAttrModal] = useState();
+  const [sortModal, setSortModal] = useState();
+  const [localLimit, setLocalLimit] = useState(props.limit);
+
   //子元件的屬性
   console.log(props);
+  const handleAttrChange = (attrState) => {
+    props.setAttr(attrState);
+  };
   const handleSortChange = (sortState) => {
     // 在这里处理从子组件传递回来的 sortState
     console.log(sortState);
-    props.setSort(sortState)
+    props.setSort(sortState);
     // 进行其他操作...
   };
   // ******************************
   //篩選&排序Modal
-  const [attrModal, setAttrModal] = useState();
   //觸發篩選modal
   const handleAttrModal = () => {
-    setAttrModal(attrModal ? "" : <ModalAttr />);
+    setAttrModal(attrModal ? "" : <ModalAttr attrChange={handleAttrChange} />);
   };
-  const [sortModal, setSortModal] = useState();
   //觸發排序modal
   const handleSortModal = (sortState) => {
     setSortModal(sortModal ? "" : <ModalSort sortChange={handleSortChange} />);
@@ -32,7 +37,6 @@ export default function FilterBtns(props) {
 
   // const {limit} = props;
   // 狀態用來存儲每頁幾筆狀態
-  const [localLimit, setLocalLimit] = useState(props.limit);
   const handleClick = (e) => {
     const limitValue = e.target.value;
     // setLocalLimit(limitValue)
@@ -41,7 +45,6 @@ export default function FilterBtns(props) {
   //每次進入網站都要回傳值給父元件index
   useEffect(() => {
     props.setLimit(localLimit);
-
   }, [handleClick]);
 
   return (

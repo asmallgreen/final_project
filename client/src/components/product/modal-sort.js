@@ -3,16 +3,18 @@ import { FaX, FaFilter } from "react-icons/fa6";
 import ModalAttr from "./modal-attr";
 //props增加屬姓回傳filter-btn
 export default function ModalSort(props) {
+  
+  const [open, setOpen] = useState(true);
   const [modal, setModal] = useState();
   const [attr, setAttr] = useState(false);
   //點選排序選項的狀態值(回傳到filter-btns)
-  const [sortState, setSortState] = useState('default');
-  const [sortSend, setSortSend] = useState(sortState)
-  //傳回filter-btns動作
+  const [sortState, setSortState] = useState("default");
+  const [sortSend, setSortSend] = useState(sortState);
   props.sortChange(sortSend);
+  //傳回filter-btns動作
   console.log(sortState);
   console.log(sortSend);
-  
+
   const handleModal = () => {
     setAttr(true);
     setModal(attr ? 1 : <ModalAttr />);
@@ -21,8 +23,6 @@ export default function ModalSort(props) {
     // props.sortChange(sortState);
   };
   //用close-btn切換
-  const [open, setOpen] = useState(true);
-
   const handleClose = () => {
     setOpen((prevState) => !prevState);
   };
@@ -46,24 +46,24 @@ export default function ModalSort(props) {
       // 將特定的屬性設置為 true
       newState[button] = !prevState[button];
       //button值更新sortState
-      setSortState(button)
+      setSortState(button);
       return newState;
     });
     // console.log(sortState);
   };
-  const handleSend = ()=>{
+  const handleSend = () => {
     //套用後才更新值sort並送出
-    setSortSend(sortState)
-    setOpen(false)
-  }
+    setSortSend(sortState);
+    setOpen(false);
+  };
 
   return (
     <>
       <div className={open ? "product-modal" : "d-none"}>
         <div className="product-sort-modal">
           <div className="click-area">
-            <div className="filter-btn title" onClick={handleModal}> 
-            {/* 觸發handleModal */}
+            <div className="filter-btn title" onClick={handleModal}>
+              {/* 觸發handleModal */}
               篩選
             </div>
             <div className="sort-btn title">排序</div>
@@ -120,7 +120,9 @@ export default function ModalSort(props) {
             </div>
           </div>
           <div className="fk-area">
-            <div className="set-btn" onClick={handleSend}>套用</div>
+            <div className="set-btn" onClick={handleSend}>
+              套用
+            </div>
           </div>
         </div>
       </div>

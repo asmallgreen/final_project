@@ -21,8 +21,8 @@ const getOne = async (where) => {
   return row
 };
 
-const getFilter = async (order, limit, offset) => {
-  const where = "";
+const getFilter = async (where, order, limit, offset) => {
+  // const where = "";
   // const order = {id: 'ASC'}
   const { rows } = await find(table, where, order, limit, offset);
   return rows;
