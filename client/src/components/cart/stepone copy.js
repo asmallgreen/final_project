@@ -41,7 +41,7 @@ export default function StepOne({ setstepType }) {
   const { memberCoupon } = useAuthJWT();
   // console.log(memberCoupon);
 
-  
+
   return (
     <Container>
       <div>
