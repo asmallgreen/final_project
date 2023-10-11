@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Col } from "react-bootstrap";
 
 import { useProductCart } from "@/hooks/use-product-cart";
@@ -41,11 +41,24 @@ export default function StepOne({ setstepType }) {
   const { memberCoupon } = useAuthJWT();
   // console.log(memberCoupon);
 
-  
+  // 修正 Next hydration 錯誤
+  // 一定要在最後面
+  // https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  if (!hydrated) {
+    // Returns null on first render, so the client and server match
+    return null;
+  }
+  // fix end
   return (
     <Container>
+      {/* 以下為測試按鈕 */}
       <div>
-        {/* 以下為測試按鈕 */}
         <button
           className="btn btn-outline-secondary"
           onClick={() => {
@@ -116,10 +129,7 @@ export default function StepOne({ setstepType }) {
           <span className="expand phoneDNone">+</span>
         </Col>
       </div>
-      <div className="productList d-none d-lg-flex">
-        <Col xs={1}>
-          <input type="checkbox" className="phoneDNone" />
-        </Col>
+      {/* <div className="productList d-none d-lg-flex">
         <Col xs={4}>
           <span className="phoneDNone">商品名稱</span>
         </Col>
@@ -135,33 +145,40 @@ export default function StepOne({ setstepType }) {
         <Col xs={1}>
           <span className="phoneDNone">小計</span>
         </Col>
-      </div>
+      </div> */}
       <ProductList />
       <div className="productList">
         <div>
-          <button className="deleteBtn">刪除</button>
+          <button
+            className="deleteBtn"
+            onClick={() => {
+              clearProductCart();
+            }}
+          >
+            刪除
+          </button>
           <div className="couponSection">
             <select>
               <option value="">選擇優惠券</option>
-              {memberCoupon.map((coupon, index) => (
-                <option key={index} value={coupon.id}>
-                  {coupon.name}
+              {memberCoupon.length > 0 ? (
+                memberCoupon.map((coupon, index) => (
+                  <option key={index} value={coupon.id}>
+                    {coupon.name}
+                  </option>
+                ))
+              ) : (
+                <option value="" disabled>
+                  沒有可用優惠券
                 </option>
-              ))}
+              )}
             </select>
-            <span>{`共  項 , 商品小計 元`}</span>
+            <span>
+              共 {productCart.totalItems} 項 , 商品小計 {productCart.cartTotal}{" "}
+              元
+            </span>
           </div>
         </div>
       </div>
-      {/* <Row className="productList">
-        <Col xs={1}><input type='checkbox' /></Col>
-        <Col xs={4}>商品名稱</Col>
-        <Col xs={2}>規格</Col>
-        <Col xs={2}>單價</Col>
-        <Col xs={2}>數量</Col>
-        <Col xs={1}>小計</Col>
-      </Row> */}
-
       <div className="listTitle">
         <Col xs={1}>
           <input type="checkbox" className="expand pcDNone" />
@@ -188,23 +205,26 @@ export default function StepOne({ setstepType }) {
       <CourseList />
       <div className="productList">
         <Col>
-          <button className="deleteBtn">刪除</button>
+          <button
+            className="deleteBtn"
+            onClick={() => {
+              clearCourseCart();
+            }}
+          >
+            刪除
+          </button>
           <div>{`共  項 , 課程小計 元`}</div>
         </Col>
       </div>
       <div className="totalSection">
-        <label>
-          <input type="checkbox" />
-          {`  全選`}
-        </label>
         <div className="total">
           <div>
-            {`總金額(共 項)`}
-            <span>{`  $ `}</span>
+            總金額(共 項)
+            <span>$</span>
           </div>
-          <div className="discount">{`優惠券折抵   $ `}</div>
+          <div className="discount">{`優惠券折抵$ `}</div>
           <span className="">
-            <span>{`確認訂單金額    `}</span>
+            <span>確認訂單金額</span>
             <button
               className="nextStepBtn"
               onClick={() => {
