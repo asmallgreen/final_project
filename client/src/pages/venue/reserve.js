@@ -21,8 +21,8 @@ const [name, setName] = useState('');
 const [email, setEmail] = useState('');
 const [phone, setPhone] = useState('');
 
-const chineseNameRegex = /^[\u4e00-\u9fa5]+$/; // 匹配中文姓名
-const taiwanPhoneRegex = /^09[0-9]{8}$/; // 匹配以"09"开头的台湾手机号码
+const chineseNameRegex = /^[\u4e00-\u9fa5]+$/; // 中文姓名正規表達式
+const taiwanPhoneRegex = /^09[0-9]{8}$/; // 09開頭的手機號碼正規表達式
 
 useEffect(()=>{
   const sd = localStorage.getItem('selectedDates')

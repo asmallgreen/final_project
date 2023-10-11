@@ -23,6 +23,7 @@ const css = `
   const [selected, setSelected] = useState([]);
   const [VenueData, setVenueData] = useState(null);
   const [reserveData, setReserveData] = useState(null);
+  const [disabledDates, setDisabledDates] = useState([]);
 
 
   const router = useRouter();
@@ -44,6 +45,21 @@ const css = `
       try {
         const response = await axios.get('http://127.0.0.1:3005/venue_reserve');
         setReserveData(response.data.allVenueReserve);
+
+           // 获取 venue_reserve 数据中的日期
+      const reservedDates = response.data.allVenueReserve.map((reserve) => [
+        reserve.date_1,
+        reserve.date_2,
+        reserve.date_3,
+        reserve.date_4,
+        reserve.date_5,
+      ]).flat();
+
+      // 在日期选择器中禁用已被预定的日期
+      const disabledDates = (date) => reservedDates.includes(date.toISOString());
+      setDisabledDates(disabledDates);
+      console.log(disabledDates); 
+      
       } catch (error) {
         console.error('資料庫連結錯誤:', error);
       }
@@ -100,6 +116,10 @@ const css = `
             footer={footer}
             modifiersClassNames={{
               selected: 'my-selected'
+            }}
+            disabled={(date) => {
+              // // 禁止选择当天和过去的日期，以及已被预定的日期
+              return date <= new Date() || disabledDates.includes(date.toISOString());
             }}
           />
         </div>
