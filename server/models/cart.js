@@ -22,7 +22,13 @@ const getOrder = async () =>{
     return rows
 }
 
+const getMember = async () => {
+    const { rows } = await find("member")
+    return rows
+}
+
 export {
     getCart,
-    getOrder
+    getOrder,
+    getMember
 }

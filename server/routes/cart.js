@@ -3,22 +3,26 @@ const router = express.Router();
 import 'dotenv/config.js'
 import { executeQuery } from '../routes/database.js';
 
-import { getCart , getOrder} from '../models/cart.js'
+import { getCart, getOrder ,getMember} from '../models/cart.js'
 
-router.post('/', async (req, res) =>{
-    
+router.post('/', async (req, res) => {
 
-     const cartList = await getCart()
-     
+    const memberList = await getMember()
+    const cartList = await getCart()
+
     return res.json({
-        message:"search success",
-        code:"200",
-        cartList:cartList
+        message: "search success",
+        code: "200",
+        cartList: cartList,
+        memberList: memberList
+
     })
+
+    
 });
 
-router.post('/NewOrder', async (req, res)=> {
-    
+router.post('/NewOrder', async (req, res) => {
+
     // const orderList = await getOrder()
 
     const payment = req.body.payment
@@ -39,7 +43,7 @@ router.post('/NewOrder', async (req, res)=> {
         });
     }
 
-   
+
 });
 
 

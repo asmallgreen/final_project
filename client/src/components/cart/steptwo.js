@@ -3,14 +3,14 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { useCart } from '@/hooks/use-cart';
 import axios from 'axios';
 
-export default function StepTwo({setstepType , discountPrice ,discountAmount}) {
+export default function StepTwo({setstepType , discountPrice ,discountAmount, setPayment }) {
   const [selectedOption, setSelectedOption] = useState('');
 
   const { cart } = useCart();
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
-    console.log(event.target.value)
+    
   };
 
   const sendData = (n) => {
@@ -18,6 +18,8 @@ export default function StepTwo({setstepType , discountPrice ,discountAmount}) {
     setstepType(n);
     
   };
+
+  
 
   const handleNewOrder = async () => {
     try {
@@ -99,14 +101,15 @@ export default function StepTwo({setstepType , discountPrice ,discountAmount}) {
         className='nextStepBtn fs-5 d-sm-block d-none'
         onClick={() => {
           sendData(3);
-          handleNewOrder();
+          setPayment(selectedOption);
         }}>填寫訂單資料</button>
 
         <button 
         className='nextStepBtn fs-5 d-sm-none d-block'
         onClick={() => {
           sendData(3);
-          handleNewOrder()
+          setPayment(selectedOption);
+          console.log(selectedOption)
         }}>下一步</button>
       </div>
     </div>

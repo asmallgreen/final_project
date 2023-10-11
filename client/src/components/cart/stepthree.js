@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Form, Col } from 'react-bootstrap';
 import { useCart } from '@/hooks/use-cart';
 
-export default function StepThree({ setstepType }) {
+export default function StepThree({ setstepType , discountPrice ,discountAmount}) {
 
   const { cart } = useCart();
 
@@ -57,14 +57,14 @@ export default function StepThree({ setstepType }) {
       </div>
       <div>
         <div className='order'>
-          <div className='fs-5'>{`共 件商品`}&nbsp;{`$`}</div>
-          <div className='fs-5'>{`共 堂課程`}&nbsp;{`$`}</div>
+          <div className='fs-5'>{`共${cart.productTotalItems}件商品`}&nbsp;$ {`${!discountPrice ? cart.productTotal :discountPrice}`}</div>
+          <div className='fs-5'>{`共${cart.courseTotalItems}堂課程`}&nbsp;$ {`${cart.courseTotal}`}</div>
           <br />
-          <div className='fs-5'>{`優惠券折抵`}&nbsp;{`-$`}</div>
+          <div className='fs-5'>{`優惠券折抵`}&nbsp;$ {`${!discountAmount ? "0":discountAmount}`}</div>
         </div>
         <div className='line'></div>
         <div className='orderTotal fs-5'>
-          {`金額總計 `}&nbsp;<span>{`$ `}{` `}</span>
+          {`金額總計 `}&nbsp;<span>{`$ `}{`${!discountPrice ? cart.productTotal+cart.courseTotal:discountPrice+cart.courseTotal}`}</span>
         </div>
       </div>
       <div className='stepBtnGroup'>

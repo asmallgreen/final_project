@@ -24,9 +24,22 @@ export default function Index() {
       .catch((err) => {
         console.log(err);
       })
+    
+      // axios.post('http://localhost:3005/cart/NewOrder',{payment:'credit'})
+      // .then((res) => {
+
+      //   alert('連結成功');
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // })
+      
   }, [])
 
+ 
 
+
+  const [ payment, setPayment ] = useState(' ')
 
   const [discountPrice, setDiscountPrice] = useState(0)
 
@@ -86,9 +99,9 @@ export default function Index() {
       </Row>
       <CartProvider cartList={cartList}>
         {stepType === 1 && <StepOne setstepType={handleStepChange} setDiscountPrice={setDiscountPrice} setDiscountAmount={setDiscountAmount} />}
-        {stepType === 2 && <StepTwo setstepType={handleStepChange} discountPrice={discountPrice} discountAmount={discountAmount} />}
+        {stepType === 2 && <StepTwo setstepType={handleStepChange} discountPrice={discountPrice} discountAmount={discountAmount} setPayment={setPayment}/>}
         {stepType === 3 && <StepThree setstepType={handleStepChange} discountPrice={discountPrice} discountAmount={discountAmount} />}
-        {stepType === 4 && <StepFour setstepType={handleStepChange} discountPrice={discountPrice} discountAmount={discountAmount} />}
+        {stepType === 4 && <StepFour setstepType={handleStepChange} discountPrice={discountPrice} discountAmount={discountAmount} payment={payment}/>}
 
       </CartProvider>
 
