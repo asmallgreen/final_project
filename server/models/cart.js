@@ -13,7 +13,7 @@ const table = "shopping_cart"
 
 
 const getCart = async () => {
-    const { rows } = await find(table)
+    const { rows } = await find("shopping_cart" )
     return rows
 }
 
