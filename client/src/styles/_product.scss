@@ -1,6 +1,9 @@
+$primary: #fcfaf2;
 $secondary: #616153;
-$viceColor: #fcfaf2;
 $accent: #b16464;
+body {
+  background-color: $primary;
+}
 
 * {
   box-sizing: border-box;
@@ -8,8 +11,6 @@ $accent: #b16464;
 
 .ads {
   height: 500px;
-  width: 100%;
-  
   .ad {
     padding: 0;
     height: 100%;
@@ -21,110 +22,263 @@ $accent: #b16464;
   }
   .main {
     padding: 0;
+
     .scrolls {
-      right: calc(50% - 66px);
-      .circle {
-        width: 12px;
-        height: 12px;
-        background-color: $primary;
-        border: 1px solid $secondary;
-        border-radius: 50%;
-        cursor: pointer;
-        &:hover {
-          background-color: $secondary;
-          border: 1px solid $viceColor;
-        }
-      }
+      bottom: 10px;
     }
   }
 }
-
-.title {
-  // max-width: 1440px;
+@media screen and (max-width: 768px) {
+  .ads {
+    display: none !important;
+  }
+}
+.phone-ad {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .phone-ad {
+    display: block;
+    height: 178px;
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+//分區title
+.product-page-title {
   height: 95px;
   border-bottom: 1px solid $secondary;
-  padding: 50px 45px;
-
   p {
     max-width: 1440px;
+    padding: 40px 0 10px 25px;
     margin: 0 auto;
     color: $secondary;
     font-size: 30px;
   }
 }
-.cards {
-  height: 435px;
-  border-bottom: 1px solid $secondary;
-  .card {
-    width: 230px;
-    height: 320px;
-    margin-inline: 5px;
-    img {
-      height: 230px;
-      background-color: $secondary;
+@media screen and (max-width: 768px) {
+  .product-page-title {
+    padding: 0;
+    height: 60px;
+    p {
+      padding: 26px 0 10px 22px;
+      margin: 0;
+      font-size: 16px;
     }
-    .content {
-      height: 90px;
-      padding: 5px;
-      .product-name {
-        color: $secondary;
-        font-size: 18px;
-        .tag {
-          text-align: center;
-          padding-block: 5px;
-          width: 50px;
-          height: 30px;
-          font-size: 12px;
-          background-color: $accent;
-          color: $viceColor;
+  }
+}
+//所有產品button
+.filter-area {
+  border-bottom: 1px solid $secondary;
+  margin: 0 auto;
+  .all-product {
+    height: 95px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+
+    p {
+      // max-width: 1440px;
+      padding: 40px 0 10px 0px;
+      margin: 0;
+      color: $secondary;
+      font-size: 30px;
+    }
+    .wrap {
+      margin-bottom: 10px;
+      justify-content: flex-end;
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .filter-area {
+    padding-left: 0!important;
+    justify-content: space-between;
+    .container {
+      padding: 0;
+    }
+    .all-product {
+      padding: 0;
+      height: 60px;
+      p {
+        padding: 10px 0 10px 5px;
+        margin: 0;
+        font-size: 14px;
+      }
+    }
+  }
+}
+//卡片在各自component
+//手機板 優惠專區
+.phone-sales {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .phone-sales {
+    display: flex;
+
+    justify-content: center;
+    .cards {
+      display: flex;
+      border: 1px solid $secondary;
+      border-radius: 3px;
+      width: 350px;
+      height: 160px;
+      .img {
+        border: 1px solid transparent;
+        width: 200px;
+        height: 100%;
+        background-color: $secondary;
+        img {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
         }
       }
-      .description {
-        color: $secondary;
-        font-size: 15px;
-      }
-      .price {
-        font-size: 18px;
-        color: $accent;
+      .content {
+        width: 150px;
+        padding: 15px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        .product-name {
+          font-size: 14px;
+          color: $secondary;
+        }
+        .price {
+          font-size: 16px;
+          color: $accent;
+        }
+        .tag {
+          bottom: 0;
+          color: $primary;
+          font-size: 15px;
+          padding: 5px;
+          width: 100%;
+          text-align: center;
+        }
+        .tag1 {
+          background-color: $accent;
+        }
+        .tag2 {
+          background-color: #a7a78c;
+        }
       }
     }
   }
 }
 .category {
-  height: 510px;
+  height: 360px;
   .type-title {
-    height: 300px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    height: 160px;
     background-color: $secondary;
-    color: $viceColor;
+    color: $primary;
     font-size: 40px;
-    padding-top: 80px;
     letter-spacing: 8px;
+    width: 100%;
+    padding: 50px;
   }
   .type {
-    top: 160px;
+    // d-flex position-absolute justify-content-center
+    display: flex;
+    justify-content: center;
     margin: 0 auto;
     width: 100%;
+    padding: 160px 0 0 0;
+    // z-index: 999;
     .item {
-      width: 360px;
-      height: 280px;
-      background-color: #4b4b3d;
+      position: relative;
+      width: 100%;
+      height: 200px;
       display: flex;
       justify-content: center;
       align-items: center;
-
+      img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }
       &:hover {
-        background-color: #a7a78c;
-        a {
-          display: block;
-          color: $viceColor;
+        span {
+          text-decoration: none;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: $primary;
           font-size: 36px;
+          position: absolute;
+          background-color: $secondary;
+          // opacity: 70%;
+          transition: 0.4s;
         }
       }
-      a {
+      span {
         display: none;
-        text-decoration: none;
+        text-decoration: none!important;
       }
     }
+  }
+}
+@media screen and (max-width: 768px) {
+  .category {
+    height: 40px;
+    padding: 5px 10px;
+    .type-title {
+      display: none;
+    }
+    .type {
+      // d-flex position-absolute justify-content-center
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      width: 100%;
+      padding: 0;
+      // z-index: 999;
+      .item {
+        margin-inline: 2.5px;
+        width: 100%;
+        height: 30px;
+        border: 1px solid $secondary;
+        img {
+          display: none;
+        }
+        span {
+          display: block;
+          color: $secondary;
+          font-size: 12px;
+          text-decoration: none;
+        }
+        &:hover {
+          background-color: $secondary;
+          span {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}
+//手機板廣告標語
+.phone-slogan {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .phone-slogan {
+    display: block;
+    text-align: center;
+    margin: 5px 10px;
+    padding-block: 10px;
+    font-size: 12px;
+    color: $primary;
+    background-color: $secondary;
   }
 }
 .inter-block {
@@ -133,169 +287,18 @@ $accent: #b16464;
   height: 500px;
   padding-block: 280px;
 }
-.sales {
-  height: 320px;
-  padding: 40px;
-  border-bottom: 1px solid $secondary;
-  .card {
-    width: 630px;
-    flex-direction: row;
-    .img {
-      width: 350px;
-      height: 240px;
-      background-color: $secondary;
-    }
-    .content {
-      height: 240px;
-      width: 280px;
-      .tags {
-        .tag1 {
-          background-color: $accent;
-          color: $viceColor;
-          font-size: 15px;
-          padding: 5px;
-          width: 56px;
-        }
-        .tag2 {
-          background-color: $secondary;
-          color: $viceColor;
-          font-size: 15px;
-          padding: 5px;
-          width: 72px;
-        }
-      }
-      .product-name {
-        font-size: 23px;
-        color: $secondary;
-      }
-      .price {
-        font-size: 25px;
-        color: $accent;
-      }
-    }
+@media screen and (max-width: 768px) {
+  .inter-block {
+    display: none;
   }
 }
-.list {
-  padding-bottom: 100px;
-  border-bottom: 1px solid $secondary;
-  .fk {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 35px 35px 35px 0px;
-    .bread-crumb {
-      height: 40px;
-      a {
-        text-decoration: none;
-        color: $secondary;
-      }
-    }
-    .wrap {
-      .btn-group {
-        .btn {
-          color: $secondary;
-          &:hover {
-            background-color: $secondary;
-            color: $viceColor;
-          }
-        }
-        .btn-outline-primary {
-          border: 1px solid $secondary;
-          border-radius: 0;
-        }
-      }
-      .per-page {
-        border: 1px solid $secondary;
-        border-radius: 0;
-        color: $secondary;
-        .btn-primary {
-          border: 1px solid transparent;
-          border-radius: 0;
-          background-color: $viceColor;
-          color: $secondary;
-          &:hover {
-            background-color: $secondary;
-            color: $viceColor;
-          }
-        }
-      }
-    }
-  }
-  .cards {
-    border-bottom: 0;
-    .card {
-      width: 250px;
-      height: 400px;
-      margin-inline: 5px;
-      .img {
-        width: 250px;
-        height: 300px;
-        background-color: $secondary;
-        button {
-          border: transparent;
-          background-color: transparent;
-          top: 10px;
-          right: 16px;
-          .fa-heart {
-            width: 26px;
-            height: 26px;
-            color: $accent;
-          }
-          .far-heart {
-            display: none;
-          }
-          &:hover {
-            .fa-heart {
-              display: none;
-            }
-            .far-heart {
-              display: block;
-              width: 26px;
-              height: 26px;
-              color: $accent;
-            }
-          }
-        }
-      }
-      .content {
-        width: 250px;
-        height: 100px;
-        .prodcut-name {
-          font-size: 23px;
-          color: $secondary;
-        }
-        .price {
-          font-size: 20px;
-          color: $accent;
-          button {
-            border: transparent;
-            color: $secondary;
-            background-color: transparent;
-            &:hover {
-              color: #93937b;
-            }
-          }
-        }
-      }
-    }
-  }
-  .page-btns {
-    max-width: 1440px;
-    padding-inline: 30px;
-    margin: 0 auto;
-    .btn-group {
-      .btn {
-        width: 35px;
-        height: 35px;
-        border: 1px solid $secondary;
-        font-size: 14px;
-        color: $secondary;
-        border-radius: 0;
-
-        &:hover {
-          color: $viceColor;
-          background-color: $secondary;
-        }
-      }
-    }
+.product-under-space {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .product-under-space {
+    display: block;
+    width: 100%;
+    height: 60px;
   }
 }

@@ -5,10 +5,14 @@ export const initialState = {
     isEmpty: true,
     totalItems: 0,
     cartTotal: 0,
+    productTotal:0,
+    courseTotal:0,
+    productTotalItems:0,
+    courseTotalItems:0,
   }
   
   // 置於上述items陣列中的每個項目的物件模型
-  // id, quantity, price為必要屬性 
+  // id, quantity, price為必要屬性
   // const item = {
   //   id: '',
   //   quantity: 0,
@@ -18,11 +22,18 @@ export const initialState = {
   //   size: '',
   // }
   
-  /**
-   * addItem 加入項目於state中
-   * @param  {} state
-   * @param  {} action
-   */
+  const setChecked = (state, action) => {
+
+    for(let i = 0; i < state.items.length; i++){
+      
+      if(state.items[i].id === action.payload.id){
+        console.log( state.items[i])
+        state.items[i].isChecked = action.payload.isChecked
+        console.log( state.items[i].isChecked)
+      }
+    }
+    return state.items
+  }
   const addItem = (state, action) => {
     // 尋找是否有已存在的索引值
     const existingItemIndex = state.items.findIndex(
@@ -39,18 +50,22 @@ export const initialState = {
       const quantity = payloadQuantity
         ? item.quantity + payloadQuantity
         : item.quantity + 1
-  
+      
+      const isChecked = document.querySelector(`.cartChk[data-itemid="${id}"]`)
+
       const action = {
         type: 'UPDATE_ITEM',
-        payload: { id, quantity },
+        payload: { id, quantity ,isChecked},
       }
-  
+      
+      
       return updateItem(state, action)
     }
     return [...state.items, action.payload]
   }
   
   const removeItem = (state, action) => {
+    
     return state.items.filter((item) => item.id !== action.payload.id)
   }
   
@@ -133,23 +148,70 @@ export const initialState = {
       itemTotal: item.price * item.quantity,
     }))
   
+  
+
+  const calProductsTotal = (items) => {
+    if(items.product_id !== null){
+      return items.filter((v, i) => {
+        return v.product_id !== null
+      }
+      ).reduce((total, item) => (item.isChecked ? total + item.quantity * item.price :total), 0)
+    }
+  }
+
+  const calCoursesTotal = (items) => {
+    if(items.course_id !== null){
+      return items.filter((v, i) => {
+        return v.course_id !== null
+      }
+      ).reduce((total, item) =>  (item.isChecked ? total + item.quantity * item.price :total), 0, 0)
+    }
+  }
+
+  const calProductsTotalItems = (items) => {
+    if(items.product_id !== null){
+      return items.filter((v, i) => {
+        return v.product_id !== null
+      }
+      ).reduce((sum, item) =>  (item.isChecked ? sum + item.quantity : sum), 0)
+    }
+  }
+  
+  const calCoursesTotalItems = (items) => {
+    if(items.course_id !== null){
+      return items.filter((v, i) => {
+        return v.course_id !== null
+      }
+      ).reduce((sum, item) => (item.isChecked ? sum + item.quantity : sum), 0)
+    }
+  }
+  
+  
+
   const calculateTotal = (items) =>
-    items.reduce((total, item) => total + item.quantity * item.price, 0)
+    items.reduce((total, item) => (item.isChecked ? total + item.quantity * item.price : total), 0)
   
   const calculateTotalItems = (items) =>
-    items.reduce((sum, item) => sum + item.quantity, 0)
+    items.reduce((sum, item) => (item.isChecked ? sum + item.quantity : sum), 0);
   
   // 最後將更新後的state，與initialState整理成新的state
   const generateCartState = (state, items) => {
     // isEmpty為布林值
-    const isEmpty = items.length === 0
+  const isEmpty = items.length === 0
+
+  
   
     return {
       ...initialState,
       ...state,
       items: calculateItemTotals(items),
+      
       totalItems: calculateTotalItems(items),
       cartTotal: calculateTotal(items),
+      productTotal: calProductsTotal(items),
+      courseTotal: calCoursesTotal(items),
+      productTotalItems: calProductsTotalItems(items),
+      courseTotalItems: calCoursesTotalItems(items),
       isEmpty,
     }
   }
@@ -161,6 +223,8 @@ export const initialState = {
   
   export const reducer = (state, action) => {
     switch (action.type) {
+      case 'INIT':
+        return generateCartState(state, action.payload )
       case 'ADD_ITEM':
         return generateCartState(state, addItem(state, action))
       case 'REMOVE_ITEM':
@@ -171,6 +235,8 @@ export const initialState = {
         return generateCartState(state, plusItemQuantityOnce(state, action))
       case 'MINUS_ONE':
         return generateCartState(state, minusItemQuantityOnce(state, action))
+      case 'SET_CHECKED':
+        return generateCartState(state, setChecked(state, action))
       case 'CLEAR_CART':
         return initialState
       default:

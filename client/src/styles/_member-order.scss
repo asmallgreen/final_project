@@ -21,13 +21,36 @@ $mobile-img-height: 60px;
     height: auto;
     object-fit: cover;
   }
+  .btn {
+    background-color: $secondary-half;
+    border-radius: 0;
+    padding: 10px 20px;
+    color: #fff;
+    font-size: 0.75rem;
+    &:hover {
+      background-color: $accent;
+      color: #fff
+    }
+  }
 }
 
 .order-table-mobile {
+  color: $secondary;
+  background-color: $primary;
+  .order{
+    border-bottom: #fff solid 3px;  
+  }
   img {
     width: $mobile-img-height;
     height: $mobile-img-height;
     object-fit: cover;
+  }
+  .order-title{
+    font-size: 14px;
+  }
+  .order-contain{
+    font-size: 1rem;
+    color: $accent;
   }
   .btn {
     background-color: $secondary-half;
@@ -35,6 +58,10 @@ $mobile-img-height: 60px;
     padding: 10px 20px;
     color: #fff;
     font-size: 0.75rem;
+    &:hover {
+      background-color: $accent;
+      color: #fff
+    }
   }
   .subtotal {
     font-size: 14px;

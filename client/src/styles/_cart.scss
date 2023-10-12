@@ -18,19 +18,17 @@
     }
 }
 
-.stepBar div {
-    padding-inline: 5px;
-}
-
 .step {
     display: flex;
-    max-width: 344px
+    max-width: 344px;
+    opacity: 0.5;
+    gap: 10px   ;
 }
 
 @media (max-width: 393px) {
     .step {
         flex-direction: column;
-
+        display: none;
     }
 }
 
@@ -43,6 +41,7 @@
     padding: 5px;
     justify-content: center;
     align-items: center;
+    
 }
 
 @media (max-width: 393px) {
@@ -56,18 +55,14 @@
 }
 
 .nowStep {
-    background: rgba(97, 97, 83, 1);
+    opacity: 1;
 }
-
-.otherStep {
-    opacity: 0.5;
-}
-
 @media (max-width: 393px) {
-    .otherStep {
-        display: none;
+    .nowStep{
+        display: flex;
     }
 }
+
 
 .stepNum {
     transform: rotate(45deg);
@@ -78,11 +73,14 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    width: 50px;
+    padding-right: 3px;
 }
 
 @media (max-width: 393px) {
     .stepNum {
-        font-size: 36px;
+        font-size: 30px;
+        
     }
 }
 
@@ -100,7 +98,7 @@
     }
 
     .phoneDNone {
-        display: none ; 
+        display: none;
     }
 
     .stepWords span {
@@ -150,36 +148,55 @@
     padding: 20px;
     border-inline: 1px solid #616153;
     border-bottom: 1px solid #616153;
-    justify-content: space-between;
+    display: flex;
 }
 
 .productList div {
     margin-block: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    
+
 }
-.productList .couponSection{
+.productList .deleteSection{
+    justify-content: space-between;
+    padding-inline: 15px;
+}
+
+.productList .couponSection {
     display: flex;
     flex-direction: column;
 }
+
 .productList select {
     padding: 10px 40px;
     margin-bottom: 10px;
     border-radius: 5px;
 }
-@media (max-width: 393px){
+
+@media (max-width: 393px) {
     .productList select {
         padding: 10px 15px;
     }
 }
-
+.courseList{
+    padding: 20px;
+    border-inline: 1px solid #616153;
+    border-bottom: 1px solid #616153;
+    display: flex;
+    justify-content: space-between;
+}
+.courseList div{
+    margin-block: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .deleteBtn {
     background-color: #B16464;
     border: #B16464 1px solid;
     border-radius: 5px;
-    
+
     color: #fff;
     height: 45px;
     width: 72px;
@@ -208,36 +225,45 @@
         font-size: 14px;
         align-items: flex-end;
     }
+
     .totalSection label {
         padding-bottom: 20px;
     }
-    
+
 }
 
-.totalSection button {
-    width: 121px;
-    height: 45px;
-    padding: 0px 20px;
+.nextStepBtn {
+    padding: 15px 40px;
     justify-content: center;
     align-items: center;
     border-radius: 5px;
     border: 0.5px solid $secondary;
     background: $secondary;
     color: #fff;
+    letter-spacing: 5px;
 }
+
 @media (max-width: 393px) {
-    .totalSection button {
-        width: 44px;
-        height: 30px;
+    .nextStepBtn {
         font-size: 12px;
-        padding: 0px;
+        padding: 10px;
         line-height: 100%;
     }
 }
+
 .total {
+    display: flex;
+    flex-direction: column;
     text-align: end;
-    padding: 10px;
-    line-height: 40px;
+    padding: 25px 10px;
+    gap: 25px;
+}
+
+@media (max-width: 393px) {
+    .total {
+        padding: 10px;
+        gap: 10px;
+    }
 }
 
 .total div span {
@@ -247,6 +273,7 @@
 .total :first-child {
     font-size: 25px;
 }
+
 @media (max-width: 393px) {
     .total :first-child {
         font-size: 16px;
@@ -255,16 +282,194 @@
 
 .total span span {
     font-weight: bold;
+    padding-right: 10px;
 }
 
-.radioSection{
+/* -----------step2----------- */
+
+.stepTypeTitle {
+    border-top: 2px solid rgba(97, 97, 83, 0.50);
+    padding: 20px;
+}
+
+.radioSection {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding-inline: 30px;
+    padding: 30px;
 }
-.radioSection label input{
-    width: 35px;
-    height: 35px;
-    background-color: #616153;
+
+.customCheckbox {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    user-select: none;
 }
+
+.customCheckbox input[type="checkbox"] {
+    display: none;
+}
+
+
+.customCheckbox input[type="checkbox"]+span {
+    display: inline-block;
+    padding-left: 45px;
+    line-height: 37px;
+    background: url("/Ciro/checkbox.png") no-repeat left top;
+    user-select: none;
+    word-break: break-word;
+}
+
+.customCheckbox input[type="checkbox"]:checked+span {
+    background: url("/Ciro/checked.png") no-repeat left top;
+}
+
+.order {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.orderTotal {
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    position: relative;
+    padding: 15px;
+}
+
+.line {
+    width: 100%;
+    height: 3px;
+    padding: 15px;
+    background: url("/Ciro/line.png") no-repeat center;
+}
+
+.orderTotal span {
+    color: #B16464;
+}
+
+.stepBtnGroup {
+    display: flex;
+    padding: 50px 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.orderTitle {
+    color: #fff;
+    display: flex;
+    background: #616153;
+    height: 70px;
+    padding: 0px 10px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+@media (max-width: 393px) {
+    .orderTitle {
+        width: 100%;
+    }
+}
+
+.orderTitle div {
+    justify-content: center;
+    display: flex;
+}
+
+.orderTitle div span {
+    cursor: pointer;
+}
+
+/* -----------step3----------- */
+
+.stepThreeMain {
+    padding: 30px 20px;
+}
+
+.ordererTitle {
+    padding: 10px;
+}
+
+.cartMemberInfo {
+    display: flex;
+    gap: 15px;
+    padding: 10px;
+}
+
+@media (max-width: 393px) {
+    .cartMemberInfo {
+        flex-direction: column;
+    }
+}
+
+
+.cartMemberInfo input {
+    width: calc(50% - 7.5px);
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    background: #FFF;
+
+}
+
+@media (max-width: 393px) {
+    .cartMemberInfo input {
+        width: 100%;
+    }
+}
+
+.receiverInfo {
+    padding-right: 30px;
+}
+
+/* -----------step4----------- */
+body{
+    padding-right: 0 !important;
+}
+.modal{
+    padding-right: 0 !important;
+}
+.modal-content .modal-header {
+    border-bottom: 0 #FFF;
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+}
+
+
+.modal-header button {
+    display: flex;
+    width: 100px;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid rgba(97, 97, 83, 0.50);
+    background: #616153;
+    color: #FFF;
+}
+.payTypeInput input{
+    width: 100%;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    background: #FFF;
+}
+.swal2-actions .custom-confirm-button-class{
+    width: 100px;
+    padding: 10px;
+    background: #616153;
+}
+.swal2-actions .swal2-confirm:focus {
+    box-shadow: 0 0 0 #fff; /* 取消焦点时的阴影 */
+    outline: none; /* 取消焦点时的轮廓 */
+  }

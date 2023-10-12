@@ -4,9 +4,74 @@ import { BiSolidCrown } from 'react-icons/bi';
 import SideBar from '../../components/member/side-bar'
 import FavProductCard from '../../components/member/fav-product-card'
 import FavCourseCard from '@/components/member/fav-course-card';
+import { useAuthJWT } from '@/hooks/use-auth-jwt';
+import Link from 'next/link';
+import axios from 'axios';
+import { logDOM } from '@testing-library/react';
 
 
 export default function MemberCenter() {
+  const { authJWT } = useAuthJWT()
+  const [products, setProducts] = useState([])
+  const [courses, setCourses] = useState([])
+// 收藏的商品----------------------------------------
+  const getProducts = async () => {
+    const res = await axios.get(
+      'http://localhost:3005/member/all-products',
+      {
+        withCredentials: true,
+      }
+    )
+      console.log('this is product res.data:',res.data);
+    if (res.data.products) {
+      setProducts(res.data.products)
+    }
+  }
+
+  useEffect(() => {
+    getProducts()
+  }, [])
+console.log('products:',products);
+
+  const triggerProductFav = (products, id) => {
+    return products.map((v, i) => {
+      if (v.id === id) return { ...v, is_favorite: !v.is_favorite }
+      return { ...v }
+    })
+  }
+
+  const handleTriggerProductFav = (id) => {
+    setProducts(triggerProductFav(products, id))
+  }
+//   // 收藏的課程----------------------------------------
+//   const getCourses = async () => {
+//     const res = await axios.get(
+//       'http://localhost:3005/member/all-courses',
+//       {
+//         withCredentials: true,
+//       }
+//     )
+//       console.log('this is res.data:',res.data);
+//     if (res.data.products) {
+//       setCourses(res.data.courses)
+//     }
+//   }
+
+//   useEffect(() => {
+//     getCourses()
+//   }, [])
+// console.log('courses:',courses);
+
+//   const triggerCourseFav = (courses, id) => {
+//     return courses.map((v, i) => {
+//       if (v.id === id) return { ...v, is_favorite: !v.is_favorite }
+//       return { ...v }
+//     })
+//   }
+
+//   const handleTriggerCourseFav = (id) => {
+//     setCourses(triggerCourseFav(courses, id))
+//   }
   return (
     <>
   <Row>
@@ -27,10 +92,10 @@ export default function MemberCenter() {
 <div className='text-end fav-select-all'>
         <input type='checkbox'/> 全選
         <Button className='mx-3 update-profile-btn'>取消收藏</Button>
-        <Button className='update-profile-btn'>加入購物車</Button>
+        {/* <Button className='update-profile-btn'>加入購物車</Button> */}
       </div>
 {/* 收藏的商品內容 */}
-        <FavProductCard/>
+        <FavProductCard products={products}/>
       </Tab>
 
       <Tab eventKey="course" title="收藏課程" className='member-fav-course'>
@@ -38,7 +103,7 @@ export default function MemberCenter() {
       <div className='text-end fav-select-all'>
         <input type='checkbox'/> 全選
         <Button className='mx-3 update-profile-btn'>取消收藏</Button>
-        <Button className='update-profile-btn'>加入購物車</Button>
+        {/* <Button className='update-profile-btn'>加入購物車</Button> */}
       </div>
 {/* 收藏的課程內容 */}
           <FavCourseCard/>
