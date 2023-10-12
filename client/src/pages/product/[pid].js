@@ -32,8 +32,9 @@ function Pid() {
   // console.log(pid);
 
   const [product, setProduct] = useState({});
-  const [attr, setAttr] = useState({});
-  console.log(attr);
+  const [attrValue, setAttrValue] = useState();
+  const [attrTitle, setAttrTitle] = useState();
+  // console.log(attr);
   // const [cate, setCate] = useState();
   // const cate = product.category_id
   // console.log(cateid);
@@ -65,7 +66,8 @@ function Pid() {
           });
           //從後端接收:pid商品資料
           setProduct(res.data.data);
-          setAttr(res.data.attr);
+          setAttrValue(res.data.attrValue);
+          setAttrTitle(res.data.attrTitle);
         } catch (error) {
           console.log(error);
         }
@@ -79,8 +81,11 @@ function Pid() {
     // console.log(cateid);
   }, [product]);
   useEffect(() => {
-    console.log(attr);
-  }, [attr]);
+    console.log(attrTitle);
+  }, [attrTitle]);
+  useEffect(() => {
+    console.log(attrValue);
+  }, [attrValue]);
   return (
     <>
       {/* 麵包屑 */}
@@ -99,11 +104,24 @@ function Pid() {
             <Description pidData={product} />
           </div>
           {/* 屬性按鈕 */}
+          <div>
+            {attrTitle &&
+              Array.isArray(attrTitle) &&
+              attrTitle.map((v) => (
+                <div className="btn btn-primary d-flex btn-test" key={v}>
+                  {v}
+                </div>
+              ))}
+          </div>
+
+          {attrValue &&
+            Array.isArray(attrValue) &&
+            attrValue.map((v) => (
+              <div className="btn btn-primary d-flex btn-test" key={v}>
+                {v}
+              </div>
+            ))}
           <div className="product-info-attr">
-            {/* {attr.map((v) => {
-              return <div className="xxxxxxxx">{v}</div>;
-            })} */}
-            <div></div>
             {/* <Material /> */}
             {/* <Length /> */}
             {/* <Diameter /> */}

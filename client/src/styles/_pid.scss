@@ -20,6 +20,9 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  .btn-test{
+    border: 1px solid #616153;
+  }
   .product-info-des {
     margin-top: 50px;
   }

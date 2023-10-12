@@ -80,16 +80,10 @@ router.get("/", async (req, res) => {
 
 router.get("/:pid", async (req, res) => {
   try {
-    // const { cate } = req.params.cateid;
     const id = req.params.pid;
-
-    // console.log( req.params.cateid);
-    // console.log(req.params.pid);
-
     const where = { id: id };
     const data = await getOne(where);
     const cate = data.category_id;
-    // console.log(cate);
 
     let tables = [];
     switch (cate) {
@@ -107,33 +101,37 @@ router.get("/:pid", async (req, res) => {
     const sqls = tables.map((v) => {
       return `SELECT a.name FROM ${v} AS a`;
     });
-    console.log(sqls);
+    // console.log(sqls);
     // **************************************
     // ************OK的sql語法***********************
-    // const sql  = `SELECT * FROM product`
-    // const sql2 = `SELECT a.name FROM product_attribute AS a WHERE a.category_id = '${cate}' ORDER BY a.name ASC`;
-    // const sql3 = "SELECT * FROM `arrow_length`";
+    // 屬性
+    const sql2 = `SELECT name FROM product_attribute WHERE category_id = ${cate}`;
+    const attrTitle = []
+    const { rows } = await executeQuery(sql2);
+    const attr = rows.map((item) => (item && item.name) || "");
+    attrTitle.push(attr);
+    console.log(attrTitle);
+    // 屬性內容
+    const attrValue = [];
+    for (const sql of sqls) {
+      const { rows } = await executeQuery(sql);
+      const names = rows.map((item) => (item && item.name) || "");
+      attrValue.push(names);
+    }
+
     // ************OK的sql資料***********************
     // const { rows } = await executeQuery(sql2);
     // const name = rows.map((item) => (item && item.name) || "");
     // ***********************************
-    const results = [];
 
-    for (const sql of sqls) {
-      const { rows } = await executeQuery(sql);
-      const names = rows.map((item) => (item && item.name) || "");
-      results.push(names);
-    }
-    
-    console.log(results);
     // **************************************
 
     return res.json({
       message: "getAllProduct success",
       code: "200",
-      results,
+      attrTitle,
+      attrValue,
       data,
-
     });
   } catch (error) {
     console.error("獲取會員優惠券資料錯誤", error);
