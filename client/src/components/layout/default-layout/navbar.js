@@ -1,24 +1,27 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+
 import { Form } from "react-bootstrap";
 //fontawesome
 import { FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
 // 登入後才會顯示登出按鈕
+
 import { FiLogOut } from "react-icons/fi";
 import { Button } from "react-bootstrap";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { result } from "lodash";
-import { useProductContext } from '../../../hooks/use-product-context.js';
-
+import { useProductContext } from "../../../hooks/use-product-context.js";
 
 export default function Navbar() {
   const { authJWT, setAuthJWT } = useAuthJWT();
   const router = useRouter();
   // 首頁路由
+
   const homeRoute = "/";
   // 隱私頁面路由，登出時會，檢查後跳轉至首頁
+
   const protectedRoutes = [
     "/member",
     "/member/update-profile",
@@ -185,9 +188,21 @@ export default function Navbar() {
               </Button>
             </li>
           )}
+          {authJWT.isAuth && (
+            <li className="list-unstyled">
+              <Button onClick={handleLogout}>
+                <FiLogOut className="fi-logout" />
+              </Button>
+            </li>
+          )}
         </ul>
       </div>
-
+      {/* 在这里显示搜索结果 */}
+      <div>
+        {searchResults.map((result) => (
+          <div key={result.id}>{result.name}</div>
+        ))}
+      </div>
       {/* 手機版nav */}
       <div className="phone-nav">
         <ul className="nav">

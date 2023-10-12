@@ -80,6 +80,7 @@ export default function FilterBtns(props) {
         <div className="per-page align-items-center d-flex">
           每頁顯示
           <Form.Select
+          <Form.Select
             className="btn btn-primary dropdown-toggle"
             aria-label="Default select example"
             // 添加 onChange 事件處理函數

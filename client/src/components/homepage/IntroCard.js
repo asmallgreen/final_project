@@ -1,5 +1,5 @@
 import React from "react";
-import { FaShop } from "react-icons/fa6";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function IntroCard(props) {
   const { introImg, introTitle, introCat } = props;
@@ -17,7 +17,10 @@ export default function IntroCard(props) {
             <div className="arrow-line"></div>
             <div className="text-btn">商城</div>
             <div className="icon">
-              <FaShop/>
+              <FontAwesomeIcon
+                icon="fa-solid fa-shop"
+                style={{ color: "#0c0c0c" }}
+              />
             </div>
           </div>
         </div>
