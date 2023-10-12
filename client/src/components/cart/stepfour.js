@@ -38,42 +38,45 @@ export default function StepThree({ setstepType }) {
     setstepType(n);
   };
 
+  //send order to backend
+  function sendOrder(orderData) {
+    axios
+      .post("http://localhost:3005/cart/sendOrder", orderData)
+      .then((response) => {
+        console.log("訂單送入後端成功", response.data);
+      })
+      .catch((error) => {
+        console.error("訂單送入後端錯誤", error);
+      });
+  }
   function handleSendOrder() {
     const orderList = {
-      member_id:"",
-      coupon_id:"",
-      subtotal:0,
-      payment:"",
-      receive_name:"",
-      recive_phone:"",
-      receive_address:"",
-      status:"理貨中",
+      member_id: authJWT.memberData.id,
+      coupon_id: orderInfo.coupon_id,
+      subtotal:
+        orderInfo.productTotal + orderInfo.courseTotal - orderInfo.discount,
+      payment: orderInfo.payment,
+      receive_name: orderInfo.receiverName,
+      receive_phone: orderInfo.receiverPhone,
+      receive_add: orderInfo.receiverAddress,
+      status: "理貨中",
     };
-    const productDetail={
-    }
-    const courseDetail={
+    // const productDetail={
+    // }
+    // const courseDetail={
 
-    }
+    // }
     const orderData = {
       orderList,
-      productDetail,
-      courseDetail,
+      // productDetail,
+      // courseDetail,
     };
     sendOrder(orderData);
   }
 
-  //send order to backend
-  function sendOrder(orderData) {
-    axios.post('/addOrder',orderData)
-      .then(response => {
-        console.log('訂單送入後端成功', response.data);
-      })
-      .catch(error => {
-        console.error('送出訂單錯誤', error);
-      });
-  }
   return (
     <div>
+      <button onClick={handleSendOrder}>test send order</button>
       <div className="stepTypeTitle phoneDNone">
         <h2>確認訂單明細</h2>
       </div>
@@ -135,26 +138,26 @@ export default function StepThree({ setstepType }) {
           </Col>
         </div>
         <div>
-        <div className="order">
-          <div className="fs-5">
-            共 {productCart.totalItems} 件商品&nbsp;$ {productCart.cartTotal}
+          <div className="order">
+            <div className="fs-5">
+              共 {productCart.totalItems} 件商品&nbsp;$ {productCart.cartTotal}
+            </div>
+            <div className="fs-5">
+              共 {courseCart.totalItems} 堂課程&nbsp;$ {courseCart.cartTotal}
+            </div>
+            <div className="fs-5">優惠券折抵&nbsp;$ {orderInfo.discount}</div>
+            <br />
           </div>
-          <div className="fs-5">
-            共 {courseCart.totalItems} 堂課程&nbsp;$ {courseCart.cartTotal}
+          <div className="line"></div>
+          <div className="orderTotal fs-5">
+            金額總計&nbsp;
+            <span>
+              {productCart.cartTotal +
+                courseCart.cartTotal -
+                orderInfo.discount}
+            </span>
           </div>
-          <div className="fs-5">
-            優惠券折抵&nbsp;$ {orderInfo.discount}
-          </div>
-          <br />
         </div>
-        <div className="line"></div>
-        <div className="orderTotal fs-5">
-          金額總計&nbsp;
-          <span>
-          {productCart.cartTotal + courseCart.cartTotal - orderInfo.discount}
-          </span>
-        </div>
-      </div>
         <div className="stepBtnGroup">
           <button
             className="nextStepBtn fs-5 opacity-50 d-lg-block d-none"

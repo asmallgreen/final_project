@@ -1,8 +1,11 @@
 import React, { useReducer, useContext, createContext, useEffect } from "react";
 import { reducer, init } from "./cart-reducer";
 import useLocalStorage from "./use-localstorage";
+import { useAuthJWT } from "./use-auth-jwt";
+
 
 const ProductCartContext = createContext(null);
+
 
 // initialState = {
 //   items: [],
@@ -66,10 +69,10 @@ export const ProductCartProvider = ({
    */
   const addProduct = (item) => {
     dispatch({
-      type: 'ADD_ITEM',
+      type: "ADD_ITEM",
       payload: item,
-    })
-  }
+    });
+  };
 
   /**
    * 給定一id值，將這商品移出陣列中
@@ -78,12 +81,12 @@ export const ProductCartProvider = ({
    */
   const removeProduct = (id) => {
     dispatch({
-      type: 'REMOVE_ITEM',
+      type: "REMOVE_ITEM",
       payload: {
         id,
       },
-    })
-  }
+    });
+  };
 
   /**
    * 給定一item物件，依照id尋找後更新其中的屬性值
@@ -92,10 +95,10 @@ export const ProductCartProvider = ({
    */
   const updateProduct = (item) => {
     dispatch({
-      type: 'UPDATE_ITEM',
+      type: "UPDATE_ITEM",
       payload: item,
-    })
-  }
+    });
+  };
 
   /**
    * 清空整個購物車
@@ -103,9 +106,9 @@ export const ProductCartProvider = ({
    */
   const clearProductCart = () => {
     dispatch({
-      type: 'CLEAR_CART',
-    })
-  }
+      type: "CLEAR_CART",
+    });
+  };
 
   /**
    * 給定一id值，回傳是否存在於購物車中
@@ -113,8 +116,8 @@ export const ProductCartProvider = ({
    * @returns {boolean}
    */
   const isInProductCart = (id) => {
-    return state.items.some((item) => item.id === id)
-  }
+    return state.items.some((item) => item.id === id);
+  };
 
   /**
    * 給定一id值，有尋找到商品時，設定quantity: quantity + 1
@@ -123,12 +126,12 @@ export const ProductCartProvider = ({
    */
   const plusOneProduct = (id) => {
     return dispatch({
-      type: 'PLUS_ONE',
+      type: "PLUS_ONE",
       payload: {
         id,
       },
-    })
-  }
+    });
+  };
 
   /**
    * 給定一id值，有尋找到商品時，設定quantity: quantity - 1，但 quantity 最小值為1
@@ -137,12 +140,12 @@ export const ProductCartProvider = ({
    */
   const minusOneProduct = (id) => {
     return dispatch({
-      type: 'MINUS_ONE',
+      type: "MINUS_ONE",
       payload: {
         id,
       },
-    })
-  }
+    });
+  };
 
   return (
     <ProductCartContext.Provider

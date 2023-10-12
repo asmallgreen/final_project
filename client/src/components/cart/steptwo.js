@@ -11,7 +11,7 @@ export default function StepTwo({ setstepType, setNetTotal }) {
   const { orderInfo, setOrderInfo } = useOrder();
   const [selectedOption, setSelectedOption] = useState("");
 
-  console.log(setNetTotal);
+  // console.log(setNetTotal);
   useEffect(() => {
     if (orderInfo.payment) {
       setSelectedOption(orderInfo.payment);
@@ -19,7 +19,7 @@ export default function StepTwo({ setstepType, setNetTotal }) {
   }, [orderInfo.payment]);
 
   const handleOptionChange = (event) => {
-    console.log(event.target.value);
+    // console.log(event.target.value);
     setSelectedOption(event.target.value);
     setOrderInfo((prevOrderInfo) => ({
       ...prevOrderInfo,
