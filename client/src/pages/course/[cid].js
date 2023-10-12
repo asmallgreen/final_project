@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect,} from "react";
 import { ConfigProvider, Tabs, Rate } from "antd";
 import StickyBox from "react-sticky-box";
 import axios from "axios";
@@ -161,8 +161,9 @@ export default function CourseDetail() {
                   <small>NT$</small> {CourseDateById.price}
                 </h2>
                 <div className="stars">
+                  <div className="counting-mobile">XXXXXX人已評價</div>
                   <Rate disabled defaultValue={0} />
-                  <div className="counting">XXXXXX人已評價</div>
+                  <div className="counting-desktop">XXXXXX人已評價</div>
                 </div>
               </div>
             </div>
@@ -172,17 +173,11 @@ export default function CourseDetail() {
             </div>
           </div>
         </div>
-        <div className="course-detail-tabs">
+        <div className="course-detail-tabs-desktop">
           <ConfigProvider
             theme={{
-              // token: {
-              //   fontFamily: "Inter, AbeeZee",
-              // },
-
               components: {
                 Tabs: {
-                  // cardBg: "#000000",
-                  //   horizontalItemGutter: 50,
                   titleFontSize: "18px",
                   itemColor: "#000",
                   inkBarColor: "#616153",
@@ -191,6 +186,33 @@ export default function CourseDetail() {
                   itemSelectedColor: "#000",
                   horizontalItemPadding: "12px 60px",
                   horizontalMargin: "0 0 100px 0",
+                },
+              },
+            }}
+          >
+            <Tabs
+              type="primary"
+              centered
+              defaultActiveKey="1"
+              renderTabBar={renderTabBar}
+              items={items}
+              onChange={onChange}
+            />
+          </ConfigProvider>
+        </div>
+        <div className="course-detail-tabs-mobile pt-1">
+          <ConfigProvider
+            theme={{
+              components: {
+                Tabs: {
+                  titleFontSize: "14px",
+                  itemColor: "#000",
+                  inkBarColor: "#616153",
+                  itemActiveColor: "# ",
+                  itemHoverColor: "#000",
+                  itemSelectedColor: "#000",
+                  horizontalItemPadding: "10px 5px",
+                  horizontalMargin: "5px 0 10px 0",
                 },
               },
             }}

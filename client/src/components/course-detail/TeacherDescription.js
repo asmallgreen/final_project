@@ -12,7 +12,7 @@ export default function TeacherDescription(props) {
 
   return (
     <>
-      <div className="teacher-description-container container d-flex">
+      <div className="teacher-description-container container">
         <div className="teacher-avatar ">
           <img
             src={teacherPhoto}
