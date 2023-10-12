@@ -18,14 +18,14 @@ cookieParser()(req, res, ()=>{
     
       // if no token
       if (!token) {
-        return res.json({ message: 'Forbidden', code: '403' })
+        return res.json({ message: '沒有登入驗證token Forbidden', code: '403' })
       }
     
       if (token) {
         // verify的callback會帶有decoded payload(解密後的有效資料)就是user的資料
         jsonwebtoken.verify(token, accessTokenSecret, (err, member) => {
           if (err) {
-            return res.json({ message: 'Forbidden', code: '403' })
+            return res.json({ message: '登入token有問題 Forbidden', code: '403' })
           }
     
           // 將user資料加到req中

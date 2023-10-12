@@ -45,7 +45,7 @@ router.post('/jwt', async function (req, res, next) {
 
     // 傳送access token回應(react可以儲存在state中使用)
     return res.json({
-      message: 'success',
+      message: 'google登入成功',
       code: '200',
       accessToken,
     })
