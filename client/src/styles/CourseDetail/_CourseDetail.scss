@@ -338,22 +338,24 @@
     // 教師介紹樣式
     .teacher-description-container {
       .teacher-avatar {
-        position: relative;
+        // position: relative;
         margin-block: 15px;
         height: 200px;
         // width: 300px;
+        min-width: 100%;
         border-radius: 10px;
         overflow: hidden;
         img {
-          position: absolute;
-          top: 65%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          object-fit: scale-down;
+          min-width: 100%;
+          // position: absolute;
+          // top: 65%;
+          // left: 50%;
+          // transform: translate(-50%, -50%);
+          // object-fit: scale-down;
         }
       }
       .teacher-intro {
-        margin-inline: 30px;
+        margin-inline: 10px;
         margin-block: 15px;
         // height: 270px;
         // width: calc(100% - 300px - 30px);
@@ -363,13 +365,13 @@
           margin-bottom: 10px;
         }
         .teacher-paragraph {
-          font-size: 16px;
+          font-size: 15px;
           line-height: 30px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          display: -webkit-box;
-          -webkit-line-clamp: 8;
-          -webkit-box-orient: vertical;
+          // overflow: hidden;
+          // text-overflow: ellipsis;
+          // display: -webkit-box;
+          // -webkit-line-clamp: 8;
+          // -webkit-box-orient: vertical;
         }
       }
     }
