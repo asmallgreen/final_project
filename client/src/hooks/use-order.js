@@ -15,6 +15,9 @@ export const OrderProvider = ({ children }) => {
     receiverName: "",
     receiverPhone: "",
     receiverAddress: "",
+    productTotal:0,
+    courseTotal:0,
+    discount:0,
   });
 
   useEffect(() => {

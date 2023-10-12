@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Container, Col } from "react-bootstrap";
 
+import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import { useProductCart } from "@/hooks/use-product-cart";
 import { useCourseCart } from "@/hooks/use-course-cart";
-import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import { useOrder } from "@/hooks/use-order"
 
 import ProductList from "@/components/cart/product-list.js";
 import CourseList from "@/components/cart/course-list.js";
 
-export default function StepOne({ setstepType }) {
+export default function StepOne({ setstepType}) {
   const sendData = () => {
     if (productCart.totalItems === 0) {
       alert("没有商品~先去看看吧");
@@ -39,6 +40,9 @@ export default function StepOne({ setstepType }) {
     clearCourseCart,
     isInCourseCart,
   } = useCourseCart();
+  //order hooks
+  const { orderInfo, setOrderInfo } = useOrder()
+
 
   //MemberCoupon資料
   const { memberCoupon } = useAuthJWT();
@@ -75,6 +79,16 @@ export default function StepOne({ setstepType }) {
         : productCart.cartTotal - coupon.discount;
     setNetTotal(newNetTotal);
   }, [productCart.cartTotal, selectedCouponId]);
+
+  useEffect(() => {
+    // Update orderInfo when netTotal changes
+    setOrderInfo({
+      ...orderInfo,
+      productTotal:productCart.cartTotal,
+      courseTotal:courseCart.cartTotal,
+      discount:productCart.cartTotal - netTotal,
+    });
+  }, [productCart.cartTotal,courseCart.cartTotal, netTotal]);
 
   // 修正 Next hydration 錯誤
   // 一定要在最後面

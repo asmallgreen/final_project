@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { Col, Form } from "react-bootstrap";
 import SweetAlert2 from "react-sweetalert2";
+import { useProductCart } from "@/hooks/use-product-cart";
+import { useCourseCart } from "@/hooks/use-course-cart";
 import { useOrder } from "@/hooks/use-order";
 
 export default function StepThree({ setstepType }) {
-  //orderProvider
+  //cart hooks
+  const { productCart, products } = useProductCart();
+  const { courseCart, courses } = useCourseCart();
+  //order hooks
   const { orderInfo, setOrderInfo } = useOrder();
 
   //彈出視窗

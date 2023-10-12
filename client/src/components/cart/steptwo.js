@@ -1,12 +1,17 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
+
+import { useProductCart } from "@/hooks/use-product-cart";
+import { useCourseCart } from "@/hooks/use-course-cart";
 import { useOrder } from "@/hooks/use-order";
 
-export default function StepTwo({ setstepType }) {
-  const [selectedOption, setSelectedOption] = useState("");
+export default function StepTwo({ setstepType, setNetTotal }) {
+  const { productCart, products } = useProductCart();
+  const { courseCart, courses } = useCourseCart();
   const { orderInfo, setOrderInfo } = useOrder();
+  const [selectedOption, setSelectedOption] = useState("");
 
-  // 当orderInfo.payment有值时，更新selectedOption
+  console.log(setNetTotal);
   useEffect(() => {
     if (orderInfo.payment) {
       setSelectedOption(orderInfo.payment);
@@ -31,8 +36,7 @@ export default function StepTwo({ setstepType }) {
   };
   const prevPage = () => {
     setstepType(1);
-  }
-
+  };
 
   return (
     <div>
@@ -76,22 +80,21 @@ export default function StepTwo({ setstepType }) {
       <div>
         <div className="order">
           <div className="fs-5">
-            {`共 件商品`}&nbsp;{`$`}
+            共 {productCart.totalItems} 件商品&nbsp;$ {productCart.cartTotal}
           </div>
           <div className="fs-5">
-            {`共 堂課程`}&nbsp;{`$`}
+            共 {courseCart.totalItems} 堂課程&nbsp;$ {courseCart.cartTotal}
+          </div>
+          <div className="fs-5">
+            優惠券折抵&nbsp;$ {orderInfo.discount}
           </div>
           <br />
-          <div className="fs-5">
-            {`優惠券折抵`}&nbsp;{`-$`}
-          </div>
         </div>
         <div className="line"></div>
         <div className="orderTotal fs-5">
-          {`金額總計 `}&nbsp;
+          金額總計&nbsp;
           <span>
-            {`$ `}
-            {` `}
+          {productCart.cartTotal + courseCart.cartTotal - orderInfo.discount}
           </span>
         </div>
       </div>

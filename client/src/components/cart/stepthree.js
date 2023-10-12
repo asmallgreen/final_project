@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Form, Col } from "react-bootstrap";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import { useProductCart } from "@/hooks/use-product-cart";
+import { useCourseCart } from "@/hooks/use-course-cart";
 import { useOrder } from "@/hooks/use-order";
 import next from "next";
 
@@ -8,7 +10,9 @@ export default function StepThree({ setstepType }) {
   //Member資料
   const { authJWT } = useAuthJWT();
   const memberInfo = authJWT.memberData;
-
+  //cart hooks
+  const { productCart, products } = useProductCart();
+  const { courseCart, courses } = useCourseCart();
   //orderProvider
   const { orderInfo, setOrderInfo } = useOrder();
   const handleInputChange = (fieldName, value) => {
@@ -135,22 +139,21 @@ export default function StepThree({ setstepType }) {
       <div>
         <div className="order">
           <div className="fs-5">
-            {`共 件商品`}&nbsp;{`$`}
+            共 {productCart.totalItems} 件商品&nbsp;$ {productCart.cartTotal}
           </div>
           <div className="fs-5">
-            {`共 堂課程`}&nbsp;{`$`}
+            共 {courseCart.totalItems} 堂課程&nbsp;$ {courseCart.cartTotal}
+          </div>
+          <div className="fs-5">
+            優惠券折抵&nbsp;$ {orderInfo.discount}
           </div>
           <br />
-          <div className="fs-5">
-            {`優惠券折抵`}&nbsp;{`-$`}
-          </div>
         </div>
         <div className="line"></div>
         <div className="orderTotal fs-5">
-          {`金額總計 `}&nbsp;
+          金額總計&nbsp;
           <span>
-            {`$ `}
-            {` `}
+          {productCart.cartTotal + courseCart.cartTotal - orderInfo.discount}
           </span>
         </div>
       </div>
