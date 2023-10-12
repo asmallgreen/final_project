@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useCourseCart } from "@/hooks/use-course-cart";
+import { FaTrashAlt } from "react-icons/fa";
 
 export default function List() {
   // 使用hooks 解出所需的狀態與函式(自context)
@@ -21,54 +22,35 @@ export default function List() {
 
   return (
     <div>
-      <table
-        className="table"
-        cellPadding="0"
-        border="1"
-        width="100%"
-        cellSpacing="0"
-      >
-        <thead>
-          <tr>
-            <th>id</th>
-            <th>名稱</th>
-            <th>單價</th>
-            <th>數量</th>
-            <th>小計</th>
-            <th>移除</th>
-          </tr>
-        </thead>
-        <tbody>
-          {courses.map((v, i) => {
-            return (
-              <tr key={v.id}>
-                <td>{v.id}</td>
-                <td>{v.name} </td>
-                <td>{v.price}</td>
-                <td>{v.quantity}</td>
-                <td>{v.itemTotal}</td>
-                <td>
-                  <button
-                    type="button"
-                    className="btn btn-light"
-                    onClick={() => {
-                      removeCourse(v.id);
-                    }}
-                  >
-                    x
-                  </button>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <div>
-        items: {courseCart.totalItems} / total: {courseCart.cartTotal}
-        <br />
-        {courseCart.isEmpty && "購物車為空"}
-        <hr />
+      <div className="thead row text-center">
+        <div className="col">商品</div>
+        <div className="col">單價</div>
+        <div className="col">小計</div>
+        <div className="col">移除</div>
       </div>
+      {courses.map((v, i) => {
+        return (
+          <div className="tbody row text-center align-items-center" key={v.id}>
+            <div className="col-3 d-flex justify-content-center align-items-center">
+              <img src="/images/member/default_member.png" height={50} alt="" />
+              <div className="px-2">{v.name}</div>
+            </div>
+            <div className="col">{v.price}</div>
+            <div className="col">{v.itemTotal}</div>
+            <div className="col">
+              <button
+                type="button"
+                className="btn"
+                onClick={() => {
+                  removeCourse(v.id);
+                }}
+              >
+                <FaTrashAlt />
+              </button>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }

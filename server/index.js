@@ -26,6 +26,7 @@ import "colors";
 
 import authJwtRouter from './routes/auth-jwt.js'
 import DashboardRouter from './routes/memberDashboard.js'
+import cartRouter from './routes/cart.js'
 // import authRouter from './routes/auth.js'
 // import emailRouter from './routes/email.js'
 // import indexRouter from './routes/index.js'
@@ -97,6 +98,7 @@ app.get('/', (req, res)=>{
 })
 app.use('/member', authJwtRouter)
 app.use('/memberDashboard', DashboardRouter)
+app.use('/cart', cartRouter)
 // app.use('/api/auth', authRouter)
 // app.use('/api/email', emailRouter)
 // app.use('/api/products', productsRouter)

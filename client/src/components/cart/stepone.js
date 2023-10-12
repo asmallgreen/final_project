@@ -10,7 +10,6 @@ import CourseList from "@/components/cart/course-list.js";
 
 export default function StepOne({ setstepType }) {
   const sendData = () => {
-    // 在子组件中调用父组件传递的回调函数，并传递数据
     setstepType(2);
   };
 
@@ -40,6 +39,38 @@ export default function StepOne({ setstepType }) {
   //MemberCoupon資料
   const { memberCoupon } = useAuthJWT();
   // console.log(memberCoupon);
+  //[
+  // {id: 13, name: '職工節優惠', discount: 150, type: 2, deadline: '2023-07-01 00:00:00'}
+  // {id: 11, name: '特別慶祝', discount: 300, type: 2, deadline: '2023-10-15 00:00:00'}
+  // ]
+
+  //設定coupon功能
+  const [couponOptions, setCouponOptions] = useState(memberCoupon);
+  const [selectedCouponId, setSelectedCouponId] = useState();
+  const [netTotal, setNetTotal] = useState(0);
+
+  useEffect(() => {
+    //memberCoupon 準備好才進行
+    if (memberCoupon.length > 0) {
+      setCouponOptions(memberCoupon);
+    }
+  }, [memberCoupon]);
+
+  useEffect(() => {
+    if (!selectedCouponId || couponOptions.length === 0) {
+      setNetTotal(productCart.cartTotal);
+      return;
+    }
+    const coupon = couponOptions.find((v) => v.id === selectedCouponId);
+    // console.log(coupon);
+
+    // type=1:打折  tpye=2:減價
+    const newNetTotal =
+      coupon.type === "1"
+        ? Math.round(productCart.cartTotal * (coupon.discount / 10))
+        : productCart.cartTotal - coupon.discount;
+    setNetTotal(newNetTotal);
+  }, [productCart.cartTotal, selectedCouponId]);
 
   // 修正 Next hydration 錯誤
   // 一定要在最後面
@@ -129,23 +160,6 @@ export default function StepOne({ setstepType }) {
           <span className="expand phoneDNone">+</span>
         </Col>
       </div>
-      {/* <div className="productList d-none d-lg-flex">
-        <Col xs={4}>
-          <span className="phoneDNone">商品名稱</span>
-        </Col>
-        <Col xs={2}>
-          <span className="phoneDNone">規格</span>
-        </Col>
-        <Col xs={2}>
-          <span className="phoneDNone">單價</span>
-        </Col>
-        <Col xs={2}>
-          <span className="phoneDNone">數量</span>
-        </Col>
-        <Col xs={1}>
-          <span className="phoneDNone">小計</span>
-        </Col>
-      </div> */}
       <ProductList />
       <div className="productList">
         <div>
@@ -158,12 +172,19 @@ export default function StepOne({ setstepType }) {
             刪除
           </button>
           <div className="couponSection">
-            <select>
+            <select
+              value={selectedCouponId}
+              onChange={(e) => {
+                setSelectedCouponId(Number(e.target.value));
+              }}
+            >
               <option value="">選擇優惠券</option>
               {memberCoupon.length > 0 ? (
                 memberCoupon.map((coupon, index) => (
                   <option key={index} value={coupon.id}>
                     {coupon.name}
+                    {coupon.type === 1 ? `  ${coupon.discount}折` : ""}
+                    {coupon.type === 2 ? `  現抵${coupon.discount}元` : ""}
                   </option>
                 ))
               ) : (
@@ -173,8 +194,7 @@ export default function StepOne({ setstepType }) {
               )}
             </select>
             <span>
-              共 {productCart.totalItems} 項 , 商品小計 {productCart.cartTotal}{" "}
-              元
+              共 {productCart.totalItems} 項 , 商品小計 {netTotal}元
             </span>
           </div>
         </div>
@@ -213,16 +233,20 @@ export default function StepOne({ setstepType }) {
           >
             刪除
           </button>
-          <div>{`共  項 , 課程小計 元`}</div>
+          <div>
+            共 {courseCart.totalItems} 項 , 課程小計 {courseCart.cartTotal} 元
+          </div>
         </Col>
       </div>
       <div className="totalSection">
         <div className="total">
           <div>
-            總金額(共 項)
-            <span>$</span>
+            (共 {courseCart.totalItems + productCart.totalItems} 項) 總金額
+            <span>$ {courseCart.cartTotal + netTotal}</span>
           </div>
-          <div className="discount">{`優惠券折抵$ `}</div>
+          <div className="discount">
+            優惠券折抵 $ {productCart.cartTotal - netTotal}
+          </div>
           <span className="">
             <span>確認訂單金額</span>
             <button
