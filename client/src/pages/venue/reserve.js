@@ -441,19 +441,16 @@ return (
               <Link
                 type="button"
                 className="mx-4 mt-2 mb-5 text-decoration-none reserve-bt1  "
-                // onClick={handleGoBack}
                 href={"/venue/date"}
               >
                 <div className='text-center reserve-bn-text'>返回上一步</div>
-                
-                
               </Link>
               <button
                 type="submit"
                 className="mx-4 mt-2 mb-5 reserve-bt2 "
                 onClick={handleReserveSubmit}
               >
-                送出
+                下一步
                     </button>
                   </Form.Group>
                 </Row>

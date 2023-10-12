@@ -125,7 +125,7 @@ const css = `
         </div>
 
         <div className='d-flex justify-content-center'>
-          <a href='/venue/reserve'>
+          <a href='/venue'>
             <button className='mx-4 mt-2 mb-5 reserve-bt1'>
               返回上一步
             </button>
