@@ -27,8 +27,21 @@ const getMember = async () => {
     return rows
 }
 
+const addCartProduct = async (product) => {
+    const { rows } = await insertOne("product_cart", product)
+    return rows
+}
+
+const addCartCourse = async (course) => {
+    const { rows } = await insertOne("course_cart", course)
+    return rows
+}
+
 export {
     getCart,
     getOrder,
-    getMember
+    getMember,
+    addCartProduct,
+    addCartCourse,
+
 }
