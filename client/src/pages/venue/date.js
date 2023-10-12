@@ -19,7 +19,7 @@ const css = `
 
 `
 
-  export default function ReserveDate() {
+export default function ReserveDate() {
   const [selected, setSelected] = useState([]);
   const [VenueData, setVenueData] = useState([]);
   const [reserveData, setReserveData] = useState([]);
@@ -29,37 +29,40 @@ const css = `
   const router = useRouter();
   const { isReady } = router;
   const { id } = router.query;
+  // console.log(router.query);
 
   const [days, setDays] = useState([]); // 創建一個新的狀態變數用於存儲日期
 
   useEffect(() => {
     async function fetchVenueData(id) {
       try {
-        const response = await axios.get(`http://localhost:3005/venue`);
-        setVenueData(response.data.allVenue);
+        const response = await axios.get(`http://localhost:3005/venue/${id}`, { params: { id: id } });
+        setVenueData(response.data.once);
+        // console.log(VenueData)
       } catch (error) {
         console.error('資料庫連結錯誤:', error);
       }
+      console.log(VenueData)
     }
     async function fetchVenueReserveData() {
       try {
         const response = await axios.get('http://localhost:3005/venue_reserve');
         setReserveData(response.data.allVenueReserve);
 
-           // 取得 venue_reserve 中的日期
-          const reservedDates = response.data.allVenueReserve.map((reserve) => [
-            reserve.date_1,
-            reserve.date_2,
-            reserve.date_3,
-            reserve.date_4,
-            reserve.date_5,
-          ]).flat();
+        // 取得 venue_reserve 中的日期
+        const reservedDates = response.data.allVenueReserve.map((reserve) => [
+          reserve.date_1,
+          reserve.date_2,
+          reserve.date_3,
+          reserve.date_4,
+          reserve.date_5,
+        ]).flat();
 
-      // 在日期选择器中禁用已被预定的日期
-      const disabledDates = reservedDates.map((date) => new Date(date));
-      setDisabledDates(disabledDates);
-      console.log(disabledDates); 
-      
+        // 在日期选择器中禁用已被预定的日期
+        const disabledDates = reservedDates.map((date) => new Date(date));
+        setDisabledDates(disabledDates);
+        // console.log(disabledDates); 
+
       } catch (error) {
         console.error('資料庫連結錯誤:', error);
       }
@@ -98,7 +101,7 @@ const css = `
         <div className='reserve-text '>
           <div>
             <p className='fs-5 fw-bold'>您所選擇的</p>
-            <p className='fs-5 fw-bold'>道場：{id}</p>
+            <p className='fs-5 fw-bold'>道場：{VenueData.venue_position} {VenueData.venue_name}</p>
             <p className='fs-5 fw-bold'>日期：{days}</p>
           </div>
           <hr></hr>
@@ -125,11 +128,12 @@ const css = `
 
         <div className='d-flex justify-content-center'>
           <a href='/venue'>
-            <button className='mx-4 mt-2 mb-5 reserve-bt1'>
+            <button
+              className='mx-4 mt-2 mb-5 reserve-bt1'>
               返回上一步
             </button>
           </a>
-              {/* <button className='mx-4 mt-2 mb-5 reserve-bt2' type='submit'
+          {/* <button className='mx-4 mt-2 mb-5 reserve-bt2' type='submit'
                 onClick={()=>{
                   if (selected && selected.length > 0) {
                     const selectedDates = selected.map((selectedDate, index) => (
@@ -139,25 +143,27 @@ const css = `
                   } 
                   router.push(`/venue/reserve`)
                   }} */}
-                  <button
-                    className='mx-4 mt-2 mb-5 reserve-bt2'
-                    type='submit'
-                    onClick={() => {
-                      if (selected && selected.length > 0) {
-                        const selectedDates = selected.map((selectedDate, index) => (
-                          selectedDate.toLocaleDateString('zh-TW')
-                        ));
-                        localStorage.setItem('selectedDates', selectedDates);
-                        router.push(`/venue/reserve`);
-                      } else {
-                        // 使用者未選擇日期，你可以添加一個提示或其他操作
-                        alert('請選擇至少一天');
-                      }
-                    }}
-              >
-                下一步
-              </button>
-          
+          <button
+            className='mx-4 mt-2 mb-5 reserve-bt2'
+            type='submit'
+            onClick={() => {
+              if (selected && selected.length > 0) {
+                const selectedDates = selected.map((selectedDate, index) => (
+                  selectedDate.toLocaleDateString('zh-TW')
+                ));
+                localStorage.setItem('selectedDates', selectedDates);
+                localStorage.setItem('id', id);
+
+                router.push(`/venue/reserve`);
+              } else {
+                // 使用者未選擇日期，你可以添加一個提示或其他操作
+                alert('請選擇至少一天');
+              }
+            }}
+          >
+            下一步
+          </button>
+
         </div>
       </Container>
     </>

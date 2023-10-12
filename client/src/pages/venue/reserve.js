@@ -15,17 +15,21 @@ import { useRouter } from 'next/router';
 
 
 export default function ReserveDate({ formType, setFormType }) {
-  
 
   // react 表單檢查(不可空白欄位)
   const [validated, setValidated] = useState(false);
   const [elememtId, setElementId] = useState()
+
+  // const chineseNameRegex = /^[\u4e00-\u9fa5]+$/; // 中文姓名正規表達式
+  // const taiwanPhoneRegex = /^09\d{8}$/; // 09開頭的手機號碼正規表達式
+
   // 驗證信箱的正規表達式
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   // 驗證手機號碼的正規表達式
   const taiwanPhoneNumberRegex = /^09\d{8}$/;
+
   // 預約時寫入後端資料庫的預約欄位內容
-  const [venue_reserve, setVenue_Reserve] = useState({
+  const [reserve, setReserve] = useState({
     venue_id: "",
     date_1: "",
     date_2: "",
@@ -45,7 +49,7 @@ export default function ReserveDate({ formType, setFormType }) {
 
   // 驗證 email 的正規表達式
   const handleEmailReg =(e)=>{
-    const emailReg = emailRegex.test(venue_reserve.reserve_email)
+    const emailReg = emailRegex.test(reserve.reserve_email)
     if(!emailReg){
       Swal.fire({
       icon: "error",
@@ -62,7 +66,7 @@ export default function ReserveDate({ formType, setFormType }) {
   }
   // 驗證手機號碼的正規表達式
   const handlePhoneReg =(e)=>{
-    const phoneReg = taiwanPhoneNumberRegex.test(venue_reserve.reserve_phone)
+    const phoneReg = taiwanPhoneNumberRegex.test(reserve.reserve_phone)
     if(!phoneReg){
       Swal.fire({
       icon: "error",
@@ -97,12 +101,12 @@ export default function ReserveDate({ formType, setFormType }) {
     setElementId('input-1')
   },[])
 
-  useEffect(() => {
-      const dateInput = document.querySelector('.hmgnAx');
-      if (dateInput) {
-        dateInput.id = elememtId;
-      }
-  }, [elememtId]);
+  // useEffect(() => {
+  //     const dateInput = document.querySelector('.hmgnAx');
+  //     if (dateInput) {
+  //       dateInput.id = elememtId;
+  //     }
+  // }, [elememtId]);
 
 
   const {authJWT, setAuthJWT} = useAuthJWT()
@@ -165,28 +169,41 @@ export default function ReserveDate({ formType, setFormType }) {
 
   const [VenueData, setVenueData] = useState(null)
   const [reserveData, setReserveData] = useState(null);
+  const [id, setId] = useState(null);
+
 
   const { isReady } = router
-  const { id } = router.query
+  // const { id } = router.query
 
 const [selectedDates, setSelectedDates] = useState(toString);
 const [name, setName] = useState('');
 const [email, setEmail] = useState('');
 const [phone, setPhone] = useState('');
 
-// const chineseNameRegex = /^[\u4e00-\u9fa5]+$/; // 中文姓名正規表達式
-// const taiwanPhoneRegex = /^09[0-9]{8}$/; // 09開頭的手機號碼正規表達式
-
 // const router = useRouter();
 
 useEffect(()=>{
   const sd = localStorage.getItem('selectedDates')
+  const id = localStorage.getItem('id')
+  console.log('this is id',id);
+
   console.log(sd)
   setSelectedDates (sd)
+  setId (id)
 },[])
 
-  useEffect(() => {
+  useEffect (() => {
     async function fetchVenueData(id) {
+      async function fetchVenueData(id) {
+        try {
+          const response = await axios.get(`http://localhost:3005/venue/${id}`, { params: { id: id } });
+          setVenueData(response.data.once);
+          // console.log(VenueData)
+        } catch (error) {
+          console.error('資料庫連結錯誤:', error);
+        }
+        console.log(VenueData)  
+      }
       try {
         const response = await axios.get(`http://localhost:3005/venue`);
         setVenueData(response.data.allVenue);
@@ -209,186 +226,6 @@ useEffect(()=>{
     }
   }, [isReady]);
 
-  // const isInputValid = () => {
-  //   return (
-  //     selectedDates &&
-  //     chineseNameRegex.test(name) &&
-  //     email &&
-  //     taiwanPhoneRegex.test(phone)
-  //   );
-  // };
-
-
-//   return (
-//     <>
-//       <Container>
-//         <div className='m-5 d-flex justify-content-center'>
-//           <img className='' src='/images/venue/場地流程ui-資料填寫.png'></img>
-//         </div>
-
-//         <div className='reserve-text '>
-//           <div>
-//             <p className='fs-5 fw-bold'>您所選擇的</p>
-//             <p className='fs-5 fw-bold'>道場：北道場　藏月弓道場</p>
-//             <p className='fs-5 fw-bold'>日期：{selectedDates}</p>
-//           </div>
-//           <hr></hr>
-
-//           {/* <div>
-//             <p className='mt-4 fs-5 fw-bold'>預約人姓名</p>
-//             <input type='name' className='mb-4 form-control'></input>
-//           </div>
-//           <div>
-//             <p className='fs-5 fw-bold'>Email</p>
-//             <input type='email' className='mb-4 form-control'></input>
-//           </div>
-//           <div>
-//             <p className='fs-5 fw-bold'>連絡電話</p>
-//             <input type='phone' className='mb-4 form-control'></input>
-//           </div>
-//         </div> */}
-
-//         {/* <div className='mb-4'>
-//           <p className='fs-5 fw-bold'>預約人姓名</p>
-//           <input
-//             type='text'
-//             className='form-control'
-//             value={name}
-//             onChange={(e) => setName(e.target.value)}
-//           ></input>
-//           {!chineseNameRegex.test(name) && (
-//             <p className='text-danger'>請輸入姓名</p>
-//           )}
-//         </div>
-//         <div className='mb-4'>
-//           <p className='fs-5 fw-bold'>Email</p>
-//           <input
-//             type='email'
-//             className='form-control'
-//             value={email}
-//             onChange={(e) => setEmail(e.target.value)}
-//           ></input>
-//           {!chineseNameRegex.test(email) && (
-//             <p className='text-danger'>請輸入有效的電子信箱</p>
-//           )}
-//         </div>
-//         <div className='mb-5'>
-//           <p className='fs-5 fw-bold'>連絡電話</p>
-//           <input
-//             type='tel'
-//             className='form-control'
-//             value={phone}
-//             onChange={(e) => setPhone(e.target.value)}
-//           ></input>
-//           {!taiwanPhoneRegex.test(phone) && (
-//             <p className='text-danger'>請輸入行動電話"09"開頭</p>
-//           )}
-//         </div>
-//       </div> */}
-
-//       <Row>
-//                 <Form.Group
-//                   as={Col}
-//                   md="12"
-//                   controlId="validationCustom01"
-//                   className="mb-2"
-//                 >
-//                   <Form.Label className="mb-0">預約人姓名</Form.Label>
-//                   <Form.Control
-//                     required
-//                     type="text"
-//                     name="name"
-//                     onChange={handleChange}
-//                   />
-//                   <Form.Control.Feedback type="invalid">
-//                     請輸入姓名
-//                   </Form.Control.Feedback>
-//                 </Form.Group>
-//                 <Form.Group
-//                   as={Col}
-//                   md="5"
-//                   xs="5"
-//                   controlId="validationCustom05"
-//                   className="mb-2 "
-//                 >
-//               <Row>
-//                 <Form.Group
-//                   as={Col}
-//                   md="12"
-//                   controlId="validationCustom09"
-//                   className="mb-2"
-//                 >
-//                   <Form.Label className="mb-0">Email</Form.Label>
-//                   <Form.Control
-//                     required
-//                     type="mail"
-//                     name="email"
-//                     onChange={handleChange}
-//                     onBlur={handleEmailReg}
-//                   />
-//                   <Form.Control.Feedback type="invalid">
-//                     請輸入Email
-//                   </Form.Control.Feedback>
-//                 </Form.Group>
-//               </Row>
-//               <Row>
-//                 <Form.Group
-//                   as={Col}
-//                   md="12"
-//                   controlId="validationCustom10"
-//                   className="mb-2"
-//                 >
-//                   <Form.Label className="mb-0">手機號碼</Form.Label>
-//                   <Form.Control
-//                     required
-//                     type="tel"
-//                     name="phone"
-//                     onChange={handleChange}
-//                     onBlur={handlePhoneReg}
-//                   />
-//                   <Form.Control.Feedback type="invalid">
-//                     請輸入手機號碼
-//                   </Form.Control.Feedback>
-//                 </Form.Group>
-//               </Row>
-
-//               <Row className="mt-3 d-flex justify-content-center">
-//                 <Form.Group as={Col} md="12" xs="12" className="p-0 text-end">
-//                   <Button
-//                     type="submit"
-//                     className="login-button mb-4 update-profile-btn"
-//                     onClick={handleRegisterSubmit}
-//                   >
-//                     送出
-//                   </Button>
-//                 </Form.Group>
-//               </Row>
-
-//         {/* <div className='d-flex justify-content-center'>
-//           <a href='/venue/date'>
-//             <button className='mx-4 mt-2 mb-5 reserve-bt1'>
-//               返回上一步
-//             </button>
-//           </a>
-//           {/* <a href='/venue/check'>
-//             <button className='mx-4 mt-2 mb-5 reserve-bt2' type='submit'>
-//               下一步
-//             </button>
-//           </a> */}
-//           <a href='/venue/check'>
-//           <button
-//             className='mx-4 mt-2 mb-5 reserve-bt2'
-//             type='submit'
-//             disabled={!isInputValid()}
-//           >
-//             下一步
-//           </button>
-//         </a>
-//         </div> */}
-//       </Container>
-//     </>
-//   )
-// }
 return (
   <Container>
     <div className="m-5 d-flex justify-content-center">
@@ -398,7 +235,7 @@ return (
     <div className="reserve-text">
       <div>
         <p className="fs-5 fw-bold">您所選擇的</p>
-        <p className="fs-5 fw-bold">道場：北道場　藏月弓道場</p>
+        <p className="fs-5 fw-bold">道場：{id}</p>
         <p className="fs-5 fw-bold">日期：{selectedDates}</p>
       </div>
       <hr />
@@ -416,7 +253,7 @@ return (
               <Form.Control
                 required
                 type="email" // Corrected type from "mail" to "email"
-                name="email"
+                name="reserve_email"
                 onChange={handleChange}
                 onBlur={handleEmailReg}
               />
@@ -429,7 +266,7 @@ return (
               <Form.Control
                 required
                 type="tel"
-                name="phone"
+                name="reserve_phone"
                 onChange={handleChange}
                 onBlur={handlePhoneReg}
               />
@@ -441,7 +278,7 @@ return (
               <Link
                 type="button"
                 className="mx-4 mt-2 mb-5 text-decoration-none reserve-bt1  "
-                href={"/venue/date"}
+                href={`/venue/date?id=${id}`}
               >
                 <div className='text-center reserve-bn-text'>返回上一步</div>
               </Link>

@@ -18,4 +18,13 @@ import {
     return rows;
   };
 
-  export { getAllVenue };
+const getOnce = async (id) => 
+     await findOneById(table, id);
+    //  const getOnce = async (id) => {
+    //   const { rows } = await findOneById(table,id);
+    //   return rows;
+    // };
+  
+
+
+  export { getAllVenue,getOnce };
