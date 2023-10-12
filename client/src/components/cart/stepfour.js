@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { Col, Form } from "react-bootstrap";
 import SweetAlert2 from "react-sweetalert2";
+import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import { useProductCart } from "@/hooks/use-product-cart";
 import { useCourseCart } from "@/hooks/use-course-cart";
 import { useOrder } from "@/hooks/use-order";
+import axios from "axios";
 
 export default function StepThree({ setstepType }) {
-  //cart hooks
+  //hooks
+  const { authJWT } = useAuthJWT();
   const { productCart, products } = useProductCart();
   const { courseCart, courses } = useCourseCart();
-  //order hooks
   const { orderInfo, setOrderInfo } = useOrder();
 
   //彈出視窗
@@ -31,11 +33,45 @@ export default function StepThree({ setstepType }) {
       show: false,
     });
   }
-
   const sendData = (n) => {
     // 在子组件中调用父组件传递的回调函数，并传递数据
     setstepType(n);
   };
+
+  function handleSendOrder() {
+    const orderList = {
+      member_id:"",
+      coupon_id:"",
+      subtotal:0,
+      payment:"",
+      receive_name:"",
+      recive_phone:"",
+      receive_address:"",
+      status:"理貨中",
+    };
+    const productDetail={
+    }
+    const courseDetail={
+
+    }
+    const orderData = {
+      orderList,
+      productDetail,
+      courseDetail,
+    };
+    sendOrder(orderData);
+  }
+
+  //send order to backend
+  function sendOrder(orderData) {
+    axios.post('/addOrder',orderData)
+      .then(response => {
+        console.log('訂單送入後端成功', response.data);
+      })
+      .catch(error => {
+        console.error('送出訂單錯誤', error);
+      });
+  }
   return (
     <div>
       <div className="stepTypeTitle phoneDNone">
@@ -99,27 +135,26 @@ export default function StepThree({ setstepType }) {
           </Col>
         </div>
         <div>
-          <div className="order">
-            <div className="fs-5">
-              {`共 件商品`}&nbsp;{`$`}
-            </div>
-            <div className="fs-5">
-              {`共 堂課程`}&nbsp;{`$`}
-            </div>
-            <br />
-            <div className="fs-5">
-              {`優惠券折抵`}&nbsp;{`-$`}
-            </div>
+        <div className="order">
+          <div className="fs-5">
+            共 {productCart.totalItems} 件商品&nbsp;$ {productCart.cartTotal}
           </div>
-          <div className="line"></div>
-          <div className="orderTotal fs-5">
-            {`金額總計 `}&nbsp;
-            <span>
-              {`$ `}
-              {` `}
-            </span>
+          <div className="fs-5">
+            共 {courseCart.totalItems} 堂課程&nbsp;$ {courseCart.cartTotal}
           </div>
+          <div className="fs-5">
+            優惠券折抵&nbsp;$ {orderInfo.discount}
+          </div>
+          <br />
         </div>
+        <div className="line"></div>
+        <div className="orderTotal fs-5">
+          金額總計&nbsp;
+          <span>
+          {productCart.cartTotal + courseCart.cartTotal - orderInfo.discount}
+          </span>
+        </div>
+      </div>
         <div className="stepBtnGroup">
           <button
             className="nextStepBtn fs-5 opacity-50 d-lg-block d-none"

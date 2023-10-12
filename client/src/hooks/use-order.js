@@ -17,6 +17,7 @@ export const OrderProvider = ({ children }) => {
     receiverAddress: "",
     productTotal:0,
     courseTotal:0,
+    coupon_id:"",
     discount:0,
   });
 

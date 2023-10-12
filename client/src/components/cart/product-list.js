@@ -13,24 +13,6 @@ export default function List() {
     removeProduct,
   } = useProductCart();
 
-  //執行購物車加入SQL
-  // const handleProductToSQL = async () => {
-  //   const url = "http://localhost:3000/cart/addProduct";
-  //   const request = new Request(url, {
-  //     method: "POST",
-  //     body: JSON.stringify(productCart),
-  //     headers: new Headers({
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json",
-  //     }),
-  //   });
-  //   const response = await fetch(request);
-  //   const data = await response.json();
-  //   console.log(data);
-  // }
-  // console.log(productCart);
-
-
   // 修正 Next hydration 錯誤
   // https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html
   const [hydrated, setHydrated] = useState(false);
