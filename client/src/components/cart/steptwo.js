@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { useOrder } from "@/hooks/use-order";
 
 export default function StepTwo({ setstepType }) {
   const [selectedOption, setSelectedOption] = useState("");
-
   const { orderInfo, setOrderInfo } = useOrder();
+
+  // 当orderInfo.payment有值时，更新selectedOption
+  useEffect(() => {
+    if (orderInfo.payment) {
+      setSelectedOption(orderInfo.payment);
+    }
+  }, [orderInfo.payment]);
 
   const handleOptionChange = (event) => {
     console.log(event.target.value);
@@ -16,10 +22,17 @@ export default function StepTwo({ setstepType }) {
     }));
   };
 
-  const sendData = (n) => {
-    // 在子组件中调用父组件传递的回调函数，并传递数据
-    setstepType(n);
+  const nextPage = () => {
+    if (!orderInfo.payment) {
+      alert("請選擇付款方式");
+    } else {
+      setstepType(3);
+    }
   };
+  const prevPage = () => {
+    setstepType(1);
+  }
+
 
   return (
     <div>
@@ -86,25 +99,25 @@ export default function StepTwo({ setstepType }) {
         <button
           className="nextStepBtn fs-5 opacity-50 d-lg-block d-none"
           onClick={() => {
-            sendData(1);
+            prevPage();
           }}
         >
-          返回購物車{" "}
+          返回購物車
         </button>
 
         <button
           className="nextStepBtn fs-5 opacity-50 d-sm-none d-block"
           onClick={() => {
-            sendData(1);
+            nextPage();
           }}
         >
-          上一步{" "}
+          下一步
         </button>
 
         <button
           className="nextStepBtn fs-5 d-sm-block d-none"
           onClick={() => {
-            sendData(3);
+            nextPage();
           }}
         >
           填寫訂單資料
@@ -113,10 +126,10 @@ export default function StepTwo({ setstepType }) {
         <button
           className="nextStepBtn fs-5 d-sm-none d-block"
           onClick={() => {
-            sendData(3);
+            prevPage();
           }}
         >
-          下一步
+          上一步
         </button>
       </div>
     </div>

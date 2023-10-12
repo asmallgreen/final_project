@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Col } from "react-bootstrap";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import { useOrder } from "@/hooks/use-order";
+import next from "next";
 
 export default function StepThree({ setstepType }) {
   //Member資料
@@ -35,10 +36,16 @@ export default function StepThree({ setstepType }) {
     }
   };
 
-  const sendData = (n) => {
-    // 在子组件中调用父组件传递的回调函数，并传递数据
-    setstepType(n);
+  const nextPage = () => {
+    if (!orderInfo.receiverName || !orderInfo.receiverPhone || !orderInfo.receiverAddress) {
+      alert("請選填寫收件人資訊");
+    } else {
+      setstepType(4);
+    }
   };
+  const prevPage = () => {
+    setstepType(2);
+  }
   return (
     <div>
       <div className="stepTypeTitle phoneDNone">
@@ -151,7 +158,7 @@ export default function StepThree({ setstepType }) {
         <button
           className="nextStepBtn fs-5 opacity-50 d-lg-block d-none"
           onClick={() => {
-            sendData(2);
+            prevPage();
           }}
         >
           返回付款及配送方式
@@ -160,7 +167,7 @@ export default function StepThree({ setstepType }) {
         <button
           className="nextStepBtn fs-5 opacity-50 d-sm-none d-block"
           onClick={() => {
-            sendData(2);
+            prevPage();
           }}
         >
           上一步
@@ -169,7 +176,7 @@ export default function StepThree({ setstepType }) {
         <button
           className="nextStepBtn fs-5 d-sm-block d-none"
           onClick={() => {
-            sendData(4);
+            nextPage();
           }}
         >
           確認訂單明細
@@ -178,7 +185,7 @@ export default function StepThree({ setstepType }) {
         <button
           className="nextStepBtn fs-5 d-sm-none d-block"
           onClick={() => {
-            sendData(4);
+            nextPage();
           }}
         >
           下一步

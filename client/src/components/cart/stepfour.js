@@ -27,11 +27,6 @@ export default function StepThree({ setstepType }) {
     });
   }
 
-  // const [smShow, setSmShow] = useState(false);
-
-  // const handleClose = () => {
-  //   setSmShow(false)
-  // }
   const sendData = (n) => {
     // 在子组件中调用父组件传递的回调函数，并传递数据
     setstepType(n);

@@ -10,7 +10,11 @@ import CourseList from "@/components/cart/course-list.js";
 
 export default function StepOne({ setstepType }) {
   const sendData = () => {
-    setstepType(2);
+    if (productCart.totalItems === 0) {
+      alert("没有商品~先去看看吧");
+    } else {
+      setstepType(2);
+    }
   };
 
   //商品購物車hooks
