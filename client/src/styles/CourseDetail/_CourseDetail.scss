@@ -105,19 +105,59 @@
 
   // 評價卡片樣式
   .comment-card {
+    background-color: rgba(224, 224, 217, 0.5);
+    border-radius: 10px;
+    .comment-card-header {
+      display: flex;
+      align-items: center;
+      // justify-content: space-between;
+      .comment-card-info {
+        // display: flex;
+        // justify-content: space-between;
+        margin-left: 20px;
+        .comment-card-info-text {
+          display: flex;
+          align-items: baseline;
+          .member-name {
+            font-size: 20px;
+            font-weight: 800;
+          }
+          .comment-time {
+            font-size: 14px;
+            margin-left: 18px;
+          }
+        }
+        .comment-rating {
+          font-size: 20px;
+          // margin-left: 50px;
+          margin-top: 8px;
+        }
+      }
+    }
+    .comment-card-content {
+    }
+    .btn {
+      // margin-left: 80px;
+      margin-top: 20px;
+      padding: 5px 0px;
+      width: 80px;
+      font: 14px inter;
+      background: $secondary;
+      color: $primary;
+    }
   }
   .h150px {
-    max-height: 150px;
+    max-height: 200px;
     overflow: hidden;
     transition: height 0.3s ease-in-out 0s;
   }
 
   // 課程大綱樣式
-  .syllabus-container {
+  .syllabus-container-desktop {
     .row > * {
       padding: 0;
     }
-    .syllabus-container {
+    .syllabus-container-desktop {
       margin-top: 20px;
     }
 
@@ -141,6 +181,10 @@
         padding: 5px;
       }
     }
+  }
+
+  .syllabus-container-mobile {
+    display: none;
   }
 
   // 教師介紹樣式
@@ -202,6 +246,10 @@
           max-width: 390px;
           height: 375px;
           overflow: hidden;
+          img {
+            margin-top: -120px;
+            margin-left: -120px;
+          }
         }
       }
     }
@@ -295,17 +343,56 @@
     // margin-top: 30px;
     margin-bottom: 100px;
     // padding-inline: 10px;
+
     // 評價卡片樣式
     .comment-card {
+      background-color: rgba(224, 224, 217, 0.5);
+      border-radius: 10px;
+      .comment-card-header {
+        display: flex;
+        align-items: center;
+        // justify-content: space-between;
+        .comment-card-info {
+          display: flex;
+          justify-content: space-between;
+          margin-left: 20px;
+          .comment-card-info-text {
+            // display: flex;
+            // align-items: baseline;
+            .member-name {
+              font-size: 16px;
+              font-weight: 800;
+            }
+            .comment-time {
+            }
+          }
+          .comment-rating {
+            font-size: 16px;
+            margin-left: 50px;
+            margin-top: 3px;
+          }
+        }
+      }
+      .comment-card-content {
+      }
+      .btn {
+        margin-left: 215px;
+        margin-top: 20px;
+        padding: 5px 0px;
+        width: 80px;
+        font: 14px inter;
+        background: $secondary;
+        color: $primary;
+      }
     }
     .h150px {
-      max-height: 150px;
+      max-height: 90px;
       overflow: hidden;
       transition: height 0.3s ease-in-out 0s;
     }
 
     // 課程大綱樣式
-    .syllabus-container {
+    .syllabus-container-mobile {
       .row > * {
         padding: 0;
       }
@@ -316,23 +403,27 @@
       .table-header {
         font-weight: bold;
         background-color: #f0f0f0;
-        padding: 10px;
+        padding: 0px;
         text-align: center;
       }
 
       .table-data {
-        padding: 10px;
+        padding: 0px;
         text-align: center;
         border: 1px solid #ddd;
       }
 
-      // 課程大綱表格 RWD
-      @media (max-width: 768px) {
-        .table-header,
-        .table-data {
-          padding: 5px;
-        }
-      }
+      // // 課程大綱表格 RWD
+      // @media (max-width: 768px) {
+      //   .table-header,
+      //   .table-data {
+      //     padding: 5px;
+      //   }
+      // }
+    }
+
+    .syllabus-container-desktop {
+      display: none;
     }
 
     // 教師介紹樣式
@@ -374,6 +465,12 @@
           // -webkit-box-orient: vertical;
         }
       }
+    }
+    .faq {
+      //常見問題樣式
+    }
+    .reiveiw {
+      //評價樣式
     }
   }
 }
