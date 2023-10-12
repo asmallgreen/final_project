@@ -35,7 +35,7 @@ export default function ReserveDate({ formType, setFormType }) {
     reserve_phone: "",
     created_at: "",
   });
-  // 抓到表單內填寫的內容寫進member物件
+  // 抓到表單內填寫的內容寫進reserve物件
   function handleChange(e) {
     setReserve({ ...reserve, [e.target.name]: e.target.value });
   }
