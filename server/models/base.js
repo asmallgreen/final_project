@@ -236,7 +236,7 @@ const findOne = async (table, where = {}, order = {}) => {
   const sql = sqlString.format(
     `SELECT * FROM ${table} ${whereSql(where)} ${orderbySql(order)} LIMIT 0,1`
   )
-  const { rows } = await executeQuery(sql)
+  const  {rows}  = await executeQuery(sql)
   //  need only one
   return rows.length ? rows[0] : {}
 }

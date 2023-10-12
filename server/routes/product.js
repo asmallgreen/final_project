@@ -1,7 +1,7 @@
 import express from "express";
 import { executeQuery } from "../models/base.js";
-import 'dotenv/config.js'
-import pool from '../config/db.js';
+import "dotenv/config.js";
+import pool from "../config/db.js";
 import {
   // executeQuery,
   getAll,
@@ -11,10 +11,7 @@ import {
   searchProduct,
 } from "../models/products.js";
 
-
 const router = express.Router();
-
-
 
 //***********產品頁************
 router.get("/", async (req, res) => {
@@ -81,25 +78,18 @@ router.get("/", async (req, res) => {
   });
 });
 
-// ***********測試**************
-router.get("/test", async (req, res) => {
-  // /////////////////////////////////
-
+router.get("/:pid", async (req, res) => {
   try {
-    const cate = 2
-    const sql = `SELECT a.product_id
-    FROM product_arrow_length AS a
-    WHERE a.arrow_length_id = 1
-    ORDER BY a.product_id ASC`;
-    const sql2 = `SELECT a.name
-    FROM product_attribute AS a
-    WHERE a.category_id = 1
-    ORDER BY a.name ASC`;
-    //執行查詢
-    const [row1] = await pool.query(sql);
-    // const product = row1.map((v)=>{v.product_id})
-    // console.log(product);
-    // const [row2] = await pool.query(sql2);
+    // const { cate } = req.params.cateid;
+    const id = req.params.pid;
+
+    // console.log( req.params.cateid);
+    // console.log(req.params.pid);
+
+    const where = { id: id };
+    const data = await getOne(where);
+    const cate = data.category_id;
+    // console.log(cate);
 
     let tables = [];
     switch (cate) {
@@ -110,144 +100,49 @@ router.get("/test", async (req, res) => {
         tables = ["arrow_strength", "arrow_meterial", "arrow_shaft"];
         break;
       case 3:
-        tables = ["color", "size"];
+        tables = ["suit_color", "suit_size"];
         break;
     }
-    // console.log(tables);
-    let sqls;
-    sqls = tables.map((v) => {
+
+    const sqls = tables.map((v) => {
       return `SELECT a.name FROM ${v} AS a`;
     });
     console.log(sqls);
-    const queryPromises = sqls.map((sql) =>  pool.query(sql));
+    // **************************************
+    // ************OK的sql語法***********************
+    // const sql  = `SELECT * FROM product`
+    // const sql2 = `SELECT a.name FROM product_attribute AS a WHERE a.category_id = '${cate}' ORDER BY a.name ASC`;
+    // const sql3 = "SELECT * FROM `arrow_length`";
+    // ************OK的sql資料***********************
+    // const { rows } = await executeQuery(sql2);
+    // const name = rows.map((item) => (item && item.name) || "");
+    // ***********************************
+    const results = [];
+
+    for (const sql of sqls) {
+      const { rows } = await executeQuery(sql);
+      const names = rows.map((item) => (item && item.name) || "");
+      results.push(names);
+    }
     
-    // const attr = row2.map((v) => v);
-    // console.log(row1);
-    // const [row2] = await pool.query(sql2);
+    console.log(results);
+    // **************************************
+
     return res.json({
-      message: 'search success',
-      code: '200',
-      row1,
-      queryPromises,
-      // rows,
-      // attr
+      message: "getAllProduct success",
+      code: "200",
+      results,
+      data,
+
     });
   } catch (error) {
-    console.error('獲取會員優惠券資料錯誤', error);
+    console.error("獲取會員優惠券資料錯誤", error);
     return res.status(500).json({
-      message: 'search error',
-      code: '500',
+      message: "search error",
+      code: "500",
     });
   }
-
-
-
-
-  // 從arrow_length資料表中找到arrow_length_id=1(EX:碳箭)的所有product_id值，並回傳成陣列
- 
-  // 從product_attr資料表抓到category_id=1(ex:弓)的所有nmae值，並回傳成陣列
-
-  // const { rows } = await executeQuery(sql);
-  let { rows } = await executeQuery(sql2);
-  // { rows } = await executeQuery(sql1);
-  // 將結果中的product_id取出變為一個純資料的陣列
-  // const arrow_length = rows.map((v) => v.product_id);
-  // console.log(arrow_length);
-  const attr_name = rows.map((v) => v.name);
-
-  // /////////////關聯資料表////////////////////
-  res.json({ attr_name });
-  // res.json({ alldata });
 });
-
-
-
-router.get("/:pid", async (req, res) => {
-  // const { cate } = req.params.cateid;
-  const id = req.params.pid;
-  // const cate = req.params.cateid;
-  // console.log( req.params.cateid);
-  console.log(req.params.pid);
-
-  const where = { id: id };
-  const data = await getOne(where);
-  const cate = data.category_id;
-  console.log(cate);
-  
-  let tables = [];
-  switch (cate) {
-    case 1:
-      tables = ["bow_strength", "bow_meterial", "bow_length"];
-      break;
-    case 2:
-      tables = ["arrow_strength", "arrow_meterial", "arrow_shaft"];
-      break;
-    case 3:
-      tables = ["color", "size"];
-      break;
-  }
-  console.log(tables);
-  let sqls;
-  sqls = tables.map((v) => {
-    return `SELECT a.name FROM ${v} AS a`;
-  });
-  console.log(sqls);
-// const sql = sqls.map((v)=>{v})
-// console.log(sql);
-
-  // switch (cate) {
-  //   case "1":
-  //     table = "bow_strength";
-  //     break;
-  //   case "2":
-  //     table = "bow_strength";
-  //     break;
-  //   case "4":
-  //     table = "bow_strength";
-  //     break;
-  //   case "4":
-  //     table = "bow_strength";
-  //     break;
-  // }
-
-  // console.log(typeof(id));
-
-  // **************************************
-  //   const sql = `SELECT a.name FROM product_attribute AS a WHERE a.category_id = '${cate}'
-  // ORDER BY a.name ASC`;
-
-
-  // const sql =` SELECT p.*, IF(fp.id, 'true', 'false') AS is_favorite
-  //     FROM product AS p
-  //     LEFT JOIN fav_product AS fp ON fp.product_id = p.id
-  //     AND fp.member_id = ${mid}
-  //     ORDER BY p.id ASC`
-
-  // 從product_attr資料表抓到category_id=1(ex:弓)的所有nmae值，並回傳成陣列
-  // ************OK的sql語法***********************
-  const sql2 = `SELECT a.name FROM product_attribute AS a WHERE a.category_id = '${cate}'
-ORDER BY a.name ASC`;
-// const sql3 = 'SELECT * FROM `arrow_length`';
-  // ***********************************
-  const  {rows}  = await executeQuery(sql2);
-  // const  {rows}  = await executeQuery(sql3);
-  // const { test } = await executeQuery(sql2);
-  // const { rows } = await executeQuery(sql2);
-  const attr = rows.map((v) => v.name);
-  console.log(attr);
-  
-  // const test2 = test.map((v) => v.name);
-  // console.log(test2);
-  // const category_id =  category_id:category_id
-  // **************************************
-  res.json({
-    message: "getAllProduct success",
-    code: "200",
-    data,
-    attr,
-  });
-});
-
 
 router.get("/category/:cate", async (req, res) => {
   // const { limit, page, sort } = req.query;
