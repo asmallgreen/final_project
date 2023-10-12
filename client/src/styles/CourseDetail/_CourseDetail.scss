@@ -163,7 +163,7 @@
 
     .table-header {
       font-weight: bold;
-      background-color: #f0f0f0;
+      background-color: rgba(224, 224, 217, 0.5);
       padding: 10px;
       text-align: center;
     }
@@ -192,7 +192,7 @@
     display: flex;
     padding: 0;
     height: 300px;
-    background: #f0f0f0;
+    background: rgba(224, 224, 217, 0.5);
     border-radius: 10px;
     .teacher-avatar {
       position: relative;
@@ -402,7 +402,7 @@
 
       .table-header {
         font-weight: bold;
-        background-color: #f0f0f0;
+        background-color: rgba(224, 224, 217, 0.5);
         padding: 0px;
         text-align: center;
       }
@@ -428,6 +428,9 @@
 
     // 教師介紹樣式
     .teacher-description-container {
+      background-color: rgba(224, 224, 217, 0.5);
+      padding: 3px 10px;
+      border-radius: 10px;
       .teacher-avatar {
         // position: relative;
         margin-block: 15px;
