@@ -50,7 +50,7 @@ export default function List() {
         <div className="col-2">規格</div>
         <div className="col-2">單價</div>
         <div className="col-2">數量</div>
-        <div className="col-2">小記</div>
+        <div className="col-2">計</div>
         <div className="col-1">移除</div>
       </div>
       {products.map((v, i) => {

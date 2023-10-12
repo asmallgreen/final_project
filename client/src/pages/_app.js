@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { AuthProviderJWT } from "@/hooks/use-auth-jwt";
 import { ProductCartProvider } from "@/hooks/use-product-cart";
 import { CourseCartProvider } from "@/hooks/use-course-cart";
+import { OrderProvider } from "@/hooks/use-order";
 
 function MyApp({ Component, pageProps }) {
   // 導入bootstrap的JS函式庫
@@ -18,7 +19,9 @@ function MyApp({ Component, pageProps }) {
       <AuthProviderJWT>
         <ProductCartProvider>
           <CourseCartProvider>
+            <OrderProvider>
             {getLayout(<Component {...pageProps} />)}
+            </OrderProvider>
           </CourseCartProvider>
         </ProductCartProvider>
       </AuthProviderJWT>
