@@ -62,16 +62,16 @@ const checkAuth = async () => {
   const [favoriteProducts, setFavoriteProducts] = useState([])
   // 得到會員的商品收藏清單
   const getFavoriteProducts = async () => {
-    const res = await axios.get(
-      'http://localhost:3005/member/favorite-product-id',
-      {
-        withCredentials: true,
-      }
-    )
-        console.log('getFavoriteProducts:',res.data);
-    if (res.data.favoriteProducts) {
-      setFavoriteProducts(res.data.favoriteProducts)
-    }
+    // const res = await axios.get(
+    //   'http://localhost:3005/member/favorite-product-id',
+    //   {
+    //     withCredentials: true,
+    //   }
+    // )
+    //     console.log('getFavoriteProducts:',res.data);
+    // if (res.data.favoriteProducts) {
+    //   setFavoriteProducts(res.data.favoriteProducts)
+    // }
   }
 
   useEffect(() => {

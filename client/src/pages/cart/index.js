@@ -9,35 +9,32 @@ import StepTwo from '@/components/cart/steptwo';
 import StepThree from '@/components/cart/stepthree';
 import StepFour from '@/components/cart/stepfour';
 import { useCart } from '@/hooks/use-cart.js';
+import { useAuthJWT } from '@/hooks/use-auth-jwt';
 
 
-export default function Index() {
+export  default  function Index() {
 
-
+  
   const [cartList, setCartList] = useState([])
-  useEffect(() => {
-    axios.post('http://localhost:3005/cart')
-      .then((res) => {
 
+  const {authJWT, setAuthJWT} = useAuthJWT()
+
+  let memberId = authJWT.memberData.id;
+  console.log('這是會員',authJWT.memberData.id)
+  useEffect(() => {
+    if(memberId >0){
+    axios.post('http://localhost:3005/cart', {memberId})
+      .then((res) => {
         setCartList(res.data.cartList)
       })
       .catch((err) => {
         console.log(err);
       })
-    
-      // axios.post('http://localhost:3005/cart/NewOrder',{payment:'credit'})
-      // .then((res) => {
+    }
+  }, [memberId])
+  
 
-      //   alert('連結成功');
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // })
-      
-  }, [])
-
- 
-
+  
 
   const [ payment, setPayment ] = useState(' ')
 
@@ -47,9 +44,12 @@ export default function Index() {
 
   const [stepType, setStepType] = useState(1)
 
+
+
   const handleStepChange = (newStep) => {
     setStepType(newStep);
   };
+  
   return (
     <Container fluid={"xxl"}>
 

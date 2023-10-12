@@ -1,9 +1,11 @@
 import React, { useState, useReducer, useEffect } from 'react'
 import { Container, Col } from 'react-bootstrap';
-import List from '@/components/cart/list';
-import { useCart } from '@/hooks/use-cart';
-import { reducer } from '@/hooks/cart-reducer.js'
 
+import List from './list.js';
+import { useCart }  from '@/hooks/use-cart.js';
+import { reducer } from '@/hooks/cart-reducer.js'
+import  AddCartCourse  from './addCartCourse.js'
+import  AddCartProduct from './addCartProduct.js';
 
 export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmount }) {
 
@@ -93,7 +95,7 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
 
       </div>
       <div>
-        <List mode="product" />
+        <List mode={'product'}/>
       </div>
 
 
@@ -111,6 +113,7 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
               });
             }}
           >刪除</button>
+          <AddCartProduct />
           <div className='couponSection'>
             <select onChange={handleSelectChange}>
               <option value={1}>套用優惠券</option>
@@ -179,6 +182,7 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
         >刪除
         </button><div>{`共${cart.courseTotalItems}項 , 課程小計${cart.courseTotal}元`}</div>
         </Col>
+        <AddCartCourse />
       </div>
       <div className='totalSection'>
         <label>
@@ -195,7 +199,7 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
               })
 
             }}
-          />
+          />  
           {`全選`}
         </label>
         <div className='total'>
