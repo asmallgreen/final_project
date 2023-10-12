@@ -29,33 +29,32 @@ const executeQuery = async (sql, params = []) => {
 
 
 
+router.post('/', async (req, res) => {
+    const memberId = req.body.memberId
 
-// router.post('/', async (req, res) => {
-//     const memberId = req.body.memberId
+    const sql = ` 
+    SELECT * FROM shopping_cart
+    WHERE member_id = ?
+    `
+    try {
+        const result = await executeQuery(sql , {memberId});
+        const cartList = result
+        return res.json({
+            message: 'search success',
+            code: '200',
+            cartList
+        });
 
-//     const sql = ` 
-//     SELECT * FROM shopping_cart
-//     WHERE member_id = ?
-//     `
-//     try {
-//         const result = await executeQuery(sql , [memberId]);
-//         const cartList = result
-//         return res.json({
-//             message: 'search success',
-//             code: '200',
-//             cartList
-//         });
+    } catch (error) {
+        console.error('獲取會員購物車資料錯誤', error);
+        return res.status(500).json({
+            message: 'search error',
+            code: '500',
+        });
 
-//     } catch (error) {
-//         console.error('獲取會員購物車資料錯誤', error);
-//         return res.status(500).json({
-//             message: 'search error',
-//             code: '500',
-//         });
+    }
 
-//     }
-
-// });
+});
 
 router.post('/NewOrder', async (req, res) => {
 
