@@ -188,7 +188,7 @@ useEffect(()=>{
   useEffect(() => {
     async function fetchVenueData(id) {
       try {
-        const response = await axios.get(`http://127.0.0.1:3005/venue`);
+        const response = await axios.get(`http://localhost:3005/venue`);
         setVenueData(response.data.allVenue);
       } catch (error) {
         console.error('資料庫連結錯誤:', error);
@@ -196,7 +196,7 @@ useEffect(()=>{
     }
     async function fetchVenueReserveData() {
       try {
-        const response = await axios.get('http://127.0.0.1:3005/venue_reserve');
+        const response = await axios.get('http://localhost:3005/venue_reserve');
         setReserveData(response.data.allVenueReserve);
 
       } catch (error) {

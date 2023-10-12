@@ -3,11 +3,11 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap'
 import { format } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import 'react-day-picker/dist/style.css';
 import { zhTW } from 'date-fns/locale';
 import axios from 'axios'
-import { useRouter } from 'next/router';
 // import Reserve from './reserve';
 
 
@@ -21,8 +21,8 @@ const css = `
 
   export default function ReserveDate() {
   const [selected, setSelected] = useState([]);
-  const [VenueData, setVenueData] = useState(null);
-  const [reserveData, setReserveData] = useState(null);
+  const [VenueData, setVenueData] = useState([]);
+  const [reserveData, setReserveData] = useState([]);
   const [disabledDates, setDisabledDates] = useState([]);
 
 
@@ -35,7 +35,7 @@ const css = `
   useEffect(() => {
     async function fetchVenueData(id) {
       try {
-        const response = await axios.get(`http://127.0.0.1:3005/venue`);
+        const response = await axios.get(`http://localhost:3005/venue`);
         setVenueData(response.data.allVenue);
       } catch (error) {
         console.error('資料庫連結錯誤:', error);
@@ -43,10 +43,10 @@ const css = `
     }
     async function fetchVenueReserveData() {
       try {
-        const response = await axios.get('http://127.0.0.1:3005/venue_reserve');
+        const response = await axios.get('http://localhost:3005/venue_reserve');
         setReserveData(response.data.allVenueReserve);
 
-           // 获取 venue_reserve 数据中的日期
+           // 取得 venue_reserve 中的日期
           const reservedDates = response.data.allVenueReserve.map((reserve) => [
             reserve.date_1,
             reserve.date_2,
@@ -86,7 +86,6 @@ const css = `
     ) : (
       <p>請選擇日期</p>
     );
-
 
 
   return (

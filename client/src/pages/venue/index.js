@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
+import Link from "next/link";
+
 
 export default function Venue() {
   const [VenueData, setVenueData] = useState(null)
@@ -9,7 +11,7 @@ export default function Venue() {
   useEffect(() => {
     async function fetchVenueData() {
       try {
-        const response = await axios.get('http://127.0.0.1:3005/venue');
+        const response = await axios.get('http://localhost:3005/venue');
         setVenueData(response.data.allVenue);
       } catch (error) {
         console.error('資料庫連結錯誤:', error);
@@ -17,7 +19,7 @@ export default function Venue() {
     }
     async function fetchVenueReserveData(){
       try {
-        const response = await axios.get('http://127.0.0.1:3005/venue_reserve');
+        const response = await axios.get('http://localhost:3005/venue_reserve');
         setReserveData(response.data.allVenueReserve);
 
       } catch (error) {
@@ -40,9 +42,12 @@ export default function Venue() {
                 <h2 className="">{venue.venue_position}</h2>
                 <h5 className="dojo-name">{venue.venue_name}</h5>
               </div>
-              <a href={`/venue/date?id=${venue.id}`}>
+              <Link
+                type="button"
+                href={`/venue/date?id=${venue.id}`}
+              >
                 <img src={`/images/venue/${venue.venue_img}`}></img>
-              </a>
+              </Link>
             </div>
           })
         }
