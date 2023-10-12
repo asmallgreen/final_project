@@ -51,66 +51,76 @@ export default function CourseDetail() {
         const courseResponse = await axios.get(
           `http://localhost:3005/course/${cid}`
         );
-        setCourseDateById(courseResponse.data);
+        const courseData = courseResponse.data;
+        setCourseDateById(courseData);
 
-        if (courseResponse.data && courseResponse.data.teacher_id) {
+        if (courseData.teacher_id) {
           const teacherResponse = await axios.get(
-            `http://localhost:3005/teacher/${courseResponse.data.teacher_id}`
+            `http://localhost:3005/teacher/${courseData.teacher_id}`
           );
           setTeacherDateById(teacherResponse.data);
         }
 
-        if (courseResponse.data && courseResponse.data.syllabus_id) {
+        if (courseData.syllabus_id) {
           const syllabusResponse = await axios.get(
-            `http://localhost:3005/syllabus/${courseResponse.data.syllabus_id}`
+            `http://localhost:3005/syllabus/${courseData.syllabus_id}`
           );
-          setSyllabusDateByCourseId(syllabusResponse);
+          setSyllabusDateByCourseId(syllabusResponse.data);
         }
-        // console.log(SyllabusDateByCourseId.data)
-        // console.log(courseResponse.data.syllabus_id)
-
-      // console.log(TeacherDateById)
-        // 在擁有所有必要資料後，定義一次items陣列。
-        const newItems = [
-          {
-            key: "2",
-            label: "講師介紹",
-            children: (
-              <TeacherDescription
-                teacherPhoto={TeacherDateById ? TeacherDateById.photo : ""}
-                teacherName={TeacherDateById ? TeacherDateById.name : ""}
-                teacherRank={TeacherDateById ? TeacherDateById.rank : ""}
-                teacherParagraph={
-                  TeacherDateById ? TeacherDateById.description : ""
-                }
-              />
-            ),
-          },
-          {
-            key: "3",
-            label: "課程大綱",
-            children: <Syllabus syllabusData={SyllabusDateByCourseId.data} />, // 使用SyllabusDateByCourseId
-          },
-          {
-            key: "4",
-            label: "常見問題",
-            children: <Faq />,
-          },
-          {
-            key: "5",
-            label: "學員評價",
-            children: <Review />,
-          },
-        ];
-        
-        setItems(newItems);
       } catch (error) {
-        console.error("錯誤：請確認後台API功能", error);
+        console.error("錯誤，請確認API", error);
       }
-      
     };
+
     fetchData();
-  }, [cid, CourseDateById, TeacherDateById, SyllabusDateByCourseId]);
+  }, [cid]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (TeacherDateById && SyllabusDateByCourseId) {
+          const newItems = [
+            {
+              key: "2",
+              label: "講師介紹",
+              children: (
+                <TeacherDescription
+                  teacherPhoto={TeacherDateById ? TeacherDateById.photo : ""}
+                  teacherName={TeacherDateById ? TeacherDateById.name : ""}
+                  teacherRank={TeacherDateById ? TeacherDateById.rank : ""}
+                  teacherParagraph={
+                    TeacherDateById ? TeacherDateById.description : ""
+                  }
+                />
+              ),
+            },
+            {
+              key: "3",
+              label: "課程大綱",
+              children: <Syllabus syllabusData={SyllabusDateByCourseId} />, // 使用SyllabusDateByCourseId
+            },
+            {
+              key: "4",
+              label: "常見問題",
+              children: <Faq />,
+            },
+            {
+              key: "5",
+              label: "學員評價",
+              children: <Review />,
+            },
+          ];
+
+          setItems(newItems);
+
+        }
+      } catch (error) {
+        console.error("錯誤，請確認API", error);
+      }
+    };
+
+    fetchData();
+  }, [TeacherDateById, SyllabusDateByCourseId]);
 
   return CourseDateById !== null && TeacherDateById !== null ? (
     <div className="course-detail-body">
@@ -191,7 +201,7 @@ export default function CourseDetail() {
               defaultActiveKey="1"
               renderTabBar={renderTabBar}
               items={items}
-              // onChange={onChange}
+              onChange={onChange}
             />
           </ConfigProvider>
         </div>
