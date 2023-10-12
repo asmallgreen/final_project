@@ -23,43 +23,64 @@ import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
 function Pid() {
   const router = useRouter();
-  const [product, setProduct] = useState([]);
-  console.log(product);
-  console.log(product);
+
+  const queryParams = router.query;
+  const { pid } = queryParams;
+  const id = parseInt(pid, 10);
+
+  // console.log(queryParams);
+  // console.log(pid);
+
+  const [product, setProduct] = useState({});
+  const [attr, setAttr] = useState({});
+  console.log(attr);
+  // const [cate, setCate] = useState();
+  // const cate = product.category_id
+  // console.log(cateid);
+  // useEffect(() => {}, []);
+
+  // const id = parseInt(queryParams, 10);
+
+  // const [cateid, setCateid] = useState();
+  // const [attr, setAttr] = useState([]);
+  // console.log(product);
+  // const category_id = product.category_id;
+  // console.log(attr);
+  // console.log(cateid);
+  // console.log(product);
+  // console.log(product.category_id);
+
   // 获取当前页面的完整 URL
   // const currentUrl = router.asPath;
   // 获取当前页面的路径部分
   // const currentPath = router.pathname;
   // 获取查询参数
-  const queryParams = router.query;
-  console.log(queryParams);
-  // 使用解构赋值获取 pid 属性的值
-  const { pid } = queryParams;
-  // 将 pid 转换为数字
-  const id = parseInt(pid, 10);
-  console.log(id);
 
   useEffect(() => {
-    // setpId(router.query);
-    // console.log(pid);
-  }, []);
-  useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== "undefined" && !product.length) {
       (async () => {
         try {
           const res = await axios.get(`http://localhost:3005/product/${id}`, {
             params: { pid: id },
           });
-          console.log(id);
           //從後端接收:pid商品資料
           setProduct(res.data.data);
+          setAttr(res.data.attr);
         } catch (error) {
           console.log(error);
         }
       })();
     }
-  }, []);
+  }, [pid]);
 
+  useEffect(() => {
+    console.log(product);
+    // setCate(product.category_id);
+    // console.log(cateid);
+  }, [product]);
+  useEffect(() => {
+    console.log(attr);
+  }, [attr]);
   return (
     <>
       {/* 麵包屑 */}
@@ -75,13 +96,17 @@ function Pid() {
         </Col>
         <Col xl="5" md="5" className="product-info-select">
           <div className="product-info-des">
-            <Description pidData={product}/>
+            <Description pidData={product} />
           </div>
           {/* 屬性按鈕 */}
           <div className="product-info-attr">
-            <Material />
-            <Length />
-            <Diameter />
+            {/* {attr.map((v) => {
+              return <div className="xxxxxxxx">{v}</div>;
+            })} */}
+            <div></div>
+            {/* <Material /> */}
+            {/* <Length /> */}
+            {/* <Diameter /> */}
           </div>
 
           <div className="product-info-btns">
@@ -99,7 +124,7 @@ function Pid() {
       {/* *********************** */}
 
       {/* 商品資訊(手風琴) */}
-      <ProductInfoAccordion pidData={product}/>
+      <ProductInfoAccordion pidData={product} />
       {/* </div> */}
 
       {/* 相關商品推薦 */}
@@ -147,4 +172,5 @@ function Pid() {
     </>
   );
 }
+
 export default Pid;

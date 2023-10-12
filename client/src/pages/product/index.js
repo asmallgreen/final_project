@@ -32,8 +32,10 @@ function Product() {
   const [dataLength, setDataLength] = useState();
   const [pageLength, setPageLength] = useState();
   const [allProduct, setAllProduct] = useState([]);
-  const [product, setProduct] = useState([]);
-  const [newProduct, setNewProduct] = useState([]);
+  const product = allProduct
+  const newProduct = allProduct.filter(product => product.launched === 1);
+  // const [product, setProduct] = useState([]);
+  // const [newProduct, setNewProduct] = useState([]);
   console.log(`篩選:${attr}`);
   console.log(`排序:${sort}`);
   // console.log(`目前點選頁數:${page}`);
@@ -42,8 +44,8 @@ function Product() {
   // console.log(`產品共${dataLength}筆`);
   // console.log(`分頁長度:${pageLength}`);
   console.log(allProduct);
-  console.log(dataLength);
-  console.log(pageLength);
+  // console.log(dataLength);
+  // console.log(pageLength);
 
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
@@ -69,21 +71,24 @@ function Product() {
     if (typeof window !== "undefined") {
       (async () => {
         try {
-          setDataLength(Object.entries(allProduct).length);
-          setPageLength(Math.ceil(dataLength / limit));
+
           const res = await axios.get("http://localhost:3005/product", {
             params: { limit, page, sort, attr },
           });
           console.log(sort);
+          // setDataLength(Object.entries(allProduct).length);
+          // setPageLength(Math.ceil(dataLength / limit));
           setAllProduct(res.data.alldata);
-          setProduct(res.data.filterdata);
-          setNewProduct(res.data.newdata);
+        
+          // setProduct(res.data.filterdata);
+          // setNewProduct(res.data.newdata);
         } catch (error) {
           console.log(error);
         }
       })();
     }
-  }, [dataLength, pageLength, limit, page, sort, attr]);
+  }, []);
+  // dataLength, pageLength, limit, page, sort, attr
 
   // const router = useRouter();
   return (

@@ -123,7 +123,7 @@
 - [v] modal-attry在onclick取得button值，傳到filter-btn和index，在從後端抓資料
 - [v] 點選查看結果才會跑資料
 - [ ] modal切換時，無法正常運行功能
-- [ ] 建立屬性中介表、屬性資料表
+- [v] 建立屬性中介表、屬性資料表
 - [ ] modal裡面的title和attr-btn用資料庫取值(不同category屬性不同)
 - [ ] 
 - [ ] 
@@ -136,7 +136,12 @@
 - [ ] 
 - [ ] 
 
+### 20231011
 
+#### 商品詳情頁
+- [v] 關聯資料庫測試，從product_arrow-length資料表中抓到所有arrow_length_id=1(長度85mm)的product_id
+- [ ] 關聯資料庫，從product_attribute資料表中抓到所有category_id=${cate}(路由:cate的值ex:cate1是弓)的name
+- [ ] 
 ### 問題
 
 - [ ] 重整網頁時luna-pagination無法即時取得pageLength，導致按鈕陣列為空值，改變limit值後可以
