@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
+import { Container, Form, Row, Col, Button } from 'react-bootstrap';
 import { format, isValid } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
 import { useEffect, useState } from 'react';
@@ -14,15 +15,17 @@ import { useRouter } from 'next/router';
 
 
 export default function ReserveDate({ formType, setFormType }) {
+  
 
   // react 表單檢查(不可空白欄位)
   const [validated, setValidated] = useState(false);
+  const [elememtId, setElementId] = useState()
   // 驗證信箱的正規表達式
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   // 驗證手機號碼的正規表達式
   const taiwanPhoneNumberRegex = /^09\d{8}$/;
   // 預約時寫入後端資料庫的預約欄位內容
-  const [reserve, setReserve] = useState({
+  const [venue_reserve, setVenue_Reserve] = useState({
     venue_id: "",
     date_1: "",
     date_2: "",
@@ -42,7 +45,7 @@ export default function ReserveDate({ formType, setFormType }) {
 
   // 驗證 email 的正規表達式
   const handleEmailReg =(e)=>{
-    const emailReg = emailRegex.test(member.email)
+    const emailReg = emailRegex.test(venue_reserve.reserve_email)
     if(!emailReg){
       Swal.fire({
       icon: "error",
@@ -59,7 +62,7 @@ export default function ReserveDate({ formType, setFormType }) {
   }
   // 驗證手機號碼的正規表達式
   const handlePhoneReg =(e)=>{
-    const phoneReg = taiwanPhoneNumberRegex.test(member.phone)
+    const phoneReg = taiwanPhoneNumberRegex.test(venue_reserve.reserve_phone)
     if(!phoneReg){
       Swal.fire({
       icon: "error",
@@ -86,8 +89,8 @@ export default function ReserveDate({ formType, setFormType }) {
     const day = birthdate.getDate().toString().padStart(2, "0");
     const formattedBirthdate = `${year}-${month}-${day}`
     // console.log(formattedBirthdate);
-    // 再將日期存在 member 的 birthday 屬性中
-    setMember({ ...member, birthday: formattedBirthdate });
+    // 再將日期存在 venue_reserve 的 birthday 屬性中
+    setReserve({ ...venue_reserve, date_1: formattedBirthdate });
   };
 
   useEffect(()=>{
@@ -101,6 +104,7 @@ export default function ReserveDate({ formType, setFormType }) {
       }
   }, [elememtId]);
 
+
   const {authJWT, setAuthJWT} = useAuthJWT()
   const parseJwt = (token) => {
     const base64Payload = token.split('.')[1]
@@ -109,8 +113,13 @@ export default function ReserveDate({ formType, setFormType }) {
   }
   const router = useRouter()
 
+    const handleGoBack = () => {
+      history.push('/venue/date');
+  };
+  
+
   // 表單提交時檢查input並用try catch寫入資料庫
-  const handleRegisterSubmit = async (e) => {
+  const handleReserveSubmit = async (e) => {
     const form = e.currentTarget;
     e.preventDefault();
 
@@ -157,7 +166,6 @@ export default function ReserveDate({ formType, setFormType }) {
   const [VenueData, setVenueData] = useState(null)
   const [reserveData, setReserveData] = useState(null);
 
-  // const router = useRouter()
   const { isReady } = router
   const { id } = router.query
 
@@ -169,7 +177,7 @@ const [phone, setPhone] = useState('');
 // const chineseNameRegex = /^[\u4e00-\u9fa5]+$/; // 中文姓名正規表達式
 // const taiwanPhoneRegex = /^09[0-9]{8}$/; // 09開頭的手機號碼正規表達式
 
-const router = useRouter();
+// const router = useRouter();
 
 useEffect(()=>{
   const sd = localStorage.getItem('selectedDates')
@@ -201,14 +209,14 @@ useEffect(()=>{
     }
   }, [isReady]);
 
-  const isInputValid = () => {
-    return (
-      selectedDates &&
-      chineseNameRegex.test(name) &&
-      email &&
-      taiwanPhoneRegex.test(phone)
-    );
-  };
+  // const isInputValid = () => {
+  //   return (
+  //     selectedDates &&
+  //     chineseNameRegex.test(name) &&
+  //     email &&
+  //     taiwanPhoneRegex.test(phone)
+  //   );
+  // };
 
 
 //   return (
@@ -401,7 +409,7 @@ return (
           <Form.Control required type="text" name="name" onChange={handleChange} />
           <Form.Control.Feedback type="invalid">請輸入姓名</Form.Control.Feedback>
         </Form.Group>
-        <Form.Group as={Col} md="5" xs="5" controlId="validationCustom05" className="mb-2">
+        <Form.Group as={Col} md="12" xs="5" controlId="validationCustom05" className="mb-2">
           <Row>
             <Form.Group as={Col} md="12" controlId="validationCustom09" className="mb-2">
               <Form.Label className="mb-0">Email</Form.Label>
@@ -428,20 +436,30 @@ return (
               <Form.Control.Feedback type="invalid">請輸入手機號碼</Form.Control.Feedback>
             </Form.Group>
           </Row>
-          <Row className="mt-3 d-flex justify-content-center">
-            <Form.Group as={Col} md="12" xs="12" className="p-0 text-end">
-              <Button
-                type="submit"
-                className="login-button mb-4 update-profile-btn"
-                onClick={handleRegisterSubmit}
-              >
-                送出
-              </Button>
+          <Row className="mt-3 d-flex justify-content-center align-items-center">
+          <Form.Group as={Col} md="12" xs="12" className="p-0 text-end">
+            <Link
+              type="button"
+              className="mx-4 mt-2 mb-5 text-decoration-none reserve-bt2 align-middle "
+              // onClick={handleGoBack}
+              href={"/venue/date"}
+            >
+              <div className='text-center reserve-bn-text'>返回上一步</div>
+              
+              
+            </Link>
+            <Button
+              type="submit"
+              className="mx-4 mt-2 mb-5 reserve-bt1 "
+              onClick={handleReserveSubmit}
+            >
+              送出
+                  </Button>
+                </Form.Group>
+              </Row>
             </Form.Group>
           </Row>
-        </Form.Group>
-      </Row>
-      <div className="d-flex justify-content-center">
+      {/* <div className="d-flex justify-content-center">
         <a href="/venue/date">
           <button className="mx-4 mt-2 mb-5 reserve-bt1">返回上一步</button>
         </a>
@@ -454,8 +472,9 @@ return (
             下一步
           </button>
         </a>
-      </div>
+      </div> */}
     </div>
   </Container>
 );
 }
+
