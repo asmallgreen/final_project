@@ -61,12 +61,13 @@ router.get("/", async (req, res) => {
       break;
   }
   console.log(attrValue);
+  console.log(sortValue);
   // const where = {id:1}
   const alldata = await getAll();
-  const newdata = await getNew();
-  const filterdata = await getFilter(attrValue, sortValue, limitValue, offset);
+  // const newdata = await getNew();
+  // const filterdata = await getFilter(attrValue, sortValue, limitValue, offset);
 
-  // const filterdata = await getFilter(where, sortValue, 5, 0);
+  const filterdata = await getFilter(attrValue, sortValue, 5, 0);
 
   res.json({
     // arrow_length,
@@ -74,7 +75,7 @@ router.get("/", async (req, res) => {
     code: "200",
     filterdata,
     alldata,
-    newdata,
+    // newdata,
   });
 });
 

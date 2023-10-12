@@ -32,7 +32,7 @@ function Product() {
   const [dataLength, setDataLength] = useState();
   const [pageLength, setPageLength] = useState();
   const [allProduct, setAllProduct] = useState([]);
-  const product = allProduct;
+  // const product = allProduct;
   const newProduct = allProduct.filter((product) => product.launched === 1);
   const [filterProduct, setFilterProduct] = useState([]);
   // const [newProduct, setNewProduct] = useState([]);
@@ -64,6 +64,7 @@ function Product() {
         const res = await axios.get("http://localhost:3005/product", {
           params: { limit, page, sort, attr },
         });
+        console.log(limit,page,sort,attr);
         setAllProduct(res.data.alldata);
         setDataLength(Object.entries(res.data.alldata).length);
         setPageLength(Math.ceil((Object.entries(res.data.alldata).length) / limit));
