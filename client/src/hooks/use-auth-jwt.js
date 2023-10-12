@@ -61,28 +61,28 @@ const checkAuth = async () => {
   // 收藏的商品
   const [favoriteProducts, setFavoriteProducts] = useState([])
   // 得到會員的商品收藏清單
-  const getFavoriteProducts = async () => {
-    const res = await axios.get(
-      'http://localhost:3005/member/favorite-product-id',
-      {
-        withCredentials: true,
-      }
-    )
-        console.log('getFavoriteProducts:',res.data);
-    if (res.data.favoriteProducts) {
-      setFavoriteProducts(res.data.favoriteProducts)
-    }
-  }
+  // const getFavoriteProducts = async () => {
+  //   const res = await axios.get(
+  //     'http://localhost:3005/member/favorite-product-id',
+  //     {
+  //       withCredentials: true,
+  //     }
+  //   )
+  //       console.log('getFavoriteProducts:',res.data);
+  //   if (res.data.favoriteProducts) {
+  //     setFavoriteProducts(res.data.favoriteProducts)
+  //   }
+  // }
 
-  useEffect(() => {
-    if (authJWT.isAuth) {
-      // 成功登入後要執行一次向伺服器取得商品收藏清單
-      getFavoriteProducts()
-    } else {
-      // 登出時要設回空陣列
-      setFavoriteProducts([])
-    }
-  }, [authJWT])
+  // useEffect(() => {
+  //   if (authJWT.isAuth) {
+  //     // 成功登入後要執行一次向伺服器取得商品收藏清單
+  //     getFavoriteProducts()
+  //   } else {
+  //     // 登出時要設回空陣列
+  //     setFavoriteProducts([])
+  //   }
+  // }, [authJWT])
 
   // 收藏的課程
   // const [favoriteCourses, setFavoriteCourses] = useState([])

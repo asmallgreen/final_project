@@ -2,6 +2,7 @@ import { useCart } from '@/hooks/use-cart'
 import { useEffect, useState ,useReducer } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { reducer } from '@/hooks/cart-reducer.js'
+import { AddCartCourse } from '@/components/cart/addCartCourse.js'
 
 export default function List({ mode }) {
 
