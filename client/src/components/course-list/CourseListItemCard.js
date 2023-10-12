@@ -1,5 +1,6 @@
 import React from "react";
 import { Rate } from "antd";
+import Link from "next/link";
 
 export default function CourseListItemCard(props) {
   const { CourseData } = props;
@@ -40,7 +41,9 @@ export default function CourseListItemCard(props) {
               <small>NT$</small>
               {CourseData.price}
             </h2>
-            <div className="btn moreBtn">詳細資訊</div>
+            <Link href={`course/${CourseData.id}`}>
+              <div className="btn moreBtn">詳細資訊</div>
+            </Link>
           </div>
         </div>
       </div>
