@@ -27,35 +27,23 @@ function Pid() {
   const queryParams = router.query;
   const { pid } = queryParams;
   const id = parseInt(pid, 10);
-
-  // console.log(queryParams);
-  // console.log(pid);
-
   const [product, setProduct] = useState({});
+  const [tables, setTables] = useState();
   const [attrValue, setAttrValue] = useState();
   const [attrTitle, setAttrTitle] = useState();
-  // console.log(attr);
-  // const [cate, setCate] = useState();
-  // const cate = product.category_id
-  // console.log(cateid);
-  // useEffect(() => {}, []);
 
-  // const id = parseInt(queryParams, 10);
-
-  // const [cateid, setCateid] = useState();
-  // const [attr, setAttr] = useState([]);
-  // console.log(product);
-  // const category_id = product.category_id;
-  // console.log(attr);
-  // console.log(cateid);
-  // console.log(product);
-  // console.log(product.category_id);
-
-  // 获取当前页面的完整 URL
-  // const currentUrl = router.asPath;
-  // 获取当前页面的路径部分
-  // const currentPath = router.pathname;
-  // 获取查询参数
+  const getButtonStyle = (tableName) => {
+    switch (tableName) {
+      case "bow_strength":
+        return "bow-strength-style ";
+      case "bow_meterial":
+        return "bow-material-style";
+      case "bow_length":
+        return "bow-length-style";
+      default:
+        return ""; // 默认样式，可以是空字符串或其他默认样式
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined" && !product.length) {
@@ -66,6 +54,7 @@ function Pid() {
           });
           //從後端接收:pid商品資料
           setProduct(res.data.data);
+          setTables(res.data.tables);
           setAttrValue(res.data.attrValue);
           setAttrTitle(res.data.attrTitle);
         } catch (error) {
@@ -77,9 +66,10 @@ function Pid() {
 
   useEffect(() => {
     console.log(product);
-    // setCate(product.category_id);
-    // console.log(cateid);
   }, [product]);
+  useEffect(() => {
+    console.log(tables);
+  }, []);
   useEffect(() => {
     console.log(attrTitle);
   }, [attrTitle]);
@@ -104,23 +94,36 @@ function Pid() {
             <Description pidData={product} />
           </div>
           {/* 屬性按鈕 */}
-          <div>
-            {attrTitle &&
-              Array.isArray(attrTitle) &&
-              attrTitle.map((v) => (
-                <div className="btn btn-primary d-flex btn-test" key={v}>
-                  {v}
-                </div>
-              ))}
+          <div className="d-flex">
+            <div className="">
+              {attrTitle &&
+                attrTitle.flat().map((v, index) => (
+                  <div className="attr-title-style" key={index}>
+                    {v}
+                  </div>
+                ))}
+            </div>
+
+            <div className="">
+              {attrValue &&
+                Array.isArray(attrValue) &&
+                attrValue.map((tableData, tableIndex) => (
+                  <div className="d-flex">
+                    {tableData.map((v, index) => (
+                      <div
+                        className={`btn attr-value-style ${getButtonStyle(
+                          tables[tableIndex]
+                        )}`}
+                        key={index}
+                      >
+                        {v}
+                      </div>
+                    ))}
+                  </div>
+                ))}
+            </div>
           </div>
 
-          {attrValue &&
-            Array.isArray(attrValue) &&
-            attrValue.map((v) => (
-              <div className="btn btn-primary d-flex btn-test" key={v}>
-                {v}
-              </div>
-            ))}
           <div className="product-info-attr">
             {/* <Material /> */}
             {/* <Length /> */}

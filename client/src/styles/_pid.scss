@@ -16,13 +16,51 @@ body {
     }
   }
 }
+
 .product-info-select {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  .btn-test{
-    border: 1px solid #616153;
+  .attr-title-style{
+    color: $secondary;
+    height: 38.5px;
+    margin: 10px 35px 10px 15px;
+    border: 1px solid transparent;
+    font-size: 18px;
   }
+  .attr-value-style{
+    color: $secondary;
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
+    padding: 5px 10px;
+    font-size: 18px;
+    // width: 60px;
+    border: 1px solid $secondary;
+    border-radius: 0;
+    &:hover{
+      background-color: $secondary;
+      color: $primary;
+    }
+  }
+  // .bow-strength-style{
+  //   color: $secondary;
+  //   display: flex;
+  //   flex-direction: row;
+  //   margin: 5px;
+  //   padding: 5px 10px;
+  //   // cursor: pointer;
+  //   font-size: 20px;
+  //   width: 60px;
+  //   border: 1px solid $secondary;
+  //   border-radius: 0;
+  //   // text-align: center;
+  //   &:hover{
+  //     background-color: $secondary;
+  //     color: $primary;
+  //   }
+  // }
+
   .product-info-des {
     margin-top: 50px;
   }

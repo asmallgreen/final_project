@@ -91,7 +91,7 @@ router.get("/:pid", async (req, res) => {
         tables = ["bow_strength", "bow_meterial", "bow_length"];
         break;
       case 2:
-        tables = ["arrow_strength", "arrow_meterial", "arrow_shaft"];
+        tables = ["arrow_length", "arrow_meterial", "arrow_shaft"];
         break;
       case 3:
         tables = ["suit_color", "suit_size"];
@@ -129,6 +129,7 @@ router.get("/:pid", async (req, res) => {
     return res.json({
       message: "getAllProduct success",
       code: "200",
+      tables,
       attrTitle,
       attrValue,
       data,
