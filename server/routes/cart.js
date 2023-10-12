@@ -5,17 +5,21 @@ import pool from '../config/db.js';
 
 import { getCart, getOrder, getMember } from '../models/cart.js'
 
-const executeQuery = async (sql, params = []) => {
-    return new Promise((resolve, reject) => {
-        pool.query(sql, params, (error, results) => {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(results);
-            }
-        });
-    });
-};
+// const executeQuery = async (sql, params=[] ) => {
+    
+//     return new Promise((resolve, reject) => {
+//         pool.query(sql, params, (error, results) => {
+//             if (error) {
+//                 reject(error);
+                
+//             } else {
+//                 resolve(results);
+              
+//             }
+//         });
+        
+//     });
+// };
 
 // 老師版本
 // router.post('/',  async (req, res) =>{
@@ -30,15 +34,63 @@ const executeQuery = async (sql, params = []) => {
 
 
 router.post('/', async (req, res) => {
-    const memberId = req.body.memberId
+    const memberId = req.body.memberId 
+  
 
     const sql = ` 
     SELECT * FROM shopping_cart
-    WHERE member_id = ?
+   WHERE member_id = ?
     `
     try {
-        const result = await executeQuery(sql , {memberId});
-        const cartList = result
+        const [rows] = await pool.query(sql, [memberId]);
+        const cartList = rows
+        for (let i = 0 ; i < cartList.length ; i++){
+            let eachProd = cartList[i]
+            let prodId = eachProd.product_id
+            let cate = eachProd.category_id
+              
+  let tables = [];
+  switch (cate) {
+    case 1:
+      tables = ["bow_strength", "bow_meterial", "bow_length"];
+      break;
+    case 2:
+      tables = ["arrow_strength", "arrow_meterial", "arrow_shaft"];
+      break;
+    case 3:
+      tables = ["color", "size"];
+      break;
+      default:
+        
+  }
+  if(tables.length == 0 ){
+    continue   
+  }
+  const sql2 = ` 
+  SELECT * FROM ${tables.toString()}
+  WHERE 1=1
+  /*getWhereCause(tables) */
+ 
+  `
+//   let condi = []
+//   for(let j =0;j<tables.length;j++){
+//     condi.push(prodId)
+//   }
+
+  const [rows] = await pool.query(sql2,[prodId]);
+  
+  eachProd.cartDtl = rows
+  cartList[i] = eachProd
+
+        }
+
+
+
+
+
+
+
+
         return res.json({
             message: 'search success',
             code: '200',
@@ -55,6 +107,18 @@ router.post('/', async (req, res) => {
     }
 
 });
+
+function getWhereCause(table,cate){
+    let sql = ""
+    if(cate !== 1){
+    for(let i = 0 ; i < table.length ; i++){
+        sql += " AND "+table[i] + ".product_id = ?"  
+    }
+}
+    return sql
+
+
+}
 
 router.post('/NewOrder', async (req, res) => {
 
