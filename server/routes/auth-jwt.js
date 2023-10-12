@@ -482,41 +482,40 @@ router.delete('/:pid', authenticate, async (req, res, next) => {
   console.log('這是memberId',memberId);
   // console.log('刪除收藏商品的 res.body',res.body);
   // console.log('刪除收藏商品的 res.params',res.params);
-  const member = req.member
-  const mid = member.id
-  return res.json({ message: '刪除點擊後有傳到後端', code: '200' })
-  // const sql = `DELETE FROM fav_product WHERE product_id=${pid} AND member_id=${mid}; `
 
-  // const { rows } = await executeQuery(sql)
+  // return res.json({ message: '刪除點擊後有傳到後端', code: '200' })
+  const sql = `DELETE FROM fav_product WHERE product_id=${pid} AND member_id=${memberId}; `
 
-  // console.log(rows.affectedRows)
+  const { rows } = await executeQuery(sql)
 
-  // if (rows.affectedRows) {
-  //   return res.json({ message: '已取消收藏', code: '200' })
-  // } else {
-  //   return res.json({ message: '取消收藏失敗', code: '400' })
-  // }
+  console.log(rows.affectedRows)
+
+  if (rows.affectedRows) {
+    return res.json({ message: '已取消收藏', code: '200' })
+  } else {
+    return res.json({ message: '取消收藏失敗', code: '400' })
+  }
 })
 // 新增收藏的商品
 router.put('/:pid', authenticate, async (req, res, next) => {
   const pid = req.params.pid
   const memberId = req.body.memberId
-  console.log('這是memberId',memberId);
+  // console.log('這是memberId',memberId);
   // const member = req.member
   // const mid = member.id
-  console.log('新增商品req.params:',req.params);
-  return res.json({ message: '新增點擊後有傳到後端', code: '200' })
-  // const sql = `INSERT INTO favorites (uid, pid) VALUES (${uid}, ${pid})`
+  // console.log('新增商品req.params:',req.params);
+  // return res.json({ message: '新增點擊後有傳到後端', code: '200' })
+  const sql = `INSERT INTO fav_product (member_id, product_id) VALUES (${memberId}, ${pid})`
 
-  // const { rows } = await executeQuery(sql)
+  const { rows } = await executeQuery(sql)
 
-  // console.log(rows.affectedRows)
+  console.log(rows.affectedRows)
 
-  // if (rows.affectedRows) {
-  //   return res.json({ message: 'success', code: '200' })
-  // } else {
-  //   return res.json({ message: 'fail', code: '400' })
-  // }
+  if (rows.affectedRows) {
+    return res.json({ message: '商品收藏成功', code: '200' })
+  } else {
+    return res.json({ message: '商品收藏失敗', code: '400' })
+  }
 })
 // 會員課程收藏---------------------------------------------------------
 // 先抓到關聯資料表中的課程id

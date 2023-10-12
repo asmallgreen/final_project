@@ -11,6 +11,7 @@ import FilterBtns from "@/components/product/filter-btns";
 import RecommendedCard from "@/components/product/recommended-card";
 import LaunchedCard from "@/components/product/launched-card";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import Swal from "sweetalert2";
 
 function Product() {
   // const [productList ,setproductList] = useState(null);
@@ -89,11 +90,24 @@ function Product() {
 // 如果在陣列中，執行移除收藏
       try{
         const res = await axios.delete(`http://localhost:3005/member/${id}`,
-        {memberId},
         {
+          data:{memberId},
           withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
         })
         console.log(res.data);
+        if(res.data.message === '已取消收藏'){
+          await Swal.fire({
+            icon: 'success',
+            title: '商品已取消收藏',
+            showConfirmButton: false,
+            timer: 1500,
+            backdrop: `rgba(255, 255, 255, 0.55)`,
+            width: '35%',
+            padding: '0 0 3.25em',
+            customClass: {
+            }
+          })
+        }
       }catch(error){
         console.log(error);
       }
@@ -107,6 +121,20 @@ function Product() {
           withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
         })
         console.log(res.data);
+
+        if(res.data.message === '商品收藏成功'){
+          await Swal.fire({
+            icon: 'success',
+            title: '商品收藏成功',
+            showConfirmButton: false,
+            timer: 1500,
+            backdrop: `rgba(255, 255, 255, 0.55)`,
+            width: '35%',
+            padding: '0 0 3.25em',
+            customClass: {
+            }
+          })
+        }
       }catch(error){
         console.log(error);
       }
