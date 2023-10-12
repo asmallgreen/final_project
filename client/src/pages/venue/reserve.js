@@ -437,27 +437,27 @@ return (
             </Form.Group>
           </Row>
           <Row className="mt-3 d-flex justify-content-center align-items-center">
-          <Form.Group as={Col} md="12" xs="12" className="p-0 text-end">
-            <Link
-              type="button"
-              className="mx-4 mt-2 mb-5 text-decoration-none reserve-bt2 align-middle "
-              // onClick={handleGoBack}
-              href={"/venue/date"}
-            >
-              <div className='text-center reserve-bn-text'>返回上一步</div>
-              
-              
-            </Link>
-            <Button
-              type="submit"
-              className="mx-4 mt-2 mb-5 reserve-bt1 "
-              onClick={handleReserveSubmit}
-            >
-              送出
-                  </Button>
-                </Form.Group>
-              </Row>
-            </Form.Group>
+            <Form.Group as={Col} md="12" xs="12" className="p-0 text-center">
+              <Link
+                type="button"
+                className="mx-4 mt-2 mb-5 text-decoration-none reserve-bt1  "
+                // onClick={handleGoBack}
+                href={"/venue/date"}
+              >
+                <div className='text-center reserve-bn-text'>返回上一步</div>
+                
+                
+              </Link>
+              <button
+                type="submit"
+                className="mx-4 mt-2 mb-5 reserve-bt2 "
+                onClick={handleReserveSubmit}
+              >
+                送出
+                    </button>
+                  </Form.Group>
+                </Row>
+              </Form.Group>
           </Row>
       {/* <div className="d-flex justify-content-center">
         <a href="/venue/date">
