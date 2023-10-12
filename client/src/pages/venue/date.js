@@ -47,16 +47,16 @@ const css = `
         setReserveData(response.data.allVenueReserve);
 
            // 获取 venue_reserve 数据中的日期
-      const reservedDates = response.data.allVenueReserve.map((reserve) => [
-        reserve.date_1,
-        reserve.date_2,
-        reserve.date_3,
-        reserve.date_4,
-        reserve.date_5,
-      ]).flat();
+          const reservedDates = response.data.allVenueReserve.map((reserve) => [
+            reserve.date_1,
+            reserve.date_2,
+            reserve.date_3,
+            reserve.date_4,
+            reserve.date_5,
+          ]).flat();
 
       // 在日期选择器中禁用已被预定的日期
-      const disabledDates = (date) => reservedDates.includes(date.toISOString());
+      const disabledDates = reservedDates.map((date) => new Date(date));
       setDisabledDates(disabledDates);
       console.log(disabledDates); 
       
