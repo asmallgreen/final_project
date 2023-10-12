@@ -435,30 +435,7 @@ router.get('/favorite-product-id', authenticate, async (req, res, next) => {
   res.json({ favoriteProducts })
 })
 // 再去產品資料表拿收藏的商品資料
-// router.get('/all-products', authenticate, async (req, res, next) => {
-//   const member = req.member
-//   const mid = member.id
 
-//   const sql = `SELECT p.*, IF(fp.id, 'true', 'false') AS is_favorite
-//     FROM product AS p
-//     LEFT JOIN fav_product AS fp ON fp.product_id = p.id
-//     AND fp.member_id = ${mid}
-//     ORDER BY p.id ASC`
-
-//   const { rows } = await executeQuery(sql)
-
-//   console.log(rows)
-
-//   // cast boolean
-//   const products = rows.map((v) => ({
-//     ...v,
-//     is_favorite: v.is_favorite === 'true',
-//   }))
-
-//   // console.log(products)
-
-//   res.json({ products })
-// })
 router.get('/fav-products', authenticate, async (req, res, next) => {
   const member = req.member
   const mid = member.id
@@ -531,39 +508,15 @@ router.get('/favorite-course-id', authenticate, async (req, res, next) => {
 
   res.json({ favoriteCourses })
 })
-// 再去課程資料表拿收藏的課程資料
-// router.get('/all-courses', authenticate, async (req, res, next) => {
-//   const member = req.member
-//   const mid = member.id
-
-//   const sql = `SELECT c.*, IF(fc.id, 'true', 'false') AS is_favorite
-//     FROM course AS c
-//     LEFT JOIN fav_course AS fc ON fc.course_id = c.id
-//     AND fc.member_id = ${mid}
-//     ORDER BY c.id ASC`
-
-//   const { rows } = await executeQuery(sql)
-
-//   console.log(rows)
-
-//   // cast boolean
-//   const courses = rows.map((v) => ({
-//     ...v,
-//     is_favorite: v.is_favorite === 'true',
-//   }))
-
-//   // console.log(courses)
-
-//   res.json({ courses })
-// })
+// 再去產品資料表拿收藏的商品資料
 router.get('/fav-courses', authenticate, async (req, res, next) => {
   const member = req.member
   const mid = member.id
 
   const sql = `SELECT c.*
 FROM course AS c
-    INNER JOIN fav_course AS f ON f.course_id = c.id
-    AND f.member_id = ${mid}
+    INNER JOIN fav_course AS fc ON fc.course_id = c.id
+    AND fc.member_id = ${mid}
 ORDER BY c.id ASC`
 
   const { rows } = await executeQuery(sql)
@@ -571,5 +524,47 @@ ORDER BY c.id ASC`
   console.log(rows)
 
   res.json({ courses: rows })
+})
+// 刪除收藏的課程
+router.delete('/course/:cid', authenticate, async (req, res, next) => {
+  const cid = req.params.cid
+  const memberId = req.body.memberId
+  console.log('這是memberId',memberId);
+  // console.log('刪除收藏課程的 res.body',res.body);
+  // console.log('刪除收藏課程的 res.params',res.params);
+
+  // return res.json({ message: '刪除課程收藏點擊後有傳到後端', code: '200' })
+  const sql = `DELETE FROM fav_course WHERE course_id=${cid} AND member_id=${memberId}; `
+
+  const { rows } = await executeQuery(sql)
+
+  console.log(rows.affectedRows)
+
+  if (rows.affectedRows) {
+    return res.json({ message: '已取消收藏', code: '200' })
+  } else {
+    return res.json({ message: '取消收藏失敗', code: '400' })
+  }
+})
+// 新增收藏的課程
+router.put('/course/:cid', authenticate, async (req, res, next) => {
+  const cid = req.params.cid
+  const memberId = req.body.memberId
+  console.log('這是memberId',memberId);
+  // const member = req.member
+  // const mid = member.id
+  console.log('新增課程req.params:',req.params);
+  // return res.json({ message: '新增課程收藏點擊後有傳到後端', code: '200' })
+  const sql = `INSERT INTO fav_course (member_id, course_id) VALUES (${memberId}, ${cid})`
+
+  const { rows } = await executeQuery(sql)
+
+  console.log(rows.affectedRows)
+
+  if (rows.affectedRows) {
+    return res.json({ message: '課程收藏成功', code: '200' })
+  } else {
+    return res.json({ message: '課程收藏失敗', code: '400' })
+  }
 })
 export default router;

@@ -4,6 +4,8 @@ export default function FavCourseCard({courses}) {
   const handleInput = (e) => {
     e.stopPropagation()
 }
+
+
   return (
     <>
     {courses.map((course)=>(

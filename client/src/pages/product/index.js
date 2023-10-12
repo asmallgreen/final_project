@@ -76,13 +76,6 @@ function Product() {
     return favoriteProducts.includes(productId);
   }
 
-  // const triggerFav = (allProduct, id) => {
-  //   return allProduct.map((v, i) => {
-  //     if (v.id === id) return { ...v, is_favorite: !v.is_favorite }
-  //     return { ...v }
-  //   })
-  // }
-
   const handleTriggerProductFav = async (id) => {
     // 在陣列中->移出，不在陣列中加入
     // console.log(id);

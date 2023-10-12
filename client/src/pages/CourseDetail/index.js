@@ -63,6 +63,8 @@ export default function CourseDetail() {
       />
     </StickyBox>
   );
+
+   
   return (
     <div className="course-detail-body">
       <div className="container">
