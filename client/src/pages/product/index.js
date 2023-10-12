@@ -32,26 +32,17 @@ function Product() {
   const [dataLength, setDataLength] = useState();
   const [pageLength, setPageLength] = useState();
   const [allProduct, setAllProduct] = useState([]);
-  const product = allProduct
-  const newProduct = allProduct.filter(product => product.launched === 1);
-  // const [product, setProduct] = useState([]);
+  const product = allProduct;
+  const newProduct = allProduct.filter((product) => product.launched === 1);
+  const [filterProduct, setFilterProduct] = useState([]);
   // const [newProduct, setNewProduct] = useState([]);
-  console.log(`篩選:${attr}`);
-  console.log(`排序:${sort}`);
-  // console.log(`目前點選頁數:${page}`);
-  // console.log(`目前顯示頁數:${limit}`);
-  // console.log(`目前顯示產品:${product}`);
-  // console.log(`產品共${dataLength}筆`);
-  // console.log(`分頁長度:${pageLength}`);
-  console.log(allProduct);
-  // console.log(dataLength);
-  // console.log(pageLength);
+  // console.log(`篩選:${attr}`);
+  // console.log(`排序:${sort}`);
 
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
   };
   const updatePage = (newPage) => {
-    console.log(newPage);
     if (newPage !== undefined) {
       setPage(newPage);
     } else {
@@ -59,35 +50,58 @@ function Product() {
     }
   };
   const updateSort = (newSort) => {
-    console.log(newSort);
+    // console.log(newSort);
     setSort(newSort);
   };
   const updateAttr = (newAttr) => {
-    console.log(newAttr);
+    // console.log(newAttr);
     setAttr(newAttr);
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      (async () => {
-        try {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("http://localhost:3005/product", {
+          params: { limit, page, sort, attr },
+        });
+        setAllProduct(res.data.alldata);
+        setDataLength(Object.entries(res.data.alldata).length);
+        setPageLength(Math.ceil((Object.entries(res.data.alldata).length) / limit));
+        setFilterProduct(res.data.filterdata);
+        // setNewProduct(res.data.newdata);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-          const res = await axios.get("http://localhost:3005/product", {
-            params: { limit, page, sort, attr },
-          });
-          console.log(sort);
-          // setDataLength(Object.entries(allProduct).length);
-          // setPageLength(Math.ceil(dataLength / limit));
-          setAllProduct(res.data.alldata);
-        
-          // setProduct(res.data.filterdata);
-          // setNewProduct(res.data.newdata);
-        } catch (error) {
-          console.log(error);
-        }
-      })();
+    if (typeof window !== "undefined") {
+      fetchData();
     }
   }, []);
+
+  useEffect(() => {
+    // console.log(allProduct);
+  }, [allProduct]);
+
+  useEffect(() => {
+    setPageLength(Math.ceil(dataLength / limit));
+    // console.log(limit);
+  }, [limit]);
+
+  useEffect(() => {
+    // console.log(dataLength);
+  }, [dataLength]);
+
+  useEffect(() => {
+    // console.log(pageLength,limit);
+  }, [pageLength,limit]);
+
+  useEffect(() => {
+    // console.log(page);
+  }, [page]);
+  useEffect(() => {}, []);
+  useEffect(() => {}, []);
+
   // dataLength, pageLength, limit, page, sort, attr
 
   // const router = useRouter();
@@ -262,7 +276,7 @@ function Product() {
       <Row className="filter-cards-area">
         <Col md="auto" className="filter-cards">
           <Row className="rows">
-            {product.map((data) => {
+            {filterProduct.map((data) => {
               return <FilterProductCard key={data.id} filterProduct={data} />;
             })}
           </Row>
