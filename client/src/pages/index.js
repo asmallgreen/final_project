@@ -22,7 +22,7 @@ import Beginner from "../components/homepage/Beginner"
 import Welfare from "../components/homepage/Welfare"
 
 //引入圖片
-// import CourseSlider1 from "../../../public/images/homepage/course-image1.png";
+// import CourseSlider1 from "../../../public/images/homepage/course-image1.webp";
 
 // slider卡片內容
 const courseParagraph1 = `
@@ -152,7 +152,9 @@ export default function Homepage() {
             </div>
           </div>
         </div>
-        <div className="hr homepage-hr1"></div>
+        <img
+        className="hr"
+        src="images/homepage/hr_1.webp"></img>
         <div className="textarea">
           <h1>良物優選</h1>
           <p>
@@ -205,22 +207,22 @@ export default function Homepage() {
         <div className="introduction">
           <div className="container">
           <IntroCard
-              introImg="images/homepage/product_intro_1.png"
+              introImg="images/homepage/product_intro_1.webp"
               introTitle="弓"
               introCat="竹弓｜合成弓"
           />
           <IntroCard
-              introImg="images/homepage/product_intro_2.png"
+              introImg="images/homepage/product_intro_2.webp"
               introTitle="箭"
               introCat="鋁箭｜合成箭"
           />
           <IntroCard
-              introImg="images/homepage/product_intro_3.png"
+              introImg="images/homepage/product_intro_3.webp"
               introTitle="道服"
               introCat=""
           />
           <IntroCard
-              introImg="images/homepage/product_intro_4.png"
+              introImg="images/homepage/product_intro_4.webp"
               introTitle="其他"
               introCat="箭頭｜箭筒｜粉容器｜弦卷"
           />
@@ -235,7 +237,9 @@ export default function Homepage() {
           </p>
           <div className="btn">前往網路商店</div>
         </div>
-        <div className="hr homepage-hr2"></div>
+        <img
+        className="hr"
+        src="images/homepage/hr_2.webp"></img>
         <div className="textarea">
           <h1>課程介紹</h1>
           <p>
@@ -253,21 +257,21 @@ export default function Homepage() {
           <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
             <SwiperSlide>
               <CourseSlider
-                courseImg="https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image1.png?raw=true"
+                courseImg="images/homepage/course-image1.webp"
                 courseTitle="初探弓道"
                 courseParagraph={courseParagraph1}
               />
             </SwiperSlide>
             <SwiperSlide>
               <CourseSlider
-                courseImg="https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image2.jpg?raw=true"
+                courseImg="images/homepage/course-image2.webp"
                 courseTitle="進階弓道"
                 courseParagraph={courseParagraph2}
               />
             </SwiperSlide>
             <SwiperSlide>
               <CourseSlider
-                courseImg="https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image3.jpg?raw=true"
+                courseImg="images/homepage/course-image3.webp"
                 courseTitle="專業弓道"
                 courseParagraph={courseParagraph3}
               />
@@ -287,7 +291,9 @@ export default function Homepage() {
             隨時啟程
           </p>
         </div>
-        <div className="hr homepage-hr3"></div>
+        <img
+        className="hr"
+        src="images/homepage/hr_3.webp"></img>
       </div>
     </>
   );

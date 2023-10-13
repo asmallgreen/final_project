@@ -7,10 +7,10 @@ export default function CourseSlider(props) {
   return (
     <>
       <div className="course-slider-container">
-        <div
+        <img
           className="course-img"
-          style={{ backgroundImage: `url(${courseImg})` }}
-        ></div>
+          src={courseImg}
+        ></img>
         <div className="course-text">
           <h1>{courseTitle}</h1>
           <div id="courseParagraph" dangerouslySetInnerHTML={{ __html: courseParagraph }}></div>
