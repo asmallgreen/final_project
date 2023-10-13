@@ -126,7 +126,7 @@ export default function Navbar() {
             <div className="hover-space position-absolute"></div>
           </li>
           <li className="list-unstyled">
-            <Link href="/course-list" className="titleLi">
+            <Link href="/course" className="titleLi">
               弓道課程
             </Link>
           </li>
@@ -193,7 +193,7 @@ export default function Navbar() {
             <Link href="/product">商店</Link>
           </li>
           <li>
-            <Link href="/course-list">課程</Link>
+            <Link href="/course">課程</Link>
           </li>
           <li>
             <Link href="/venue">場地</Link>

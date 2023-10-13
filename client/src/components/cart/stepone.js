@@ -69,15 +69,24 @@ export default function StepOne({ setstepType}) {
       setNetTotal(productCart.cartTotal);
       return;
     }
+    
     const coupon = couponOptions.find((v) => v.id === selectedCouponId);
-    // console.log(coupon);
-
-    // type=1:打折  tpye=2:減價
+    //console.log(coupon);
+  
+    // type=1:打折  type=2:減價
     const newNetTotal =
-      coupon.type === "1"
+      coupon.type === 1
         ? Math.round(productCart.cartTotal * (coupon.discount / 10))
         : productCart.cartTotal - coupon.discount;
+  
     setNetTotal(newNetTotal);
+  
+   
+    setOrderInfo({
+      ...orderInfo,
+      coupon_id: selectedCouponId
+    });
+  
   }, [productCart.cartTotal, selectedCouponId]);
 
   useEffect(() => {

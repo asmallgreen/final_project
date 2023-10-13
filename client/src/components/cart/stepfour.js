@@ -67,14 +67,12 @@ export default function StepThree({ setstepType }) {
       return {
         order_id: orderid,
         product: product,
-        
       };
     });
     const courseDetail = courseCart.items.map((course, index) => {
       return {
         order_id: orderid,
         course: course,
-        
       };
     });
     const orderData = {

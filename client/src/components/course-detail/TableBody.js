@@ -11,10 +11,10 @@ export default function TableBody(props) {
         <div className="col-2">
           <div className="table-data">{course_date}</div>
         </div>
-        <div className="col-2">
+        <div className="col-3">
           <div className="table-data">{course_topic}</div>
         </div>
-        <div className="col-7">
+        <div className="col-6">
           <div className="table-data">{course_target}</div>
         </div>
       </div>
