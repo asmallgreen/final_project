@@ -10,10 +10,9 @@ import LunaPagination from "@/components/pagination/luna-pagination";
 import FilterBtns from "@/components/product/filter-btns";
 import RecommendedCard from "@/components/product/recommended-card";
 import LaunchedCard from "@/components/product/launched-card";
-import { useProductContext } from "../../hooks/use-product-context.js";
 //AnimatedArrow
-import AnimatedArrow from "../../components/product/animate-arrow.js";
-import ConcentricCircles from "../../components/product/animate-concent-circle.js";
+import AnimatedArrow from "@/components/product/animate-arrow.js";
+import ConcentricCircles from "@/components/product/animate-concent-circle.js";
 // 廣告
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -23,93 +22,133 @@ import "swiper/css/navigation";
 
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
-function Product() {
-  // const [offset, setOffset] = useState(0);
-  const [attr, setAttr] = useState("");
-  const [sort, setSort] = useState("");
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
-  const [dataLength, setDataLength] = useState();
-  const [pageLength, setPageLength] = useState();
-  const [allProduct, setAllProduct] = useState([]);
-  // const product = allProduct;
-  const newProduct = allProduct.filter((product) => product.launched === 1);
-  const [filterProduct, setFilterProduct] = useState([]);
-  // const [newProduct, setNewProduct] = useState([]);
-  // console.log(`篩選:${attr}`);
-  // console.log(`排序:${sort}`);
+function Cate(props) {
+  // const router = useRouter();
+  // const [category, setCategory] = useState("所有商品");
 
-  const updateLimit = (newLimit) => {
-    setLimit(newLimit);
-  };
-  const updatePage = (newPage) => {
-    if (newPage !== undefined) {
-      setPage(newPage);
-    } else {
-      setPage(1);
-    }
-  };
-  const updateSort = (newSort) => {
-    // console.log(newSort);
-    setSort(newSort);
-  };
-  const updateAttr = (newAttr) => {
-    // console.log(newAttr);
-    setAttr(newAttr);
-  };
+  // // useEffect(() => {
+  // //   // 取得當前網頁的網址
+  // //   // const cateState = router.asPath;
+  // //   const cateState = router.query;
+
+  // //   // setCurrentUrl(currentUrl);
+  // //   console.log(cateState);
+  // //   let newCate = category;
+  // //   console.log(newCate);
+  // //   // let newCate
+  // //   switch (cateState) {
+  // //     case "/product/category/1":
+  // //       newCate = "所有「弓」商品";
+  // //       break;
+  // //     case "/product/category/2":
+  // //       newCate = "所有「箭」商品";
+  // //       break;
+  // //     case "/product/category/3":
+  // //       newCate = "所有「道服」商品";
+  // //       break;
+  // //     case "/product/category/4":
+  // //       newCate = "所有「其他」商品";
+  // //       break;
+  // //     default:
+  // //       newCate = "所有商品";
+  // //       break;
+  // //   }
+  // //   setCategory(newCate);
+  // // }, [router.asPath, category]);
+
+  // // const [offset, setOffset] = useState(0);
+  // // const [sort, setSort] = useState("");
+  // // const [page, setPage] = useState(1);
+  // // const [limit, setLimit] = useState(5);
+  // // const [dataLength, setDataLength] = useState();
+  // // const [pageLength, setPageLength] = useState();
+  // const [allProduct, setAllProduct] = useState([]);
+  // const [product, setProduct] = useState([]);
+  // const [newProduct, setNewProduct] = useState([]);
+
+  // console.log(`排序:${sort}`);
+  // console.log(`目前點選頁數:${page}`);
+  // console.log(`目前顯示頁數:${limit}`);
+  // console.log(`目前顯示產品:${product}`);
+  // console.log(`產品共${dataLength}筆`);
+  // console.log(`分頁長度:${pageLength}`);
+  // console.log(allProduct);
+  // console.log(dataLength);
+  // console.log(pageLength);
+
+  // const updateLimit = (newLimit) => {
+  //   setLimit(newLimit);
+  // };
+  // const updatePage = (newPage) => {
+  //   console.log(newPage);
+  //   if (newPage !== undefined) {
+  //     setPage(newPage);
+  //   } else {
+  //     setPage(1);
+  //   }
+  // };
+  // const updateSort = (newSort) => {
+  //   console.log(newSort);
+  //   setSort(newSort);
+  // };
+  // useEffect(() => {
+  //   if (typeof window !== "undefined") {
+  //     (async () => {
+  //       try {
+  //         // setDataLength(Object.entries(allProduct).length);
+  //         // setPageLength(Math.ceil(dataLength / limit));
+  //         const res = await axios.get("http://localhost:3005/product/category/${cate}", {
+  //           params: { },
+  //         });
+  //         // console.log(sort);
+  //         setAllProduct(res.data.alldata);
+  //         setProduct(res.data.filterdata);
+  //         setNewProduct(res.data.newdata);
+  //       } catch (error) {
+  //         console.log(error);
+  //       }
+  //     })();
+  //   }
+  // }, []);
+
+  const router = useRouter();
+  const [allProduct, setAllProduct] = useState([]);
+  const [product, setProduct] = useState([]);
+  const [newProduct, setNewProduct] = useState([]);
+  // 取得目前路由
+  const routerQuery = router.query;
+  console.log(routerQuery);
+  console.log(allProduct);
+  console.log(newProduct);
+  // 將路由資訊轉型成整數
+  const { cate } = routerQuery;
+  const cateState = parseInt(cate, 10);
+  console.log(cateState);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get("http://localhost:3005/product", {
-          params: { limit, page, sort, attr },
-        });
-        console.log(limit,page,sort,attr);
-        setAllProduct(res.data.alldata);
-        setDataLength(Object.entries(res.data.alldata).length);
-        setPageLength(Math.ceil((Object.entries(res.data.alldata).length) / limit));
-        setFilterProduct(res.data.filterdata);
-        // setNewProduct(res.data.newdata);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
     if (typeof window !== "undefined") {
-      fetchData();
+      (async () => {
+        try {
+          const res = await axios.get(
+            `http://localhost:3005/product/category/${cate}`,
+            {
+              //           params: { },
+            }
+          );
+          setAllProduct(res.data.alldata);
+          setNewProduct(res.data.newdata);
+          // setProduct(res.data.filterdata);
+        } catch (error) {
+          console.log(error);
+        }
+      })();
     }
   }, []);
 
-  useEffect(() => {
-    // console.log(allProduct);
-  }, [allProduct]);
-
-  useEffect(() => {
-    setPageLength(Math.ceil(dataLength / limit));
-    // console.log(limit);
-  }, [limit]);
-
-  useEffect(() => {
-    // console.log(dataLength);
-  }, [dataLength]);
-
-  useEffect(() => {
-    // console.log(pageLength,limit);
-  }, [pageLength,limit]);
-
-  useEffect(() => {
-    // console.log(page);
-  }, [page]);
-  useEffect(() => {}, []);
-  useEffect(() => {}, []);
-
-  // dataLength, pageLength, limit, page, sort, attr
-
-  // const router = useRouter();
   return (
     <>
       {/* **************** */}
-
+      {/* 廣告 */}
       <Swiper
         spaceBetween={0}
         slidesPerView={1}
@@ -252,6 +291,7 @@ function Product() {
       </div>
       {/* 手機板slogan */}
       <div className="phone-slogan">全店優惠滿$1,000 ，即可免運</div>
+      {/*/////////////// filterBtn待處理 ///////////////*/}
       <div className="filter-area container-fluid">
         <div className="container">
           <div className="all-product">
@@ -259,13 +299,11 @@ function Product() {
               <p>所有商品</p>
             </div>
             <div className="p-0">
-              <FilterBtns
+              {/* <FilterBtns
                 limit={limit}
                 setLimit={updateLimit}
                 setSort={updateSort}
-                setAttr={updateAttr}
-                dataLength={dataLength}
-              />
+              /> */}
             </div>
           </div>
         </div>
@@ -274,23 +312,23 @@ function Product() {
         <BreadCrumb currentCate="所有商品" />
       </div>
       {/* 所有產品card */}
-      <Row className="filter-cards-area">
+      {/* <Row className="filter-cards-area">
         <Col md="auto" className="filter-cards">
           <Row className="rows">
-            {filterProduct.map((data) => {
+            {product.map((data) => {
               return <FilterProductCard key={data.id} filterProduct={data} />;
             })}
           </Row>
         </Col>
-      </Row>
+      </Row> */}
       {/* btn */}
-      <LunaPagination
+      {/* <LunaPagination
         dataLength={dataLength}
         pageLength={pageLength}
         setPage={updatePage}
         page={page}
         limit={limit}
-      />
+      /> */}
       {/* setPage={updatePage} */}
       {/* 優惠專區 */}
       <div className="product-page-title">
@@ -394,8 +432,7 @@ function Product() {
       <div className="product-under-space"></div>
 
       {/* *************TEST**************** */}
-      <p></p>
     </>
   );
 }
-export default Product;
+export default Cate;

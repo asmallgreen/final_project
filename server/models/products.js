@@ -15,46 +15,54 @@ import {
 const table = "product";
 // 所需的資料處理函式
 
+// const executeSql = async (sql, logRows = false, logFields = false) => {
+//   // limit log string string length
+//   const sqlLog = sql.length < 1500 ? sql : sql.slice(0, 1500) + '...'
+//   debug && console.log(sqlLog.bgWhite)
+
+//   try {
+//     const [rows, fields] = await pool.execute(sql)
+//     debug && logRows && console.log(rows)
+//     debug && logFields && console.log(fields)
+//     return { rows, fields }
+//   } catch (error) {
+//     console.log('error occurred: ', error)
+//   }
+// }
+
+
+const getOne = async (where) => {
+  // const where = {id:1}
+  const row  = await findOne(table, where);
+  return row
+};
+
+const getFilter = async (where, order, limit, offset) => {
+  // const where = "";
+  // const order = {id: 'ASC'}
+  const { rows } = await find(table, where, order, limit, offset);
+  return rows;
+};
+
+const getNew = async () => {
+  const where = { launched: 1 };
+  const { rows } = await find(table, where);
+  return rows;
+};
+
 // 抓全部產品的程式碼
-const getAllProduct = async () => {
+const getAll = async () => {
   const { rows } = await find(table);
   return rows;
 };
-// 抓產品分類
-const getCate = async (where) => {
+// const alldata = getAllProduct()
+// const aa = alldata.id
+// console.log(alldata);
+// 查詢產品
+const searchProduct = async (where) => {
   const { rows } = await find(table, where);
-  return rows;
-};
-// 篩選價格
-const getProductPrice = async (where) => {
-  const { rows } = await find(table, where);
-  return rows;
-};
-// 篩選上架時間
-const getProductCreate = async (where) => {
-  const { rows } = await find(table, where);
-  return rows;
-};
-// 篩選商品名稱
-const getProductName = async (where) => {
-  const { rows } = await find(table, where);
-  return rows;
-};
-
-
-
-// 限制筆數
-const getLimit = async (where) => {
-  //limit使用數字
-  const { rows } = await find(table, where, limit);
-  return rows;
-};
-// 排序
-const getOrder = async (where) => {
-  // order使用物件:{id: 'asc', name: 'desc', username: ''}
-  const { rows } = await find(table, where, order, limit);
   return rows;
 };
 
 // 上面定義的函式都要放進來導出
-export { getAllProduct, getCate, getProductPrice, getProductCreate, getProductName };
+export { searchProduct, getFilter, getNew, getAll, getOne };
