@@ -1,6 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect} from 'react'
 
 export default function Diameter() {
+  const [select, setSelect] = useState(false);
+  console.log(select);
+  const handleAttrToggle = (button) => {
+    setSelect((prevState) => {
+      const newState = {
+        attr1: false,
+        attr2: false,
+        attr3: false,
+        attr4: false,
+      };
+      // 將特定的屬性設置為 true
+      newState[button] = !prevState[button];
+      return newState;
+      // console.log(newState);
+    });
+  };
   return (
     <>
           <div className="atrribute">

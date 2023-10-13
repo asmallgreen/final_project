@@ -6,7 +6,7 @@ export default function CourseListItemCard(props) {
   const { CourseData } = props;
   return (
     <>
-      <div className="course-list-info">
+      <div className="course-list-info-desktop">
         <div className="left">
           <div className="course-list-img">
             <img src={CourseData.images} alt=""></img>
@@ -44,6 +44,35 @@ export default function CourseListItemCard(props) {
             <Link href={`course/${CourseData.id}`}>
               <div className="btn moreBtn">詳細資訊</div>
             </Link>
+          </div>
+        </div>
+      </div>
+      {/* 手機板 */}
+
+      <div className="course-list-info-mobile">
+        <div className="left">
+          <Link
+            href={`course/${CourseData.id}`}
+            className="text-decoration-none"
+          >
+            <div className="course-list-img">
+              <img src={CourseData.images} alt=""></img>
+            </div>
+          </Link>
+        </div>
+        <div className="right">
+          <div className="course-list-text">
+            <div className="title">{CourseData.name}</div>
+            <div className="price">
+              NT$
+              {CourseData.price}
+            </div>
+          </div>
+        </div>
+        <div className="course-rating">
+          <Rate disabled defaultValue={4} className="rating-star" />
+          <div className="counting">
+            <small>XXX人已評價</small>
           </div>
         </div>
       </div>

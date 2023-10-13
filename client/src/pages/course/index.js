@@ -152,8 +152,6 @@ function CourseList() {
       </Swiper>
       {/* </Router> */}
 
-      {/* 手機板slogan */}
-      <div className="phone-slogan">SLOGAN HERE</div>
       <div className="filter-area container-fluid">
         <div className="container">
           <div className="all-product">
@@ -170,23 +168,17 @@ function CourseList() {
         <BreadCrumb currentCate="所有課程" />
       </div>
       {/* 所有產品card */}
-      <div className="course-list">
+      <div className="course-list container">
         <Container>
           {allCourse.map((data) => {
-            console.log(data);
+            {/* console.log(data); */}
             return <CourseListItemCard key={data.id} CourseData={data} />;
           })}
         </Container>
       </div>
       {/* <FilterProductCard/> */}
       {/* btn */}
-      <LunaPagination />
-      {/* 優惠專區 */}
-
-      <div className="product-under-space"></div>
-
-      {/* *************TEST**************** */}
-      <p></p>
+      {/* <LunaPagination /> */}
     </>
   );
 }
