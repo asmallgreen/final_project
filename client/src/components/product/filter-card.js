@@ -95,7 +95,7 @@ export default function FilterProductCard(props) {
           <div className="tag position-absolute">NEW</div>
           <button className="p-0 position-absolute"
             id={id}
-            onClick={()=>handleTriggerProductFav(id)}
+            onClick={()=>handleTriggerProductFav(idData)}
             >
             <FontAwesomeIcon
               icon={is_favorite ?  farHeart : faHeart}

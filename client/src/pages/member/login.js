@@ -57,10 +57,24 @@ export default function Login() {
 
       console.log(res.data);
       // console.log(parseJwt(res.data.accessToken));
-      if(res.data.message === 'verifyUser fail'){
+      if(res.data.message === '帳號不存在'){
         await Swal.fire({
           icon: 'error',
-          title: '帳號或密碼輸入錯誤',
+          title: '帳號不存在',
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: `rgba(255, 255, 255, 0.55)`,
+          width: '35%',
+          padding: '0 0 3.25em',
+          customClass: {
+          }
+        })
+        return
+      }
+      if(res.data.message === '密碼驗證失敗'){
+        await Swal.fire({
+          icon: 'error',
+          title: '請輸入正確密碼',
           showConfirmButton: false,
           timer: 1500,
           backdrop: `rgba(255, 255, 255, 0.55)`,

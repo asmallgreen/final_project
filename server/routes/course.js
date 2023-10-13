@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllCourse } from '../models/course.js'
+import { getAllCourse, getCoursePageAsc, getCourseById } from '../models/course.js'
 const router = express.Router();
 
 router.get("/", async (req, res) => {
