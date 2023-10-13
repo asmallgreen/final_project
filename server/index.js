@@ -116,6 +116,7 @@ app.use('/product', productRouter)
 app.use('/course', courseRouter)
 app.use('/venue', venueRouter)
 app.use('/venue_reserve', venueReserveRouter)
+
 app.use('/teacher', teacherRouter)
 app.use('/syllabus', syllabusRouter)
 
