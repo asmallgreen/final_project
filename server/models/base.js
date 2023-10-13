@@ -161,7 +161,11 @@ const whereSql = (objOrString, separator = 'AND') => {
 
   const where = []
   for (const [key, value] of Object.entries(objOrString)) {
-    where.push(`${key} = ${sqlString.escape(value)}`)
+    if(typeof value === 'string' && value.includes('%')){
+      where.push(`${key} LIKE ${sqlString.escape(value)}`)
+    } else {
+      where.push(`${key} = ${sqlString.escape(value)}`)
+    }
   }
 
   return `WHERE ${where.join(` ${separator} `)}`
@@ -212,6 +216,18 @@ const find = async (table, where = {}, order = {}, limit = 0, offset) => {
   const limitClause = limit ? `LIMIT ${limit}` : ''
   const offsetClause = offset !== undefined ? `OFFSET ${offset}` : ''
 
+  // 這段是用來產生 where 變動條件的，不影響原來的 where 功能
+  let whereClause = '';
+  for (const key in where) {
+    if (where.hasOwnProperty(key)) {
+      if (whereClause) {
+        whereClause += ' AND ';
+      }
+      whereClause += `${key} = ${sqlString.escape(where[key])}`;
+    }
+  }
+ //到此結束
+ 
   const sql = sqlString.format(
     `SELECT * FROM ${table} ${whereSql(where)} ${orderbySql(
       order
@@ -232,7 +248,7 @@ const findOne = async (table, where = {}, order = {}) => {
   const sql = sqlString.format(
     `SELECT * FROM ${table} ${whereSql(where)} ${orderbySql(order)} LIMIT 0,1`
   )
-  const { rows } = await executeQuery(sql)
+  const  {rows}  = await executeQuery(sql)
   //  need only one
   return rows.length ? rows[0] : {}
 }

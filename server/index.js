@@ -37,6 +37,10 @@ import googleLoginRouter from './routes/google-login.js'
 import productRouter from './routes/product.js'
 // // import favoriteRouter from './routes/favorite.js'
 import courseRouter from './routes/course.js'
+import venueRouter from './routes/venue.js'
+import venueReserveRouter from "./routes/venue-reserve.js"
+import teacherRouter from './routes/teacher.js'
+import syllabusRouter from './routes/syllabus.js'
 
 const app = express();
 
@@ -107,6 +111,11 @@ app.use('/google-login', googleLoginRouter)
 // app.use('/api/favorite', favoriteRouter)
 app.use('/product', productRouter)
 app.use('/course', courseRouter)
+app.use('/venue', venueRouter)
+app.use('/venue_reserve', venueReserveRouter)
+
+app.use('/teacher', teacherRouter)
+app.use('/syllabus', syllabusRouter)
 
 app.listen(3005, ()=>{
   console.log("服務已啟動於 http://localhost:3005");
