@@ -5,8 +5,6 @@ import React, {
   useEffect,
   use,
 } from "react";
-import { useRouter } from "next/router";
-import axios from "axios";
 
 const OrderContext = createContext(null);
 export const OrderProvider = ({ children }) => {

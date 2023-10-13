@@ -1,9 +1,7 @@
 import express from 'express'
 const router = express.Router()
-
 import 'dotenv/config.js'
 import pool from '../config/db.js';
-import { insertOne } from '../models/base.js';
 
 
 //測試路由
@@ -17,6 +15,7 @@ router.get('/addCart', async (req, res) => {
 
 router.post('/sendOrder', async (req, res) => {
     const orderList = req.body.orderList;
+    console.log(orderList);
     const OrderListSql = `
     INSERT INTO order_list(member_id, coupon_id, subtotal, payment, receive_name, receive_phone, receive_add, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?);`
     try {
