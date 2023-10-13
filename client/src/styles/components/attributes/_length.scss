@@ -1,5 +1,13 @@
 .atrribute {
   .attr-btns-length {
+    .attr-btn-active{
+       border-radius: 0;
+       background-color: $secondary;
+       color: $primary;
+      border: 1px solid $secondary;
+      margin-inline: 5px;
+      font-size: 25px;
+    }
     .attr-btn {
       border-radius: 0;
       color: $secondary;
@@ -9,6 +17,7 @@
       &:hover {
         background-color: $secondary;
         color: $primary;
+        opacity: 0.7;
       }
     }
   }
@@ -16,6 +25,10 @@
 @media screen and (max-width: 768px) {
   .atrribute {
     .attr-btns-length  {
+      .attr-btn-active{
+        margin-inline: 2px;
+        font-size: 16px;
+      }
       .attr-btn {
         margin-inline: 2px;
         font-size: 16px;
