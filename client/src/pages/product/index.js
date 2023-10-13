@@ -24,95 +24,90 @@ import "swiper/css/navigation";
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
 function Product() {
+  // const [offset, setOffset] = useState(0);
+  const [attr, setAttr] = useState("");
+  const [sort, setSort] = useState("");
+  const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
+  const [dataLength, setDataLength] = useState();
+  const [pageLength, setPageLength] = useState();
   const [allProduct, setAllProduct] = useState([]);
-  const [newProduct, setNewProduct] = useState([]);
+  // const product = allProduct;
+  const newProduct = allProduct.filter((product) => product.launched === 1);
+  const [filterProduct, setFilterProduct] = useState([]);
+  // const [newProduct, setNewProduct] = useState([]);
+  // console.log(`篩選:${attr}`);
+  // console.log(`排序:${sort}`);
 
- 
-  // console.log(`目前顯示頁數:${limit}`);
-  // console.log(`所有產品:${allProduct}`);
-  // console.log(`新上架產品:${newProduct}`);
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
   };
-  // console.log(filterProduct);
-  //抓所有產品和新上架產品
-  const router = useRouter();
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      (async () => {
-        try {
-          // const newLimitData = { limit:limit}
-          const res = await axios.get("http://localhost:3005/product",{params:{limit}});
-          
-          setAllProduct(res.data.pagedata);
-          setNewProduct(res.data.newdata);
-          
-          
-          // 所有商品總筆數
-          const dataLength = Object.entries(allProduct).length;
-          console.log(`資料共${dataLength}筆`);
-          const dataLimit = 3; // 每頁的資料限制
-          let pageLength;
-          const page = Math.ceil(dataLength / dataLimit);
-          // 如果資料總數小於等於每頁資料限制，只需一頁
-          pageLength = dataLength <= dataLimit ? 1 : page;
-          console.log(`總頁數: ${pageLength}`);
-          
-        } catch (error) {
-          console.log(error);
-        }
-      })();
+  const updatePage = (newPage) => {
+    if (newPage !== undefined) {
+      setPage(newPage);
+    } else {
+      setPage(1);
     }
-  }, [router.pathname,limit]);
-  // useEffect(() => {
-  // }, [allProduct, newProduct, limitPrdouct, filterProduct]);
+  };
+  const updateSort = (newSort) => {
+    // console.log(newSort);
+    setSort(newSort);
+  };
+  const updateAttr = (newAttr) => {
+    // console.log(newAttr);
+    setAttr(newAttr);
+  };
 
-  //navbar搜尋產品
-  // const { results } = useProductContext();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("http://localhost:3005/product", {
+          params: { limit, page, sort, attr },
+        });
+        console.log(limit,page,sort,attr);
+        setAllProduct(res.data.alldata);
+        setDataLength(Object.entries(res.data.alldata).length);
+        setPageLength(Math.ceil((Object.entries(res.data.alldata).length) / limit));
+        setFilterProduct(res.data.filterdata);
+        // setNewProduct(res.data.newdata);
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  //   const res = await axios.get(
-  //     "http://localhost:3005/product",
-  //     { cateData },
-  //     {
-  //       withCredentials: true,
-  //     }
-  //   );
-  //   console.log(res.data);
-  //   if (res.data.message === "getAllProduct success") {
-  //     setAllProduct(res.data.product);
-  //   }
-  //   console.log(allProduct);
-  // };
+    if (typeof window !== "undefined") {
+      fetchData();
+    }
+  }, []);
 
+  useEffect(() => {
+    // console.log(allProduct);
+  }, [allProduct]);
+
+  useEffect(() => {
+    setPageLength(Math.ceil(dataLength / limit));
+    // console.log(limit);
+  }, [limit]);
+
+  useEffect(() => {
+    // console.log(dataLength);
+  }, [dataLength]);
+
+  useEffect(() => {
+    // console.log(pageLength,limit);
+  }, [pageLength,limit]);
+
+  useEffect(() => {
+    // console.log(page);
+  }, [page]);
+  useEffect(() => {}, []);
+  useEffect(() => {}, []);
+
+  // dataLength, pageLength, limit, page, sort, attr
+
+  // const router = useRouter();
   return (
     <>
-      {/* <ul>
-    {filterProduct.map((test)=>
-      <li key={test.id}>{test.name}</li>
-    )}
-    </ul> */}
-
-      {/* <div>
-        <h2>Product List</h2>
-        <ul>
-          {results.map((product) => (
-            <li key={product.id}>{product.name}</li>
-          ))}
-        </ul>
-      </div> */}
-      {/* {results &&
-        results.searchProducts &&
-        results.searchProducts.length > 0 && (
-          <div>
-            {" "}
-            <ul>
-              {results.searchProducts.map((product) => (
-                <li key={product.id}>{product.name}</li>
-              ))}
-            </ul>
-          </div>
-        )} */}
       {/* **************** */}
 
       <Swiper
@@ -192,8 +187,8 @@ function Product() {
       </div>
       {/* <Router> */}
       <Swiper
-        spaceBetween={10}
-        slidesPerView={4}
+        spaceBetween={0}
+        slidesPerView={5}
         navigation={true}
         pagination={true}
         modules={[Navigation, Pagination]}
@@ -213,7 +208,7 @@ function Product() {
       <div className="category position-relative">
         <div className="type-title">｜ 產品分類 ｜</div>
         <div className="type">
-          <Link href="/product/category/bow" className="item">
+          <Link href="/product/category/1" className="item">
             <img src="/product/cate1.jpg" alt="img"></img>
             <span className="text-decoration-none">良弓</span>
             <div className="animate-content-circle position-absolute">
@@ -223,7 +218,7 @@ function Product() {
               <AnimatedArrow />
             </div>
           </Link>
-          <Link href="/product/category/arrow" className="item">
+          <Link href="/product/category/2" className="item">
             <img src="/product/cate2.jpg" alt="img"></img>
             <span className="text-decoration-none">羽箭</span>
             <div className="animate-content-circle position-absolute">
@@ -233,7 +228,7 @@ function Product() {
               <AnimatedArrow />
             </div>
           </Link>
-          <Link href="/product/category/suit" className="item">
+          <Link href="/product/category/3" className="item">
             <img src="/product/cate3.jpg" alt="img"></img>
             <span className="text-decoration-none">道服</span>
             <div className="animate-content-circle position-absolute">
@@ -243,7 +238,7 @@ function Product() {
               <AnimatedArrow />
             </div>
           </Link>
-          <Link href="/product/category/other" className="item">
+          <Link href="/product/category/4" className="item">
             <img src="/product/cate4.jpg" alt="img"></img>
             <span className="text-decoration-none">其他</span>
             <div className="animate-content-circle position-absolute">
@@ -264,7 +259,13 @@ function Product() {
               <p>所有商品</p>
             </div>
             <div className="p-0">
-              <FilterBtns limit={limit} setLimit={updateLimit} />
+              <FilterBtns
+                limit={limit}
+                setLimit={updateLimit}
+                setSort={updateSort}
+                setAttr={updateAttr}
+                dataLength={dataLength}
+              />
             </div>
           </div>
         </div>
@@ -276,15 +277,21 @@ function Product() {
       <Row className="filter-cards-area">
         <Col md="auto" className="filter-cards">
           <Row className="rows">
-            {allProduct.map((data) => {
+            {filterProduct.map((data) => {
               return <FilterProductCard key={data.id} filterProduct={data} />;
             })}
           </Row>
         </Col>
       </Row>
-      {/* <FilterProductCard/> */}
       {/* btn */}
-      <LunaPagination />
+      <LunaPagination
+        dataLength={dataLength}
+        pageLength={pageLength}
+        setPage={updatePage}
+        page={page}
+        limit={limit}
+      />
+      {/* setPage={updatePage} */}
       {/* 優惠專區 */}
       <div className="product-page-title">
         <p>優惠專區</p>
