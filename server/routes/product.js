@@ -64,12 +64,12 @@ router.get("/", async (req, res) => {
   const alldata = await getAll();
   const filterdata = await getFilter(attrValue, sortValue);
   // const displaydata = await getDisplay(attrValue, sortValue, limitValue, offset)
-  const displaydata = await getDisplay(attrValue, sortValue, 5, 0)
+  const displaydata = await getDisplay(attrValue, sortValue, limitValue, offset)
    const alldataLength = alldata.length
    const filterdataLength = filterdata.length
    const displaydataLength = displaydata.length
   // const dataLength = displaydata.length
-  const pageLength = filterdataLength % limit === 0 ? filterdataLength / limit : Math.ceil(filterdataLength / limit)+1;
+  const pageLength = filterdataLength % limit === 0 ? filterdataLength / limit : Math.ceil(filterdataLength / limit);
   
   res.json({
     // arrow_length,

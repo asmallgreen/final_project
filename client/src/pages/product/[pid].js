@@ -108,7 +108,7 @@ function Pid() {
               {attrValue &&
                 Array.isArray(attrValue) &&
                 attrValue.map((tableData, tableIndex) => (
-                  <div className="d-flex">
+                  <div className="d-flex" key={tableIndex}>
                     {tableData.map((v, index) => (
                       <div
                         className={`btn attr-value-style ${getButtonStyle(

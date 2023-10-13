@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
 import { Row, Col } from "react-bootstrap";
@@ -10,7 +9,7 @@ import LunaPagination from "@/components/pagination/luna-pagination";
 import FilterBtns from "@/components/product/filter-btns";
 import RecommendedCard from "@/components/product/recommended-card";
 import LaunchedCard from "@/components/product/launched-card";
-import { useProductContext } from "../../hooks/use-product-context.js";
+// import { useProductContext } from "../../hooks/use-product-context.js";
 //AnimatedArrow
 import AnimatedArrow from "../../components/product/animate-arrow.js";
 import ConcentricCircles from "../../components/product/animate-concent-circle.js";
@@ -29,7 +28,7 @@ function Product() {
   const [sort, setSort] = useState("");
   const [page, setPage] = useState();
   const [limit, setLimit] = useState();
-  console.log(limit);
+  // console.log(limit);
   // const [dataLength, setDataLength] = useState();
   // const [displayDataLength, setDisplayDataLength] = useState()
 
@@ -45,12 +44,13 @@ function Product() {
   // console.log(`--------test-------${allProduct}`);
   //filterProduct暫時替換成displayProduct
 
-  // const [newProduct, setNewProduct] = useState([]);
+  
   // console.log(`篩選:${attr}`);
   // console.log(`排序:${sort}`);
 
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
+    console.log(limit);
   };
   const updatePage = (newPage) => {
     if (newPage !== undefined) {
@@ -61,14 +61,16 @@ function Product() {
     }
   };
   const updateSort = (newSort) => {
-    // console.log(newSort);
+    
     setSort(newSort);
     setPage(1);
+    // console.log(sort);
   };
   const updateAttr = (newAttr) => {
-    // console.log(newAttr);
+    
     setAttr(newAttr);
     setPage(1);
+    // console.log(newAttr);
   };
 
   useEffect(() => {
@@ -81,7 +83,7 @@ function Product() {
         // console.log(res.data.alldata);
         setAllProduct(res.data.alldata);
         setFilterProduct(res.data.filterdata);
-        setDisplayProduct(res.data.displayProduct);
+        setDisplayProduct(res.data.displaydata);
         setAlldataLength(res.data.alldataLength);
         setFilterdataLength(res.data.filterdataLength);
         setDisplaydataLength(res.data.displaydataLength);
@@ -94,7 +96,7 @@ function Product() {
     if (typeof window !== "undefined") {
       fetchData();
     }
-  }, []);
+  }, [limit, page, sort, attr]);
   useEffect(() => {
     console.log(allProduct);
   }, [allProduct]);
@@ -298,7 +300,7 @@ function Product() {
                 setLimit={updateLimit}
                 setSort={updateSort}
                 setAttr={updateAttr}
-                dataLength={filterdataLength}
+                filterdataLength={filterdataLength}
                 //要dataLength幹嘛?
               />
             </div>

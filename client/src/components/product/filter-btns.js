@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faSort } from "@fortawesome/free-solid-svg-icons";
@@ -8,18 +8,21 @@ import ModalSort from "./modal-sort";
 // 父元件 在引入的子元件後面加上屬性={處理子元件傳遞回來的function}
 // handle函式(接收參數)=>{要處理的事ex:更新值}
 export default function FilterBtns(props) {
+  const {filterdataLength} = props
   const [attrModal, setAttrModal] = useState();
   const [sortModal, setSortModal] = useState();
   const [localLimit, setLocalLimit] = useState(props.limit);
+  
+
 
   //子元件的屬性
-  console.log(props);
+  // console.log(props);
   const handleAttrChange = (attrState) => {
     props.setAttr(attrState);
   };
   const handleSortChange = (sortState) => {
     // 在这里处理从子组件传递回来的 sortState
-    console.log(sortState);
+    // console.log(sortState);
     props.setSort(sortState);
     // 进行其他操作...
   };
@@ -37,15 +40,20 @@ export default function FilterBtns(props) {
 
   // const {limit} = props;
   // 狀態用來存儲每頁幾筆狀態
-  const handleClick = (e) => {
+  const handleClick = useCallback((e) => {
     const limitValue = e.target.value;
-    // setLocalLimit(limitValue)
     setLocalLimit(limitValue);
-  };
+  }, []);
+
+  // const handleClick = (e) => {
+  //   const limitValue = e.target.value;
+  //   // setLocalLimit(limitValue)
+  //   setLocalLimit(limitValue);
+  // };
   //每次進入網站都要回傳值給父元件index
   useEffect(() => {
     props.setLimit(localLimit);
-  }, [handleClick]);
+  }, [handleClick, localLimit, props]);
 
   return (
     <>
@@ -64,7 +72,7 @@ export default function FilterBtns(props) {
             //  onChange={handleInputChange}
           >
             <FontAwesomeIcon icon={faFilter} className="fa-solid fa-filter" />
-            篩選商品 ({5})
+            篩選商品 ({filterdataLength})
           </button>
           <button
             type="button"
