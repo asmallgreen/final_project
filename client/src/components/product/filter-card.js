@@ -12,7 +12,7 @@ import {
 export default function FilterProductCard(props) {
   // const [filterProduct, setFilterProduct]= useState;
   const { filterProduct } = props;
-  console.log(filterProduct);
+  // console.log(filterProduct);
   //取得卡片id
   const idData = filterProduct.id;
 
@@ -23,19 +23,7 @@ export default function FilterProductCard(props) {
     e.stopPropagation();
     setIsSolidHeart((prevState) => !prevState);
   };
-  const handleAddCart = () => {
-    // 发送GET请求到后端，获取filterProduct.id
-    fetch(`product/getProductId/id=${filterProduct.id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const productId = data.productId;
-        // 在这里使用productId进行其他操作
-        console.log(productId);
-      })
-      .catch((error) => {
-        console.error("Error fetching product ID:", error);
-      });
-  };
+
 
   return (
     <>

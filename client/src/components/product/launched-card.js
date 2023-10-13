@@ -5,19 +5,9 @@ import Link from "next/link";
 function LaunchedCard(props) {
  
   const { filterNewProduct } = props;
-  console.log(filterNewProduct);
+  // console.log(filterNewProduct);
   const idData = filterNewProduct.id;
 
-  // const handleInfo = async () => {
-  //   try {
-  //     const res = await axios.get(`http://localhost:3005/product/${idData}`);
-  //     console.log(`上架商品ID:${idData}`);
-      
-  //     // 处理 alldata，如果需要的话
-  //   } catch (err) {
-  //     console.error("Error:", err.message);
-  //   }
-  // };
 
   useEffect(() => {
     // 在组件加载时调用 handleInfo

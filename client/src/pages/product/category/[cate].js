@@ -23,127 +23,94 @@ import "swiper/css/navigation";
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
 function Cate(props) {
-  // const router = useRouter();
-  // const [category, setCategory] = useState("所有商品");
 
-  // // useEffect(() => {
-  // //   // 取得當前網頁的網址
-  // //   // const cateState = router.asPath;
-  // //   const cateState = router.query;
-
-  // //   // setCurrentUrl(currentUrl);
-  // //   console.log(cateState);
-  // //   let newCate = category;
-  // //   console.log(newCate);
-  // //   // let newCate
-  // //   switch (cateState) {
-  // //     case "/product/category/1":
-  // //       newCate = "所有「弓」商品";
-  // //       break;
-  // //     case "/product/category/2":
-  // //       newCate = "所有「箭」商品";
-  // //       break;
-  // //     case "/product/category/3":
-  // //       newCate = "所有「道服」商品";
-  // //       break;
-  // //     case "/product/category/4":
-  // //       newCate = "所有「其他」商品";
-  // //       break;
-  // //     default:
-  // //       newCate = "所有商品";
-  // //       break;
-  // //   }
-  // //   setCategory(newCate);
-  // // }, [router.asPath, category]);
-
-  // // const [offset, setOffset] = useState(0);
-  // // const [sort, setSort] = useState("");
-  // // const [page, setPage] = useState(1);
-  // // const [limit, setLimit] = useState(5);
-  // // const [dataLength, setDataLength] = useState();
-  // // const [pageLength, setPageLength] = useState();
-  // const [allProduct, setAllProduct] = useState([]);
-  // const [product, setProduct] = useState([]);
-  // const [newProduct, setNewProduct] = useState([]);
-
-  // console.log(`排序:${sort}`);
-  // console.log(`目前點選頁數:${page}`);
-  // console.log(`目前顯示頁數:${limit}`);
-  // console.log(`目前顯示產品:${product}`);
-  // console.log(`產品共${dataLength}筆`);
-  // console.log(`分頁長度:${pageLength}`);
-  // console.log(allProduct);
-  // console.log(dataLength);
-  // console.log(pageLength);
-
-  // const updateLimit = (newLimit) => {
-  //   setLimit(newLimit);
-  // };
-  // const updatePage = (newPage) => {
-  //   console.log(newPage);
-  //   if (newPage !== undefined) {
-  //     setPage(newPage);
-  //   } else {
-  //     setPage(1);
-  //   }
-  // };
-  // const updateSort = (newSort) => {
-  //   console.log(newSort);
-  //   setSort(newSort);
-  // };
-  // useEffect(() => {
-  //   if (typeof window !== "undefined") {
-  //     (async () => {
-  //       try {
-  //         // setDataLength(Object.entries(allProduct).length);
-  //         // setPageLength(Math.ceil(dataLength / limit));
-  //         const res = await axios.get("http://localhost:3005/product/category/${cate}", {
-  //           params: { },
-  //         });
-  //         // console.log(sort);
-  //         setAllProduct(res.data.alldata);
-  //         setProduct(res.data.filterdata);
-  //         setNewProduct(res.data.newdata);
-  //       } catch (error) {
-  //         console.log(error);
-  //       }
-  //     })();
-  //   }
-  // }, []);
-
-  const router = useRouter();
+  const [attr, setAttr] = useState("");
+  const [sort, setSort] = useState("");
+  const [page, setPage] = useState();
+  const [limit, setLimit] = useState();
+  // ************************************
   const [allProduct, setAllProduct] = useState([]);
-  const [product, setProduct] = useState([]);
-  const [newProduct, setNewProduct] = useState([]);
-  // 取得目前路由
-  const routerQuery = router.query;
-  console.log(routerQuery);
-  console.log(allProduct);
-  console.log(newProduct);
-  // 將路由資訊轉型成整數
-  const { cate } = routerQuery;
-  const cateState = parseInt(cate, 10);
-  console.log(cateState);
+  const newProduct = allProduct.filter((product) => product.launched === 1);
+  const [filterProduct, setFilterProduct] = useState([]);
+  const [displayProduct, setDisplayProduct] = useState([]);
+  const [alldataLength, setAlldataLength] = useState();
+  const [filterdataLength, setFilterdataLength] = useState();
+  const [displaydataLength, setDisplaydataLength] = useState();
+  const [pageLength, setPageLength] = useState();
+  // ***********************************************
+  
+  const updateLimit = (newLimit) => {
+    setLimit(newLimit);
+    // console.log(limit);
+  };
+  const updatePage = (newPage) => {
+    if (newPage !== undefined) {
+      setPage(newPage);
+      // console.log(page);
+    } else {
+      setPage(1);
+    }
+  };
+  const updateSort = (newSort) => {
+    setSort(newSort);
+    setPage(1);
+    // console.log(sort);
+  };
+  const updateAttr = (newAttr) => {
+    setAttr(newAttr);
+    setPage(1);
+    // console.log(newAttr);
+  };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          "http://localhost:3005/product/category/${cate}",
+          {
+            params: { limit, page, sort, attr },
+          }
+        );
+        setAllProduct(res.data.alldata);
+        setFilterProduct(res.data.filterdata);
+        setDisplayProduct(res.data.displaydata);
+        setAlldataLength(res.data.alldataLength);
+        setFilterdataLength(res.data.filterdataLength);
+        setDisplaydataLength(res.data.displaydataLength);
+        setPageLength(res.data.pageLength);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     if (typeof window !== "undefined") {
-      (async () => {
-        try {
-          const res = await axios.get(
-            `http://localhost:3005/product/category/${cate}`,
-            {
-              //           params: { },
-            }
-          );
-          setAllProduct(res.data.alldata);
-          setNewProduct(res.data.newdata);
-          // setProduct(res.data.filterdata);
-        } catch (error) {
-          console.log(error);
-        }
-      })();
+      fetchData();
     }
-  }, []);
+  }, [limit, page, sort, attr]);
+  useEffect(() => {
+    // console.log(allProduct);
+  }, [allProduct]);
+  useEffect(() => {
+    // console.log(filterProduct);
+  }, [filterProduct]);
+  useEffect(() => {
+    // console.log(displayProduct);
+  }, [displayProduct]);
+  useEffect(() => {
+    // console.log(alldataLength);
+  }, [alldataLength]);
+  useEffect(() => {
+    // console.log(filterdataLength);
+  }, [filterdataLength]);
+  useEffect(() => {
+    // console.log(displaydataLength);
+  }, [displaydataLength]);
+  useEffect(() => {
+    // console.log(pageLength);
+  }, [pageLength]);
+  useEffect(() => {
+    // console.log(page);
+  }, [page]);
 
   return (
     <>
@@ -299,11 +266,14 @@ function Cate(props) {
               <p>所有商品</p>
             </div>
             <div className="p-0">
-              {/* <FilterBtns
+              <FilterBtns
                 limit={limit}
                 setLimit={updateLimit}
                 setSort={updateSort}
-              /> */}
+                setAttr={updateAttr}
+                filterdataLength={filterdataLength}
+                //要dataLength幹嘛?抓篩選旁邊的篩選筆數ui
+              />
             </div>
           </div>
         </div>
@@ -312,24 +282,20 @@ function Cate(props) {
         <BreadCrumb currentCate="所有商品" />
       </div>
       {/* 所有產品card */}
-      {/* <Row className="filter-cards-area">
-        <Col md="auto" className="filter-cards">
-          <Row className="rows">
-            {product.map((data) => {
-              return <FilterProductCard key={data.id} filterProduct={data} />;
-            })}
-          </Row>
-        </Col>
-      </Row> */}
+      <Row className="rows">
+        {displayProduct.map((data) => {
+          return <FilterProductCard key={data.id} filterProduct={data} />;
+        })}
+      </Row>
       {/* btn */}
-      {/* <LunaPagination
-        dataLength={dataLength}
+      <LunaPagination
+        dataLength={filterdataLength}
         pageLength={pageLength}
         setPage={updatePage}
         page={page}
         limit={limit}
-      /> */}
-      {/* setPage={updatePage} */}
+      />
+
       {/* 優惠專區 */}
       <div className="product-page-title">
         <p>優惠專區</p>

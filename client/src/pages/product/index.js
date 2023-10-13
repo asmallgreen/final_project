@@ -9,45 +9,29 @@ import LunaPagination from "@/components/pagination/luna-pagination";
 import FilterBtns from "@/components/product/filter-btns";
 import RecommendedCard from "@/components/product/recommended-card";
 import LaunchedCard from "@/components/product/launched-card";
-// import { useProductContext } from "../../hooks/use-product-context.js";
-//AnimatedArrow
 import AnimatedArrow from "../../components/product/animate-arrow.js";
 import ConcentricCircles from "../../components/product/animate-concent-circle.js";
-// 廣告
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
 function Product() {
-  // const [offset, setOffset] = useState(0);
   const [attr, setAttr] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState();
   const [limit, setLimit] = useState();
-  // console.log(limit);
-  // const [dataLength, setDataLength] = useState();
-  // const [displayDataLength, setDisplayDataLength] = useState()
-
+// ************************************
   const [allProduct, setAllProduct] = useState([]);
   const newProduct = allProduct.filter((product) => product.launched === 1);
   const [filterProduct, setFilterProduct] = useState([]);
   const [displayProduct, setDisplayProduct] = useState([]);
-  // console.log(displayProduct);
   const [alldataLength, setAlldataLength] = useState();
   const [filterdataLength, setFilterdataLength] = useState();
   const [displaydataLength, setDisplaydataLength] = useState();
   const [pageLength, setPageLength] = useState();
-  // console.log(`--------test-------${allProduct}`);
-  //filterProduct暫時替換成displayProduct
-
-  
-  // console.log(`篩選:${attr}`);
-  // console.log(`排序:${sort}`);
-
+// ***********************************************
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
     console.log(limit);
@@ -118,30 +102,10 @@ function Product() {
   useEffect(() => {
     console.log(pageLength);
   }, [pageLength]);
-  // useEffect(() => {
-  //   console.log(limit);
-  // }, [limit]);
-
-  // useEffect(() => {
-  //   console.log(dataLength);
-  // }, [dataLength,limit]);
-
-  // useEffect(() => {
-  //   console.log(pageLength,limit,sort,attr);
-  // }, [pageLength]);
-
   useEffect(() => {
     console.log(page);
   }, [page]);
-  // useEffect(() => {
-  //   console.log(filterProduct);
-  //   console.log(dataLength);
-  // }, [filterProduct]);
-  useEffect(() => {}, []);
 
-  // dataLength, pageLength, limit, page, sort, attr
-
-  // const router = useRouter();
   return (
     <>
       {/* **************** */}
@@ -301,7 +265,7 @@ function Product() {
                 setSort={updateSort}
                 setAttr={updateAttr}
                 filterdataLength={filterdataLength}
-                //要dataLength幹嘛?
+                //要dataLength幹嘛?抓篩選旁邊的篩選筆數ui
               />
             </div>
           </div>

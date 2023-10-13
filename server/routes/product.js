@@ -1,14 +1,12 @@
 import express from "express";
 import { executeQuery } from "../models/base.js";
 import "dotenv/config.js";
-import pool from "../config/db.js";
 import {
-  // executeQuery,
   getAll,
-  getNew,
   getFilter,
   getOne,
   getDisplay,
+  getCate,
   searchProduct,
 } from "../models/products.js";
 
@@ -16,7 +14,7 @@ const router = express.Router();
 
 //***********產品頁************
 router.get("/", async (req, res) => {
-  const { limit=5, page=1, sort, attr } = req.query;
+  const { limit = 5, page = 1, sort, attr } = req.query;
   console.log(limit, page, sort, attr);
   const limitValue = parseInt(limit);
   const pageValue = parseInt(page);
@@ -63,25 +61,32 @@ router.get("/", async (req, res) => {
   }
   const alldata = await getAll();
   const filterdata = await getFilter(attrValue, sortValue);
-  // const displaydata = await getDisplay(attrValue, sortValue, limitValue, offset)
-  const displaydata = await getDisplay(attrValue, sortValue, limitValue, offset)
-   const alldataLength = alldata.length
-   const filterdataLength = filterdata.length
-   const displaydataLength = displaydata.length
-  // const dataLength = displaydata.length
-  const pageLength = filterdataLength % limit === 0 ? filterdataLength / limit : Math.ceil(filterdataLength / limit);
-  
+  const displaydata = await getDisplay(
+    attrValue,
+    sortValue,
+    limitValue,
+    offset
+  );
+  const alldataLength = alldata.length;
+  const filterdataLength = filterdata.length;
+  const displaydataLength = displaydata.length;
+  const pageLength =
+    filterdataLength % limit === 0
+      ? filterdataLength / limit
+      : Math.ceil(filterdataLength / limit);
+
   res.json({
-    // arrow_length,
     message: "getAllProduct success",
     code: "200",
-    
-    alldata,displaydata,filterdata,
-    alldataLength,filterdataLength,displaydataLength,
-    pageLength,limitValue,pageValue
-    
-    
-    // newdata,
+    alldata,
+    displaydata,
+    filterdata,
+    alldataLength,
+    filterdataLength,
+    displaydataLength,
+    pageLength,
+    limitValue,
+    pageValue,
   });
 });
 
@@ -113,7 +118,7 @@ router.get("/:pid", async (req, res) => {
     // ************OK的sql語法***********************
     // 屬性
     const sql2 = `SELECT name FROM product_attribute WHERE category_id = ${cate}`;
-    const attrTitle = []
+    const attrTitle = [];
     const { rows } = await executeQuery(sql2);
     const attr = rows.map((item) => (item && item.name) || "");
     attrTitle.push(attr);
@@ -151,42 +156,105 @@ router.get("/:pid", async (req, res) => {
 });
 
 router.get("/category/:cate", async (req, res) => {
-  // const { limit, page, sort } = req.query;
-  // const limitValue = parseInt(limit);
-  // const pageValue = parseInt(page);
-  // const offset = (pageValue - 1) * limitValue;
-  // let sortValue;
-  // switch (sort) {
-  //   case "default":
-  //     sortValue = { id: "ASC" };
-  //   case "hot":
-  //     sortValue = { hot: "asc" };
+  const { limit = 5, page = 1, sort, attr } = req.query;
+  // const cateValue = req.params.cate;
+  // const cateNumber = parseInt(cateValue, 10);
+  // console.log("Category Number:", cateNumber);
+
+  const limitValue = parseInt(limit);
+  const pageValue = parseInt(page);
+  const offset = (pageValue - 1) * limitValue;
+  // 排序改order
+  let sortValue;
+  switch (sort) {
+    case "default":
+      sortValue = { id: "ASC" };
+    case "hot":
+      sortValue = { hot: "asc" };
+      break;
+    case "launched":
+      sortValue = { launched: "asc" };
+      break;
+    case "priceAsc":
+      sortValue = { price: "desc" };
+      break;
+    case "priceDesc":
+      sortValue = { price: "asc" };
+      break;
+    case "nameAZ":
+      sortValue = { name: "desc" };
+      break;
+  }
+  // 篩選改where
+  let attrValue;
+  switch (attr) {
+    case "default":
+      attrValue = "";
+      break;
+    case "attr1":
+      attrValue = { category_id: 1 };
+      break;
+    case "attr2":
+      attrValue = { category_id: 2 };
+      break;
+    case "attr3":
+      attrValue = { category_id: 3 };
+      break;
+    case "attr4":
+      attrValue = { category_id: 4 };
+      break;
+  }
+  // let cateValue;
+  // switch (cate) {
+  //   case 1:
+  //     cateValue = { category_id: 1 };
   //     break;
-  //   case "launched":
-  //     sortValue = { launched: "asc" };
+  //   case 2:
+  //     cateValue = { category_id: 2 };
   //     break;
-  //   case "priceAsc":
-  //     sortValue = { price: "desc" };
+  //   case 3:
+  //     cateValue = { category_id: 3 };
   //     break;
-  //   case "priceDesc":
-  //     sortValue = { price: "asc" };
-  //     break;
-  //   case "nameAZ":
-  //     sortValue = { name: "desc" };
+  //   case 4:
+  //     cateValue = { category_id: 4 };
   //     break;
   // }
-
+  // console.log(where);
+  // console.log(category);
   const alldata = await getAll();
-  const newdata = await getNew();
-  // const filterdata = await getFilter(sortValue, limitValue, offset);
+  // const catedata = await getCate(category);
+  // console.log(catedata);
+  // console.log(category);
+  const filterdata = await getFilter(attrValue, sortValue);
+  const displaydata = await getDisplay(
+    attrValue,
+    sortValue,
+    limitValue,
+    offset
+  );
+  const alldataLength = alldata.length;
+  const filterdataLength = filterdata.length;
+  const displaydataLength = displaydata.length;
+  const pageLength =
+    filterdataLength % limit === 0
+      ? filterdataLength / limit
+      : Math.ceil(filterdataLength / limit);
 
   res.json({
-    msg: "產品分類頁 success",
-    code: 200,
+    message: "getAllProduct success",
+    code: "200",
     alldata,
-    newdata,
+    displaydata,
+    filterdata,
+    alldataLength,
+    filterdataLength,
+    displaydataLength,
+    pageLength,
+    limitValue,
+    pageValue,
   });
 });
+
 // ***********test***********
 router.get("/productInfo", async (req, res) => {
   // const productId = alldata.filter(data=>data.id)
