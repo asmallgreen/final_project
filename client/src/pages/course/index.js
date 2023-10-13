@@ -178,7 +178,7 @@ function CourseList() {
       </div>
       {/* <FilterProductCard/> */}
       {/* btn */}
-      <LunaPagination />
+      {/* <LunaPagination /> */}
     </>
   );
 }
