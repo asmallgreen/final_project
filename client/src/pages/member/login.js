@@ -131,7 +131,7 @@ export default function Login() {
     console.log(res.data)
     console.log(parseJwt(res.data.accessToken))
 
-    if (res.data.message === 'success') {
+    if (res.data.message === 'google登入成功') {
       setAuthJWT({
         isAuth: true,
         memberData: parseJwt(res.data.accessToken),

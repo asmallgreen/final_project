@@ -2,20 +2,22 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { FaCrown } from "react-icons/fa";
+import { useAuthJWT } from '@/hooks/use-auth-jwt';
 
 export default function SideBar() {
   const router = useRouter();
   const path = router.asPath;
+  const { authJWT, setAuthJWT } = useAuthJWT();
 
   return (
     <>
       <div className='member-sidebar'>
         <div className='text-center pt-md-5 row align-items-center'>
           <div className='col-3 col-md-12'>
-            <img src='/images/member/default_member.png' />
+            <img src={authJWT.memberData.member_img === 'avatar01.jpg'?'/Duo/avatar01.jpg':`http://localhost:3005/${authJWT.memberData.member_img}`} />
           </div>
           <div className='col col-md-12 d-flex justify-content-md-center'>
-            <p className='px-2 fs-5'>會員姓名</p>
+            <p className='px-2 fs-5'>{authJWT.memberData.name}</p>
             <div className="d-flex align-items-center d-md-none crown">
               <FaCrown className='mx-1'/>
               <p className='mx-1'>金弓</p>
