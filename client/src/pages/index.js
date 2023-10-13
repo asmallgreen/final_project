@@ -15,13 +15,12 @@ import CourseSlider from "../components/homepage/CourseSlider";
 import IntroCard from "../components/homepage/IntroCard";
 
 // Tabs分頁內容
-import New from "../components/homepage/New"
-import Season from "../components/homepage/Season"
-import Hot from "../components/homepage/Hot"
-import Beginner from "../components/homepage/Beginner"
-import Welfare from "../components/homepage/Welfare"
+import New from "../components/homepage/New";
+import Season from "../components/homepage/Season";
+import Hot from "../components/homepage/Hot";
+import Beginner from "../components/homepage/Beginner";
+import Welfare from "../components/homepage/Welfare";
 import Link from "next/link";
-
 
 // slider卡片內容
 const courseParagraph1 = `
@@ -99,17 +98,16 @@ const items = [
 ];
 
 export default function Homepage() {
-  
   return (
     <>
       <div className="homepage-body">
         <div className="homepageHero1">
           <video
-            autoplay="true"
-            muted="true"
-            loop="true"
-            playsinline=""
-            src="https://raw.githubusercontent.com/asmallgreen/final_project/Jim/client/public/images/homepage/hero_1.mp4"
+            autoPlay={true}
+            muted={true}
+            loop={true}
+            playsInline=""
+            src="images/homepage/hero_1.mp4"
             width={1902}
             data-object-fit="cover"
             data-object-position="45% 45%"
@@ -151,9 +149,7 @@ export default function Homepage() {
             </div>
           </div>
         </div>
-        <img
-        className="hr"
-        src="images/homepage/hr_1.webp"></img>
+        <img className="hr" src="images/homepage/hr_1.webp"></img>
         <div className="textarea">
           <h1>良物優選</h1>
           <p>
@@ -205,30 +201,30 @@ export default function Homepage() {
         </div>
         <div className="introduction">
           <div className="container">
-          <IntroCard
+            <IntroCard
               introImg="images/homepage/product_intro_1.webp"
               introTitle="弓"
               introCat="竹弓｜合成弓"
               introHref="/product/category/bow"
-          />
-          <IntroCard
+            />
+            <IntroCard
               introImg="images/homepage/product_intro_2.webp"
               introTitle="箭"
               introCat="鋁箭｜合成箭"
               introHref="/product/category/arrow"
-          />
-          <IntroCard
+            />
+            <IntroCard
               introImg="images/homepage/product_intro_3.webp"
               introTitle="道服"
               introCat=""
               introHref="/product/category/suit"
-          />
-          <IntroCard
+            />
+            <IntroCard
               introImg="images/homepage/product_intro_4.webp"
               introTitle="其他"
               introCat="箭頭｜箭筒｜粉容器｜弦卷"
               introHref="/product/category/other"
-          />
+            />
           </div>
         </div>
         <div className="textarea">
@@ -238,13 +234,11 @@ export default function Homepage() {
             <br />
             滿心期待您的光臨
           </p>
-          <Link
-          href="/product"
-          className="btn">前往網路商店</Link>
+          <Link href="/product" className="btn">
+            前往網路商店
+          </Link>
         </div>
-        <img
-        className="hr"
-        src="images/homepage/hr_2.webp"></img>
+        <img className="hr" src="images/homepage/hr_2.webp"></img>
         <div className="textarea">
           <h1>課程介紹</h1>
           <p>
@@ -299,9 +293,7 @@ export default function Homepage() {
             隨時啟程
           </p>
         </div>
-        <img
-        className="hr"
-        src="images/homepage/hr_3.webp"></img>
+        <img className="hr" src="images/homepage/hr_3.webp"></img>
       </div>
     </>
   );
