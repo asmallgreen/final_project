@@ -36,14 +36,19 @@ const getOne = async (where) => {
   const row  = await findOne(table, where);
   return row
 };
-
-const getFilter = async (where, order, limit, offset) => {
+//把offset拿掉，先計過濾出我要的資料，在計算一個display出來的資料物件
+const getFilter = async (where, order ) => {
+  // const where = "";
+  // const order = {id: 'ASC'}
+  const { rows } = await find(table, where, order);
+  return rows;
+};
+const getDisplay = async (where, order, limit, offset ) => {
   // const where = "";
   // const order = {id: 'ASC'}
   const { rows } = await find(table, where, order, limit, offset);
   return rows;
 };
-
 const getNew = async () => {
   const where = { launched: 1 };
   const { rows } = await find(table, where);
@@ -65,4 +70,4 @@ const searchProduct = async (where) => {
 };
 
 // 上面定義的函式都要放進來導出
-export { searchProduct, getFilter, getNew, getAll, getOne };
+export { searchProduct, getFilter, getNew, getAll, getOne, getDisplay};

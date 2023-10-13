@@ -27,14 +27,24 @@ function Product() {
   // const [offset, setOffset] = useState(0);
   const [attr, setAttr] = useState("");
   const [sort, setSort] = useState("");
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
-  const [dataLength, setDataLength] = useState();
-  const [pageLength, setPageLength] = useState();
+  const [page, setPage] = useState();
+  const [limit, setLimit] = useState();
+  console.log(limit);
+  // const [dataLength, setDataLength] = useState();
+  // const [displayDataLength, setDisplayDataLength] = useState()
+
   const [allProduct, setAllProduct] = useState([]);
-  // const product = allProduct;
   const newProduct = allProduct.filter((product) => product.launched === 1);
   const [filterProduct, setFilterProduct] = useState([]);
+  const [displayProduct, setDisplayProduct] = useState([]);
+  // console.log(displayProduct);
+  const [alldataLength, setAlldataLength] = useState();
+  const [filterdataLength, setFilterdataLength] = useState();
+  const [displaydataLength, setDisplaydataLength] = useState();
+  const [pageLength, setPageLength] = useState();
+  // console.log(`--------test-------${allProduct}`);
+  //filterProduct暫時替換成displayProduct
+
   // const [newProduct, setNewProduct] = useState([]);
   // console.log(`篩選:${attr}`);
   // console.log(`排序:${sort}`);
@@ -45,6 +55,7 @@ function Product() {
   const updatePage = (newPage) => {
     if (newPage !== undefined) {
       setPage(newPage);
+      // console.log(page);
     } else {
       setPage(1);
     }
@@ -52,10 +63,12 @@ function Product() {
   const updateSort = (newSort) => {
     // console.log(newSort);
     setSort(newSort);
+    setPage(1);
   };
   const updateAttr = (newAttr) => {
     // console.log(newAttr);
     setAttr(newAttr);
+    setPage(1);
   };
 
   useEffect(() => {
@@ -64,12 +77,15 @@ function Product() {
         const res = await axios.get("http://localhost:3005/product", {
           params: { limit, page, sort, attr },
         });
-        console.log(limit,page,sort,attr);
+        //用來篩選出新上架商品
+        // console.log(res.data.alldata);
         setAllProduct(res.data.alldata);
-        setDataLength(Object.entries(res.data.alldata).length);
-        setPageLength(Math.ceil((Object.entries(res.data.alldata).length) / limit));
         setFilterProduct(res.data.filterdata);
-        // setNewProduct(res.data.newdata);
+        setDisplayProduct(res.data.displayProduct);
+        setAlldataLength(res.data.alldataLength);
+        setFilterdataLength(res.data.filterdataLength);
+        setDisplaydataLength(res.data.displaydataLength);
+        setPageLength(res.data.pageLength);
       } catch (error) {
         console.log(error);
       }
@@ -79,28 +95,46 @@ function Product() {
       fetchData();
     }
   }, []);
-
   useEffect(() => {
-    // console.log(allProduct);
+    console.log(allProduct);
   }, [allProduct]);
+  useEffect(() => {
+    console.log(filterProduct);
+  }, [filterProduct]);
+  useEffect(() => {
+    console.log(displayProduct);
+  }, [displayProduct]);
+  useEffect(() => {
+    console.log(alldataLength);
+  }, [alldataLength]);
+  useEffect(() => {
+    console.log(filterdataLength);
+  }, [filterdataLength]);
+  useEffect(() => {
+    console.log(displaydataLength);
+  }, [displaydataLength]);
+  useEffect(() => {
+    console.log(pageLength);
+  }, [pageLength]);
+  // useEffect(() => {
+  //   console.log(limit);
+  // }, [limit]);
+
+  // useEffect(() => {
+  //   console.log(dataLength);
+  // }, [dataLength,limit]);
+
+  // useEffect(() => {
+  //   console.log(pageLength,limit,sort,attr);
+  // }, [pageLength]);
 
   useEffect(() => {
-    setPageLength(Math.ceil(dataLength / limit));
-    // console.log(limit);
-  }, [limit]);
-
-  useEffect(() => {
-    // console.log(dataLength);
-  }, [dataLength]);
-
-  useEffect(() => {
-    // console.log(pageLength,limit);
-  }, [pageLength,limit]);
-
-  useEffect(() => {
-    // console.log(page);
+    console.log(page);
   }, [page]);
-  useEffect(() => {}, []);
+  // useEffect(() => {
+  //   console.log(filterProduct);
+  //   console.log(dataLength);
+  // }, [filterProduct]);
   useEffect(() => {}, []);
 
   // dataLength, pageLength, limit, page, sort, attr
@@ -264,7 +298,8 @@ function Product() {
                 setLimit={updateLimit}
                 setSort={updateSort}
                 setAttr={updateAttr}
-                dataLength={dataLength}
+                dataLength={filterdataLength}
+                //要dataLength幹嘛?
               />
             </div>
           </div>
@@ -277,7 +312,8 @@ function Product() {
       <Row className="filter-cards-area">
         <Col md="auto" className="filter-cards">
           <Row className="rows">
-            {filterProduct.map((data) => {
+            {/* filterProduct更改成displayProduct */}
+            {displayProduct.map((data) => {
               return <FilterProductCard key={data.id} filterProduct={data} />;
             })}
           </Row>
@@ -285,7 +321,7 @@ function Product() {
       </Row>
       {/* btn */}
       <LunaPagination
-        dataLength={dataLength}
+        dataLength={filterdataLength}
         pageLength={pageLength}
         setPage={updatePage}
         page={page}

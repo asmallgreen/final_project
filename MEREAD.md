@@ -132,19 +132,45 @@
 - [ ] 
 
 
-### 20231011
+### 20231012
 
 #### 商品詳情頁
 - [x] 關聯資料庫測試，從product_arrow-length資料表中抓到所有arrow_length_id=1(長度85mm)的product_id
 
-### 20231012
+### 20231013
 
 #### 商品詳情頁
 - [x] 關聯資料庫，從product_attribute資料表中抓到所有category_id=${cate}(路由:cate的值ex:cate1是弓)的name
 - [x] 藉由category_id判斷產品詳請所要的規格，以及規格的值
 
-### 20231013
+### 20231014
 
+#### 商品頁
+- [x] 更新limit,page,attr,sort值時未傳入api給後端product.js，因此資料沒有被更新，重新測試將直送到後端
+- [ ] 在改變sort和attr時要重新抓pageLength
+- [ ] 先從後端product.js取得alldata(一個陣列物件)，在前端用函式計算出資料長度dataLength，從元件luna-pagiantion傳入limit值，用dataLength和limit計算出pageLength(分頁長度:用來計算buttton數量)，
+- [ ]
+#### 前端
+- [ ] limit
+- [ ] sort
+- [ ] attr
+- [ ] page
+#### 後端
+- [ ] alldata
+- [ ] filterdata計算出dataLength
+- [ ] dataLength資料長度計算pageLength
+- [ ] pageLength按鈕數量onclick可以選到page
+- [ ] filterdata用limit,sort,attr,page計算出來的值
+- [ ] displaydata用filterdata,dataLength,pageLength計算出來的值
+#### 列出下面的值:
+- [x] 所有商品數量alldataLength
+- [x] 篩選後商品數量filterdataLength
+- [x] 顯示畫面上的商品數量displaydataLength
+- [x] 篩選後所有按鈕數量pageLength，用filterdata計算
+- [x] alldata(getAll函式只抓table=product)
+- [x] filterdata(getFilter抓where={attrValue},orderby={sortValue})
+- [x] displaydata(getDisplay抓where={attrValue},orderby={sortValue},limit={limitValue},offset={ (pageValue - 1) * limitValue})
+- [ ] 
 ### 問題
 
 - [ ] 重整網頁時luna-pagination無法即時取得pageLength，導致按鈕陣列為空值，改變limit值後可以

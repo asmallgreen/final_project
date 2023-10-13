@@ -8,6 +8,7 @@ import {
   getNew,
   getFilter,
   getOne,
+  getDisplay,
   searchProduct,
 } from "../models/products.js";
 
@@ -15,7 +16,8 @@ const router = express.Router();
 
 //***********產品頁************
 router.get("/", async (req, res) => {
-  const { limit, page, sort, attr } = req.query;
+  const { limit=5, page=1, sort, attr } = req.query;
+  console.log(limit, page, sort, attr);
   const limitValue = parseInt(limit);
   const pageValue = parseInt(page);
   const offset = (pageValue - 1) * limitValue;
@@ -41,7 +43,6 @@ router.get("/", async (req, res) => {
       break;
   }
   // 篩選改where
-  // let arrValue={category_id:1}
   let attrValue;
   switch (attr) {
     case "default":
@@ -60,21 +61,26 @@ router.get("/", async (req, res) => {
       attrValue = { category_id: 4 };
       break;
   }
-  console.log(attrValue);
-  console.log(sortValue);
-  // const where = {id:1}
   const alldata = await getAll();
-  // const newdata = await getNew();
-  // const filterdata = await getFilter(attrValue, sortValue, limitValue, offset);
-
-  const filterdata = await getFilter(attrValue, sortValue, 5, 0);
-
+  const filterdata = await getFilter(attrValue, sortValue);
+  // const displaydata = await getDisplay(attrValue, sortValue, limitValue, offset)
+  const displaydata = await getDisplay(attrValue, sortValue, 5, 0)
+   const alldataLength = alldata.length
+   const filterdataLength = filterdata.length
+   const displaydataLength = displaydata.length
+  // const dataLength = displaydata.length
+  const pageLength = filterdataLength % limit === 0 ? filterdataLength / limit : Math.ceil(filterdataLength / limit)+1;
+  
   res.json({
     // arrow_length,
     message: "getAllProduct success",
     code: "200",
-    filterdata,
-    alldata,
+    
+    alldata,displaydata,filterdata,
+    alldataLength,filterdataLength,displaydataLength,
+    pageLength,limitValue,pageValue
+    
+    
     // newdata,
   });
 });

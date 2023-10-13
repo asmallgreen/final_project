@@ -10,10 +10,10 @@ export default function LunaPagination(props) {
   const { dataLength, pageLength, limit } = props;
   const [pageIndex, setPageIndex] = useState([]);
   const [localPage, setLocalPage] = useState();
-  console.log("每頁顯示:", limit);
-  console.log("資料筆數:", dataLength);
-  console.log("總頁數:", pageLength);
-  console.log("現在頁數:", localPage);
+  // console.log("每頁顯示:", limit);
+  // console.log("資料筆數:", dataLength);
+  // console.log("總頁數:", pageLength);
+  // console.log("現在頁數:", localPage);
   // useEffect(() => {
   //   console.log(dataLength);
   //   console.log(pageLength);
@@ -28,16 +28,16 @@ export default function LunaPagination(props) {
   
   const handlePrev = () => {
     localPage > 1 ? setLocalPage(localPage - 1) : setLocalPage(localPage);
-    console.log(localPage);
+    // console.log(localPage);
   };
   const handleNext = () => {
     localPage < pageLength
       ? setLocalPage(localPage + 1)
       : setLocalPage(localPage);
-      console.log(localPage);
+      // console.log(localPage);
   };
   useEffect(() => {
-   console.log(localPage);
+  //  console.log(localPage);
   //  handlePrev()
   }, [localPage]);
   useEffect(() => {
