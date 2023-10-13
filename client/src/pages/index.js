@@ -20,9 +20,8 @@ import Season from "../components/homepage/Season"
 import Hot from "../components/homepage/Hot"
 import Beginner from "../components/homepage/Beginner"
 import Welfare from "../components/homepage/Welfare"
+import Link from "next/link";
 
-//引入圖片
-// import CourseSlider1 from "../../../public/images/homepage/course-image1.webp";
 
 // slider卡片內容
 const courseParagraph1 = `
@@ -210,21 +209,25 @@ export default function Homepage() {
               introImg="images/homepage/product_intro_1.webp"
               introTitle="弓"
               introCat="竹弓｜合成弓"
+              introHref="/product/category/bow"
           />
           <IntroCard
               introImg="images/homepage/product_intro_2.webp"
               introTitle="箭"
               introCat="鋁箭｜合成箭"
+              introHref="/product/category/arrow"
           />
           <IntroCard
               introImg="images/homepage/product_intro_3.webp"
               introTitle="道服"
               introCat=""
+              introHref="/product/category/suit"
           />
           <IntroCard
               introImg="images/homepage/product_intro_4.webp"
               introTitle="其他"
               introCat="箭頭｜箭筒｜粉容器｜弦卷"
+              introHref="/product/category/other"
           />
           </div>
         </div>
@@ -235,7 +238,9 @@ export default function Homepage() {
             <br />
             滿心期待您的光臨
           </p>
-          <div className="btn">前往網路商店</div>
+          <Link
+          href="/product"
+          className="btn">前往網路商店</Link>
         </div>
         <img
         className="hr"
@@ -260,6 +265,7 @@ export default function Homepage() {
                 courseImg="images/homepage/course-image1.webp"
                 courseTitle="初探弓道"
                 courseParagraph={courseParagraph1}
+                courseHref="/course"
               />
             </SwiperSlide>
             <SwiperSlide>
@@ -267,6 +273,7 @@ export default function Homepage() {
                 courseImg="images/homepage/course-image2.webp"
                 courseTitle="進階弓道"
                 courseParagraph={courseParagraph2}
+                courseHref="/course"
               />
             </SwiperSlide>
             <SwiperSlide>
@@ -274,6 +281,7 @@ export default function Homepage() {
                 courseImg="images/homepage/course-image3.webp"
                 courseTitle="專業弓道"
                 courseParagraph={courseParagraph3}
+                courseHref="/course"
               />
             </SwiperSlide>
           </Swiper>

@@ -1,8 +1,10 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { RiArrowLeftDoubleFill } from "react-icons/ri";
+import Link from "next/link";
 
 export default function CourseSlider(props) {
-  const { courseImg, courseTitle, courseParagraph } = props;
+  const { courseImg, courseTitle, courseParagraph, courseHref } = props;
 
   return (
     <>
@@ -15,13 +17,15 @@ export default function CourseSlider(props) {
           <h1>{courseTitle}</h1>
           <div id="courseParagraph" dangerouslySetInnerHTML={{ __html: courseParagraph }}></div>
         </div>
-        <div className="card-btn">
+        <Link
+        href={courseHref}
+        className="card-btn text-decoration-none">
           <div className="arrow-line"></div>
           <div className="text-btn">報名</div>
           <div className="icon">
-          <FontAwesomeIcon icon="fa-solid fa-angles-left" style={{color: "#0c0c0c",}} />
+          <RiArrowLeftDoubleFill/>
           </div>
-        </div>
+        </Link>
       </div>
       {/* <div className="course-slider-container">
                 <div className="course-img"></div>

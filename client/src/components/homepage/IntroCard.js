@@ -1,26 +1,29 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FaShop } from "react-icons/fa6";
+import Link from "next/link";
 
 export default function IntroCard(props) {
-  const { introImg, introTitle, introCat } = props;
+  const { introImg, introTitle, introCat, introHref } = props;
   return (
     <>
       <div className="intro-card">
-        <div
+        <img
           className="intro-card-img"
-          style={{ backgroundImage: `url(${introImg})` }}
-        ></div>
+          src={introImg}
+        ></img>
         <div className="intro-card-text">
           <div className="intro-card-title">{introTitle}</div>
           <div className="intro-card-content">{introCat}</div>
-          <div className="intro-card-btn">
+          <Link
+          href={introHref}
+          className="intro-card-btn text-decoration-none">
             <div className="arrow-line"></div>
             <div className="text-btn">商城</div>
             <div className="icon">
-              <FaShop/>
+              <FaShop />
             </div>
-          </div>
+          </Link>
         </div>
       </div>
     </>

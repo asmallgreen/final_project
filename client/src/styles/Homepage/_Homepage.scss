@@ -249,15 +249,20 @@
         }
         .intro-card-btn {
           display: flex;
-          align-items: center;
+          align-items:center;
           justify-content: space-between;
           font-weight: 400;
           font-size: 20px;
           letter-spacing: 0.05em;
+          
+          color: black;
           // margin-left: 100px;
           .text-btn {
             margin-inline: 20px;
           }
+          // .icon{
+          //   padding-bottom: 10px;
+          // }
         }
       }
     }
