@@ -50,7 +50,9 @@ export default function StepThree({ setstepType }) {
       });
   }
   function handleSendOrder() {
+    const orderid = generateOrderId();
     const orderList = {
+      order_id: orderid,
       member_id: authJWT.memberData.id,
       coupon_id: orderInfo.coupon_id,
       subtotal:
@@ -61,17 +63,35 @@ export default function StepThree({ setstepType }) {
       receive_add: orderInfo.receiverAddress,
       status: "理貨中",
     };
-    // const productDetail={
-    // }
-    // const courseDetail={
-
-    // }
+    const productDetail = productCart.items.map((product, index) => {
+      return {
+        order_id: orderid,
+        product: product,
+        
+      };
+    });
+    const courseDetail = courseCart.items.map((course, index) => {
+      return {
+        order_id: orderid,
+        course: course,
+        
+      };
+    });
     const orderData = {
       orderList,
-      // productDetail,
-      // courseDetail,
+      productDetail,
+      courseDetail,
     };
     sendOrder(orderData);
+  }
+
+  function generateOrderId() {
+    const timestamp = new Date().getTime();
+    const randomDigits = Math.floor(Math.random() * 1000);
+  
+    // 將日期和隨機數字組合成流水編號
+    const orderId = `${timestamp}-${randomDigits}`;
+    return orderId;
   }
 
   return (
