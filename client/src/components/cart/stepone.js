@@ -2,31 +2,52 @@ import React, { useState, useReducer, useEffect } from 'react'
 import { Container, Col } from 'react-bootstrap';
 
 import List from './list.js';
-import { useCart }  from '@/hooks/use-cart.js';
+import { useCart } from '@/hooks/use-cart.js';
 import { reducer } from '@/hooks/cart-reducer.js'
-import  AddCartCourse  from './addCartCourse.js'
-import  AddCartProduct from './addCartProduct.js';
+import AddCartCourse from './addCartCourse.js'
+import AddCartProduct from './addCartProduct.js';
+import { useAuthJWT } from '@/hooks/use-auth-jwt';
+import axios from 'axios';
+import { set } from 'lodash';
 
 export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmount }) {
+
+  const [memberCoupon, setMemberCoupon] = useState([])
 
   const { cart, removeItem, setChecked } = useCart();
 
   const [selectedValue, setSelectedValue] = useState(1);
 
-  const discountPrice = selectedValue > 1 && cart.productTotal > selectedValue ? Number(cart.productTotal - selectedValue) : Number(cart.productTotal * selectedValue)
+  const { authJWT, setAuthJWT } = useAuthJWT()
+
+  let memberId = authJWT.memberData.id;
+  useEffect(() => {
+    if (memberId > 0) {
+      axios.post('http://localhost:3005/cart/MemberCoupon', { memberId })
+        .then((res) => {
+          setMemberCoupon(res.data.memberCoupon)
+          console.log('這是res', res.data)
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+    }
+  }, [memberId])
+
+  const discountPrice = selectedValue > 1 && cart.productTotal > selectedValue ? parseInt(cart.productTotal - selectedValue) : parseInt(cart.productTotal * selectedValue)
 
 
 
-  const discountAmount = selectedValue > 1 ? Number(selectedValue) : Number(cart.productTotal - cart.productTotal * selectedValue)
+  const discountAmount = selectedValue > 1 ? parseInt(selectedValue) : parseInt(cart.productTotal - cart.productTotal * selectedValue)
 
- 
+
 
   const handleSelectChange = (event) => {
     const selectedOptionValue = event.target.value; // 获取选中的<option>的值
     setSelectedValue(selectedOptionValue); // 更新状态变量的值
-    
+
   };
-  const sendDiscount=()=>{
+  const sendDiscount = () => {
     setDiscountPrice(discountPrice)
     setDiscountAmount(discountAmount)
   }
@@ -38,16 +59,7 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
     setstepType(2);
   };
 
-  const handleCheckboxChange = (event) => {
-    let thisEle = event.target
-    let itemid = +thisEle.getAttribute("data-itemid")
-    let isChecked = thisEle.checked
 
-    setChecked(itemid, isChecked)
-    // console.log(items)
-    //setCheckValue();
-
-  };
 
   return (
     <Container>
@@ -95,7 +107,7 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
 
       </div>
       <div>
-        <List mode={'product'}/>
+        <List mode={'product'} />
       </div>
 
 
@@ -117,8 +129,9 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
           <div className='couponSection'>
             <select onChange={handleSelectChange}>
               <option value={1}>套用優惠券</option>
-              <option value={200}>折200</option>
-              <option value={0.8}>8折</option>
+              {memberCoupon.map((coupon) => (
+                <option value={Number(coupon.discount)}>{coupon.name}</option>
+              ))}
             </select>
             <span
 
@@ -199,7 +212,7 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
               })
 
             }}
-          />  
+          />
           {`全選`}
         </label>
         <div className='total'>

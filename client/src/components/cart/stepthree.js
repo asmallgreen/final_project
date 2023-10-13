@@ -1,11 +1,18 @@
 import React, { useState } from 'react';
 import { Form, Col } from 'react-bootstrap';
 import { useCart } from '@/hooks/use-cart';
+import { useAuthJWT } from '@/hooks/use-auth-jwt';
 
-export default function StepThree({ setstepType , discountPrice ,discountAmount}) {
+export default function StepThree({ setstepType , discountPrice ,discountAmount, setOrderName , setOrderPhone , setOrderAddress}) {
 
   const { cart } = useCart();
+  const {authJWT, setAuthJWT} = useAuthJWT()
 
+  const [inputState, setInputState] = useState(false)
+
+  const handleSetInputState = () => {
+    setInputState(!inputState)
+  }
   const sendData = (n) => {
     // 在子组件中调用父组件传递的回调函数，并传递数据
     setstepType(n);
@@ -20,32 +27,55 @@ export default function StepThree({ setstepType , discountPrice ,discountAmount}
           <p className='ordererTitle'>訂購人資訊</p>
           <Form className='orderInfo'>
             <div className='cartMemberInfo'>
-              <Form.Control type='text' placeholder='會員姓名' disabled />
-              <Form.Control type='text' placeholder='會員手機' disabled />
+              <Form.Control type='text' placeholder={authJWT.memberData.name} disabled value={authJWT.memberData.name}></Form.Control>
+              <Form.Control type='text' placeholder={authJWT.memberData.phone} disabled value={authJWT.memberData.phone}></Form.Control>
             </div>
             <div className='m-2'>
-              <Form.Control type='text' placeholder='地址'  />
+              <Form.Control type='text' value={authJWT.memberData.address}  disabled ></Form.Control>
             </div>
           </Form>
 
         </div>
         <div>
-          <label className='customCheckbox'>
+          <label className='customCheckbox'>  
             <span className='receiverInfo'>收件人資訊</span>
             <input
               type="checkbox"
               name="choice"
               value="creditCard"
+              onChange={handleSetInputState}
             />
             <span>{`同訂購人資訊`}</span>
           </label>
           <Form className='orderInfo'>
             <div className='cartMemberInfo'>
-              <Form.Control type='text' placeholder='姓名*' />
-              <Form.Control type='text' placeholder='手機*' />
+              <Form.Control type='text' 
+              placeholder={
+                inputState? authJWT.memberData.name : '姓名*'
+              } 
+              disabled={inputState? true : false}
+              value={inputState? authJWT.memberData.name : ''}
+              id='name'
+              />
+              <Form.Control type='text' 
+              placeholder={
+                inputState? authJWT.memberData.phone : '手機*'
+              } 
+              disabled={inputState? true : false}
+              value={inputState? authJWT.memberData.phone : ''}
+              id='phone'
+
+              />
             </div>
             <div className='m-2'>
-              <Form.Control type='text' placeholder='配送地址'  />
+              <Form.Control type='text' 
+                placeholder={
+                inputState? authJWT.memberData.address : '配送地址*'
+              } 
+              disabled={inputState? true : false}
+              value={inputState? authJWT.memberData.address : ''}
+              id='address'
+              />
             </div>
           </Form>
         </div>
@@ -86,14 +116,18 @@ export default function StepThree({ setstepType , discountPrice ,discountAmount}
           className='nextStepBtn fs-5 d-sm-block d-none'
           onClick={() => {
             sendData(4);
-
+            setOrderName(document.getElementById('name').value)
+            setOrderPhone(document.getElementById('phone').value)
+            setOrderAddress(document.getElementById('address').value)
           }}>確認訂單明細</button>
 
         <button
           className='nextStepBtn fs-5 d-sm-none d-block'
           onClick={() => {
             sendData(4);
-
+            setOrderName(document.getElementById('name').value)
+            setOrderPhone(document.getElementById('phone').value)
+            setOrderAddress(document.getElementById('address').value)
           }}>下一步</button>
       </div>
     </div>

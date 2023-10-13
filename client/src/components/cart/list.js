@@ -15,7 +15,7 @@ export default function List({ mode }) {
     let isChecked = thisEle.checked
 
     setChecked(itemid,isChecked)
-    // console.log(items)
+    // console.log(items) 
     //setCheckValue();
     
   };
@@ -56,10 +56,11 @@ export default function List({ mode }) {
               onChange={handleCheckboxChange}
 
               checked={v.isChecked ? v.isChecked : ''}
-              
+               
             /></Col>
             <Col>{v.name}</Col>
-            <Col>{v.name}</Col>
+            <Col>{v.image}</Col>
+
             <Col className={`${mode === 'course' ? 'd-none' : ''} d-flex flex-column g-1`} >
               <select className='m-1'>
                 <option value="0">請選擇</option>

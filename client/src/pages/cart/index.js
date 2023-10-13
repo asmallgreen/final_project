@@ -20,7 +20,6 @@ export  default  function Index() {
   const {authJWT, setAuthJWT} = useAuthJWT()
 
   let memberId = authJWT.memberData.id;
-  console.log('這是會員',authJWT.memberData.id)
   useEffect(() => {
     if(memberId >0){
     axios.post('http://localhost:3005/cart', {memberId})
@@ -44,6 +43,12 @@ export  default  function Index() {
   const [discountAmount, setDiscountAmount] = useState(0)
 
   const [stepType, setStepType] = useState(1)
+
+  const [orderName , setOrderName] = useState('')
+
+  const [orderPhone , setOrderPhone] = useState('')
+
+  const [orderAddress , setOrderAddress] = useState('')
 
 
 
@@ -101,8 +106,26 @@ export  default  function Index() {
       <CartProvider cartList={cartList}>
         {stepType === 1 && <StepOne setstepType={handleStepChange} setDiscountPrice={setDiscountPrice} setDiscountAmount={setDiscountAmount} />}
         {stepType === 2 && <StepTwo setstepType={handleStepChange} discountPrice={discountPrice} discountAmount={discountAmount} setPayment={setPayment}/>}
-        {stepType === 3 && <StepThree setstepType={handleStepChange} discountPrice={discountPrice} discountAmount={discountAmount} />}
-        {stepType === 4 && <StepFour setstepType={handleStepChange} discountPrice={discountPrice} discountAmount={discountAmount} payment={payment}/>}
+        {stepType === 3 && 
+        <StepThree 
+        setstepType={handleStepChange} 
+        discountPrice={discountPrice} 
+        discountAmount={discountAmount} 
+        setOrderAddress={setOrderAddress}
+        setOrderName={setOrderName}
+        setOrderPhone={setOrderPhone}  
+        />}
+        {stepType === 4 && 
+        <StepFour 
+        setstepType={handleStepChange} 
+        discountPrice={discountPrice} 
+        discountAmount={discountAmount} 
+        payment={payment}
+        orderName={orderName}
+        orderAddress={orderAddress}
+        orderPhone={orderPhone}
+        />
+        }
 
       </CartProvider>
 
