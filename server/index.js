@@ -16,8 +16,8 @@ const __dirname = path.dirname(__filename);
 // end 修正 __dirname
 
 // 讓console.log可以呈現檔案與行號
-import { extendLog } from './utils/tool.js'
-extendLog() // 執行全域套用
+// import { extendLog } from './utils/tool.js'
+// extendLog() // 執行全域套用
 // console.log呈現顏色用 全域套用
 import "colors";
 // 檔案上傳
@@ -41,6 +41,7 @@ import venueRouter from './routes/venue.js'
 import venueReserveRouter from "./routes/venue-reserve.js"
 import teacherRouter from './routes/teacher.js'
 import syllabusRouter from './routes/syllabus.js'
+import cartRouter from './routes/cart.js'
 
 const app = express();
 
@@ -72,7 +73,7 @@ app.use(
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
-app.use(logger('dev'))
+// app.use(logger('dev'))
 app.use(express.json())
 
 app.use(express.urlencoded({ extended: false }))
@@ -121,6 +122,7 @@ app.use('/google-login', googleLoginRouter)
 // app.use('/api/favorite', favoriteRouter)
 app.use('/product', productRouter)
 app.use('/course', courseRouter)
+app.use('/cart', cartRouter)
 app.use('/venue', venueRouter)
 app.use('/venue_reserve', venueReserveRouter)
 
@@ -151,9 +153,7 @@ app.use(function (err, req, res, next) {
   });
   
   // render the error page
-  res.status(err.status || 500)
-  // 更改為錯誤訊息預設為JSON格式
-  res.status(500).send({ error: err })
+  res.status(err.status || 500).json({ error: err });
 })
 
 export default app;

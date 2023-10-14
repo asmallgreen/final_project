@@ -1,21 +1,69 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useContext, createContext } from 'react';
+import axios from 'axios';
+import { CartProvider } from '@/hooks/use-cart'
+
 
 import { Container, Row, Col } from 'react-bootstrap';  // import bootstrap components
 import StepOne from '@/components/cart/stepone';
 import StepTwo from '@/components/cart/steptwo';
 import StepThree from '@/components/cart/stepthree';
 import StepFour from '@/components/cart/stepfour';
+import { useCart } from '@/hooks/use-cart.js';
+import { useAuthJWT } from '@/hooks/use-auth-jwt';
 
 
-export default function Index() {
+export  default  function Index() {
+
+  
+  const [cartList, setCartList] = useState([])
+
+  const {authJWT, setAuthJWT} = useAuthJWT()
+
+  let memberId = authJWT.memberData.id;
+  useEffect(() => {
+    if(memberId >0){
+    axios.post('http://localhost:3005/cart', {memberId})
+      .then((res) => {
+        setCartList(res.data.cartList)
+        
+        
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    }
+  }, [memberId])
+  
+
+  
+
+  const [ payment, setPayment ] = useState(' ')
+
+  const [discountPrice, setDiscountPrice] = useState(0)
+
+  const [discountAmount, setDiscountAmount] = useState(0)
 
   const [stepType, setStepType] = useState(1)
+
+  const [orderName , setOrderName] = useState('')
+
+  const [orderPhone , setOrderPhone] = useState('')
+
+  const [orderAddress , setOrderAddress] = useState('')
+
+
 
   const handleStepChange = (newStep) => {
     setStepType(newStep);
   };
+  
+  
+
   return (
     <Container fluid={"xxl"}>
+
+
+
       <Row className="stepBar">
         <Col className={`step ${stepType === 1 && 'nowStep'}`}>
           <div className="stepBox">
@@ -58,10 +106,32 @@ export default function Index() {
           </div>
         </Col>
       </Row>
-      {stepType === 1 && <StepOne setstepType={handleStepChange} />}
-      {stepType === 2 && <StepTwo setstepType={handleStepChange} />}
-      {stepType === 3 && <StepThree setstepType={handleStepChange} />}
-      {stepType === 4 && <StepFour setstepType={handleStepChange} />}
+      <CartProvider cartList={cartList}>
+        {stepType === 1 && <StepOne setstepType={handleStepChange} setDiscountPrice={setDiscountPrice} setDiscountAmount={setDiscountAmount} />}
+        {stepType === 2 && <StepTwo setstepType={handleStepChange} discountPrice={discountPrice} discountAmount={discountAmount} setPayment={setPayment}/>}
+        {stepType === 3 && 
+        <StepThree 
+        setstepType={handleStepChange} 
+        discountPrice={discountPrice} 
+        discountAmount={discountAmount} 
+        setOrderAddress={setOrderAddress}
+        setOrderName={setOrderName}
+        setOrderPhone={setOrderPhone}  
+        />}
+        {stepType === 4 && 
+        <StepFour 
+        setstepType={handleStepChange} 
+        discountPrice={discountPrice} 
+        discountAmount={discountAmount} 
+        payment={payment}
+        orderName={orderName}
+        orderAddress={orderAddress}
+        orderPhone={orderPhone}
+        />
+        }
+
+      </CartProvider>
+
     </Container>
   );
 }
