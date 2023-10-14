@@ -253,7 +253,7 @@ function Pid() {
                   }
                 });
                 addProduct({
-                  images: product.img1,
+                  // images: product.img1,
                   id: product.id,
                   name: product.name,
                   detail_1: activeAttrValues[0],

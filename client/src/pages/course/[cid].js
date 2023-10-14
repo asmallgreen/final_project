@@ -249,7 +249,7 @@ export default function CourseDetail() {
               <div onClick={()=>handleTriggerCourseFav(cidNum)} className="btn course-detail-btn like-btn">{isCourseFavorited(cidNum)?'取消收藏':'加入收藏'}</div>
               <div className="btn course-detail-btn cart-btn" onClick={()=>{
                 addCourse({
-                  images: CourseDateById.images,
+                  // images: CourseDateById.images,
                   id: CourseDateById.id,
                   name: CourseDateById.name,
                   price: CourseDateById.price,
