@@ -1,6 +1,6 @@
 .filter-cards-area {
   justify-content: center;
-  padding-block: 48px;
+  padding: 48px 20px;
   .filter-cards {
     display: flex;
     .rows {
@@ -44,9 +44,10 @@
           width: 26px;
           height: 26px;
           color: $accent;
+          z-index: 10;
         }
         .far-heart {
-          
+          z-index: 10;
           width: 26px;
           height: 26px;
           color: $accent;
@@ -122,14 +123,14 @@
             color: $accent;
           }
           .far-heart {
-            display: none;
+            // display: none;
           }
           &:hover {
             .fa-heart {
-              display: none;
+              // display: none;
             }
             .far-heart {
-              display: block;
+              // display: block;
               width: 26px;
               height: 26px;
               color: $accent;
