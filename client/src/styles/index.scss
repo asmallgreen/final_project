@@ -10,7 +10,6 @@
 @import 'Homepage/Homepage.scss';
 
 //會員專區
-@import "member.scss";
 @import "member-order.scss";
 @import "member-order-detail.scss";
 @import "member-coupon.scss";
@@ -40,6 +39,7 @@
 // bootstrap
 // npm install react-bootstrap bootstrap
 @import "~bootstrap/scss/bootstrap";
+@import "member.scss";
 
 // npm install --save normalize.css
 @import "~normalize.css";

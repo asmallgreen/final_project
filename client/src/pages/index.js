@@ -105,12 +105,12 @@ export default function Homepage() {
     <>
       <div className="homepage-body">
         <div className="homepageHero1">
-          <video
-            autoplay="true"
-            muted="true"
-            loop="true"
-            playsinline=""
-            src="https://raw.githubusercontent.com/asmallgreen/final_project/Jim/client/public/images/homepage/hero_1.mp4"
+        <video
+            autoPlay={true}
+            muted={true}
+            loop={true}
+            playsInline=""
+            src="images/homepage/hero_1.mp4"
             width={1902}
             data-object-fit="cover"
             data-object-position="45% 45%"
