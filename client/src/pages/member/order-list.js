@@ -3,11 +3,53 @@ import { Container, Row, Col, Nav, Tab, Tabs } from "react-bootstrap";
 import SideBar from "../../components/member/side-bar";
 import { FaList } from "react-icons/fa";
 import Link from "next/link";
+import axios from "axios";
+import { useAuthJWT } from "@/hooks/use-auth-jwt";
 
 import MemberOrder from "@/data/Member-order.json";
-import Pagination from "@/components/pagination";
+// import Pagination from "@/components/pagination";
 
 export default function OrderList() {
+  const { authJWT } = useAuthJWT();
+
+  // OrderList
+  const [ordersData, setOrdersData] = useState([]);
+  const [finishedOrder, setFinishedOrder] = useState([]);
+
+  useEffect(() => {
+    if (authJWT.isAuth) {
+      const memberId = authJWT.memberData.id;
+      axios
+        .get(
+          `http://localhost:3005/memberDashboard/FindMemberOrder?memberId=${memberId}}`
+        )
+        .then((response) => {
+          setOrdersData(response.data.ordersData);
+        })
+        .catch((error) => {
+          console.error("前端請求訂單資料錯誤:", error);
+        });
+    }
+  }, [authJWT.isAuth]);
+
+  useEffect(() => {
+    if (authJWT.isAuth) {
+      const memberId = authJWT.memberData.id;
+      axios
+        .get(
+          `http://localhost:3005/memberDashboard/FindFinishedOrder?memberId=${memberId}}`
+        )
+        .then((response) => {
+          setFinishedOrder(response.data.finishedOrder);
+        })
+        .catch((error) => {
+          console.error("前端請求訂單資料錯誤:", error);
+        });
+    }
+  }, [authJWT.isAuth]);
+
+
+
 
   return (
     <>
@@ -35,7 +77,7 @@ export default function OrderList() {
                     </tr>
                   </thead>
                   <tbody className="text-center">
-                    {MemberOrder.map((order, index) => (
+                    {ordersData.map((order, index) => (
                       <tr key={order.id}>
                         <th>
                           <img
@@ -43,11 +85,11 @@ export default function OrderList() {
                             alt={`Order ${order.id}`}
                           />
                         </th>
-                        <td>{order.orderNumber}</td>
-                        <td>{order.orderAmount}</td>
-                        <td>{order.orderDate}</td>
+                        <td>{order.order_id}</td>
+                        <td>{order.subtotal}</td>
+                        <td>{order.date}</td>
                         <td>
-                          <Link href={`/member/order-detail/${order.orderNumber}`}>
+                          <Link href={`/member/order-detail/${order.order_id}`}>
                             <button type="button" className="btn">
                               <FaList />
                             </button>
@@ -59,9 +101,11 @@ export default function OrderList() {
                 </table>
                 <div className="container order-table-mobile d-md-none">
                   <div>
-                    {MemberOrder.map((order, index) => (
-                      <div className="row align-items-center p-2 member-order"
-                        key={order.id}>
+                    {ordersData.map((order, index) => (
+                      <div
+                        className="row align-items-center p-2 member-order"
+                        key={order.id}
+                      >
                         <div className="col-3 text-center">
                           <img
                             src="/images/member/default_member.png"
@@ -70,14 +114,20 @@ export default function OrderList() {
                         </div>
                         <div className="col-6">
                           <div className="order-title">訂單編號：</div>
-                          <div className="order-contain">{order.orderNumber}</div>
+                          <div className="order-contain">
+                            {order.order_id}
+                          </div>
                           <div className="order-title">成立日期：</div>
-                          <div className="order-contain">{order.orderDate}</div>
+                          <div className="order-contain">{order.date}</div>
                           <div className="order-title">訂單金額：</div>
-                          <div className="order-contain">{order.orderAmount}</div>
+                          <div className="order-contain">
+                            {order.subtotal}
+                          </div>
                         </div>
                         <div className="col-3 text-center">
-                          <Link href={`/member/order-detail/${order.orderNumber}`}>
+                          <Link
+                            href={`/member/order-detail/${order.order_id}`}
+                          >
                             <button className="btn">
                               <FaList />
                             </button>
@@ -89,18 +139,18 @@ export default function OrderList() {
                 </div>
               </Tab>
               <Tab eventKey="course" title="已完成訂單">
-                <table className="order-table-pc d-none d-md-table">
+              <table className="order-table-pc d-none d-md-table">
                   <thead className="text-center">
                     <tr>
                       <th>#</th>
                       <th>訂單編號</th>
-                      <th>訂單金額 </th>
+                      <th>訂單金額</th>
                       <th>成立日期</th>
                       <th>訂單詳情</th>
                     </tr>
                   </thead>
                   <tbody className="text-center">
-                    {MemberOrder.map((order, index) => (
+                    {finishedOrder.map((order, index) => (
                       <tr key={order.id}>
                         <th>
                           <img
@@ -108,11 +158,11 @@ export default function OrderList() {
                             alt={`Order ${order.id}`}
                           />
                         </th>
-                        <td>{order.orderNumber}</td>
-                        <td>{order.orderAmount}</td>
-                        <td>{order.orderDate}</td>
+                        <td>{order.order_id}</td>
+                        <td>{order.subtotal}</td>
+                        <td>{order.date}</td>
                         <td>
-                          <Link href={`/member/order-detail/${order.orderNumber}`}>
+                          <Link href={`/member/order-detail/${order.order_id}`}>
                             <button type="button" className="btn">
                               <FaList />
                             </button>
@@ -124,9 +174,11 @@ export default function OrderList() {
                 </table>
                 <div className="container order-table-mobile d-md-none">
                   <div>
-                    {MemberOrder.map((order, index) => (
-                      <div className="row align-items-center p-2 order"
-                        key={order.id}>
+                    {finishedOrder.map((order, index) => (
+                      <div
+                        className="row align-items-center p-2 member-order"
+                        key={order.id}
+                      >
                         <div className="col-3 text-center">
                           <img
                             src="/images/member/default_member.png"
@@ -135,14 +187,20 @@ export default function OrderList() {
                         </div>
                         <div className="col-6">
                           <div className="order-title">訂單編號：</div>
-                          <div className="order-contain">{order.orderNumber}</div>
+                          <div className="order-contain">
+                            {order.order_id}
+                          </div>
                           <div className="order-title">成立日期：</div>
-                          <div className="order-contain">{order.orderDate}</div>
+                          <div className="order-contain">{order.date}</div>
                           <div className="order-title">訂單金額：</div>
-                          <div className="order-contain">{order.orderAmount}</div>
+                          <div className="order-contain">
+                            {order.subtotal}
+                          </div>
                         </div>
                         <div className="col-3 text-center">
-                          <Link href={`/member/order-detail/${order.orderNumber}`}>
+                          <Link
+                            href={`/member/order-detail/${order.order_id}`}
+                          >
                             <button className="btn">
                               <FaList />
                             </button>
@@ -154,7 +212,7 @@ export default function OrderList() {
                 </div>
               </Tab>
             </Tabs>
-            <Pagination />
+            {/* <Pagination /> */}
           </Container>
         </Col>
       </Row>
