@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from 'react'
+import React, { useState, useReducer, useEffect, use } from 'react'
 import { Container, Col } from 'react-bootstrap';
 
 import List from './list.js';
@@ -10,13 +10,15 @@ import { useAuthJWT } from '@/hooks/use-auth-jwt';
 import axios from 'axios';
 import { set } from 'lodash';
 
-export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmount }) {
+export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmount ,setCartCouponId }) {
 
   const [memberCoupon, setMemberCoupon] = useState([])
 
   const { cart, removeItem, setChecked } = useCart();
 
   const [selectedValue, setSelectedValue] = useState(1);
+
+  const [couponId, setCouponId] = useState(0)
 
   const { authJWT, setAuthJWT } = useAuthJWT()
 
@@ -26,7 +28,9 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
       axios.post('http://localhost:3005/cart/MemberCoupon', { memberId })
         .then((res) => {
           setMemberCoupon(res.data.memberCoupon)
+
           console.log('這是res', res.data)
+
         })
         .catch((err) => {
           console.log(err);
@@ -34,7 +38,10 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
     }
   }, [memberId])
 
-  const discountPrice = selectedValue > 1 && cart.productTotal > selectedValue ? parseInt(cart.productTotal - selectedValue) : parseInt(cart.productTotal * selectedValue)
+  const discountPrice =
+    selectedValue == 0 ? cart.productTotal * 1 :
+    selectedValue > 1 && cart.productTotal > selectedValue ? 
+    cart.productTotal - selectedValue :  selectedValue > 0 ? parseInt(cart.productTotal * selectedValue) : 0;
 
 
 
@@ -44,7 +51,23 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
 
   const handleSelectChange = (event) => {
     const selectedOptionValue = event.target.value; // 获取选中的<option>的值
-    setSelectedValue(selectedOptionValue); // 更新状态变量的值
+
+    setCouponId(selectedOptionValue); // 更新状态变量的值
+
+
+    if(selectedOptionValue != 0){
+    const newCouponId = memberCoupon.find((v) => Number(v.coupon_id) == selectedOptionValue
+    )
+
+    // // const newCouponId = memberCoupon.find((v) => Number(v.coupon_id) == selectedOptionValue
+    // )
+
+    setSelectedValue(newCouponId.discount)
+    }else{
+      setSelectedValue(0)
+    }
+    console.log('這是打折', selectedValue,'這是couponId',couponId)
+
 
   };
   const sendDiscount = () => {
@@ -52,7 +75,9 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
     setDiscountAmount(discountAmount)
   }
 
-
+  const sendCouponId = () => {
+    setCartCouponId(couponId)
+  }
 
   const sendData = () => {
     // 在子组件中调用父组件传递的回调函数，并传递数据
@@ -81,7 +106,7 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
         <Col xs={10}>商品</Col>
         <Col xs={1}  ><span className='expand phoneDNone'>+</span></Col>
       </div>
-      <div className="productList d-none d-lg-flex">
+      <div className="productList d-none d-lg-flex px-4 ">
         <Col xs={1}><input
           type='checkbox'
           className='phoneDNone'
@@ -94,14 +119,16 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
               setChecked(+element.getAttribute("data-itemid"), thisChk.checked)
 
             })
+            
           }}
+
 
         /></Col>
         <Col xs={4}><span className='phoneDNone'>商品名稱</span></Col>
-        <Col xs={2}><span className='phoneDNone'>規格</span></Col>
+        <Col xs={1}><span className='phoneDNone'>規格</span></Col>
         <Col xs={2}><span className='phoneDNone'>單價</span></Col>
         <Col xs={2}><span className='phoneDNone'>數量</span></Col>
-        <Col xs={1}><span className='phoneDNone'>小計</span></Col>
+        <Col xs={2}><span className='phoneDNone'>小計</span></Col>
 
 
 
@@ -125,18 +152,21 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
               });
             }}
           >刪除</button>
-          <AddCartProduct />
+          {/* <AddCartProduct /> */}
           <div className='couponSection'>
             <select onChange={handleSelectChange}>
-              <option value={1}>套用優惠券</option>
+              <option value={0}>&nbsp;&nbsp;套用優惠券</option>
               {memberCoupon.map((coupon) => (
-                <option value={Number(coupon.discount)}  key={coupon.id}>{coupon.name}</option>
+                <option value={Number(coupon.id)} key={coupon.id} 
+                  
+                >&nbsp;{coupon.name}</option>
+
               ))}
             </select>
             <span
 
 
-            >{`共${cart.productTotalItems}項 , 商品小計${discountPrice} 元`}</span>
+            >{`共${cart.productTotalItems}項 , 商品小計 ${discountPrice} 元`}</span>
           </div>
         </Col>
       </div>
@@ -193,9 +223,9 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
             });
           }}
         >刪除
-        </button><div>{`共${cart.courseTotalItems}項 , 課程小計${cart.courseTotal}元`}</div>
+        </button><div>{`共${cart.courseTotalItems}項 , 課程小計 ${cart.courseTotal} 元`}</div>
         </Col>
-        <AddCartCourse />
+        {/* <AddCartCourse /> */}
       </div>
       <div className='totalSection'>
         <label>
@@ -232,6 +262,7 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
               onClick={() => {
                 sendData();
                 sendDiscount();
+                sendCouponId();
               }}
               disabled={cart.totalItems === 0}
             >下一步</button>

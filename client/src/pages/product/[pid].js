@@ -22,8 +22,17 @@ import "swiper/css/navigation";
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import Swal from "sweetalert2";
+import { set } from "lodash";
+// 購物車按鈕們
+import AddCartProduct from "@/components/cart/addCartProduct";
+import CountCom from "@/components/cart/countCom";
+// 購物車按鈕們
 
 function Pid() {
+  // 購物車專用
+  const [cartQuantity, setCartQuantity] = useState(1);
+  // 購物車專用
+
   const router = useRouter();
 
   const queryParams = router.query;
@@ -161,6 +170,8 @@ function Pid() {
       }
       setFavoriteProducts([...favoriteProducts, id])
     }
+
+    
   }
 
 
@@ -217,7 +228,7 @@ function Pid() {
             {/* <Length /> */}
             {/* <Diameter /> */}
           </div>
-
+            
           <div className="product-info-btns">
             {/* 數量按鈕 */}
             <QuantityBtn />
@@ -226,8 +237,18 @@ function Pid() {
               <FavBtn is_favorite={isProductFavorited(id)} id={id} handleTriggerProductFav={handleTriggerProductFav}/>
               <CartBtn />
             </div>
+            
+            
+            
           </div>
+          {/* 購物車按鈕們 */}
+          <div>
+            <CountCom setCartQuantity={setCartQuantity}/>
+            <AddCartProduct cartQuantity={cartQuantity}/>
+          </div>
+          {/* 購物車按鈕們 */}
         </Col>
+        
       </Row>
 
       {/* *********************** */}

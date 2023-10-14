@@ -79,33 +79,41 @@ export default function List({ mode }) {
                 <option value="2">M</option>
               </select>
             </Col>
-            <Col>
-              <div className="btn-group mr-2" role="group">
+            <Col className={`${mode === 'course' ? 'd-none' : ''}`}>${v.price}</Col>
+            <Col className={`${mode === 'course' ? 'd-none' : ''}`}>
+              <div className=" mr-2 calGroup" role="group">
                 <button
                   type="button"
-                  className="btn btn-light"
+                  className="btn btn-light calBtn"
                   onClick={() => {
                     minusOne(v.id)
                   }}
                 >
                   -
                 </button>
-                <button type="button" className="btn btn-light">
+                <div className='numSquare'>
                   {v.quantity}
-                </button>
+                </div>
                 <button
                   type="button"
-                  className="btn btn-light"
+                  className="btn btn-light calBtn"
                   onClick={() => {
-                    plusOne(v.id)
+                    plusOne(v.id) 
                   }}
                 >
                   +
                 </button>
               </div>
             </Col>
-            <Col>{v.price}</Col>
-            <Col>{v.itemTotal}</Col>
+            <Col className={`${mode === 'product' ? 'd-none' : ''}`}>
+              <div className='d-flex flex-column align-items-start justify-contents-start '>
+                <span className='mb-1'>日期&nbsp;{v.start_date}</span>
+                <span className='mb-1'>時間&nbsp;{v.hour}小時</span>
+                <span className='mb-1'>地點&nbsp;{v.location}</span>
+                <span className='mb-1'>授課教師&nbsp;{v.teacher_name}</span>
+              </div>
+            </Col>
+            <Col>${v.itemTotal}</Col>
           </div>
         )
       })}

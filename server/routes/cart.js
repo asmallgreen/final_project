@@ -41,8 +41,13 @@ router.post('/', async (req, res) => {
     const sql = ` 
     SELECT
     (CASE WHEN shopping_cart.product_id IS NULL THEN course.name ELSE product.name END) AS name, 
-    (CASE WHEN shopping_cart.product_id is NULL THEN course.images ELSE product.img1 END) AS image ,
+    (CASE WHEN shopping_cart.product_id IS NULL THEN course.images ELSE product.img1 END) AS image ,
     (CASE WHEN shopping_cart.product_id IS NULL THEN course.price ELSE product.price END)AS price ,
+    
+    course.start_date,
+    course.hour,
+    course.location,
+    teacher.name AS teacher_name,
     
     shopping_cart.id,
     shopping_cart.product_id,
@@ -53,6 +58,7 @@ router.post('/', async (req, res) => {
     FROM shopping_cart 
     LEFT JOIN product  ON shopping_cart.product_id = product.id
     LEFT JOIN course ON shopping_cart.course_id = course.id
+    LEFT JOIN teacher ON course.teacher_id = teacher.id
     
     WHERE shopping_cart.member_id = ?
     `
@@ -159,13 +165,13 @@ router.post('/NewOrder', async (req, res) => {
     
 
     const row = req.body
-    const sql = `INSERT INTO order_list (member_id,order_id,payment,order_date,subtotal,receive_name,receive_phone,receive_add) VALUES (?,?,?,?,?,?,?,?)`
+    const sql = `INSERT INTO order_list (member_id,order_id,payment,order_date,subtotal,receive_name,receive_phone,receive_add,coupon_id) VALUES (?,?,?,?,?,?,?,?,?)`
 
     const sql2 = `INSERT INTO order_detail (order_id,product_id,course_id,quantity,price) VALUES (?,?,?,?,?)`
     
     const items = req.body.items
     try {
-        const result = await pool.query(sql, [row.member_id, row.order_id, row.payment,row.order_date, row.subtotal, row.receive_name, row.receive_phone, row.receive_add]);
+        const result = await pool.query(sql, [row.member_id, row.order_id, row.payment,row.order_date, row.subtotal, row.receive_name, row.receive_phone, row.receive_add,row.coupon_id]);
         const newOrder = result
 
         // const result2 = await executeQuery(`DELETE FROM shopping_cart WHERE member_id = ?`, [row.member_id]);
@@ -203,8 +209,9 @@ router.post('/addCartCourse', async (req, res) => {
     const course = req.body
     const sql = `INSERT INTO shopping_cart (course_id , quantity , member_id) VALUES (? , ?, ?)`
     try {
-        const result = await executeQuery(sql, [course.course_id, course.quantity , course.member_id]);
+        const result = await pool.query(sql, [course.course_id, course.quantity , course.member_id]);
         const newCourse = result
+        console.log('加入購物車成功')
         return res.json({
             message: "search success",
             code: "200",
@@ -225,8 +232,9 @@ router.post('/addCartProduct', async (req, res) => {
     const product = req.body
     const sql = `INSERT INTO shopping_cart (product_id,  quantity ,member_id) VALUES (?, ?, ?)`
     try {
-        const result = await executeQuery(sql, [product.product_id, product.quantity , product.member_id]);
+        const result = await pool.query(sql, [product.product_id, product.quantity , product.member_id]);
         const newProduct = result
+        console.log('加入購物車成功')
         return res.json({
             message: "search success",
             code: "200",

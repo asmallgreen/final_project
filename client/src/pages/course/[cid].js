@@ -13,11 +13,34 @@ import Review from "../../components/course-detail/Review";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import Swal from "sweetalert2";
 
+
 const onChange = (key) => {
   // console.log(key);
 };
 
 export default function CourseDetail() {
+
+  const handleCartClick =  () => {
+    axios.post('http://localhost:3005/cart/addCartCourse/',{course_id:1,quantity:1,member_id:authJWT.memberData.id})
+        .then(response => {
+            console.log('加入購物車成功');
+            Swal.fire({
+              icon: 'success',
+              title: '加入購物車成功',
+              showConfirmButton: false,
+              timer: 1500,
+              backdrop: `rgba(255, 255, 255, 0.55)`,
+              width: '35%',
+              padding: '0 0 3.25em',
+              customClass: {
+              }
+            })
+        })
+        .catch(error => {
+            console.log(error);
+        });
+  };
+
   //處理antd的tabBar的sticky效果
   const renderTabBar = (props, DefaultTabBar) => (
     <StickyBox
@@ -244,7 +267,7 @@ export default function CourseDetail() {
             </div>
             <div className="btns">
               <div onClick={()=>handleTriggerCourseFav(cidNum)} className="btn course-detail-btn like-btn">{isCourseFavorited(cidNum)?'取消收藏':'加入收藏'}</div>
-              <div className="btn course-detail-btn cart-btn">加入購物車</div>
+              <div className="btn course-detail-btn cart-btn" onClick={handleCartClick}>加入購物車</div>
             </div>
           </div>
         </div>

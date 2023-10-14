@@ -91,6 +91,12 @@
     margin-left: 12px;
     color: #616153;
 }
+.stepLine{
+    height: 1px;
+    width: 147px;
+    background-color: #000;
+    margin-block: 10px;
+}
 
 @media (max-width: 393px) {
     .stepWords {
@@ -168,10 +174,14 @@
     flex-direction: column;
 }
 
+.couponSection select{
+    height: 45px;
+    
+}
 .productList select {
     padding: 10px 40px;
     margin-bottom: 10px;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 
 @media (max-width: 393px) {
@@ -284,6 +294,31 @@
     font-weight: bold;
     padding-right: 10px;
 }
+/* -----------list----------- */
+.calGroup{
+    border: 2px solid #616153;
+    border-radius: 0;
+}
+.numSquare{
+    width: 119px;
+    border-inline: 1px solid #616153;
+    height: 48px;
+    z-index: 5000;
+}
+
+
+.calGroup .calBtn{
+    width: 59px;
+    height: 48px;
+    border-radius: 0;
+    background-color: #ffffff00;
+    
+}
+.calGroup .calBtn:hover{
+    background-color: #6161535e;
+}
+
+
 
 /* -----------step2----------- */
 

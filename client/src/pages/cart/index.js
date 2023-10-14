@@ -21,7 +21,7 @@ export  default  function Index() {
 
   let memberId = authJWT.memberData.id;
   useEffect(() => {
-    if(memberId >0){
+    if(memberId > 0){
     axios.post('http://localhost:3005/cart', {memberId})
       .then((res) => {
         setCartList(res.data.cartList)
@@ -51,6 +51,7 @@ export  default  function Index() {
 
   const [orderAddress , setOrderAddress] = useState('')
 
+  const [cartCouponId, setCartCouponId] = useState(0)
 
 
   const handleStepChange = (newStep) => {
@@ -71,7 +72,7 @@ export  default  function Index() {
           </div>
           <div className="stepWords">
             <div className='phoneDNone'>First</div>
-            <div className='phoneDNone'>—————————</div>
+            <div className='phoneDNone stepLine'></div>
             <span>購物車確認</span>
           </div>
         </Col>
@@ -81,7 +82,7 @@ export  default  function Index() {
           </div>
           <div className="stepWords">
             <div className='phoneDNone'>Second</div>
-            <div className='phoneDNone'>—————————</div>
+            <div className='phoneDNone stepLine'></div>
             <span>選擇付款及配送方式</span>
           </div>
         </Col>
@@ -91,7 +92,7 @@ export  default  function Index() {
           </div>
           <div className="stepWords">
             <div className='phoneDNone'>Third</div>
-            <div className='phoneDNone'>—————————</div>
+            <div className='phoneDNone stepLine'></div>
             <span>填寫訂單資料</span>
           </div>
         </Col>
@@ -101,13 +102,19 @@ export  default  function Index() {
           </div>
           <div className="stepWords">
             <div className='phoneDNone'>Forth</div>
-            <div className='phoneDNone'>—————————</div>
+            <div className='phoneDNone stepLine'></div>
             <span>最後確認</span>
           </div>
         </Col>
       </Row>
       <CartProvider cartList={cartList}>
-        {stepType === 1 && <StepOne setstepType={handleStepChange} setDiscountPrice={setDiscountPrice} setDiscountAmount={setDiscountAmount} />}
+        {stepType === 1 && 
+        <StepOne 
+        setstepType={handleStepChange} 
+        setDiscountPrice={setDiscountPrice} 
+        setDiscountAmount={setDiscountAmount} 
+        setCartCouponId={setCartCouponId}
+        />}
         {stepType === 2 && <StepTwo setstepType={handleStepChange} discountPrice={discountPrice} discountAmount={discountAmount} setPayment={setPayment}/>}
         {stepType === 3 && 
         <StepThree 
@@ -127,6 +134,7 @@ export  default  function Index() {
         orderName={orderName}
         orderAddress={orderAddress}
         orderPhone={orderPhone}
+        cartCouponId={cartCouponId}
         />
         }
 
