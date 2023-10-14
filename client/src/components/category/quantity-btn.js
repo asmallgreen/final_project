@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from "react";
 
-export default function QuantityBtn() {
+export default function QuantityBtn({ onQuantityChange }) {
   const [quantity, setQuantity] = useState(0);
   
   const handleAdd = () => {
-    quantity < 99 ? setQuantity(quantity + 1) : setQuantity(99);
+    setQuantity((prevQuantity) => {
+      const newQuantity = prevQuantity < 99 ? prevQuantity + 1 : 99;
+      onQuantityChange(newQuantity); 
+      return newQuantity;
+    });
+    // console.log("Quantity increased:", quantity+1);
   };
   const handleDec = () => {
-    quantity > 1 ? setQuantity(quantity - 1) : setQuantity(0);
+    setQuantity((prevQuantity) => {
+      const newQuantity = prevQuantity > 1 ? prevQuantity - 1 : 1;
+      onQuantityChange(newQuantity); // 在减少时调用回调函数
+      return newQuantity;
+    });
+    // console.log("Quantity decreased:", quantity-1);
   };
  
   return (

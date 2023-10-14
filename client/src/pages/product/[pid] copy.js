@@ -3,20 +3,28 @@ import { useRouter } from "next/router";
 import axios from "axios";
 import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import { Row, Col } from "react-bootstrap";
+
 import ProductInfoAccordion from "@/components/accordion/product-info-accordion";
 import FavBtn from "@/components/category/fav-btn";
 import CartBtn from "@/components/category/cart-btn";
 import { FaShoppingCart } from "react-icons/fa";
 import Description from "@/components/category/description";
+import QuantityBtn from "@/components/category/quantity-btn";
+// import Material from "@/components/attributes/material";
+// import Length from "@/components/attributes/length";
+// import Diameter from "@/components/attributes/diameter";
 import RecommendedCard from "@/components/product/recommended-card";
 import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import { useProductCart } from "@/hooks/use-product-cart";
 import Swal from "sweetalert2";
+import { add } from "lodash";
 
 function Pid() {
   const router = useRouter();
@@ -52,7 +60,7 @@ function Pid() {
           const res = await axios.get(`http://localhost:3005/product/${id}`, {
             params: { pid: id },
           });
-          //从后端接收:pid商品资料
+          //從後端接收:pid商品資料
           setProduct(res.data.data);
           setTables(res.data.tables);
           setAttrValue(res.data.attrValue);
@@ -64,15 +72,34 @@ function Pid() {
     }
   }, [pid]);
 
+  // useEffect(() => {
+  //   console.log(product);
+  // }, [product]);
+  // useEffect(() => {
+  //   console.log(tables);
+  // }, []);
+  // useEffect(() => {
+  //   console.log(attrTitle);
+  // }, [attrTitle]);
+  // useEffect(() => {
+  //   console.log(attrValue);
+  // }, [attrValue]);
+
   // 會員收藏商品
   const { authJWT, favoriteProducts, setFavoriteProducts } = useAuthJWT();
   const memberId = authJWT.memberData.id;
-
+  // 拿出會員收藏的所有商品id
+  // console.log(favoriteProducts);
+  // const [products, setProducts] = useState([])
+  // 判斷是否該商品id有在收藏資料表，有代表已收藏
   function isProductFavorited(productId) {
     return favoriteProducts.includes(productId);
   }
 
   const handleTriggerProductFav = async (id) => {
+    // 在陣列中->移出，不在陣列中加入
+    // console.log(id);
+    // 未登入時，會出現請先登入的內容
     if (!authJWT.isAuth) {
       Swal.fire({
         icon: "warning",
@@ -86,10 +113,11 @@ function Pid() {
       });
     }
     if (favoriteProducts.includes(id)) {
+      // 如果在陣列中，執行移除收藏
       try {
         const res = await axios.delete(`http://localhost:3005/member/${id}`, {
           data: { memberId },
-          withCredentials: true,
+          withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
         });
         console.log(res.data);
         if (res.data.message === "已取消收藏") {
@@ -109,12 +137,13 @@ function Pid() {
       }
       setFavoriteProducts(favoriteProducts.filter((v) => v !== id));
     } else {
+      // 如果不在陣列中，執行加入收藏
       try {
         const res = await axios.put(
           `http://localhost:3005/member/${id}`,
           { memberId },
           {
-            withCredentials: true,
+            withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
           }
         );
         console.log(res.data);
@@ -138,21 +167,41 @@ function Pid() {
     }
   };
 
+  //購物車區塊選擇
+  // console.log(product);
+  // console.log(activeAttrs);
   const handleButtonClick = (tableIndex, valueIndex) => {
     const updatedActiveAttrs = [...activeAttrs];
     updatedActiveAttrs[tableIndex] = valueIndex;
     setActiveAttrs(updatedActiveAttrs);
-  };
 
+    //console.log規格出來
+    // const activeValues = updatedActiveAttrs.map((value, index) => {
+    //   if (value === -1) {
+    //     return "未選擇";
+    //   } else {
+    //     const valueTable = attrValue[index];
+    //     const activeValue = valueTable[value];
+    //     return activeValue;
+    //   }
+    // });
+
+    // console.log(activeValues);
+  };
+  //數量Btn
   const handleQuantityChange = (newQuantity) => {
     console.log("回傳父層的數量=", newQuantity);
   };
 
+ 
+
   return (
     <>
+      {/* 麵包屑 */}
       <div className="product-info-crum">
         <BreadCrumb />
       </div>
+      {/* *********************** */}
       <Row>
         <Col xl="4" md="5" className="product-info-img offset-md-1 offset-xl-2">
           <div className="img">
@@ -163,6 +212,7 @@ function Pid() {
           <div className="product-info-des">
             <Description pidData={product} />
           </div>
+          {/* 屬性按鈕 */}
           <div className="d-flex">
             <div className="">
               {attrTitle &&
@@ -209,73 +259,85 @@ function Pid() {
           </div>
 
           <div className="col-2">
-            <div className="btn-group mr-2" role="group">
-              <button
-                type="button"
-                className="btn btn-dark"
+              <div className="btn-group mr-2" role="group">
+                <button
+                  type="button"
+                  className="btn btn-dark"
+                  onClick={() => {
+                    minusOneProduct();
+                  }}
+                >
+                  -
+                </button>
+                <button type="button" className="btn btn">
+                  {/* {quantity} */}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-dark"
+                  onClick={() => {
+                    plusOneProduct();
+                  }}
+                >
+                  +
+                </button>
+              </div>
+            {/* 購物車 收藏按鈕 */}
+            <div className="product-info-btn">
+              <FavBtn
+                is_favorite={isProductFavorited(id)}
+                id={id}
+                handleTriggerProductFav={handleTriggerProductFav}
+              />
+              {/* <CartBtn
                 onClick={() => {
-                  setNewQuantity(newQuantity - 1);
+                  addProduct({
+                  });
                 }}
-              >
-                -
-              </button>
-              <button type="button" className="btn btn">
-                {newQuantity}
-              </button>
-              <button
-                type="button"
-                className="btn btn-dark"
-                onClick={() => {
-                  setNewQuantity(newQuantity + 1);
-                }}
-              >
-                +
-              </button>
+              /> */}
+              <Col md="6" xs="12">
+                <button
+                  className="cart-btn btn"
+                  onClick={() => {
+                    const activeAttrValues = activeAttrs.map((value, index) => {
+                      if (value === -1) {
+                        return "未選擇";
+                      } else {
+                        const valueTable = attrValue[index];
+                        const activeValue = valueTable[value];
+                        return activeValue;
+                      }
+                    });
+                    addProduct({
+                      id: product.id,
+                      name: product.name,
+                      detail_1: activeAttrValues[0],
+                      detail_2: activeAttrValues[1],
+                      detail_3: activeAttrValues[2],
+                      quantity: newQuantity,
+                      price: product.price,
+                    });
+                  }}
+                >
+                  <FaShoppingCart className="me-2" />
+                  加入購物車
+                </button>
+              </Col>
             </div>
-          </div>
-
-          <div className="product-info-btn">
-            <FavBtn
-              is_favorite={isProductFavorited(id)}
-              id={id}
-              handleTriggerProductFav={handleTriggerProductFav}
-            />
-            <button
-              className="cart-btn btn"
-              onClick={() => {
-                const activeAttrValues = activeAttrs.map((value, index) => {
-                  if (value === -1) {
-                    return "未選擇";
-                  } else {
-                    const valueTable = attrValue[index];
-                    const activeValue = valueTable[value];
-                    return activeValue;
-                  }
-                });
-                addProduct({
-                  id: product.id,
-                  name: product.name,
-                  detail_1: activeAttrValues[0],
-                  detail_2: activeAttrValues[1],
-                  detail_3: activeAttrValues[2],
-                  quantity: newQuantity,
-                  price: product.price,
-                });
-              }}
-            >
-              <FaShoppingCart className="me-2" />
-              加入購物車
-            </button>
           </div>
         </Col>
       </Row>
 
-      <ProductInfoAccordion pidData={product} />
+      {/* *********************** */}
 
+      {/* 商品資訊(手風琴) */}
+      <ProductInfoAccordion pidData={product} />
+      {/* </div> */}
+
+      {/* 相關商品推薦 */}
       <div className="product-page-title">
         <p>相關商品推薦</p>
       </div>
-
       <Swiper
         spaceBetween={10}
         slidesPerView={6}
@@ -312,6 +374,8 @@ function Pid() {
           <RecommendedCard />
         </SwiperSlide>
       </Swiper>
+
+      {/* ----------------------- */}
     </>
   );
 }

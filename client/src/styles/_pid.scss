@@ -42,6 +42,14 @@ body {
       background-color: $secondary;
       color: $primary;
     }
+    &.active {
+      background-color: $accent;
+      color: #fff;
+    }
+    &.active:hover {
+      background-color: darken($accent, 10%);
+      color: #fff;
+    }
   }
   // .bow-strength-style{
   //   color: $secondary;

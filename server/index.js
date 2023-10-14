@@ -16,9 +16,8 @@ const __dirname = path.dirname(__filename);
 // end 修正 __dirname
 
 // 讓console.log可以呈現檔案與行號
-// import { extendLog } from './utils/tool.js'
-// extendLog() // 執行全域套用
-
+import { extendLog } from './utils/tool.js'
+extendLog() // 執行全域套用
 // console.log呈現顏色用 全域套用
 import "colors";
 // 檔案上傳
@@ -54,9 +53,19 @@ const app = express();
 // app.use(cors())
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    origin: [
+      'http://localhost:3000', 
+      'http://localhost:3001',
+      'http://localhost:3000/product',
+      'https://accounts.google.com',
+      'https://google-login.firebaseapp.com',
+      'https://console.firebase.google.com',
+      'https://login-700a1.firebaseapp.com',
+      'login-700a1.web.app',
+      'https://login-700a1-default-rtdb.firebaseio.com'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'Other-Header'],
   })
 );
 
@@ -69,7 +78,7 @@ app.use(express.json())
 
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'uploads')))
 
 // fileStore的選項
 const fileStoreOptions = {};
@@ -135,6 +144,14 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
+  // 前端取得後端靜態資源
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // 允許前端網站的 URL
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+    next();
+  });
+  
   // render the error page
   res.status(err.status || 500)
   // 更改為錯誤訊息預設為JSON格式

@@ -164,7 +164,7 @@ export default function MemberCoupon() {
                   </table>
                 </Tab>
               </Tabs>
-              <Pagination />
+              {/* <Pagination /> */}
             </div>
           </Container>
         </Col>
