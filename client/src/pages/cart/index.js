@@ -24,6 +24,8 @@ export  default  function Index() {
     if(memberId > 0){
     axios.post('http://localhost:3005/cart', {memberId})
       .then((res) => {
+
+        console.log(res.data.cartList)
         setCartList(res.data.cartList)
         
         
@@ -34,7 +36,6 @@ export  default  function Index() {
     }
   }, [memberId])
   
-
   
 
   const [ payment, setPayment ] = useState(' ')

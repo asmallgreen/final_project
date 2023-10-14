@@ -5,7 +5,7 @@ import pool from '../config/db.js';
 
 import { getCart, getOrder, getMember } from '../models/cart.js'
 
-const executeQuery = async (sql, params=[] ) => {
+const executeQuery = async (sql, params = []) => {
 
     return new Promise((resolve, reject) => {
         pool.query(sql, params, (error, results) => {
@@ -52,57 +52,72 @@ router.post('/', async (req, res) => {
     shopping_cart.id,
     shopping_cart.product_id,
     shopping_cart.course_id,
-    shopping_cart.quantity
-    
+    shopping_cart.quantity,
+    shopping_cart.product_detail,
+    product.category_id
     
     FROM shopping_cart 
     LEFT JOIN product  ON shopping_cart.product_id = product.id
     LEFT JOIN course ON shopping_cart.course_id = course.id
     LEFT JOIN teacher ON course.teacher_id = teacher.id
-    
+  
+
     WHERE shopping_cart.member_id = ?
     `
     try {
-        const [rows] = await pool.query(sql, [memberId]);
-        const cartList = rows
-        // for (let i = 0; i < cartList.length; i++) {
-        //     let eachProd = cartList[i]
-        //     let prodId = eachProd.product_id
-        //     let cate = eachProd.category_id
 
-        //     // let tables = [];
-        //     // switch (cate) {
-        //     //     case 1:
-        //     //         tables = ["bow_strength", "bow_meterial", "bow_length"];
-        //     //         break;
-        //     //     case 2:
-        //     //         tables = ["arrow_strength", "arrow_meterial", "arrow_shaft"];
-        //     //         break;
-        //     //     case 3:
-        //     //         tables = ["color", "size"];
-        //     //         break;
-        //     //     default:
+        const rows = await pool.query(sql, [memberId]);
+        const cartList = rows[0]
+        // [[],[]]
+        //[{},{},{}...]
+        for (let i = 0; i < cartList.length; i++) {
+            let eachProd = cartList[i]
+            let prodId = eachProd.product_id
+            let cate = eachProd.category_id
+            let cateList = []
+            let tables = [];
+            switch (cate) {
+                case 1:
+                    tables = ["product_bow_meterial", "product_bow_length", "product_bow_strength"];
+                    break;
+                case 2:
+                    tables = ["product_arrow_meterial", "product_arrow_length", "product_arrow_shaft"];
+                    break;
+                // case 3:
+                //     tables = ["product_size", "product_color"];
+                //     break;
+                default:
+            }
 
-        //     // }
-        //     // if (tables.length == 0) {
-        //     //     continue
-        //     // }
-        //     const sql2 = ` 
-        //         SELECT * FROM ${tables.toString()}
-        //         WHERE 1=1
-        //         ${getWhereCause(tables)}`
+            if (tables.length == 0) {
+                continue
+            }
+            let sql2 = `
+            SELECT name AS cate_name FROM product_attribute WHERE category_id = ? 
+            `
 
-        //     let condi = []
-        //     for (let j = 0; j < tables.length; j++) {
-        //         condi.push(prodId)
+            const [rows] = await pool.query(sql2, [cate]);
+            cateList = rows
 
-        //     }
 
-        //     const [rows] = await pool.query(sql2, condi);
-        //     eachProd.cartDtl = rows
-        //     cartList[i] = eachProd
+            for (let j = 0; j < tables.length; j++) {
+                let tableName = tables[j]
+                let temStr = tableName.replace("product_", "")
 
-        // }
+                const sql3 = ` 
+                SELECT ${temStr}_id AS id FROM ${tableName}
+                WHERE 1=1
+                AND product_id = ? 
+                `
+                // AND ${tableName.replace("product_","")}_id = ?  還沒有細項的名稱阿字眼
+
+                const [rows] = await pool.query(sql3, [prodId]);
+                cateList[j]["data"] = rows
+            }
+            eachProd["cateList"] = cateList
+            cartList[i] = eachProd
+        }
+
 
         return res.json({
             message: 'search success',
@@ -121,29 +136,19 @@ router.post('/', async (req, res) => {
 
 });
 
-function getWhereCause(table, cate) {
-    let sql = ""
-    if (cate !== 1) {
-        for (let i = 0; i < table.length; i++) {
-            sql += " AND " + table[i] + ".id = ?"
-        }
-    }
-    return sql
 
-
-}
 
 router.post('/MemberCoupon', async (req, res) => {
     const memberId = req.body.memberId
-    const sql = 
-    `SELECT * 
+    const sql =
+        `SELECT * 
     FROM member_coupon
     JOIN coupon ON member_coupon.coupon_id = coupon.id 
     WHERE member_id = ?`
 
     try {
         const result = await pool.query(sql, [memberId]);
-        
+
         return res.json({
             message: "search success",
             code: "200",
@@ -155,43 +160,43 @@ router.post('/MemberCoupon', async (req, res) => {
             message: "search error",
             code: "500"
         });
-    }    
+    }
 
 });
 
 
 router.post('/NewOrder', async (req, res) => {
 
-    
+
 
     const row = req.body
     const sql = `INSERT INTO order_list (member_id,order_id,payment,order_date,subtotal,receive_name,receive_phone,receive_add,coupon_id) VALUES (?,?,?,?,?,?,?,?,?)`
 
     const sql2 = `INSERT INTO order_detail (order_id,product_id,course_id,quantity,price) VALUES (?,?,?,?,?)`
-    
+
     const items = req.body.items
     try {
-        const result = await pool.query(sql, [row.member_id, row.order_id, row.payment,row.order_date, row.subtotal, row.receive_name, row.receive_phone, row.receive_add,row.coupon_id]);
+        const result = await pool.query(sql, [row.member_id, row.order_id, row.payment, row.order_date, row.subtotal, row.receive_name, row.receive_phone, row.receive_add, row.coupon_id]);
         const newOrder = result
 
         // const result2 = await executeQuery(`DELETE FROM shopping_cart WHERE member_id = ?`, [row.member_id]);
         // const deleteCart = result2
-        for(let i=0;i<items.length;i++){
+        for (let i = 0; i < items.length; i++) {
 
-        items[i].course_id ==null ? items[i].course_id = 0 : items[i].course_id = items[i].course_id
-        items[i].product_id ==null ? items[i].product_id = 0 : items[i].product_id = items[i].product_id
+            items[i].course_id == null ? items[i].course_id = 0 : items[i].course_id = items[i].course_id
+            items[i].product_id == null ? items[i].product_id = 0 : items[i].product_id = items[i].product_id
 
-        const result3 = await pool.query(sql2, [row.order_id, items[i].product_id, items[i].course_id, items[i].quantity, items[i].price])
+            const result3 = await pool.query(sql2, [row.order_id, items[i].product_id, items[i].course_id, items[i].quantity, items[i].price])
 
-        const newOrderDtl = result3
-        
+            const newOrderDtl = result3
+
         }
         return res.json({
             message: "search success",
             code: "200",
             newOrder,
-            
-            
+
+
         });
     } catch (error) {
         console.error('新增訂單錯誤', error);
@@ -209,7 +214,7 @@ router.post('/addCartCourse', async (req, res) => {
     const course = req.body
     const sql = `INSERT INTO shopping_cart (course_id , quantity , member_id) VALUES (? , ?, ?)`
     try {
-        const result = await pool.query(sql, [course.course_id, course.quantity , course.member_id]);
+        const result = await pool.query(sql, [course.course_id, course.quantity, course.member_id]);
         const newCourse = result
         console.log('加入購物車成功')
         return res.json({
@@ -232,7 +237,7 @@ router.post('/addCartProduct', async (req, res) => {
     const product = req.body
     const sql = `INSERT INTO shopping_cart (product_id,  quantity ,member_id) VALUES (?, ?, ?)`
     try {
-        const result = await pool.query(sql, [product.product_id, product.quantity , product.member_id]);
+        const result = await pool.query(sql, [product.product_id, product.quantity, product.member_id]);
         const newProduct = result
         console.log('加入購物車成功')
         return res.json({
