@@ -18,7 +18,7 @@ router.post('/sendOrder', async (req, res) => {
   const productDetail = req.body.productDetail;
   const courseDetail = req.body.courseDetail;
 
-  console.log(req.body)
+  // console.log(req.body)
   // console.log(orderList)
   // console.log(productDetail)
   // console.log(courseDetail)
