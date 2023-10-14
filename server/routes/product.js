@@ -156,11 +156,7 @@ router.get("/:pid", async (req, res) => {
 });
 
 router.get("/category/:cate", async (req, res) => {
-  const { limit = 5, page = 1, sort, attr } = req.query;
-  // const cateValue = req.params.cate;
-  // const cateNumber = parseInt(cateValue, 10);
-  // console.log("Category Number:", cateNumber);
-
+  const { sort, attr, limit = 5, page = 1, cate } = req.query;
   const limitValue = parseInt(limit);
   const pageValue = parseInt(page);
   const offset = (pageValue - 1) * limitValue;
@@ -192,47 +188,56 @@ router.get("/category/:cate", async (req, res) => {
       attrValue = "";
       break;
     case "attr1":
-      attrValue = { category_id: 1 };
+      attrValue = "WHERE price>4000";
       break;
     case "attr2":
-      attrValue = { category_id: 2 };
+      attrValue = "WHERE price>5000";
       break;
     case "attr3":
-      attrValue = { category_id: 3 };
+      attrValue = "WHERE price>6000";
       break;
     case "attr4":
-      attrValue = { category_id: 4 };
+      attrValue = "WHERE price>7000";
+      break;
+    case "attr5":
+      attrValue = "WHERE price>8000";
+      break;
+    case "attr6":
+      attrValue = "WHERE price>9000";
+      break;
+    case "attr7":
+      attrValue = "WHERE price>100000";
+      break;
+    case "attr8":
+      attrValue = "WHERE price>12000";
       break;
   }
-  // let cateValue;
-  // switch (cate) {
-  //   case 1:
-  //     cateValue = { category_id: 1 };
-  //     break;
-  //   case 2:
-  //     cateValue = { category_id: 2 };
-  //     break;
-  //   case 3:
-  //     cateValue = { category_id: 3 };
-  //     break;
-  //   case 4:
-  //     cateValue = { category_id: 4 };
-  //     break;
-  // }
-  // console.log(where);
-  // console.log(category);
-  const alldata = await getAll();
-  // const catedata = await getCate(category);
-  // console.log(catedata);
-  // console.log(category);
-  const filterdata = await getFilter(attrValue, sortValue);
+  let cateValue;
+  switch (cate) {
+    case "1":
+      cateValue = { category_id: 1 };
+      break;
+    case "2":
+      cateValue = { category_id: 2 };
+      break;
+    case "3":
+      cateValue = { category_id: 3 };
+      break;
+    case "4":
+      cateValue = { category_id: 4 };
+      break;
+  }
+
+  const catedata = await getCate(cateValue);
+  const filterdata = await getFilter(cateValue, sortValue);
   const displaydata = await getDisplay(
     attrValue,
     sortValue,
     limitValue,
     offset
   );
-  const alldataLength = alldata.length;
+  //所有產品的數量改用catedata
+  const alldataLength = catedata.length;
   const filterdataLength = filterdata.length;
   const displaydataLength = displaydata.length;
   const pageLength =
@@ -243,7 +248,8 @@ router.get("/category/:cate", async (req, res) => {
   res.json({
     message: "getAllProduct success",
     code: "200",
-    alldata,
+    catedata,
+    // alldata,
     displaydata,
     filterdata,
     alldataLength,

@@ -60,6 +60,7 @@ export default function ModalAttr(props) {
             </div>
           </div>
           <div className="select-area">
+        
             <div className="select-attr-area ">
               <div className="attr-title">材質：</div>
               <div className="attr-buttons">
@@ -71,7 +72,7 @@ export default function ModalAttr(props) {
                     onChange={handleAttrToggle}
                     className={arrtSelect.attr1 ? "attr-checked" : "attr-check"}
                   ></div>
-                  <span className="attr-text">弓</span>
+                  <span className="attr-text">碳</span>
                 </div>
                 <div
                   className="attr-button"
@@ -81,7 +82,7 @@ export default function ModalAttr(props) {
                     onChange={handleAttrToggle}
                     className={arrtSelect.attr2 ? "attr-checked" : "attr-check"}
                   ></div>
-                  <span className="attr-text">箭</span>
+                  <span className="attr-text">鋁</span>
                 </div>
                 <div
                   className="attr-button"
@@ -91,7 +92,7 @@ export default function ModalAttr(props) {
                     onChange={handleAttrToggle}
                     className={arrtSelect.attr3 ? "attr-checked" : "attr-check"}
                   ></div>
-                  <span className="attr-text">道服</span>
+                  <span className="attr-text">木</span>
                 </div>
                 <div
                   className="attr-button"
@@ -101,10 +102,62 @@ export default function ModalAttr(props) {
                     onChange={handleAttrToggle}
                     className={arrtSelect.attr4 ? "attr-checked" : "attr-check"}
                   ></div>
-                  <span className="attr-text">其他</span>
+                  <span className="attr-text">竹</span>
                 </div>
               </div>
             </div>
+            <div className="select-attr-area ">
+              <div className="attr-title">價格：</div>
+              <div className="attr-buttons">
+                <div
+                  className="attr-button"
+                  onClick={() => handleAttrToggle("attr5")}
+                >
+                  <div
+                    onChange={handleAttrToggle}
+                    className={arrtSelect.attr5 ? "attr-checked" : "attr-check"}
+                  ></div>
+                  <span className="attr-text">小於NT$6,000</span>
+                </div>
+                <div
+                  className="attr-button"
+                  onClick={() => handleAttrToggle("attr6")}
+                >
+                  <div
+                    onChange={handleAttrToggle}
+                    className={arrtSelect.attr6 ? "attr-checked" : "attr-check"}
+                  ></div>
+                  <span className="attr-text">大於NT$6000</span>
+                </div>
+                
+              </div>
+            </div>
+            <div className="select-attr-area ">
+              <div className="attr-title">顏色：</div>
+              <div className="attr-buttons">
+                <div
+                  className="attr-button"
+                  onClick={() => handleAttrToggle("attr7")}
+                >
+                  <div
+                    onChange={handleAttrToggle}
+                    className={arrtSelect.attr7 ? "attr-checked" : "attr-check"}
+                  ></div>
+                  <span className="attr-text">黑色</span>
+                </div>
+                <div
+                  className="attr-button"
+                  onClick={() => handleAttrToggle("attr8")}
+                >
+                  <div
+                    onChange={handleAttrToggle}
+                    className={arrtSelect.attr8 ? "attr-checked" : "attr-check"}
+                  ></div>
+                  <span className="attr-text">白色</span>
+                </div>
+              </div>
+            </div>
+            
           </div>
           <div className="fk-area">
             <div className="confirm-btn pick" onClick={handleSend}>

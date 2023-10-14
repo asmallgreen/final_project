@@ -23,7 +23,8 @@ import "swiper/css/navigation";
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
 function Cate(props) {
-
+  const router = useRouter();
+  const { cate } = router.query;
   const [attr, setAttr] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState();
@@ -38,7 +39,7 @@ function Cate(props) {
   const [displaydataLength, setDisplaydataLength] = useState();
   const [pageLength, setPageLength] = useState();
   // ***********************************************
-  
+
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
     // console.log(limit);
@@ -66,12 +67,12 @@ function Cate(props) {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:3005/product/category/${cate}",
+          `http://localhost:3005/product/category/${cate}`,
           {
-            params: { limit, page, sort, attr },
+            params: { sort, attr, limit, page, cate },
           }
         );
-        setAllProduct(res.data.alldata);
+        setAllProduct(res.data.catedata);
         setFilterProduct(res.data.filterdata);
         setDisplayProduct(res.data.displaydata);
         setAlldataLength(res.data.alldataLength);
@@ -86,7 +87,15 @@ function Cate(props) {
     if (typeof window !== "undefined") {
       fetchData();
     }
-  }, [limit, page, sort, attr]);
+  }, [limit, page, sort, attr, cate]);
+  useEffect(() => {
+    console.log(cate);
+    // setCategory(cate);
+  }, [cate]);
+  // useEffect(() => {
+  //   console.log(category);
+  //   // setCategory(cate)
+  // }, [category]);
   useEffect(() => {
     // console.log(allProduct);
   }, [allProduct]);
