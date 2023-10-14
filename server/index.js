@@ -41,6 +41,7 @@ import venueRouter from './routes/venue.js'
 import venueReserveRouter from "./routes/venue-reserve.js"
 import teacherRouter from './routes/teacher.js'
 import syllabusRouter from './routes/syllabus.js'
+import cartRouter from './routes/cart.js'
 
 const app = express();
 
@@ -121,6 +122,7 @@ app.use('/google-login', googleLoginRouter)
 // app.use('/api/favorite', favoriteRouter)
 app.use('/product', productRouter)
 app.use('/course', courseRouter)
+app.use('/cart', cartRouter)
 app.use('/venue', venueRouter)
 app.use('/venue_reserve', venueReserveRouter)
 

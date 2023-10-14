@@ -7,61 +7,61 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
 
-export default function StepThree({ setstepType ,discountPrice ,payment,discountAmount ,orderName , orderPhone , orderAddress}) {
+export default function StepThree({ setstepType, discountPrice, payment, discountAmount, orderName, orderPhone, orderAddress }) {
 
   const currentDate = moment().format('YYYY-MM-DD HH:mm:ss');
 
-  const { cart , items } = useCart();
+  const { cart, items } = useCart();
 
   const [swalProps, setSwalProps] = useState({});
 
-  const {authJWT, setAuthJWT} = useAuthJWT()
+  const { authJWT, setAuthJWT } = useAuthJWT()
 
   const handleSummit = () => {
     axios.post('http://localhost:3005/cart/NewOrder/',
-    {
-    member_id:authJWT.memberData.id,
-    order_id:uuidv4(),
-    payment:payment,
-    subtotal:discountPrice+cart.courseTotal,
-    receive_name:orderName,
-    receive_phone:orderPhone,
-    receive_add:orderAddress,
-    order_date:currentDate,
-    // course_id:items.course_id,
-    // product_id:items.product_id,
-    // quantity:items.quantity,
-    // price:items.price,
-    // itemTotal:items.itemTotal,
-    // itemName:items.name,
-    items:items
+      {
+        member_id: authJWT.memberData.id,
+        order_id: uuidv4(),
+        payment: payment,
+        subtotal: discountPrice + cart.courseTotal,
+        receive_name: orderName,
+        receive_phone: orderPhone,
+        receive_add: orderAddress,
+        order_date: currentDate,
+        // course_id:items.course_id,
+        // product_id:items.product_id,
+        // quantity:items.quantity,
+        // price:items.price,
+        // itemTotal:items.itemTotal,
+        // itemName:items.name,
+        items: items
 
-   })
-        .then(response => {
-            console.log(response);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-};
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   function handleClick() {
     setSwalProps({
       show: true,
       text: '訂購已完成 感謝您的訂購',
       imageUrl: 'Ciro/modalImg.png',
-      customClass:{
+      customClass: {
         confirmButton: 'custom-confirm-button-class'
       },
-      confirmButtonText:'關閉',
+      confirmButtonText: '關閉',
 
     });
     handleSummit()
-    
+
   }
   function didSwalClose() {
     setSwalProps({
-      show:false,
+      show: false,
     })
   }
 
@@ -103,14 +103,14 @@ export default function StepThree({ setstepType ,discountPrice ,payment,discount
           <p className='ordererTitle'>付款資訊</p>
           <Form className='orderInfo'>
             <div className='payTypeInput m-2'>
-              <Form.Control type='text' value={payment==='cashON' ? '宅配 貨到付款（限台灣本島）' : '金融卡付款（購買課程限此付款方式）'} disabled />
+              <Form.Control type='text' value={payment === 'cashON' ? '宅配 貨到付款（限台灣本島）' : '金融卡付款（購買課程限此付款方式）'} disabled />
             </div>
             <div className='m-2'>
-              <Form.Control type='text' value={authJWT.memberData.address} disabled/>
+              <Form.Control type='text' value={authJWT.memberData.address} disabled />
             </div>
           </Form>
         </div>
-        <div className='mb-5'>
+        <div>
           <p className='ordererTitle'>收件人資訊</p>
           <Form className='orderInfo'>
             <div className='cartMemberInfo'>
@@ -122,22 +122,25 @@ export default function StepThree({ setstepType ,discountPrice ,payment,discount
             </div>
           </Form>
         </div>
-        <div className="orderTitle">
+        
+       
+      </div>
+      <div className="orderTitle">
           <Col xs={1} ><span>+</span></Col>
           <Col xs={10} className='fs-4'>訂單明細</Col>
           <Col xs={1}><span>+</span></Col>
         </div>
-        <div>
-        <div className='order'>
-          <div className='fs-5'>{`共${cart.productTotalItems}件商品`}&nbsp;$ {`${!discountPrice ? cart.productTotal :discountPrice}`}</div>
-          <div className='fs-5'>{`共${cart.courseTotalItems}堂課程`}&nbsp;$ {`${cart.courseTotal}`}</div>
-          <br />
-          <div className='fs-5'>{`優惠券折抵`}&nbsp;$ {`${!discountAmount ? "0":discountAmount}`}</div>
-        </div>
-        <div className='line'></div>
-        <div className='orderTotal fs-5'>
-          {`金額總計 `}&nbsp;<span>{`$ `}{`${!discountPrice ? cart.productTotal+cart.courseTotal:discountPrice+cart.courseTotal}`}</span>
-        </div>
+      <div>
+          <div className='order'>
+            <div className='fs-5'>{`共${cart.productTotalItems}件商品`}&nbsp;$ {`${!discountPrice ? cart.productTotal : discountPrice}`}</div>
+            <div className='fs-5'>{`共${cart.courseTotalItems}堂課程`}&nbsp;$ {`${cart.courseTotal}`}</div>
+            <br />
+            <div className='fs-5'>{`優惠券折抵`}&nbsp;$ {`${!discountAmount ? "0" : discountAmount}`}</div>
+          </div>
+          <div className='line'></div>
+          <div className='orderTotal fs-5'>
+            {`金額總計 `}&nbsp;<span>{`$ `}{`${!discountPrice ? cart.productTotal + cart.courseTotal : discountPrice + cart.courseTotal}`}</span>
+          </div>
         </div>
         <div className='stepBtnGroup'>
           <button
@@ -167,7 +170,6 @@ export default function StepThree({ setstepType ,discountPrice ,payment,discount
           </button>
           <SweetAlert2 {...swalProps} didClose={didSwalClose} />
         </div>
-      </div>
     </div>
   )
 }

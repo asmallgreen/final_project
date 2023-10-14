@@ -130,7 +130,7 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
             <select onChange={handleSelectChange}>
               <option value={1}>套用優惠券</option>
               {memberCoupon.map((coupon) => (
-                <option value={Number(coupon.discount)}>{coupon.name}</option>
+                <option value={Number(coupon.discount)}  key={coupon.id}>{coupon.name}</option>
               ))}
             </select>
             <span

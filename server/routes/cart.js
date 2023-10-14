@@ -54,7 +54,7 @@ router.post('/', async (req, res) => {
     LEFT JOIN product  ON shopping_cart.product_id = product.id
     LEFT JOIN course ON shopping_cart.course_id = course.id
     
-    WHERE shopping_cart.member_id = 1
+    WHERE shopping_cart.member_id = ?
     `
     try {
         const [rows] = await pool.query(sql, [memberId]);

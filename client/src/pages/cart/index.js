@@ -25,7 +25,8 @@ export  default  function Index() {
     axios.post('http://localhost:3005/cart', {memberId})
       .then((res) => {
         setCartList(res.data.cartList)
-        console.log(res.data.cartList)
+        
+        
       })
       .catch((err) => {
         console.log(err);
@@ -56,6 +57,8 @@ export  default  function Index() {
     setStepType(newStep);
   };
   
+  
+
   return (
     <Container fluid={"xxl"}>
 

@@ -102,7 +102,7 @@ export default function StepTwo({setstepType , discountPrice ,discountAmount, se
         onClick={() => {
           sendData(3);
           setPayment(selectedOption);
-          console.log(selectedOption)
+          
         }}>填寫訂單資料</button>
 
         <button 
@@ -110,7 +110,7 @@ export default function StepTwo({setstepType , discountPrice ,discountAmount, se
         onClick={() => {
           sendData(3);
           setPayment(selectedOption);
-          console.log(selectedOption)
+          
         }}>下一步</button>
       </div>
     </div>
