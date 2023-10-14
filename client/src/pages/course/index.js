@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import Link from "next/link";
 import { Row, Col } from "react-bootstrap";
 import FilterProductCard from "@/components/product/filter-card";
 import CourseListItemCard from "@/components/course-list/CourseListItemCard";

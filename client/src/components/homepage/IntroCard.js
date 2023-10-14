@@ -7,10 +7,13 @@ export default function IntroCard(props) {
   const { introImg, introTitle, introCat, introHref } = props;
   return (
     <>
+    <Link href={introHref}
+    className="desktop-none text-decoration-none">
       <div className="intro-card">
         <img
           className="intro-card-img"
           src={introImg}
+          alt=""
         ></img>
         <div className="intro-card-text">
           <div className="intro-card-title">{introTitle}</div>
@@ -26,6 +29,7 @@ export default function IntroCard(props) {
           </Link>
         </div>
       </div>
+    </Link>
     </>
   );
 }

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import Collapse from "@mui/material/Collapse";
 import { ConfigProvider, Tabs } from "antd";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
@@ -25,43 +26,43 @@ import Link from "next/link";
 // slider卡片內容
 const courseParagraph1 = `
 <p>
-初生嬰兒打開眼睛所見看到的畫面，決定了他如何看待世界。
+初生嬰兒打開眼睛所見看到的畫面，<br class="d-sm-none"/>決定了他如何看待世界。
 <br/><br/>
-弓道亦如此，弓道初體驗彌足珍貴，是無可取代的經驗。
+弓道亦如此，<br class="d-sm-none"/>弓道初體驗彌足珍貴，是無可取代的經驗。
 <br/>
-我們非常重視初探弓道的活動，竭盡全力傳達弓道精神和弓道之美。
+我們非常重視初探弓道的活動，<br class="d-sm-none"/>竭盡全力傳達弓道精神和弓道之美。
 <br/>
-透過道場的空間、物件、伙伴們，到自己親歷引弓放箭，累積對於弓道的感受。
+透過道場的空間、物件、伙伴們，<br class="d-sm-none"/>到自己親歷引弓放箭，累積對於弓道的感受。
 <br/>
-期盼曾感動過我們的弓道，能夠在這裡與你們分享。
+期盼曾感動過我們的弓道，<br class="d-sm-none"/>能夠在這裡與你們分享。
 <br/>
 <p/>
 `;
 const courseParagraph2 = `
 <p>
-當你已經踏入弓道的門檻，你將進入一個更深刻的世界。
+當你已經踏入弓道的門檻，<br class="d-sm-none"/>你將進入一個更深刻的世界。
 <br/><br/>
-我們繼續傳遞弓道的精髓，引導你深入體驗這項古老的藝術。
+我們繼續傳遞弓道的精髓，<br class="d-sm-none"/>引導你深入體驗這項古老的藝術。
 <br/>
 不僅是技術的提升，更是心靈的成長。
 <br/>
-透過經驗豐富的導師，你將掌握更高級的技巧，提高專注力。
+透過經驗豐富的導師，<br class="d-sm-none"/>你將掌握更高級的技巧，提高專注力。
 <br/>
-無論你是追求競技，還是追求更深層次的平靜
+無論你是追求競技，<br class="d-sm-none"/>還是追求更深層次的平靜
 <br/>
-進階弓道課程將為你打開新的可能性，讓你更深刻地理解自己和這個世界。
+進階弓道課程將為你打開新的可能性，<br class="d-sm-none"/>讓你更深刻地理解自己和這個世界。
 `;
 const courseParagraph3 = `
 <p>
-專業弓道，極致的藝術。狹隘崎嶇的山徑，只為堅韌者開啟。
+專業弓道，極致的藝術。<br class="d-sm-none"/>狹隘崎嶇的山徑，只為堅韌者開啟。
 <br/><br/>
-這是一個完全沉浸式的旅程，要求你的心、身、靈全然奉獻。
+這是一個完全沉浸式的旅程，<br class="d-sm-none"/>要求你的心、身、靈全然奉獻。
 <br/>
-在這裡，你將學會掌握各種優美的射擊技巧，還將深入理解弓道的哲學和歷史。
+在這裡，你將學會掌握各種優美的射擊技巧，<br class="d-sm-none"/>還將深入理解弓道的哲學和歷史。
 <br/>
-我們將透過嚴格的訓練和深度的內省，引導你達到專業弓道的頂峰。
+我們將透過嚴格的訓練和深度的內省，<br class="d-sm-none"/>引導你達到專業弓道的頂峰。
 <br/>
-這不僅是一門技藝，更是一種生活方式，一種尋找心靈平靜的方式。
+這不僅是一門技藝，更是一種生活方式，<br class="d-sm-none"/>一種尋找心靈平靜的方式。
 `;
 
 // Tabs Index
@@ -98,11 +99,21 @@ const items = [
 ];
 
 export default function Homepage() {
+  const [checked, setChecked] = useState(false);
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
+
+  // const [showFullContent, setShowFullContent] = useState(false);
+  // const toggleContent = () => {
+  //   setShowFullContent(!showFullContent);
+  // };
   return (
     <>
       <div className="homepage-body">
         <div className="homepageHero1">
           <video
+            className="homepage-video"
             autoPlay={true}
             muted={true}
             loop={true}
@@ -118,11 +129,11 @@ export default function Homepage() {
         </div>
         <div className="aboutUs">
           <div className="aboutUs-container">
-            <div className="left">
+            <div className="left-desktop">
               <div className="p1">關於</div>
               <div className="p2">良弓制販所</div>
             </div>
-            <div className="right">
+            <div className="right-desktop">
               <p>
                 弓具並沒有絕對的答案。這是我們的信念。
                 <br />
@@ -147,9 +158,63 @@ export default function Homepage() {
                 因為，我們相信，弓道的可能性，將與時俱進，永不止步。
               </p>
             </div>
+            <div className="right-mobile">
+              <div className="textarea">
+                <h1>關於良弓制販所</h1>
+                <Collapse collapsedSize={150} in={checked}>
+                  <p>
+                    弓具並沒有絕對的答案。這是我們的信念。
+                    <br />
+                    在重新審視材質、耐久性和技術的同時，
+                    <br />
+                    弓具一直在默默的，卻穩步地發展著。
+                    <br />
+                    我們不願被傳統所局限，
+                    <br />
+                    而是要勇敢地走在傳統的前線。
+                    <br />
+                    <br />
+                    想像一下，世界上第一支採用玻璃纖維的弓
+                    <br />
+                    「直心」、「練心」，
+                    <br />
+                    還有結合碳纖維與竹子的弓「清芳」等……
+                    <br />
+                    這些創新性的弓具已經問世，
+                    <br />
+                    正是我們態度的一種體現。
+                    <br />
+                    而如今，我們更榮幸的提供弓道的課程。
+                    <br />
+                    這是一次了解這門古老藝術、
+                    <br />
+                    深入探索其精髓的機會。
+                    <br />
+                    當展望弓道的未來一百年，
+                    <br />
+                    什麼樣的工具更能配得上這個時代呢？
+                    <br />
+                    這個問題，我們將不斷追求探索。
+                    <br />
+                    因為，我們相信，弓道的可能性，
+                    <br />
+                    將與時俱進，永不止步。
+                  </p>
+                </Collapse>
+              </div>
+              {checked ? (
+                <button className="btn" onClick={handleChange}>
+                  收起內容
+                </button>
+              ) : (
+                <button className="btn" onClick={handleChange}>
+                  ...繼續閱讀
+                </button>
+              )}
+            </div>
           </div>
         </div>
-        <img className="hr" src="images/homepage/hr_1.webp"></img>
+        <img className="hr" src="images/homepage/hr_1.webp" alt=""></img>
         <div className="textarea">
           <h1>良物優選</h1>
           <p>
@@ -192,11 +257,11 @@ export default function Homepage() {
         <div className="textarea">
           <h1>商品介紹</h1>
           <p>
-            讓我們介紹一下由工匠們一個接一個地手工製作的弓具。
+            讓我們介紹由工匠們手工製作的弓具。
             <br />
-            我們在自家工廠擁有高度技術的工匠團隊，他們負責製作弓具。
+            我們在自家工廠擁有高度技術的工匠團隊，
             <br />
-            請看看優質的「弓」「箭」「弦」「衣」「良物」。
+            請看看優質的「弓」「箭」「弦」「衣」。
           </p>
         </div>
         <div className="introduction">
@@ -238,18 +303,24 @@ export default function Homepage() {
             前往網路商店
           </Link>
         </div>
-        <img className="hr" src="images/homepage/hr_2.webp"></img>
+        <img className="hr" src="images/homepage/hr_2.webp" alt=""></img>
         <div className="textarea">
           <h1>課程介紹</h1>
           <p>
             弓道以弓和箭鍛練身心。
             <br />
             <br />
-            在學習弓道的過程中，我們追求射法、射技的精進，
+            在學習弓道的過程中，
+            <br className="d-sm-none" />
+            我們追求射法、射技的精進，
             <br />
-            以禮為基石的儀態養成，射手品格的鍛練，心技一體、群體和諧，深化豐富人生，
+            以禮為基石的儀態養成，射手品格的鍛練，
+            <br className="d-sm-none" />
+            心技一體、群體和諧，深化豐富人生，
             <br />
-            透過弓道的修練，揭示真、善、美的最高目標。
+            透過弓道的修練，
+            <br className="d-sm-none" />
+            揭示真、善、美的最高目標。
           </p>
         </div>
         <div className="course-slider">
@@ -279,8 +350,17 @@ export default function Homepage() {
               />
             </SwiperSlide>
           </Swiper>
+          <Link href="/product" className="btn d-sm-none">
+            更多課程介紹
+          </Link>
         </div>
-        <div className="textarea">
+        <div className="textarea mt-5">
+          <br className="d-sm-none" />
+          <br className="d-sm-none" />
+          <br className="d-sm-none" />
+          <br className="d-sm-none" />
+          <br className="d-sm-none" />
+          <br className="d-sm-none" />
           <h1>全然一身，正射必中</h1>
           <p>
             我們串聯臺灣北、中、南三地的弓道場
@@ -293,7 +373,7 @@ export default function Homepage() {
             隨時啟程
           </p>
         </div>
-        <img className="hr" src="images/homepage/hr_3.webp"></img>
+        <img className="hr" src="images/homepage/hr_3.webp" alt=""></img>
       </div>
     </>
   );

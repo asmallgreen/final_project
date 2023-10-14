@@ -39,6 +39,9 @@ export default function CommentCard(props) {
              />
           </div>
         </div>
+
+
+        
         <div className="comment-card-content mt-3 ">
           <h3>{comment_title}</h3>
           {showFullContent ? (
