@@ -10,11 +10,21 @@ import Swal from "sweetalert2";
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
-import { useAuthJWT } from '@/hooks/use-auth-jwt';
 import { useRouter } from 'next/router';
 
 
 export default function ReserveDate({ formType, setFormType }) {
+
+  useEffect(() => {
+    async function fetchVenueData(id) {
+      try {
+        const response = await axios.get(`http://localhost:3005/venue/${id}`, { params: { id: id } });
+        setVenueData(response.data.once);
+      } catch (error) {
+        console.error('資料庫連結錯誤:', error);
+      }
+      // console.log(VenueData)
+}})
 
   // react 表單檢查(不可空白欄位)
   const [validated, setValidated] = useState(false);
@@ -81,35 +91,11 @@ export default function ReserveDate({ formType, setFormType }) {
       },
     });}
   }
-  // 抓到生日的 Date 寫入 member 物件
-  const handleBirthdateChange = (date) => {
-    // 先將 data 放入 Birthday的狀態儲存
-    setBirthday({date})
-    // console.log({date});
-    // 轉換{date}物件的格式
-    const birthdate = new Date(date)
-    const year = birthdate.getFullYear()
-    const month = (birthdate.getMonth() + 1).toString().padStart(2, "0");
-    const day = birthdate.getDate().toString().padStart(2, "0");
-    const formattedBirthdate = `${year}-${month}-${day}`
-    // console.log(formattedBirthdate);
-    // 再將日期存在 venue_reserve 的 birthday 屬性中
-    setReserve({ ...venue_reserve, date_1: formattedBirthdate });
-  };
 
   useEffect(()=>{
     setElementId('input-1')
   },[])
 
-  // useEffect(() => {
-  //     const dateInput = document.querySelector('.hmgnAx');
-  //     if (dateInput) {
-  //       dateInput.id = elememtId;
-  //     }
-  // }, [elememtId]);
-
-
-  const {authJWT, setAuthJWT} = useAuthJWT()
   const parseJwt = (token) => {
     const base64Payload = token.split('.')[1]
     const payload = Buffer.from(base64Payload, 'base64')
@@ -127,41 +113,38 @@ export default function ReserveDate({ formType, setFormType }) {
     const form = e.currentTarget;
     e.preventDefault();
 
-    if (form.checkValidity() === false) {
-      // 先檢查是否有填寫必填欄位
-      e.stopPropagation();
-    }
-    setValidated(true);
+    // if (form.checkValidity() === false) {
+    //   // 先檢查是否有填寫必填欄位
+    //   e.stopPropagation();
+    // }
+    // setValidated(true);
 
     try {
+
+    //   // 準備要提交的資料
+    // const dataToSubmit = {
+    //   venue_id: id, // 或者您的場地 ID
+    //   date_1: selectedDates[0], // 假設 selectedDates 是一個日期字串陣列
+    //   date_2: selectedDates[1],
+    //   date_3: selectedDates[2],
+    //   date_4: selectedDates[3],
+    //   date_5: selectedDates[4],
+    //   rental_duration: '您的租借持續時間',
+    //   reserve_name: name,
+    //   reserve_email: email,
+    //   reserve_phone: phone,
+    //   created_at: new Date().toISOString(), // 用現在的時間作為 created_at
+    // };
+
       const res = await axios.post(
-        "http://localhost:3005/venue/venue_reserve",
+        "http://localhost:3005/venue_reserve",
         reserve,
         {
           withCredentials: true,
         }
       );
+      console.log(res);
       console.log(res.data);
-      
-      if(res.data.message === 'register success'){
-        setAuthJWT({
-          isAuth:true,
-          memberData:parseJwt(res.data.accessToken)
-        })
-        await Swal.fire({
-        icon: 'success',
-        title: '註冊成功',
-        showConfirmButton: false,
-        timer: 1500,
-        backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: '35%',
-        padding: '0 0 3.25em',
-        customClass: {
-          popup: 'shadow-sm',
-        },
-      })
-        router.push(process.env.BASE_URL || '/')
-      }
     } catch (error) {
       console.log(error);
     }
@@ -176,6 +159,10 @@ export default function ReserveDate({ formType, setFormType }) {
   // const { id } = router.query
 
 const [selectedDates, setSelectedDates] = useState(toString);
+const [venuePosition, setVenuePosition] = useState(toString);
+const [venueName, setVenueName] = useState(toString);
+
+
 const [name, setName] = useState('');
 const [email, setEmail] = useState('');
 const [phone, setPhone] = useState('');
@@ -185,10 +172,15 @@ const [phone, setPhone] = useState('');
 useEffect(()=>{
   const sd = localStorage.getItem('selectedDates')
   const id = localStorage.getItem('id')
-  console.log('this is id',id);
+  const venuePosition = localStorage.getItem('venuePosition');
+const venueName = localStorage.getItem('venueName');
 
+console.log(venuePosition);
+  console.log('this is id',id);
   console.log(sd)
   setSelectedDates (sd)
+  setVenuePosition (venuePosition)
+  setVenueName (venueName)
   setId (id)
 },[])
 
@@ -198,7 +190,6 @@ useEffect(()=>{
         try {
           const response = await axios.get(`http://localhost:3005/venue/${id}`, { params: { id: id } });
           setVenueData(response.data.once);
-          // console.log(VenueData)
         } catch (error) {
           console.error('資料庫連結錯誤:', error);
         }
@@ -220,6 +211,17 @@ useEffect(()=>{
         console.error('資料庫連結錯誤:', error);
       }
     }
+
+    async function saveVenueReserveData() {
+      try {
+        const response = await axios.get('http://localhost:3005/venue_reserve', { array: { id: id }});
+        setReserveData(response.data.saveDb);
+
+      } catch (error) {
+        console.error('資料庫連結錯誤:', error);
+      }
+    }
+
     if (isReady) {
       fetchVenueData(id);
       fetchVenueReserveData();
@@ -235,7 +237,7 @@ return (
     <div className="reserve-text">
       <div>
         <p className="fs-5 fw-bold">您所選擇的</p>
-        <p className="fs-5 fw-bold">道場：{id}</p>
+        <p className="fs-5 fw-bold">道場：{venuePosition} {venueName}</p>
         <p className="fs-5 fw-bold">日期：{selectedDates}</p>
       </div>
       <hr />
@@ -282,13 +284,14 @@ return (
               >
                 <div className='text-center reserve-bn-text'>返回上一步</div>
               </Link>
-              <button
+              <Link
                 type="submit"
                 className="mx-4 mt-2 mb-5 reserve-bt2 "
+                href={`/venue/check`}
                 onClick={handleReserveSubmit}
               >
                 下一步
-                    </button>
+                    </Link>
                   </Form.Group>
                 </Row>
               </Form.Group>

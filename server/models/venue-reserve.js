@@ -18,4 +18,9 @@ import {
     return rows;
   };
 
+  const saveVenueReserve = async (array) => {
+    const { rows } = await insertMany(table,array);
+    return rows;
+  };
+
   export { getAllVenueReserve };

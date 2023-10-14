@@ -14,7 +14,18 @@ router.get('/', async(req, res) => {
     })
 })
 
-
+router.get('/', async(req, res) => {
+    // res.send('course');
+    // sql 公式函數
+    const saveDb = await saveVenueReserve();
+    console.log(saveDb);
+    console.log(req.array);
+    res.json({
+        message:'success to get all course',
+        code:'200',
+        allVenueReserve,
+    })
+})
 
 
 
