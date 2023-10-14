@@ -64,14 +64,16 @@ export default function MemberCoupon() {
   const showUsedCouponData = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3005/memberDashboard//FindUsedCoupon?memberId=${memberId}`
+        `http://localhost:3005/memberDashboard//FindOrderCoupon?memberId=${memberId}`
       );
       const UsedCoupon = response.data.UsedCoupons;
       setUsedCoupon(UsedCoupon);
+      console.log(UsedCoupon)
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   useEffect(() => {
     showAllCouponData();
@@ -136,7 +138,7 @@ export default function MemberCoupon() {
                       <tr>
                         <th>已使用優惠券</th>
                         <th>訂單編號</th>
-                        <th>折扣金額</th>
+                        {/* <th>折扣金額</th> */}
                         <th>訂單折扣後金額</th>
                         <th>使用日期</th>
                       </tr>
@@ -155,9 +157,9 @@ export default function MemberCoupon() {
                           <td>
                           <Link href={`/member/order-detail/${coupon.order_id}`}>{coupon.order_id}</Link>
                         </td>
-                        <td>$500</td>
-                        <td>$1000</td>
-                        <td>2023-09-12</td>
+                        {/* <td>$ {coupon.discount}</td> */}
+                        <td>$ {coupon.subtotal}</td>
+                        <td>{coupon.order_date}</td>
                         </tr>
                       ))}
                     </tbody>

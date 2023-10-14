@@ -140,5 +140,41 @@ router.get('/FindUsedCoupon', async (req, res) => {
     }    
 });
 
+router.get('/FindOrderCoupon', async (req, res) => {
+    const memberId = req.query.memberId;
+    const UsedCouponSql = `
+    SELECT 
+    order_list.order_id AS order_id,
+    order_list.member_id,
+    order_list.coupon_id,
+    order_list.subtotal,
+    order_list.payment,
+    order_list.order_date,
+    coupon.name AS coupon_name,
+    coupon.discount AS coupon_discount,
+    coupon.type AS coupon_type,
+    coupon.deadline AS coupon_deadline,
+    coupon.valid AS coupon_valid
+    FROM order_list
+    LEFT JOIN coupon ON order_list.coupon_id = coupon.id
+    WHERE order_list.member_id = ? AND order_list.coupon_id <> 0;
+`;
+    const [rows] = await pool.query(UsedCouponSql, [memberId]);
+
+    try {
+        return res.json({
+            message: "Find Order coupons success",
+            code: "200",
+            UsedCoupons:rows
+        });
+    } catch (error) {
+        console.error('搜尋已使用優惠券錯誤：', error);
+        return res.status(500).json({
+            message: "Find Order coupons error",
+            code: "500"
+        });
+    }    
+});
+
 
 export default router

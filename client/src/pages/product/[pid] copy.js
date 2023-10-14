@@ -258,30 +258,12 @@ function Pid() {
             {/* <Diameter /> */}
           </div>
 
-          <div className="col-2">
-              <div className="btn-group mr-2" role="group">
-                <button
-                  type="button"
-                  className="btn btn-dark"
-                  onClick={() => {
-                    minusOneProduct();
-                  }}
-                >
-                  -
-                </button>
-                <button type="button" className="btn btn">
-                  {/* {quantity} */}
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-dark"
-                  onClick={() => {
-                    plusOneProduct();
-                  }}
-                >
-                  +
-                </button>
-              </div>
+          <div className="product-info-btns">
+            {/* 數量按鈕 */}
+            <QuantityBtn
+            quantity={newQuantity}
+             onQuantityChange={handleQuantityChange}
+            />
             {/* 購物車 收藏按鈕 */}
             <div className="product-info-btn">
               <FavBtn

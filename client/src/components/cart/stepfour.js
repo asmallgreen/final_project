@@ -55,8 +55,7 @@ export default function StepThree({ setstepType }) {
       order_id: orderid,
       member_id: authJWT.memberData.id,
       coupon_id: orderInfo.coupon_id,
-      subtotal:
-        orderInfo.productTotal + orderInfo.courseTotal - orderInfo.discount,
+      subtotal: productCart.cartTotal + courseCart.cartTotal - orderInfo.discount,
       payment: orderInfo.payment,
       receive_name: orderInfo.receiverName,
       receive_phone: orderInfo.receiverPhone,
@@ -86,7 +85,7 @@ export default function StepThree({ setstepType }) {
   function generateOrderId() {
     const timestamp = new Date().getTime();
     const randomDigits = Math.floor(Math.random() * 1000);
-  
+
     // 將日期和隨機數字組合成流水編號
     const orderId = `${timestamp}-${randomDigits}`;
     return orderId;

@@ -1,6 +1,8 @@
 import React from "react";
 import { ConfigProvider, Tabs, Rate } from "antd";
 import StickyBox from "react-sticky-box";
+import { useCourseCart } from "@/hooks/use-course-cart";
+
 
 // 引入Tabs頁面
 import CourseDescription from "./CourseDescription";
@@ -42,8 +44,12 @@ const items = [
 ];
 
 export default function CourseDetail() {
-  //處理antd的tabBar的sticky效果
 
+  //處理購物車
+  const { courseCart, courses, addCourse } =
+  useCourseCart();
+
+  //處理antd的tabBar的sticky效果
   const renderTabBar = (props, DefaultTabBar) => (
     <StickyBox
       offsetTop={0}

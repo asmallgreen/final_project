@@ -22,7 +22,7 @@ export default function MemberCenter() {
         withCredentials: true,
       }
     )
-      console.log('this is product res.data:',res.data);
+      // console.log('this is product res.data:',res.data);
     if (res.data.products) {
       setProducts(res.data.products)
     }
@@ -32,8 +32,8 @@ export default function MemberCenter() {
     getProducts()
     getCourses()
   }, [])
-console.log('products:',products);
-console.log('courses:',courses);
+// console.log('products:',products);
+// console.log('courses:',courses);
 
 
 //   // 收藏的課程----------------------------------------
@@ -44,7 +44,7 @@ console.log('courses:',courses);
         withCredentials: true,
       }
     )
-      console.log('this is res.data:',res.data);
+      // console.log('this is res.data:',res.data);
     if (res.data.courses) {
       setCourses(res.data.courses)
     }

@@ -11,6 +11,7 @@ import Syllabus from "../../components/course-detail/Syllabus";
 import Faq from "../../components/course-detail/Faq";
 import Review from "../../components/course-detail/Review";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import { useCourseCart } from "@/hooks/use-course-cart";
 import Swal from "sweetalert2";
 
 const onChange = (key) => {
@@ -196,6 +197,8 @@ export default function CourseDetail() {
      }
    }
 
+   //加入購物車
+   const { courseCart, courses, addCourse } = useCourseCart();
 
    return CourseDateById !== null && TeacherDateById !== null ? (
     <div className="course-detail-body">
@@ -244,7 +247,15 @@ export default function CourseDetail() {
             </div>
             <div className="btns">
               <div onClick={()=>handleTriggerCourseFav(cidNum)} className="btn course-detail-btn like-btn">{isCourseFavorited(cidNum)?'取消收藏':'加入收藏'}</div>
-              <div className="btn course-detail-btn cart-btn">加入購物車</div>
+              <div className="btn course-detail-btn cart-btn" onClick={()=>{
+                addCourse({
+                  images: CourseDateById.images,
+                  id: CourseDateById.id,
+                  name: CourseDateById.name,
+                  price: CourseDateById.price,
+                  quantity: 1,
+                });
+              }}>加入購物車</div>
             </div>
           </div>
         </div>

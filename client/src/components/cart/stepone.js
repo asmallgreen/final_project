@@ -116,7 +116,7 @@ export default function StepOne({ setstepType}) {
   return (
     <Container>
       {/* 以下為測試按鈕 */}
-      <div>
+      {/* <div>
         <button
           className="btn btn-outline-secondary"
           onClick={() => {
@@ -177,7 +177,7 @@ export default function StepOne({ setstepType}) {
         >
           add course (id=55)
         </button>
-      </div>
+      </div> */}
       <div className="listTitle">
         <Col xs={1}>
           <input type="checkbox" className="expand pcDNone" />
