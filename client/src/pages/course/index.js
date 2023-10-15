@@ -1,16 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import axios from "axios";
 import { Row, Col } from "react-bootstrap";
-import FilterProductCard from "@/components/product/filter-card";
 import CourseListItemCard from "@/components/course-list/CourseListItemCard";
-import BreadCrumb from "@/components/bread-crumb/bread-crumb";
+import BreadCrumbCourse from "@/components/bread-crumb/bread-crumb-course";
 import LunaPagination from "@/components/pagination/luna-pagination";
 import FilterBtns from "@/components/product/filter-btns";
-import LaunchedCard from "@/components/product/launched-card";
 import { Container } from "react-bootstrap";
-//AnimatedArrow
-// 廣告
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
@@ -31,7 +26,6 @@ function CourseList() {
   };
   // console.log(filterProduct);
   //抓所有課程
-  const router = useRouter();
   useEffect(() => {
     if (typeof window !== "undefined") {
       (async () => {
@@ -57,7 +51,7 @@ function CourseList() {
         }
       })();
     }
-  }, [router.pathname, limit]);
+  }, [limit]);
 
   return (
     <>
@@ -164,7 +158,7 @@ function CourseList() {
         </div>
       </div>
       <div className="container">
-        <BreadCrumb currentCate="所有課程" />
+        <BreadCrumbCourse currentPage="所有課程" />
       </div>
       {/* 所有產品card */}
       <div className="course-list container">

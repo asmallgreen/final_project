@@ -1,8 +1,9 @@
-import React, { useState, useEffect,} from "react";
+import React, { useState, useEffect } from "react";
 import { ConfigProvider, Tabs, Rate } from "antd";
 import StickyBox from "react-sticky-box";
 import axios from "axios";
 import { useRouter } from "next/router";
+import BreadCrumbCourse from "@/components/bread-crumb/bread-crumb-course";
 
 // 引入Tabs頁面
 // import CourseDescription from "../../components/course-detail/CourseDescription";
@@ -112,7 +113,6 @@ export default function CourseDetail() {
           ];
 
           setItems(newItems);
-
         }
       } catch (error) {
         console.error("錯誤，請確認API", error);
@@ -125,10 +125,8 @@ export default function CourseDetail() {
   return CourseDateById !== null && TeacherDateById !== null ? (
     <div className="course-detail-body">
       <div className="container">
-        <div className="bread-crumb">
-          <div className="breadCrumb"></div>
-        </div>
-        <div className="course-detail-info">
+        <BreadCrumbCourse className="m-5" currentPage={CourseDateById} />
+        <div className="course-detail-info mt-sm-5">
           <div className="left">
             <div className="course-detail-img">
               <img src={CourseDateById.images} alt=""></img>
