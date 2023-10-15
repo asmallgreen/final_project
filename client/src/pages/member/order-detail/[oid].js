@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Tabs, Tab } from "react-bootstrap";
 import { useRouter } from 'next/router';
 import Link from "next/link";
 import { FaAngleLeft } from "react-icons/fa6";
 import { Rate, Collapse } from 'antd';
+import axios from "axios";
 
 import SideBar from "@/components/member/side-bar";
 import orderDetails from "@/data/order-detail.json";
 
 export default function OrderDetail() {
   const router = useRouter();
+  //oid要改
   const { oid } = router.query;
 
   //處理評價區塊開關
@@ -17,6 +19,24 @@ export default function OrderDetail() {
   const toggleRatingSection = () => {
     setIsRatingSectionOpen(!isRatingSectionOpen);
   };
+
+  //OrderDetail
+  const [detailData, setDetailData] = useState([]);
+  
+  useEffect(() => {
+    
+      axios
+      .get(`http://localhost:3005/memberDashboard/FindOrderDetail?orderId=${oid}}`)
+      .then((response) => {
+        const productOrderDetail = response.data.productOrderDetail;
+        const courseOrderDetail = response.data.courseOrderDetail;
+        console.log(productOrderDetail);
+        console.log(courseOrderDetail);
+      })
+      .catch((error) => {
+        console.error("前端請求訂單詳情錯誤:", error);
+      });
+    },[])
 
   return (
     <>

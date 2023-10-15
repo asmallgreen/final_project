@@ -5,7 +5,7 @@ import pool from '../config/db.js';
 
 import moment from 'moment';
 
-import { getMemberOrder } from '../models/member-order.js'
+import { getMemberOrder,getProductOrder,getCourseOrder } from '../models/member-order.js'
 
 //測試路由
 router.get('/', function (req, res) {
@@ -204,7 +204,7 @@ router.get(`/FindMemberOrder`, async (req, res) => {
 });
 
 
-router.get(`/FindFinishedOrder`, async (req, res) => {
+router.get('/FindFinishedOrder', async (req, res) => {
     const where = { member_id: req.query.memberId,status:'已完成'};
     const finishedOrder = await getMemberOrder(where);
 
@@ -227,6 +227,28 @@ router.get(`/FindFinishedOrder`, async (req, res) => {
         });
     }    
 });
+
+router.get('/FindOrderDetail', async (req, res) => {
+    const where = {order_id:req.query.orderId};
+    const productOrderDetail = await getProductOrder(where);
+    const courseOrderDetail = await getCourseOrder(where);
+
+    try{
+        return res.json({
+            message: "Find order detail success",
+            code: "200",
+            productOrderDetail,
+            courseOrderDetail
+        });
+    }catch (error){
+        console.error('DB搜尋訂單詳情錯誤', error);
+        return res.status(500).json({
+            message: "Find order detail error",
+            code: "500"
+        });
+    }
+
+})
 
 
 export default router

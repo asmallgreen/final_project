@@ -23,4 +23,15 @@ import {
       return result.rows;
     }
 
-    export { getMemberOrder };
+
+    const getProductOrder = async (where) => {
+      const  result  = await find("order_product", where);
+      return result.rows;
+    }
+
+    const getCourseOrder = async (where) => {
+      const  result  = await find("order_course", where);
+      return result.rows;
+    }
+
+    export { getMemberOrder,getProductOrder,getCourseOrder };
