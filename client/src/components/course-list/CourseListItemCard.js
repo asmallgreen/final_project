@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Rate } from "antd";
 import Link from "next/link";
 
 export default function CourseListItemCard(props) {
   const { CourseData } = props;
+  // console.log(CourseData);
   return (
     <>
       <div className="course-list-info-desktop">

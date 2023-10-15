@@ -4,7 +4,7 @@ import { Row, Col } from "react-bootstrap";
 import CourseListItemCard from "@/components/course-list/CourseListItemCard";
 import BreadCrumbCourse from "@/components/bread-crumb/bread-crumb-course";
 import LunaPagination from "@/components/pagination/luna-pagination";
-import FilterBtns from "@/components/product/filter-btns";
+import FilterBtns from "@/components/course-list/filter-btns";
 import { Container } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -15,44 +15,87 @@ import "swiper/css/navigation";
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
 function CourseList() {
-  const [limit, setLimit] = useState(5);
+  const [attr, setAttr] = useState("");
+  const [sort, setSort] = useState("");
+  const [page, setPage] = useState();
+  const [limit, setLimit] = useState();
+  //
   const [allCourse, setAllCourse] = useState([]);
+  const newCourse = allCourse.filter((product) => product.launched === 1);
+  const [filterCourse, setFilterCourse] = useState([]);
+  const [displayCourse, setDisplayCourse] = useState([]); //OK
+  const [alldataLength, setAlldataLength] = useState();
+  const [filterdataLength, setFilterdataLength] = useState();
+  const [displaydataLength, setDisplaydataLength] = useState();
+  const [pageLength, setPageLength] = useState();
 
-  // console.log(`目前顯示頁數:${limit}`);
-  // console.log(`所有產品:${allProduct}`);
-  // console.log(`新上架產品:${newProduct}`);
+  //
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
   };
-  // console.log(filterProduct);
-  //抓所有課程
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      (async () => {
-        try {
-          // const newLimitData = { limit:limit}
-          const res = await axios.get("http://localhost:3005/course", {
-            params: { limit },
-          });
-          //   console.log(res.data)
-          setAllCourse(res.data.coursePageAsc);
-
-          //   // 所有商品總筆數
-          //   const dataLength = Object.entries(allProduct).length;
-          //   console.log(`資料共${dataLength}筆`);
-          //   const dataLimit = 3; // 每頁的資料限制
-          //   let pageLength;
-          //   const page = Math.ceil(dataLength / dataLimit);
-          //   // 如果資料總數小於等於每頁資料限制，只需一頁
-          //   pageLength = dataLength <= dataLimit ? 1 : page;
-          //   console.log(`總頁數: ${pageLength}`);
-        } catch (error) {
-          console.log(error);
-        }
-      })();
+  const updatePage = (newPage) => {
+    if (newPage !== undefined) {
+      setPage(newPage);
+    } else {
+      setPage(1);
     }
-  }, [limit]);
+  };
+  const updateSort = (newSort) => {
+    setSort(newSort);
+    setPage(1);
+  };
+  const updateAttr = (newAttr) => {
+    setAttr(newAttr);
+    setPage(1);
+  };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try{
+        const res = await axios.get("http://localhost:3005/course", {
+          params: { limit, page, sort, attr },
+        });
+        // console.log(res.data);
+        setAllCourse(res.data.allCourse);
+        setFilterCourse(res.data.filterCourse);
+        setDisplayCourse(res.data.displaydata);
+        setAlldataLength(res.data.alldataLength);
+        setFilterdataLength(res.data.filterdataLength);
+        setDisplaydataLength(res.data.displaydataLength);
+        setPageLength(res.data.pageLength);
+      }catch{
+        console.log("error");
+      }
+    };
+
+    if(typeof window !== "undefined"){
+      fetchData();
+    }
+  }, [limit, page, sort, attr]);
+  useEffect(() => {
+    console.log(allCourse);
+  }, [allCourse]);
+  useEffect(() => {
+    console.log(filterCourse);
+  }, [filterCourse]);
+  // useEffect(() => {
+  //   console.log(displayCourse);
+  // }, [displayCourse]);
+  useEffect(() => {
+    console.log(alldataLength);
+  }, [alldataLength]);
+  useEffect(() => {
+    console.log(filterdataLength);
+  }, [filterdataLength]);
+  useEffect(() => {
+    console.log(displaydataLength);
+  }, [displaydataLength]);
+  useEffect(() => {
+    console.log(pageLength);
+  }, [pageLength]);
+  useEffect(() => {
+    console.log(page);
+  }, [page]);
   return (
     <>
       <Swiper
@@ -126,7 +169,6 @@ function CourseList() {
       <div className="phone-ad">
         <img src="/product/top1.jpg" alt="img"></img>
       </div>
-      {/* <Router> */}
       <Swiper
         spaceBetween={10}
         slidesPerView={4}
@@ -135,15 +177,8 @@ function CourseList() {
         modules={[Navigation, Pagination]}
         className="mySwiper launched-product-swiper"
       >
-        {/* {newProduct.map((data) => {
-          return (
-            <SwiperSlide>
-              <LaunchedCard key={data.id} filterNewProduct={data} />
-            </SwiperSlide>
-          );
-        })} */}
       </Swiper>
-      {/* </Router> */}
+     
 
       <div className="filter-area container-fluid">
         <div className="container">
@@ -152,7 +187,14 @@ function CourseList() {
               <p>所有課程</p>
             </div>
             <div className="p-0">
-              <FilterBtns limit={limit} setLimit={updateLimit} />
+            <FilterBtns
+                limit={limit}
+                setLimit={updateLimit}
+                setSort={updateSort}
+                setAttr={updateAttr}
+                filterdataLength={filterdataLength}
+                //要dataLength幹嘛?抓篩選旁邊的篩選筆數ui
+              />
             </div>
           </div>
         </div>
@@ -163,15 +205,20 @@ function CourseList() {
       {/* 所有產品card */}
       <div className="course-list container">
         <Container>
-          {allCourse.map((data) => {
-            {/* console.log(data); */}
+          {displayCourse.map((data) => {
             return <CourseListItemCard key={data.id} CourseData={data} />;
           })}
         </Container>
       </div>
       {/* <FilterProductCard/> */}
       {/* btn */}
-      {/* <LunaPagination /> */}
+      <LunaPagination
+        dataLength={filterdataLength}
+        pageLength={pageLength}
+        setPage={updatePage}
+        page={page}
+        limit={limit}
+      />
     </>
   );
 }

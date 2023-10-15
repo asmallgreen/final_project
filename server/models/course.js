@@ -12,7 +12,27 @@ import {
 } from "./base.js";
 
 const table = "course";
-// 取得所有資料
+
+const getOne = async (where) => {
+  const row = await findOne(table, where);
+  return row;
+};
+
+const getFilter = async (where, order) =>{
+  const { rows } = await find(table, where, order)
+  return rows;
+};
+
+const getDisplay = async (where, order, limit, offset) =>{
+  const { rows } = await find(table, where, order, limit, offset);
+  return rows;
+};
+
+const getCate = async (where) => {
+  const { rows } = await find(table, where);
+  return rows;
+};
+
 const getAllCourse = async () => {
   const { rows } = await find(table);
   return rows;
@@ -27,16 +47,10 @@ const getCoursePageAsc = async (limit, offset)=>{
   const { rows } = await find(table, where, order,limit, offset)
   return rows;
 }
-// // 取得新課程資料
-// const getNewCourse = async () => {
-//   const where = { launched : 1 }
-//   const { rows } = await find(table, where);
-//   return rows;
-// } 
 
 const searchCourse = async (where) => {
   const { rows } = await find(table, where);
   return rows;
 }; 
 
-export { getAllCourse, getCourseById, getCoursePageAsc, searchCourse };
+export { getAllCourse, getCourseById, getCoursePageAsc, searchCourse, getOne, getFilter, getDisplay, getCate };
