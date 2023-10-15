@@ -166,19 +166,27 @@ router.post('/MemberCoupon', async (req, res) => {
 
 
 router.post('/NewOrder', async (req, res) => {
+    let targetDtl= "";
 
-
+    ()=>{
+        if(product.detail==[]){
+            let targetDtl = req.body.items.product_detail
+        }else{
+            let targetDtl = row.body
+        }
+    }
 
     const row = req.body
     const sql = `INSERT INTO order_list (member_id,order_id,payment,order_date,subtotal,receive_name,receive_phone,receive_add,coupon_id) VALUES (?,?,?,?,?,?,?,?,?)`
 
-    const sql2 = `INSERT INTO order_detail (order_id,product_id,course_id,quantity,price) VALUES (?,?,?,?,?)`
+    const sql2 = `INSERT INTO order_detail (order_id,product_id,course_id,quantity,price,product_detail) VALUES (?,?,?,?,?,?)`
 
     const items = req.body.items
     try {
         const result = await pool.query(sql, [row.member_id, row.order_id, row.payment, row.order_date, row.subtotal, row.receive_name, row.receive_phone, row.receive_add, row.coupon_id]);
         const newOrder = result
 
+        
         // const result2 = await executeQuery(`DELETE FROM shopping_cart WHERE member_id = ?`, [row.member_id]);
         // const deleteCart = result2
         for (let i = 0; i < items.length; i++) {
@@ -186,7 +194,9 @@ router.post('/NewOrder', async (req, res) => {
             items[i].course_id == null ? items[i].course_id = 0 : items[i].course_id = items[i].course_id
             items[i].product_id == null ? items[i].product_id = 0 : items[i].product_id = items[i].product_id
 
-            const result3 = await pool.query(sql2, [row.order_id, items[i].product_id, items[i].course_id, items[i].quantity, items[i].price])
+            
+
+            const result3 = await pool.query(sql2, [row.order_id, items[i].product_id, items[i].course_id, items[i].quantity, items[i].price , items[i].product_detail])
 
             const newOrderDtl = result3
 

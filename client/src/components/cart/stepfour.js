@@ -7,7 +7,9 @@ import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
 
-export default function StepThree({ setstepType, discountPrice, payment, discountAmount, orderName, orderPhone, orderAddress ,cartCouponId}) {
+
+export default function StepThree({ setstepType, discountPrice, payment, discountAmount, orderName, orderPhone, orderAddress ,cartCouponId ,cartOriginDtl , cartProductDtl}) {
+
 
   const currentDate = moment().format('YYYY-MM-DD HH:mm:ss');
 
@@ -36,7 +38,7 @@ export default function StepThree({ setstepType, discountPrice, payment, discoun
         // itemName:items.name,
         items: items,
         coupon_id: cartCouponId,
-
+        
       })
       .then(response => {
         console.log(response);
