@@ -1,0 +1,46 @@
+/* components/Loading.module.css */
+.loadingContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(232, 233, 223);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+
+  &.loaded{
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.loadingContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loadingContent img {
+  max-width: 200px; /* 調整你的logo大小 */
+  transition: transform 1s ease-in-out;
+}
+
+
+.expand {
+  transform: scaleY(1); /* 初始状态，保持垂直方向不变 */
+  animation: expand 1s ease-in-out 1s forwards;
+}
+
+@keyframes expand {
+  0% {
+    transform: scaleY(0.5); /* 在垂直方向上从0开始 */
+  }
+  100% {
+    transform: scaleY(1); /* 在垂直方向上展开到1 */
+  }
+}
