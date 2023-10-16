@@ -128,6 +128,7 @@
           }
         }
         .comment-rating {
+          color: $secondary;
           font-size: 20px;
           // margin-left: 50px;
           margin-top: 8px;
@@ -140,17 +141,17 @@
       // margin-left: 80px;
       margin-top: 20px;
       padding: 5px 0px;
-      width: 80px;
+      width: 60px;
       font: 14px inter;
       background: $secondary;
       color: $primary;
     }
   }
-  .h150px {
-    max-height: 200px;
-    overflow: hidden;
-    transition: height 0.3s ease-in-out 0s;
-  }
+  // .close {
+  //   max-height: 200px;
+  //   overflow: hidden;
+  //   transition: height 0.3s ease-in-out 0s;
+  // }
 
   // 課程大綱樣式
   .syllabus-container-desktop {
@@ -368,6 +369,7 @@
             }
           }
           .comment-rating {
+            color: $secondary;
             font-size: 16px;
             margin-left: 50px;
             margin-top: 3px;
@@ -386,11 +388,11 @@
         color: $primary;
       }
     }
-    .h150px {
-      max-height: 90px;
-      overflow: hidden;
-      transition: height 0.3s ease-in-out 0s;
-    }
+    // .close {
+    //   max-height: 90px;
+    //   overflow: hidden;
+    //   transition: height 0.3s ease-in-out 0s;
+    // }
 
     // 課程大綱樣式
     .syllabus-container-mobile {

@@ -45,9 +45,12 @@ export default function CourseDetail() {
   const [CourseDateById, setCourseDateById] = useState(null);
   const [TeacherDateById, setTeacherDateById] = useState(null);
   const [SyllabusDateByCourseId, setSyllabusDateByCourseId] = useState(null);
-  const [RatingCourseDateByCourseId, setRatingCourseDateByCourseId] = useState(null)
-  const [MemberDataByCourseId, setMemberDataByCourseId] = useState(null)
+  const [RatingCourseDateByCourseId, setRatingCourseDateByCourseId] =
+    useState(null);
+  const [MemberDataByCourseId, setMemberDataByCourseId] = useState(null);
   const [items, setItems] = useState([]);
+  const [scoreAverageFromRatingCourse, setScoreAverageFromRatingCourse] = useState(0);
+  const [ratingNumber, setRatingNumber] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,9 +83,8 @@ export default function CourseDetail() {
         if (cid) {
           const memberResponse = await axios.get(
             `http://localhost:3005/rating-course/member/${cid}`
-
           );
-          setMemberDataByCourseId(memberResponse.data)
+          setMemberDataByCourseId(memberResponse.data);
         }
       } catch (error) {
         console.error("錯誤，請確認API", error);
@@ -125,24 +127,52 @@ export default function CourseDetail() {
             {
               key: "5",
               label: "學員評價",
-              children: <Review 
-              ratingCourseData={RatingCourseDateByCourseId}
-              memberData={MemberDataByCourseId} />,
+              children: (
+                <Review
+                  ratingCourseData={RatingCourseDateByCourseId}
+                  memberData={MemberDataByCourseId}
+                />
+              ),
             },
           ];
 
           setItems(newItems);
         }
+        if (RatingCourseDateByCourseId) {
+          const newScoreAverageFromRatingCourse =
+            RatingCourseDateByCourseId && RatingCourseDateByCourseId.length > 0
+              ? RatingCourseDateByCourseId.reduce(
+                  (acc, cur) => acc + cur.score,
+                  0
+                ) / RatingCourseDateByCourseId.length
+              : 0;
+          const newRatingNumber = RatingCourseDateByCourseId.length;
+          // console.log(ratingNumber);
+
+          setScoreAverageFromRatingCourse(newScoreAverageFromRatingCourse);
+          setRatingNumber(newRatingNumber)
+        }
       } catch (error) {
         console.error("錯誤，請確認API", error);
       }
     };
-
+    // console.log(RatingCourseDateByCourseId)
     fetchData();
-  }, [TeacherDateById, SyllabusDateByCourseId, RatingCourseDateByCourseId, MemberDataByCourseId]);
-  useEffect(() => {
+  }, [
+    TeacherDateById,
+    SyllabusDateByCourseId,
+    RatingCourseDateByCourseId,
+    MemberDataByCourseId,
+  ]);
 
-  })
+  // 計算課程評價平均分數
+  // const scoreAverageFromRatingCourse =
+  // RatingCourseDateByCourseId && RatingCourseDateByCourseId.length > 0
+  //   ? RatingCourseDateByCourseId.reduce((acc, cur) => acc + cur.score, 0) /
+  //     RatingCourseDateByCourseId.length
+  //   : 0;
+  // console.log(scoreAverageFromRatingCourse)
+
   return CourseDateById !== null && TeacherDateById !== null ? (
     <div className="course-detail-body">
       <div className="container">
@@ -180,9 +210,13 @@ export default function CourseDetail() {
                   <small>NT$</small> {CourseDateById.price}
                 </h2>
                 <div className="stars">
-                  <div className="counting-mobile">XXXXXX人已評價</div>
-                  <Rate disabled defaultValue={0} />
-                  <div className="counting-desktop">XXXXXX人已評價</div>
+                  <div className="counting-mobile">{ ratingNumber ? ratingNumber : 0 } 人已評價</div>
+                  <Rate
+                    disabled
+                    value={scoreAverageFromRatingCourse}
+                    className="rating-star"
+                  />
+                  <div className="counting-desktop">{ ratingNumber ? ratingNumber : 0 } 人已評價</div>
                 </div>
               </div>
             </div>

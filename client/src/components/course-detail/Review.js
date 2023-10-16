@@ -19,7 +19,7 @@ export default function Review(props) {
     };
   });
   
-  console.log(mergedData);
+  // console.log(mergedData);
   return (
     <>
 

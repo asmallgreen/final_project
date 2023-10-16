@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Rate, Avatar } from "antd";
+import Collapse from "@mui/material/Collapse";
 
 export default function CommentCard(props) {
   const {
@@ -10,11 +11,26 @@ export default function CommentCard(props) {
     comment_title,
     comment_content,
   } = props;
-console.log(member_avatar)
-  const [showFullContent, setShowFullContent] = useState(false);
-  const toggleContent = () => {
-    setShowFullContent(!showFullContent);
+  // console.log(member_avatar)
+  // const [showFullContent, setShowFullContent] = useState(false);
+  // const toggleContent = () => {
+  //   setShowFullContent(!showFullContent);
+  // };
+  // 處理內容超過高度的摺疊狀態
+  const [checked, setChecked] = useState(false);
+  const handleChange = () => {
+    setChecked((prev) => !prev);
   };
+  // 處理低於折疊高度隱藏按鈕的useRef
+  const contentBoxRef = useRef(null);
+  useEffect(() => {
+    if (contentBoxRef.current) {
+      const contentBoxHeight = contentBoxRef.current.clientHeight;
+      if (contentBoxHeight <= 70) {
+        setChecked(false);
+      }
+    }
+  }, [comment_content]);
 
   return (
     <>
@@ -34,36 +50,24 @@ console.log(member_avatar)
               <div className="member-name">{member_name}</div>
               <div className="comment-time">{comment_time}</div>
             </div>
-            <Rate disabled 
-            defaultValue={rating_score}
-            className="comment-rating"
-             />
+            <Rate
+              disabled
+              defaultValue={rating_score}
+              className="comment-rating"
+            />
           </div>
         </div>
-
-
-        
         <div className="comment-card-content mt-3 ">
-          <h3>{comment_title}</h3>
-          {showFullContent ? (
-            <div>
-              <div className="hhhh">{comment_content}</div>
-              <button className="btn" onClick={toggleContent}>
-                收起內容
-              </button>
-            </div>
-          ) : (
-            <div>
-              <div className="h150px">{comment_content}</div>
-              {/* <div className={`blur-block ${showFullContent ? "hidden" : ""}`}>
-                {comment_content}
-              </div> */}
-              <button className="btn" onClick={toggleContent}>
-                查看更多
-              </button>
-            </div>
+          <div className="comment-content-box" ref={contentBoxRef}>
+            <Collapse collapsedSize={70} in={checked}>
+              {comment_content}
+            </Collapse>
+          </div>
+          {contentBoxRef.current && contentBoxRef.current.clientHeight > 69 && (
+            <button className="btn" onClick={handleChange}>
+              {checked ? "收起" : "更多"}
+            </button>
           )}
-          {/* <p>{comment_content}</p> */}
         </div>
       </div>
     </>
