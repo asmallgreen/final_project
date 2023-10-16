@@ -253,7 +253,7 @@ function Pid() {
                   }
                 });
                 addProduct({
-                  // images: product.img1,
+                  images: product.img1,
                   id: product.id,
                   name: product.name,
                   detail_1: activeAttrValues[0],
@@ -262,6 +262,7 @@ function Pid() {
                   quantity: newQuantity,
                   price: product.price,
                 });
+                alert(`將 ${product.name} 加入購物車`);
               }}
             >
               <FaShoppingCart className="me-2" />

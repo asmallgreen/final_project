@@ -63,9 +63,11 @@ export const CourseCartProvider = ({
      * @returns {void}
      */
     const addCourse = (item) => {
+      
       if (isInCourseCart(item.id)) {
         alert(`課程 ${item.name} 已存在於購物車中`);
       } else {
+        alert('已加入購物車')
         dispatch({
           type: 'ADD_ITEM',
           payload: item,

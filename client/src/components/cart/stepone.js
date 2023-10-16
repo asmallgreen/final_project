@@ -124,7 +124,7 @@ export default function StepOne({ setstepType }) {
               clearProductCart();
             }}
           >
-            刪除
+            全刪
           </button>
           <div className="couponSection">
             <select
@@ -163,20 +163,6 @@ export default function StepOne({ setstepType }) {
           <span className="expand phoneDNone">+</span>
         </Col>
       </div>
-      <div className="productList d-none d-lg-flex">
-        <Col xs={1}>
-          <input type="checkbox" className="phoneDNone" />
-        </Col>
-        <Col xs={4}>
-          <span className="phoneDNone">商品名稱</span>
-        </Col>
-        <Col xs={4}>
-          <span className="phoneDNone">課程內容</span>
-        </Col>
-        <Col xs={3}>
-          <span className="phoneDNone">小計</span>
-        </Col>
-      </div>
       <CourseList />
       <div className="productList">
         <Col>
@@ -186,7 +172,7 @@ export default function StepOne({ setstepType }) {
               clearCourseCart();
             }}
           >
-            刪除
+            全刪
           </button>
           <div>
             共 {courseCart.totalItems} 項 , 課程小計 {courseCart.cartTotal} 元

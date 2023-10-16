@@ -6,11 +6,57 @@ import pool from '../config/db.js';
 import moment from 'moment';
 
 import { getMemberOrder,getSepcOrder,getProductOrder,getCourseOrder } from '../models/member-order.js'
+import { getLimitCoupon } from '../models/coupon-list.js'
 
 //測試路由
 router.get('/', function (req, res) {
     res.send('member home page!');
 });
+
+//領取優惠券
+router.post('/addMemberCoupon', async (req, res) => {
+    // console.log(req.body);
+    const memberId = req.body.member_id;
+    const couponId = req.body.coupon_id;
+
+    const sql = `insert into member_coupon (member_id, coupon_id) VALUES (?,?)`;
+    try {
+        const result = await pool.execute(sql, [memberId, couponId]);
+        return res.json({
+            message: "insert success",
+            code: "200",
+            result
+        });
+    } catch (error) {
+        console.error('DB會員領取優惠券錯誤', error);
+        return res.status(500).json({
+            message: "insert error",
+            code: "500"
+        });
+    }
+});
+
+//讀取優惠卷列表 LIMIT 3
+router.get('/findLimitCoupon', async (req, res) => {
+    const where = { valid: 1 };
+    const order = { id: 'DESC' };
+    const limit = 3;
+    try{
+        const couponList = await getLimitCoupon(where,order,limit);
+        return res.json({
+            message: `Find limited coupon success`,
+            code: "200",
+            couponList
+        });
+    }catch (error){
+        console.error('DB搜尋限制優惠券錯誤', error);
+        return res.status(500).json({
+            message: "Find order error",
+            code: "500"
+        });
+    }
+});
+
 
 //讀取指定member的coupon資料
 //table: member_coupon, coupon
@@ -39,30 +85,6 @@ router.get('/findMemberCoupon', async (req, res) => {
         });
       }
 });
-
-//領取優惠券
-router.post('/addMemberCoupon', async (req, res) => {
-    // console.log(req.body);
-    const memberId = req.body.member_id;
-    const couponId = req.body.coupon_id;
-
-    const sql = `insert into member_coupon (member_id, coupon_id) VALUES (?,?)`;
-    try {
-        const result = await pool.execute(sql, [memberId, couponId]);
-        return res.json({
-            message: "insert success",
-            code: "200",
-            result
-        });
-    } catch (error) {
-        console.error('DB會員領取優惠券錯誤', error);
-        return res.status(500).json({
-            message: "insert error",
-            code: "500"
-        });
-    }
-});
-
 
 //篩選出過期的UnValidcoupon
 router.get('/findUnValidCoupon', async (req, res) => {
@@ -166,7 +188,7 @@ router.get('/FindUsedCoupon', async (req, res) => {
         });
     }    
 });
-//
+//尋找order已使用過的coupon
 router.get('/FindOrderCoupon', async (req, res) => {
     const memberId = req.query.memberId;
     const UsedCouponSql = `
@@ -204,7 +226,7 @@ router.get('/FindOrderCoupon', async (req, res) => {
     }    
 });
 
-
+//篩選特定會員 理貨中訂單
 router.get(`/FindMemberOrder`, async (req, res) => {
     const where = { member_id: req.query.memberId,status:'理貨中'};
     const order = { order_date: 'DESC' }
@@ -230,7 +252,7 @@ router.get(`/FindMemberOrder`, async (req, res) => {
     }    
 });
 
-
+//篩選特定會員 已完成訂單
 router.get('/FindFinishedOrder', async (req, res) => {
     const where = { member_id: req.query.memberId,status:'已完成'};
     const finishedOrder = await getMemberOrder(where);
@@ -255,6 +277,7 @@ router.get('/FindFinishedOrder', async (req, res) => {
     }    
 });
 
+//尋找特定訂單
 router.get('/FindOrder', async (req, res) => {
     const where = {order_id:req.query.orderId};
 
@@ -266,7 +289,7 @@ router.get('/FindOrder', async (req, res) => {
             order
         });
     }catch (error){
-        console.error('DB搜尋會員訂單錯誤', error);
+        console.error('DB搜尋特定訂單錯誤', error);
         return res.status(500).json({
             message: "Find order error",
             code: "500"
@@ -274,6 +297,7 @@ router.get('/FindOrder', async (req, res) => {
     }
 })
 
+//尋找特定訂單詳情
 router.get('/FindOrderDetail', async (req, res) => {
     const where = {order_id:req.query.orderId};
     const productOrderDetail = await getProductOrder(where);
