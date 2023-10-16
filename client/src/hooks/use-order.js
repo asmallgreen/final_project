@@ -18,9 +18,9 @@ export const OrderProvider = ({ children }) => {
     discount:0,
   });
 
-  useEffect(() => {
-    setOrderInfo(orderInfo);
-  }, [orderInfo]);
+  // useEffect(() => {
+  //   setOrderInfo(orderInfo);
+  // }, [orderInfo]);
   return (
     <OrderContext.Provider value={{ orderInfo, setOrderInfo }}>
       {children}

@@ -40,6 +40,30 @@ router.get('/findMemberCoupon', async (req, res) => {
       }
 });
 
+//領取優惠券
+router.post('/addMemberCoupon', async (req, res) => {
+    // console.log(req.body);
+    const memberId = req.body.member_id;
+    const couponId = req.body.coupon_id;
+
+    const sql = `insert into member_coupon (member_id, coupon_id) VALUES (?,?)`;
+    try {
+        const result = await pool.execute(sql, [memberId, couponId]);
+        return res.json({
+            message: "insert success",
+            code: "200",
+            result
+        });
+    } catch (error) {
+        console.error('DB會員領取優惠券錯誤', error);
+        return res.status(500).json({
+            message: "insert error",
+            code: "500"
+        });
+    }
+});
+
+
 //篩選出過期的UnValidcoupon
 router.get('/findUnValidCoupon', async (req, res) => {
     const memberId = req.query.memberId;
@@ -142,7 +166,7 @@ router.get('/FindUsedCoupon', async (req, res) => {
         });
     }    
 });
-
+//
 router.get('/FindOrderCoupon', async (req, res) => {
     const memberId = req.query.memberId;
     const UsedCouponSql = `

@@ -17,16 +17,21 @@
 - [X] order-list
 - [X] order-detail
 
+### public優惠券
+- [ ]功能：領取後
+
 ### 購物車
 #### 必做功能
 - [X] 功能：規格Active
 - [X] 功能：在商品細節頁挑選隨機商品並且寫入規格數量等
-- [ ] 功能：限制要先選規格數量才能加入購物車
+- [ ] 功能：限要先制選規格數量才能加入購物車 if (selectValue.length < value.map.length) 
+- [ ] 功能：加入購物車後icon顯示數量
 
 #### 不DEMO就不會死
 - [ ] 功能：同一商品ID只能一次一種規格，新選的規格會直接覆蓋舊規格並且額外添加數量( if(product_id && detail ===)product quantity+1)
 - [ ] 功能：登出後洗掉cart，不然下一個登入的會繼承
 - [ ] 功能：有選課程就只能用信用卡付款 if course cart > 0 宅配disable
+- [ ] 功能：使用優惠券後，刪除該優惠券
 
 ### TODO LATER
 - [ ] 撞牆

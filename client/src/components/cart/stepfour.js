@@ -93,7 +93,6 @@ export default function StepThree({ setstepType }) {
 
   return (
     <div>
-      <button onClick={handleSendOrder}>test send order</button>
       <div className="stepTypeTitle phoneDNone">
         <h2>確認訂單明細</h2>
       </div>
@@ -196,14 +195,14 @@ export default function StepThree({ setstepType }) {
 
           <button
             className="nextStepBtn fs-5 d-sm-block d-none"
-            onClick={handleClick}
+            onClick={()=>{handleClick();handleSendOrder()}}
           >
             確認送出
           </button>
 
           <button
             className="nextStepBtn fs-5 d-sm-none d-block"
-            onClick={handleClick}
+            onClick={()=>{handleClick();handleSendOrder()}}
           >
             確認送出
           </button>
