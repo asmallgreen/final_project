@@ -29,10 +29,28 @@ import CountCom from "@/components/cart/countCom";
 // 購物車按鈕們
 
 function Pid() {
- 
+
   // 購物車專用
-  const [prodId , setProdId] = useState(0);
+  const [prodId, setProdId] = useState(0);
   const [cartQuantity, setCartQuantity] = useState(1);
+  const [n, setN] = useState(3);
+  const [btnValues, setBtnValues] = useState(Array.from({ length: n }).fill(null));
+  const [activeSelection, setActiveSelection] = useState([]);
+
+  const handleClick = (tableIndex, index) => {
+    const value = attrValue[tableIndex][index];
+    setActiveSelection((prevSelection) => {
+      const newSelection = [...prevSelection];
+      const rowIndex = Math.floor(newSelection.length / attrValue[0].length);
+      if (newSelection.length % attrValue[0].length === 0) {
+        newSelection.push([]);
+      }
+      newSelection[rowIndex].push(value);
+      return newSelection.slice(0, 3);
+    });
+    
+  };
+
   // 購物車專用
 
   const router = useRouter();
@@ -70,6 +88,7 @@ function Pid() {
           setTables(res.data.tables);
           setAttrValue(res.data.attrValue);
           setAttrTitle(res.data.attrTitle);
+          console.log(res.data);
         } catch (error) {
           console.log(error);
         }
@@ -88,10 +107,14 @@ function Pid() {
   }, [attrTitle]);
   useEffect(() => {
     console.log(attrValue);
+    if (attrValue != undefined) {
+      setN(Number(attrValue.length))
+      console.log(n)
+    }
   }, [attrValue]);
 
   // 會員收藏商品
-  const { authJWT,favoriteProducts, setFavoriteProducts } = useAuthJWT()
+  const { authJWT, favoriteProducts, setFavoriteProducts } = useAuthJWT()
   const memberId = authJWT.memberData.id
   // 拿出會員收藏的所有商品id
   // console.log(favoriteProducts);
@@ -104,30 +127,30 @@ function Pid() {
   const handleTriggerProductFav = async (id) => {
     // 在陣列中->移出，不在陣列中加入
     // console.log(id);
-      // 未登入時，會出現請先登入的內容
-  if (!authJWT.isAuth){
-    Swal.fire({
-      icon: 'warning',
-      title: '請先登入',
-      showConfirmButton: false,
-      timer: 1500,
-      backdrop: `rgba(255, 255, 255, 0.55)`,
-      width: '35%',
-      padding: '0 0 3.25em',
-      customClass: {
-      }
-  })
-}
+    // 未登入時，會出現請先登入的內容
+    if (!authJWT.isAuth) {
+      Swal.fire({
+        icon: 'warning',
+        title: '請先登入',
+        showConfirmButton: false,
+        timer: 1500,
+        backdrop: `rgba(255, 255, 255, 0.55)`,
+        width: '35%',
+        padding: '0 0 3.25em',
+        customClass: {
+        }
+      })
+    }
     if (favoriteProducts.includes(id)) {
-// 如果在陣列中，執行移除收藏
-      try{
+      // 如果在陣列中，執行移除收藏
+      try {
         const res = await axios.delete(`http://localhost:3005/member/${id}`,
-        {
-          data:{memberId},
-          withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
-        })
+          {
+            data: { memberId },
+            withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
+          })
         console.log(res.data);
-        if(res.data.message === '已取消收藏'){
+        if (res.data.message === '已取消收藏') {
           await Swal.fire({
             icon: 'success',
             title: '商品已取消收藏',
@@ -140,21 +163,21 @@ function Pid() {
             }
           })
         }
-      }catch(error){
+      } catch (error) {
         console.log(error);
       }
       setFavoriteProducts(favoriteProducts.filter((v) => v !== id))
     } else {
-// 如果不在陣列中，執行加入收藏
-      try{
+      // 如果不在陣列中，執行加入收藏
+      try {
         const res = await axios.put(`http://localhost:3005/member/${id}`,
-        {memberId},
-        {
-          withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
-        })
+          { memberId },
+          {
+            withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
+          })
         console.log(res.data);
 
-        if(res.data.message === '商品收藏成功'){
+        if (res.data.message === '商品收藏成功') {
           await Swal.fire({
             icon: 'success',
             title: '商品收藏成功',
@@ -167,13 +190,13 @@ function Pid() {
             }
           })
         }
-      }catch(error){
+      } catch (error) {
         console.log(error);
       }
       setFavoriteProducts([...favoriteProducts, id])
     }
 
-    
+
   }
 
 
@@ -209,17 +232,26 @@ function Pid() {
               {attrValue &&
                 Array.isArray(attrValue) &&
                 attrValue.map((tableData, tableIndex) => (
-                  <div className="d-flex" key={tableIndex}>
+                  
+                  <div className="d-flex dtlBtnGroup" key={tableIndex}>
+                    {/* 購物車有改 */}
                     {tableData.map((v, index) => (
+
                       <div
-                        className={`btn attr-value-style ${getButtonStyle(
-                          tables[tableIndex]
-                        )}`}
+                        className={`btn attr-value-style ${activeSelection === index ? 'dtlActive' : ''}
+                        ${getButtonStyle(
+                          tables[tableIndex] 
+                        ) }`}
                         key={index}
+                        onClick={() => {
+                          handleClick(tableIndex, index);
+                        }}
+                        value={v}
                       >
                         {v}
                       </div>
                     ))}
+                    {/* 購物車有改 */}
                   </div>
                 ))}
             </div>
@@ -230,27 +262,27 @@ function Pid() {
             {/* <Length /> */}
             {/* <Diameter /> */}
           </div>
-            
+
           <div className="product-info-btns">
             {/* 數量按鈕 */}
             <QuantityBtn />
             {/* 購物車 收藏按鈕 */}
             <div className="product-info-btn">
-              <FavBtn is_favorite={isProductFavorited(id)} id={id} handleTriggerProductFav={handleTriggerProductFav}/>
+              <FavBtn is_favorite={isProductFavorited(id)} id={id} handleTriggerProductFav={handleTriggerProductFav} />
               <CartBtn />
             </div>
-            
-            
-            
+
+
+
           </div>
           {/* 購物車按鈕們 */}
           <div>
-            <CountCom setCartQuantity={setCartQuantity}/>
+            <CountCom setCartQuantity={setCartQuantity} />
             <AddCartProduct cartQuantity={cartQuantity} prodId={id} />
           </div>
           {/* 購物車按鈕們 */}
         </Col>
-        
+
       </Row>
 
       {/* *********************** */}

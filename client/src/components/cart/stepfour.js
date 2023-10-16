@@ -6,9 +6,10 @@ import { useAuthJWT } from '@/hooks/use-auth-jwt';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import moment from 'moment';
+import OrderList from './orderList'
 
 
-export default function StepThree({ setstepType, discountPrice, payment, discountAmount, orderName, orderPhone, orderAddress ,cartCouponId ,cartOriginDtl , cartProductDtl}) {
+export default function StepThree({ setstepType, discountPrice, payment, discountAmount, orderName, orderPhone, orderAddress, cartCouponId, cartOriginDtl, cartProductDtl }) {
 
 
   const currentDate = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -18,6 +19,8 @@ export default function StepThree({ setstepType, discountPrice, payment, discoun
   const [swalProps, setSwalProps] = useState({});
 
   const { authJWT, setAuthJWT } = useAuthJWT()
+
+  const [accordionState, setAccordionState] = useState(false)
 
   const handleSummit = () => {
     axios.post('http://localhost:3005/cart/NewOrder/',
@@ -38,7 +41,7 @@ export default function StepThree({ setstepType, discountPrice, payment, discoun
         // itemName:items.name,
         items: items,
         coupon_id: cartCouponId,
-        
+
       })
       .then(response => {
         console.log(response);
@@ -125,54 +128,57 @@ export default function StepThree({ setstepType, discountPrice, payment, discoun
             </div>
           </Form>
         </div>
-        
-       
+
+
       </div>
-      <div className="orderTitle">
-          <Col xs={1} ><span>+</span></Col>
-          <Col xs={10} className='fs-4'>訂單明細</Col>
-          <Col xs={1}><span>+</span></Col>
-        </div>
-      <div>
-          <div className='order'>
-            <div className='fs-5'>{`共${cart.productTotalItems}件商品`}&nbsp;$ {`${!discountPrice ? cart.productTotal : discountPrice}`}</div>
-            <div className='fs-5'>{`共${cart.courseTotalItems}堂課程`}&nbsp;$ {`${cart.courseTotal}`}</div>
-            <br />
-            <div className='fs-5'>{`優惠券折抵`}&nbsp;$ {`${!discountAmount ? "0" : discountAmount}`}</div>
-          </div>
-          <div className='line'></div>
-          <div className='orderTotal fs-5'>
-            {`金額總計 `}&nbsp;<span>{`$ `}{`${!discountPrice ? cart.productTotal + cart.courseTotal : discountPrice + cart.courseTotal}`}</span>
-          </div>
-        </div>
-        <div className='stepBtnGroup'>
-          <button
-            className='nextStepBtn fs-5 opacity-50 d-lg-block d-none'
-            onClick={() => {
-              sendData(3);
+      <div
+        className="orderTitle"
 
-            }}>返回訂單資料</button>
-
-          <button
-            className='nextStepBtn fs-5 opacity-50 d-sm-none d-block'
-            onClick={() => {
-              sendData(3);
-
-            }}>上一步</button>
-
-          <button
-            className='nextStepBtn fs-5 d-sm-block d-none'
-            onClick={handleClick
-            }>確認送出</button>
-
-          <button
-            className='nextStepBtn fs-5 d-sm-none d-block'
-            onClick={handleClick
-            }>
-            確認送出
+      >
+        <Col className=''>
+          <button 
+          className='btn d-flex justify-content-between w-100'
+          onClick={()=>{
+            setAccordionState(!accordionState)
+          }}
+          >
+            <span>+</span>
+            <span>訂單明細</span>
+            <span>+</span>
           </button>
-          <SweetAlert2 {...swalProps} didClose={didSwalClose} />
-        </div>
+        </Col>
+
+      </div>
+      
+      <OrderList discountPrice={discountPrice} discountAmount={discountAmount} accordionState={accordionState}/>
+      <div className='stepBtnGroup'>
+        <button
+          className='nextStepBtn fs-5 opacity-50 d-lg-block d-none'
+          onClick={() => {
+            sendData(3);
+
+          }}>返回訂單資料</button>
+
+        <button
+          className='nextStepBtn fs-5 opacity-50 d-sm-none d-block'
+          onClick={() => {
+            sendData(3);
+
+          }}>上一步</button>
+
+        <button
+          className='nextStepBtn fs-5 d-sm-block d-none'
+          onClick={handleClick
+          }>確認送出</button>
+
+        <button
+          className='nextStepBtn fs-5 d-sm-none d-block'
+          onClick={handleClick
+          }>
+          確認送出
+        </button>
+        <SweetAlert2 {...swalProps} didClose={didSwalClose} />
+      </div>
     </div>
   )
 }

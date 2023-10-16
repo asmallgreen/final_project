@@ -181,7 +181,7 @@ router.post('/NewOrder', async (req, res) => {
     const row = req.body
     const sql = `INSERT INTO order_list (member_id,order_id,payment,order_date,subtotal,receive_name,receive_phone,receive_add,coupon_id) VALUES (?,?,?,?,?,?,?,?,?)`
 
-    const sql2 = `INSERT INTO order_detail (order_id,product_id,course_id,quantity,price,product_detail) VALUES (?,?,?,?,?,?)`
+    const sql2 = `INSERT INTO order_detail (order_id,product_id,course_id,quantity,price,product_detail1,product_detail2,product_detail3) VALUES (?,?,?,?,?,?,?,?)`
 
     const items = req.body.items
     try {
@@ -196,9 +196,20 @@ router.post('/NewOrder', async (req, res) => {
             items[i].course_id == null ? items[i].course_id = 0 : items[i].course_id = items[i].course_id
             items[i].product_id == null ? items[i].product_id = 0 : items[i].product_id = items[i].product_id
 
-            
+            let prodDtl1 = null
+            let prodDtl2 = null
+            let prodDtl3 = null
 
-            const result3 = await pool.query(sql2, [row.order_id, items[i].product_id, items[i].course_id, items[i].quantity, items[i].price , items[i].product_detail])
+            if(items[i].product_detail!=null){
+            const prodDtl = items[i].product_detail
+            const parts = prodDtl.split(',')
+            prodDtl1 = parts[0]
+            prodDtl2 = parts[1]
+            prodDtl3 = parts[2]
+            }
+
+
+            const result3 = await pool.query(sql2, [row.order_id, items[i].product_id, items[i].course_id, items[i].quantity, items[i].price , prodDtl1, prodDtl2, prodDtl3])
 
             const newOrderDtl = result3
 
@@ -247,7 +258,7 @@ router.post('/addCartCourse', async (req, res) => {
 router.post('/addCartProduct', async (req, res) => {
 
     const product = req.body
-    const sql = `INSERT INTO shopping_cart (product_id,  quantity ,member_id,product_detail) VALUES (?, ?, ?,?)`
+    const sql = `INSERT INTO shopping_cart (product_id,  quantity ,member_id,product_detail) VALUES (?, ?, ?, ?)`
     try {
         const result = await pool.query(sql, [product.product_id, product.quantity, product.member_id,product.product_detail]);
         const newProduct = result

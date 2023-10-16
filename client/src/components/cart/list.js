@@ -7,9 +7,9 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 
 export default function List({ mode, setCartProductDtl ,setCartOriginDtl}) {
-
+  const [state , setState] = useState(null)
   // 使用hooks 解出所需的狀態與函式(自context)
-  const { cart, items, plusOne, minusOne, removeItem, setChecked } = useCart()
+  const { cart, items, plusOne, minusOne, removeItem, setChecked ,cartList} = useCart()
 
   const [productDtl, setProductDtl] = useState([])
 
@@ -54,7 +54,9 @@ export default function List({ mode, setCartProductDtl ,setCartOriginDtl}) {
     setChecked(itemid, isChecked)
   };
 
-
+  useEffect(() => {
+    setState(cartList)
+  }, [cartList])
 
   // 修正 Next hydration 錯誤
   // https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html

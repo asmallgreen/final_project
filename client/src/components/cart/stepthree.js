@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Col } from 'react-bootstrap';
 import { useCart } from '@/hooks/use-cart';
 import { useAuthJWT } from '@/hooks/use-auth-jwt';
-
+import OrderList from './orderList'
 
 
 export default function StepThree({ setstepType, discountPrice, discountAmount, setOrderName, setOrderPhone, setOrderAddress }) {
@@ -12,6 +12,8 @@ export default function StepThree({ setstepType, discountPrice, discountAmount, 
   const { authJWT, setAuthJWT } = useAuthJWT()
 
   const [inputState, setInputState] = useState(false)
+
+  const [accordionState, setAccordionState] = useState(false)
 
   const handleSetInputState = () => {
     setInputState(!inputState)
@@ -112,23 +114,26 @@ export default function StepThree({ setstepType, discountPrice, discountAmount, 
           </Form>
         </div>
       </div>
-      <div className="orderTitle">
-        <Col xs={1} ><span>+</span></Col>
-        <Col xs={10} className='fs-4'>訂單明細</Col>
-        <Col xs={1}><span>+</span></Col>
+      <div
+        className="orderTitle"
+
+      >
+        <Col className=''>
+          <button 
+          className='btn d-flex justify-content-between w-100'
+          onClick={()=>{
+            setAccordionState(!accordionState)
+          }}
+          >
+            <span>+</span>
+            <span>訂單明細</span>
+            <span>+</span>
+          </button>
+        </Col>
+
       </div>
-      <div>
-        <div className='order'>
-          <div className='fs-5'>{`共${cart.productTotalItems}件商品`}&nbsp;$ {`${!discountPrice ? cart.productTotal : discountPrice}`}</div>
-          <div className='fs-5'>{`共${cart.courseTotalItems}堂課程`}&nbsp;$ {`${cart.courseTotal}`}</div>
-          <br />
-          <div className='fs-5'>{`優惠券折抵`}&nbsp;$ {`${!discountAmount ? "0" : discountAmount}`}</div>
-        </div>
-        <div className='line'></div>
-        <div className='orderTotal fs-5'>
-          {`金額總計 `}&nbsp;<span>{`$ `}{`${!discountPrice ? cart.productTotal + cart.courseTotal : discountPrice + cart.courseTotal}`}</span>
-        </div>
-      </div>
+      
+      <OrderList discountPrice={discountPrice} discountAmount={discountAmount} accordionState={accordionState}/>
       <div className='stepBtnGroup'>
         <button
           className='nextStepBtn fs-5 opacity-50 d-lg-block d-none'

@@ -340,6 +340,7 @@
     border-inline: 1px solid #616153;
     height: 48px;
     z-index: 5000;
+    background-color: #fff;
 }
 @media (max-width: 393px) {
     .numSquare{
@@ -480,8 +481,22 @@
     display: flex;
 }
 
-.orderTitle div span {
-    cursor: pointer;
+.orderTitle div button {
+    border: 0;
+    color: #fff;
+}
+
+/* -----------orderList----------- */
+
+.orderTableHead{
+    background-color: rgba(97, 97, 83, 0.50);
+    color: #fff;
+}
+.orderDetail{
+    background-color: #fff;
+}
+.itemDetail{
+    height: 90px;
 }
 
 /* -----------step3----------- */

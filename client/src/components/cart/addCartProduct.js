@@ -10,11 +10,11 @@ export default function AddCartProduct({cartQuantity , prodId}) {
 
   const {authJWT, setAuthJWT} = useAuthJWT()
   
-  console.log(prodId)
+  
     const handleClick = () => {
 
         if(cartQuantity>0){
-        axios.post('http://localhost:3005/cart/addCartProduct/',{product_id:prodId,quantity:cartQuantity,member_id:authJWT.memberData.id,product_detail:"1,2,3"})
+        axios.post('http://localhost:3005/cart/addCartProduct/',{product_id:prodId,quantity:cartQuantity,member_id:authJWT.memberData.id,product_detail:"竹,並寸,10kg"})
             .then(response => {
                 console.log('加入購物車成功');
                 Swal.fire({
