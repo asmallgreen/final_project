@@ -83,9 +83,9 @@ router.post('/', async (req, res) => {
                 case 2:
                     tables = ["product_arrow_meterial", "product_arrow_length", "product_arrow_shaft"];
                     break;
-                // case 3:
-                //     tables = ["product_size", "product_color"];
-                //     break;
+                case 3:
+                    tables = ["product_suit_size", "product_suit_color"];
+                    break;
                 default:
             }
 
@@ -105,11 +105,13 @@ router.post('/', async (req, res) => {
                 let temStr = tableName.replace("product_", "")
 
                 const sql3 = ` 
-                SELECT ${temStr}_id AS id FROM ${tableName}
+                SELECT ${temStr}_id AS id ,${temStr}.name
+                FROM ${tableName}
+                JOIN ${temStr} ON ${tableName}.${temStr}_id = ${temStr}.id
                 WHERE 1=1
                 AND product_id = ? 
                 `
-                // AND ${tableName.replace("product_","")}_id = ?  還沒有細項的名稱阿字眼
+                
 
                 const [rows] = await pool.query(sql3, [prodId]);
                 cateList[j]["data"] = rows
@@ -245,9 +247,9 @@ router.post('/addCartCourse', async (req, res) => {
 router.post('/addCartProduct', async (req, res) => {
 
     const product = req.body
-    const sql = `INSERT INTO shopping_cart (product_id,  quantity ,member_id) VALUES (?, ?, ?)`
+    const sql = `INSERT INTO shopping_cart (product_id,  quantity ,member_id,product_detail) VALUES (?, ?, ?,?)`
     try {
-        const result = await pool.query(sql, [product.product_id, product.quantity, product.member_id]);
+        const result = await pool.query(sql, [product.product_id, product.quantity, product.member_id,product.product_detail]);
         const newProduct = result
         console.log('加入購物車成功')
         return res.json({

@@ -29,7 +29,9 @@ import CountCom from "@/components/cart/countCom";
 // 購物車按鈕們
 
 function Pid() {
+ 
   // 購物車專用
+  const [prodId , setProdId] = useState(0);
   const [cartQuantity, setCartQuantity] = useState(1);
   // 購物車專用
 
@@ -244,7 +246,7 @@ function Pid() {
           {/* 購物車按鈕們 */}
           <div>
             <CountCom setCartQuantity={setCartQuantity}/>
-            <AddCartProduct cartQuantity={cartQuantity}/>
+            <AddCartProduct cartQuantity={cartQuantity} prodId={id} />
           </div>
           {/* 購物車按鈕們 */}
         </Col>

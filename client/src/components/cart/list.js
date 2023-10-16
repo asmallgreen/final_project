@@ -11,25 +11,29 @@ export default function List({ mode, setCartProductDtl ,setCartOriginDtl}) {
   // 使用hooks 解出所需的狀態與函式(自context)
   const { cart, items, plusOne, minusOne, removeItem, setChecked } = useCart()
 
-  const [producDtl, setProductDtl] = useState({})
+  const [productDtl, setProductDtl] = useState([])
 
   const [originDtl, setOriginDtl] = useState([])
 
   const [activeSelection, setActiveSelection] = useState([]);
 
-
-  const handleSelectChange = (event, productId, index) => {
+ 
+  const handleSelectChange = (event, productId, index,arr) => {
     const newValue = event.target.value;
+    console.log(arr);
     setProductDtl((prevValues) => ({
       ...prevValues,
       [productId]: {
         ...prevValues[productId],
         
-        product_detail: [...(prevValues[productId]?.product_detail || []), Number(newValue)],
-      },
+        product_detail: 
+        
+        arr.map((value, i) => i === index ? newValue : value),
+         
+      }
     }));
-    console.log('productDtL'+producDtl)
-    setCartProductDtl(producDtl)
+    console.log('productDtL'+productDtl)
+    setCartProductDtl(productDtl)
   };
 
   const handleSendDtl = (v) => {
@@ -95,6 +99,7 @@ export default function List({ mode, setCartProductDtl ,setCartOriginDtl}) {
           let temArr = aaa.split(',')
           arr = temArr
         }
+        console.log(arr)
 
 
         return (
@@ -113,8 +118,8 @@ export default function List({ mode, setCartProductDtl ,setCartOriginDtl}) {
               checked={v.isChecked ? v.isChecked : ''}
 
             /></Col>
+            <Col className='d-sm-flex d-none prodImg'></Col>
             <Col className='d-sm-flex d-none'>{v.name}</Col>
-            <Col className='d-sm-flex d-none'>{v.image}</Col>
 
             <Col xs={3} className='d-block d-xl-none'>{v.image}</Col>
             <Col className='d-flex d-xl-none flex-column justify-content-around m-0 align-items-start'>
@@ -157,12 +162,13 @@ export default function List({ mode, setCartProductDtl ,setCartOriginDtl}) {
                         id={j}
                         className='m-1'
                         defaultValue={arr[j]}
-                        onChange={(e) => { handleSelectChange(e, productId, j) }}
+                        onChange={(e) => { handleSelectChange(e, productId, j , arr) }}
+                        disabled
                       >
                         <option value="0">{eachCate.cate_name}</option>
                         {eachCate.data.map((eachData, k) => {
                           return (
-                            <option key={eachData.id} value={eachData.id}>{eachData.id}</option>
+                            <option key={eachData.id} value={eachData.name}>{eachData.name}</option>
 
                           )
                         })

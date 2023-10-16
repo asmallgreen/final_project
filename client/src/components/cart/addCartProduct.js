@@ -5,11 +5,16 @@ import axios from 'axios';
 import { useAuthJWT } from '@/hooks/use-auth-jwt';
 import Swal from "sweetalert2";
 
-export default function AddCartProduct({cartQuantity}) {
-  const {authJWT, setAuthJWT} = useAuthJWT()
+export default function AddCartProduct({cartQuantity , prodId}) {
+  
 
+  const {authJWT, setAuthJWT} = useAuthJWT()
+  
+  console.log(prodId)
     const handleClick = () => {
-        axios.post('http://localhost:3005/cart/addCartProduct/',{product_id:1,quantity:cartQuantity,member_id:authJWT.memberData.id})
+
+        if(cartQuantity>0){
+        axios.post('http://localhost:3005/cart/addCartProduct/',{product_id:prodId,quantity:cartQuantity,member_id:authJWT.memberData.id,product_detail:"1,2,3"})
             .then(response => {
                 console.log('加入購物車成功');
                 Swal.fire({
@@ -27,13 +32,28 @@ export default function AddCartProduct({cartQuantity}) {
             .catch(error => {
                 console.log(error);
             });
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: '加入購物車失敗 數量不能為零',
+              showConfirmButton: false,
+              timer: 1500,
+              backdrop: `rgba(255, 255, 255, 0.55)`,
+              width: '35%',
+              padding: '0 0 3.25em',
+              customClass: {
+              }
+            })
+          }
+
+
     };
   return (
     <>
       <Col md="6" xs='12' className="cart-btn btn " onClick={handleClick}>
       <FaShoppingCart className="me-2"/>
         加入購物車
-      </Col>
+      </Col> 
     </>
   );
 }

@@ -20,8 +20,10 @@ const onChange = (key) => {
 
 export default function CourseDetail() {
 
+  
+
   const handleCartClick =  () => {
-    axios.post('http://localhost:3005/cart/addCartCourse/',{course_id:1,quantity:1,member_id:authJWT.memberData.id})
+    axios.post('http://localhost:3005/cart/addCartCourse/',{course_id:cid,quantity:1,member_id:authJWT.memberData.id})
         .then(response => {
             console.log('加入購物車成功');
             Swal.fire({

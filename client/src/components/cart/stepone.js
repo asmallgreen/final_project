@@ -145,8 +145,8 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
 
 
         /></Col>
-        <Col xs={4}><span className='phoneDNone'>商品名稱</span></Col>
-        <Col xs={1}><span className='phoneDNone pe-5'>規格</span></Col>
+        <Col xs={4}><span className='phoneDNone pe-5'>商品名稱&nbsp;</span></Col>
+        <Col xs={1}><span className='phoneDNone pe-4'>規格&nbsp;</span></Col>
         <Col xs={2}><span className='phoneDNone ps-2'>單價</span></Col>
         <Col xs={2}><span className='phoneDNone ps-4'>數量</span></Col>
         <Col xs={2}><span className='phoneDNone ps-4'>小計</span></Col>

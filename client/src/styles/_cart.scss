@@ -186,8 +186,9 @@
     flex-direction: column;
 }
 
-.couponSection select{
+.productList .couponSection select{
     height: 45px;
+    width: 270px;
     
 }
 @media (max-width: 393px) {
@@ -197,6 +198,7 @@
     padding: 10px 40px;
     margin-bottom: 10px;
     border-radius: 2px;
+    width: 150px;
 }
 
 @media (max-width: 393px) {
@@ -347,6 +349,11 @@
     }
 }
 
+.prodImg{
+   background:  url("/Ciro/checkbox.png") no-repeat center center;
+   width: 150px;
+   height: 120px;
+}
 
 .calGroup .calBtn{
     width: 59px;
