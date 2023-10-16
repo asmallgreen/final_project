@@ -14,7 +14,7 @@ const router = express.Router();
 
 //***********產品頁************
 router.get("/", async (req, res) => {
-  const { limit = 6, page = 1, sort, attr } = req.query;
+  const { limit = 20, page = 1, sort, attr } = req.query;
   console.log(limit, page, sort, attr);
   const limitValue = parseInt(limit);
   const pageValue = parseInt(page);

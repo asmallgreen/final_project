@@ -96,9 +96,9 @@ export default function FilterBtns(props) {
             // 如果你希望設定預設值，可以透過 value 屬性設定
             value={localLimit}
           >
-            <option value="6">6</option>
-            <option value="10">10</option>
             <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
           </Form.Select>
           筆
         </div>

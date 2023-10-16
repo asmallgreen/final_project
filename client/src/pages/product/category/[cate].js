@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import axios from "axios";
+import axios, { all } from "axios";
 import Link from "next/link";
 import { Row, Col } from "react-bootstrap";
 import SalesCard from "@/components/product/sales-card";
@@ -32,6 +32,28 @@ function Cate(props) {
   // ************************************
   const [allProduct, setAllProduct] = useState([]);
   const newProduct = allProduct.filter((product) => product.launched === 1);
+  const saleProduct = allProduct.filter((product) => product.sale === 1);
+  const hotProduct = allProduct.filter((product) => product.hot === 1);
+  // Fisher-Yates Shuffle（Knuth Shuffle）用來實現真正的隨機排序
+  const shuffleArray = (array) => {
+    let currentIndex = array.length,
+      randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+    return array;
+  };
+  // 複製一份原始陣列，避免修改原始資料
+  const shuffledProducts = shuffleArray([...allProduct]);
+  // 從隨機排序後的陣列中取得前 10 個元素
+  const randomProducts = shuffledProducts.slice(0, 10);
+  // console.log(randomProducts);
+
   const [filterProduct, setFilterProduct] = useState([]);
   const [displayProduct, setDisplayProduct] = useState([]);
   const [alldataLength, setAlldataLength] = useState();
@@ -40,18 +62,18 @@ function Cate(props) {
   const [pageLength, setPageLength] = useState();
   // ***********************************************
   let currentPage;
-  switch(cate){
-    case '1' :
-      currentPage = '良弓'
+  switch (cate) {
+    case "1":
+      currentPage = "良弓";
       break;
-      case '2' :
-      currentPage = '羽箭'
+    case "2":
+      currentPage = "羽箭";
       break;
-      case '3' :
-      currentPage = '道服'
+    case "3":
+      currentPage = "道服";
       break;
-      case '4' :
-      currentPage = '其他'
+    case "4":
+      currentPage = "其他";
       break;
   }
   console.log(currentPage);
@@ -111,9 +133,9 @@ function Cate(props) {
   //   console.log(category);
   //   // setCategory(cate)
   // }, [category]);
-  useEffect(()=>{
+  useEffect(() => {
     console.log(currentPage);
-  },[currentPage])
+  }, [currentPage]);
   useEffect(() => {
     // console.log(allProduct);
   }, [allProduct]);
@@ -306,18 +328,17 @@ function Cate(props) {
         </div>
       </div>
       <div className="container">
-        <BreadCrumb currentCate="所有商品" currentPage={currentPage}/>
+        <BreadCrumb currentCate="所有商品" currentPage={currentPage} />
       </div>
       {/* 所有產品card */}
       <Row className="filter-cards-area">
         <Col md="auto" className="filter-cards">
-
-      <Row className="rows">
-        {displayProduct.map((data) => {
-          return <FilterProductCard key={data.id} filterProduct={data} />;
-        })}
-      </Row>
-      </Col>
+          <Row className="rows">
+            {displayProduct.map((data) => {
+              return <FilterProductCard key={data.id} filterProduct={data} />;
+            })}
+          </Row>
+        </Col>
       </Row>
       {/* btn */}
       <LunaPagination
@@ -340,39 +361,16 @@ function Cate(props) {
         modules={[Navigation, Pagination, History]}
         className="mySwiper sale-product-swiper pt-5"
       >
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
+        {saleProduct.map((data) => {
+          return (
+            <SwiperSlide>
+              <SalesCard key={data.id} filterSaleProduct={data} />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
       {/* 手機板 優惠專區 */}
-      <div className="phone-sales">
+      {/* <div className="phone-sales">
         <div className="cards">
           <div className="img">
             <img src="" alt="img"></img>
@@ -384,7 +382,7 @@ function Cate(props) {
             <div className="price">$3000</div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* inter */}
       <div className="inter-block text-center">真誠面對傳統，超越傳統。</div>
       {/* 相關商品推薦 */}
@@ -399,33 +397,13 @@ function Cate(props) {
         modules={[Navigation, Pagination]}
         className="mySwiper recommend-product-swiper"
       >
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
+        {hotProduct.map((data) => {
+          return (
+            <SwiperSlide>
+              <RecommendedCard key={data.id} filterRecommendProduct={data} />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
       <div className="product-under-space"></div>
 

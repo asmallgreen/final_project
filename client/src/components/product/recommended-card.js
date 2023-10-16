@@ -1,23 +1,33 @@
 import React from "react";
-export default function RecommendedCard() {
-  // const { filterNewProduct } = props;
-  // console.log(filterNewProduct);
+import Link from "next/link";
+export default function RecommendedCard(props) {
+  const { filterRecommendProduct } = props;
+  // console.log(filterRecommendProduct);
+  // const idData = filterRecommendProduct.id;
+  // console.log(idData);
+
   return (
     <>
       <div className="recommend-cards-area">
         <div className="recommend-cards">
           <div className="rows">
             <div className="card">
-              <div className="img position-relative">
-                <img src=""></img>
+              <Link
+                href={`/product/${123}`}
+                className="img position-relative"
+              >
+                <img src='' alt=""></img>
                 <div className="tag position-absolute">NEW</div>
-              </div>
+              </Link>
+
               <div className="content">
                 <div className="product-name">
-                  121321213
+                  {/* {filterRecommendProduct.name} */}
                 </div>
-                <div className="description">123</div>
-                <div className="price text-end">$NT</div>
+
+                <div className="price text-end">
+                  {/* NT${filterRecommendProduct.price} */}
+                </div>
               </div>
             </div>
           </div>

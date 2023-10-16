@@ -22,19 +22,22 @@ function Product() {
   const [sort, setSort] = useState("");
   const [page, setPage] = useState();
   const [limit, setLimit] = useState();
-// ************************************
+  // ************************************
   const [allProduct, setAllProduct] = useState([]);
   const newProduct = allProduct.filter((product) => product.launched === 1);
+  const saleProduct = allProduct.filter((product) => product.sale === 1);
+  const hotProduct = allProduct.filter((product) => product.hot === 1);
+
   const [filterProduct, setFilterProduct] = useState([]);
   const [displayProduct, setDisplayProduct] = useState([]);
   const [alldataLength, setAlldataLength] = useState();
   const [filterdataLength, setFilterdataLength] = useState();
   const [displaydataLength, setDisplaydataLength] = useState();
   const [pageLength, setPageLength] = useState();
-// ***********************************************
+  // ***********************************************
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
-    console.log(limit);
+    // console.log(limit);
   };
   const updatePage = (newPage) => {
     if (newPage !== undefined) {
@@ -45,13 +48,11 @@ function Product() {
     }
   };
   const updateSort = (newSort) => {
-    
     setSort(newSort);
     setPage(1);
     // console.log(sort);
   };
   const updateAttr = (newAttr) => {
-    
     setAttr(newAttr);
     setPage(1);
     // console.log(newAttr);
@@ -81,29 +82,30 @@ function Product() {
       fetchData();
     }
   }, [limit, page, sort, attr]);
+  // useEffect(()=>{},[randomProducts])
   useEffect(() => {
-    console.log(allProduct);
+    // console.log(allProduct);
   }, [allProduct]);
   useEffect(() => {
-    console.log(filterProduct);
+    // console.log(filterProduct);
   }, [filterProduct]);
   useEffect(() => {
-    console.log(displayProduct);
+    // console.log(displayProduct);
   }, [displayProduct]);
   useEffect(() => {
-    console.log(alldataLength);
+    // console.log(alldataLength);
   }, [alldataLength]);
   useEffect(() => {
-    console.log(filterdataLength);
+    // console.log(filterdataLength);
   }, [filterdataLength]);
   useEffect(() => {
-    console.log(displaydataLength);
+    // console.log(displaydataLength);
   }, [displaydataLength]);
   useEffect(() => {
-    console.log(pageLength);
+    // console.log(pageLength);
   }, [pageLength]);
   useEffect(() => {
-    console.log(page);
+    // console.log(page);
   }, [page]);
 
   return (
@@ -272,7 +274,7 @@ function Product() {
         </div>
       </div>
       <div className="container">
-        <BreadCrumb currentPage={'所有商品'}/>
+        <BreadCrumb currentPage={"所有商品"} />
       </div>
       {/* 所有產品card */}
       <Row className="filter-cards-area">
@@ -306,36 +308,13 @@ function Product() {
         modules={[Navigation, Pagination, History]}
         className="mySwiper sale-product-swiper pt-5"
       >
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <SalesCard />
-        </SwiperSlide>
+        {saleProduct.map((data) => {
+          return (
+            <SwiperSlide>
+              <SalesCard key={data.id} filterSaleProduct={data} />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
       {/* 手機板 優惠專區 */}
       <div className="phone-sales">
@@ -365,33 +344,13 @@ function Product() {
         modules={[Navigation, Pagination]}
         className="mySwiper recommend-product-swiper"
       >
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
+        {hotProduct.map((data) => {
+          return (
+            <SwiperSlide>
+              <RecommendedCard key={data.id} filterRecommendProduct={data} />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
       <div className="product-under-space"></div>
 
