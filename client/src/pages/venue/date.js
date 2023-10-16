@@ -55,12 +55,13 @@ export default function ReserveDate() {
           reserve.date_3,
           reserve.date_4,
           reserve.date_5,
-        ]).flat();
+        ]).flat().map(date => date.replace('-', ', '));
         console.log(reservedDates);
 
         // 在日期选择器中禁用已被预定的日期
-        const disabledDates = reservedDates.map((date) => new Date(date));
+        const disabledDates = reservedDates;
         setDisabledDates(disabledDates);
+        console.log(disabledDates);
 
       } catch (error) {
         console.error('資料庫連結錯誤:', error);
@@ -119,10 +120,13 @@ export default function ReserveDate() {
               selected: 'my-selected'
             }}
             disabled={(date) => {
-              // // 禁止选择当天和过去的日期，以及已被预定的日期
-              return date <= new Date() || disabledDates.includes(date.toISOString());
-            }}
-          />
+            // 禁止选择当天和过去的日期，以及已被预定的日期
+            const currentDate = new Date();
+            return (
+              date <= currentDate || disabledDates.some(disabledDate => date.getTime() === new Date(disabledDate).getTime())
+            );
+          }}
+        />
         </div>
 
         <div className='d-flex justify-content-center'>
