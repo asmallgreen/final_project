@@ -7,7 +7,7 @@ import { Rate, Collapse } from 'antd';
 import axios from "axios";
 
 import SideBar from "@/components/member/side-bar";
-import orderDetails from "@/data/order-detail.json";
+// import orderDetails from "@/data/order-detail.json";
 
 export default function OrderDetail() {
   const router = useRouter();
@@ -22,21 +22,26 @@ export default function OrderDetail() {
 
   //OrderDetail
   const [detailData, setDetailData] = useState([]);
+  const [productDetail, setProductDetail] = useState([]);
+  const [courseDetail, setCourseDetail] = useState([]);
   
   useEffect(() => {
-    
+    console.log('订单标识符 oid:', oid);
       axios
-      .get(`http://localhost:3005/memberDashboard/FindOrderDetail?orderId=${oid}}`)
+      .get(`http://localhost:3005/memberDashboard/FindOrderDetail?orderId=${oid}`)
       .then((response) => {
+        const orderDetail = response.data;
         const productOrderDetail = response.data.productOrderDetail;
-        const courseOrderDetail = response.data.courseOrderDetail;
-        console.log(productOrderDetail);
-        console.log(courseOrderDetail);
+        const courseOrderDetail = response.data.courseOrderDetail
+        setDetailData(orderDetail);
+        setProductDetail(productOrderDetail);
+        setCourseDetail(courseOrderDetail);
+        // console.log(productDetail)
       })
       .catch((error) => {
         console.error("前端請求訂單詳情錯誤:", error);
       });
-    },[])
+    },[oid])
 
   return (
     <>
@@ -93,7 +98,7 @@ export default function OrderDetail() {
                       borderRadius: 0,
                     }}
                   >
-                    {orderDetails.map((order, index) => (
+                    {productDetail.map((order, index) => (
                       <Collapse.Panel
                         key={index}
                         header={(

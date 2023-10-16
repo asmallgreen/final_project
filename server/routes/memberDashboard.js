@@ -235,7 +235,7 @@ router.get('/FindOrderDetail', async (req, res) => {
 
     try{
         return res.json({
-            message: "Find order detail success",
+            message: `Find order detail ${req.query.orderId} success`,
             code: "200",
             productOrderDetail,
             courseOrderDetail
