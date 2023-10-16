@@ -14,7 +14,6 @@ export default function MemberCoupon() {
 
   const [allCouponData, setAllCouponData] = useState([]);
   const [showValidCoupon, setShowValidCoupon] = useState(false);
-
   const [UsedCoupon, setUsedCoupon] = useState([]);
 
   // 過濾checkbox切換
@@ -126,6 +125,7 @@ export default function MemberCoupon() {
                             type={coupon.type}
                             discount={coupon.discount}
                             deadline={coupon.deadline}
+                            isExpired={new Date(coupon.deadline) < new Date()}
                           />
                         </div>
                       ))}

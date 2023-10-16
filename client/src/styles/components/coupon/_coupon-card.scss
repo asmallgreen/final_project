@@ -45,3 +45,19 @@
     }
   }
 }
+.couponExpired{
+  filter: brightness(65%);
+  position: relative;
+  &::before{
+    content: "已過期";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: red;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 2px;
+    font-size: 12px;
+  }
+}
+

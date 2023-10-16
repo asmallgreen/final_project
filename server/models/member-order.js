@@ -18,11 +18,15 @@ import {
   } from "./base.js";
 
 
-    const getMemberOrder = async (where) => {
-      const  result  = await find("order_list", where);
+    const getMemberOrder = async (where,order) => {
+      const  result  = await find("order_list", where, order);
       return result.rows;
     }
 
+    const getSepcOrder = async (where) => {
+      const  result  = await find("order_list", where);
+      return result.rows;
+    }
 
     const getProductOrder = async (where) => {
       const  result  = await find("order_product", where);
@@ -34,4 +38,4 @@ import {
       return result.rows;
     }
 
-    export { getMemberOrder,getProductOrder,getCourseOrder };
+    export { getMemberOrder,getSepcOrder,getProductOrder,getCourseOrder };

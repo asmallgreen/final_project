@@ -3,7 +3,6 @@ import React, {
   useContext,
   createContext,
   useEffect,
-  use,
 } from "react";
 
 const OrderContext = createContext(null);

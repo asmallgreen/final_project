@@ -5,7 +5,7 @@ import pool from '../config/db.js';
 
 import moment from 'moment';
 
-import { getMemberOrder,getProductOrder,getCourseOrder } from '../models/member-order.js'
+import { getMemberOrder,getSepcOrder,getProductOrder,getCourseOrder } from '../models/member-order.js'
 
 //測試路由
 router.get('/', function (req, res) {
@@ -20,7 +20,8 @@ router.get('/findMemberCoupon', async (req, res) => {
     FROM member_coupon
     INNER JOIN coupon ON member_coupon.coupon_id = coupon.id
     WHERE member_coupon.member_id = ? 
-    AND member_coupon.status = "可使用";`
+    AND member_coupon.status = "可使用"
+    ;`
     try {
         //執行查詢
         const [rows] = await pool.query(sql, [memberId]);
@@ -159,7 +160,8 @@ router.get('/FindOrderCoupon', async (req, res) => {
     coupon.valid AS coupon_valid
     FROM order_list
     LEFT JOIN coupon ON order_list.coupon_id = coupon.id
-    WHERE order_list.member_id = ? AND order_list.coupon_id <> 0;
+    WHERE order_list.member_id = ? AND order_list.coupon_id <> 0
+    ORDER BY order_list.order_date DESC;
 `;
     const [rows] = await pool.query(UsedCouponSql, [memberId]);
 
@@ -181,7 +183,8 @@ router.get('/FindOrderCoupon', async (req, res) => {
 
 router.get(`/FindMemberOrder`, async (req, res) => {
     const where = { member_id: req.query.memberId,status:'理貨中'};
-    const ordersData = await getMemberOrder(where);
+    const order = { order_date: 'DESC' }
+    const ordersData = await getMemberOrder(where,order);
 
     //只取Date
     ordersData.forEach(order => {
@@ -215,7 +218,7 @@ router.get('/FindFinishedOrder', async (req, res) => {
 
     try {
         return res.json({
-            message: "Find member orders success",
+            message: "Find  order success",
             code: "200",
             finishedOrder
         });
@@ -227,6 +230,25 @@ router.get('/FindFinishedOrder', async (req, res) => {
         });
     }    
 });
+
+router.get('/FindOrder', async (req, res) => {
+    const where = {order_id:req.query.orderId};
+
+    try{
+        const order = await getSepcOrder(where);
+        return res.json({
+            message: `Find order ${req.query.orderId} success`,
+            code: "200",
+            order
+        });
+    }catch (error){
+        console.error('DB搜尋會員訂單錯誤', error);
+        return res.status(500).json({
+            message: "Find order error",
+            code: "500"
+        });
+    }
+})
 
 router.get('/FindOrderDetail', async (req, res) => {
     const where = {order_id:req.query.orderId};

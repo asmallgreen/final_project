@@ -1,6 +1,7 @@
 import React from "react";
 
-export default function CouponCard({ id, name, type, discount, deadline }) {
+export default function CouponCard({ id, name, type, discount, deadline, isExpired }) {
+  const couponClass = isExpired ? 'couponExpired' : ''
   const deadlineDate = new Date(deadline);
   const formattedDeadline = deadlineDate.toLocaleDateString();
 
@@ -16,7 +17,7 @@ export default function CouponCard({ id, name, type, discount, deadline }) {
     discountText = `$${discount}`;
   }
   return (
-    <div className="coupon-card">
+    <div className={`coupon-card ${couponClass}`}>
       <div className={` ${couponLeftClass}`}>
         <div className="text-center py-3">
           <div>
