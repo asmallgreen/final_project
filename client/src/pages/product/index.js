@@ -272,7 +272,7 @@ function Product() {
         </div>
       </div>
       <div className="container">
-        <BreadCrumb currentCate="所有商品" />
+        <BreadCrumb currentPage={'所有商品'}/>
       </div>
       {/* 所有產品card */}
       <Row className="filter-cards-area">

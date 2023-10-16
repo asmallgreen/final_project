@@ -31,7 +31,7 @@ function Pid() {
   const [tables, setTables] = useState();
   const [attrValue, setAttrValue] = useState();
   const [attrTitle, setAttrTitle] = useState();
-
+  const [cate, setCate] = useState();
   const getButtonStyle = (tableName) => {
     switch (tableName) {
       case "bow_strength":
@@ -63,24 +63,41 @@ function Pid() {
       })();
     }
   }, [pid]);
-
   useEffect(() => {
-    console.log(product);
+    // console.log(cate);
+  }, [cate]);
+  useEffect(() => {
+    // console.log(product);
+    switch (product.category_id) {
+      case 1:
+        setCate("良弓");
+        break;
+      case 2:
+        setCate("羽箭");
+        break;
+      case 3:
+        setCate("道服");
+        break;
+      case 4:
+        setCate("其他");
+        break;
+    }
+    // console.log(cate);
   }, [product]);
   useEffect(() => {
-    console.log(tables);
+    // console.log(tables);
   }, []);
   useEffect(() => {
-    console.log(attrTitle);
+    // console.log(attrTitle);
   }, [attrTitle]);
   useEffect(() => {
-    console.log(attrValue);
+    // console.log(attrValue);
   }, [attrValue]);
   return (
     <>
       {/* 麵包屑 */}
       <div className="product-info-crum">
-        <BreadCrumb />
+        <BreadCrumb currentPage={cate} />
       </div>
       {/* *********************** */}
       <Row>

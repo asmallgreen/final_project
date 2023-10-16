@@ -3,43 +3,42 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 
 export default function BreadCrumb(props) {
-  const { currentCate } = props;
+  const { currentPage } = props;
+  // let currentLink;
+  const [currentLink, setCurrentLink] = useState()
+ 
   const router = useRouter();
-  const [pathnameValue, setPathNameValue] = useState()
+  const [pathnameValue, setPathNameValue] = useState();
   // 在 useEffect 中監聽路由的變化
-  useEffect(() => {
-    // 在這裡可以根據路由的不同值改變相應的內容
-    const currentRoute = router.pathname;
-    const asPath = router.asPath
-    const route = router.query
-    console.log(asPath);
-    console.log(route);
-    console.log(currentRoute);
-    // let pathnameValue = "";
-    console.log(pathnameValue);
-
-    // 根據不同的路由值設定不同的 pathnameValue
-    // if (currentRoute === "/route1") {
-    //   pathnameValue = "路由1的值";
-    // } else if (currentRoute === "/route2") {
-    //   pathnameValue = "路由2的值";
-    // } 
-    // 可以根據需求添加其他路由的判斷
-
-    switch(currentRoute){
-      case '/product':
-        setPathNameValue('商品')
+  useEffect(()=>{
+    
+console.log(currentLink);
+  },[currentLink])
+  useEffect(()=>{
+    switch (currentPage) {
+      case "所有商品":
+        setCurrentLink('')
         break;
-        case '/course':
-          setPathNameValue('弓道課程')
+      case "良弓":
+        setCurrentLink(1)
         break;
-        case '/venue':
-          setPathNameValue('場地')
+      case "羽箭":
+        setCurrentLink(2)
+        break;
+      case "道服":
+        setCurrentLink(3)
+        break;
+      case "其他":
+        setCurrentLink(4)
         break;
     }
+  },[currentPage])
+  useEffect(() => {
+    
+    // 在這裡可以根據路由的不同值改變相應的內容
     // 更新內容
     // ...
-  }, [router.pathname]); 
+  }, [router.pathname]);
   return (
     <>
       <div className="bread-crumb d-flex align-items-center">
@@ -50,12 +49,18 @@ export default function BreadCrumb(props) {
           &gt;
         </div>
         <div className="crumb-item">
-          <Link href="/product" className="crumb-link">{pathnameValue}</Link>
-          
+          <Link href="/product" className="crumb-link">
+            商品
+          </Link>
           &gt;
         </div>
         <div className="crumb-item">
-          <Link href="/product" className="crumb-link">{pathnameValue}</Link>
+          <Link
+            href={`/product/${currentLink == null ? "" : 'category'}/${currentLink == null ? "" : currentLink}`}
+            className="crumb-link"
+          >
+            {currentPage}
+          </Link>
         </div>
       </div>
       {/* <div className="bread-crumb d-flex align-items-center">

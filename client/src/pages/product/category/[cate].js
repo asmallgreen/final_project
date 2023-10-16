@@ -39,7 +39,22 @@ function Cate(props) {
   const [displaydataLength, setDisplaydataLength] = useState();
   const [pageLength, setPageLength] = useState();
   // ***********************************************
-
+  let currentPage;
+  switch(cate){
+    case '1' :
+      currentPage = '良弓'
+      break;
+      case '2' :
+      currentPage = '羽箭'
+      break;
+      case '3' :
+      currentPage = '道服'
+      break;
+      case '4' :
+      currentPage = '其他'
+      break;
+  }
+  console.log(currentPage);
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
     // console.log(limit);
@@ -96,6 +111,9 @@ function Cate(props) {
   //   console.log(category);
   //   // setCategory(cate)
   // }, [category]);
+  useEffect(()=>{
+    console.log(currentPage);
+  },[currentPage])
   useEffect(() => {
     // console.log(allProduct);
   }, [allProduct]);
@@ -288,13 +306,18 @@ function Cate(props) {
         </div>
       </div>
       <div className="container">
-        <BreadCrumb currentCate="所有商品" />
+        <BreadCrumb currentCate="所有商品" currentPage={currentPage}/>
       </div>
       {/* 所有產品card */}
+      <Row className="filter-cards-area">
+        <Col md="auto" className="filter-cards">
+
       <Row className="rows">
         {displayProduct.map((data) => {
           return <FilterProductCard key={data.id} filterProduct={data} />;
         })}
+      </Row>
+      </Col>
       </Row>
       {/* btn */}
       <LunaPagination

@@ -47,18 +47,17 @@ router.get("/", async (req, res) => {
       attrValue = "";
       break;
     case "attr1":
-      attrValue = { category_id: 1 };
+      attrValue = "WHERE price<4000";
       break;
     case "attr2":
-      attrValue = { category_id: 2 };
+      attrValue = "WHERE price BETWEEN 4000 AND 6000";
       break;
     case "attr3":
-      attrValue = { category_id: 3 };
+      attrValue = "WHERE price>6000";
       break;
-    case "attr4":
-      attrValue = { category_id: 4 };
-      break;
+
   }
+
   const alldata = await getAll();
   const filterdata = await getFilter(attrValue, sortValue);
   const displaydata = await getDisplay(
@@ -187,30 +186,17 @@ router.get("/category/:cate", async (req, res) => {
     case "default":
       attrValue = "";
       break;
+
     case "attr1":
-      attrValue = "price>4000";
+      attrValue = "price<4000";
       break;
     case "attr2":
-      attrValue = "price>5000";
+      attrValue = "price BETWEEN 4000 AND 6000";
       break;
     case "attr3":
       attrValue = "price>6000";
       break;
-    case "attr4":
-      attrValue = "price>7000";
-      break;
-    case "attr5":
-      attrValue = "price>8000";
-      break;
-    case "attr6":
-      attrValue = "price>9000";
-      break;
-    case "attr7":
-      attrValue = "price>100000";
-      break;
-    case "attr8":
-      attrValue = "price>12000";
-      break;
+
   }
   let cateValue;
   switch (cate) {
@@ -239,7 +225,7 @@ router.get("/category/:cate", async (req, res) => {
     where += ` AND ${attrValue}`;
     
   }
-  console.log(where);
+  // console.log(where);
   const catedata = await getCate(cateValue);
   const filterdata = await getFilter(where, sortValue);
   const displaydata = await getDisplay(
