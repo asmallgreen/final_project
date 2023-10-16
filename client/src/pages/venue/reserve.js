@@ -27,7 +27,7 @@ export default function ReserveDate({ formType, setFormType }) {
 }})
 
   // react 表單檢查(不可空白欄位)
-  const [validated, setValidated] = useState(false);
+  // const [validated, setValidated] = useState(false);
   // const [elememtId, setElementId] = useState()
 
   // const chineseNameRegex = /^[\u4e00-\u9fa5]+$/; // 中文姓名正規表達式
@@ -151,13 +151,16 @@ export default function ReserveDate({ formType, setFormType }) {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
 
-// const router = useRouter();
+
 
 useEffect(()=>{
-  const sd = localStorage.getItem('selectedDates')
-  const id = localStorage.getItem('id')
+  const sd = localStorage.getItem('selectedDates');
+  const id = localStorage.getItem('id');
   const venuePosition = localStorage.getItem('venuePosition');
-const venueName = localStorage.getItem('venueName');
+  const venueName = localStorage.getItem('venueName');
+  const selectedDatesString = localStorage.getItem('selectedDates');
+  const selectedDatesArray = selectedDatesString.split(',');
+  console.log(selectedDatesArray);
 
   // console.log(venuePosition);
   // console.log('this is id',id);
@@ -212,6 +215,7 @@ const venueName = localStorage.getItem('venueName');
   //   }
   // }, [isReady]);
 
+
 return (
   <Container>
     <div className="m-5 d-flex justify-content-center">
@@ -241,7 +245,7 @@ return (
                 type="email" // Corrected type from "mail" to "email"
                 name="reserve_email"
                 onChange={handleChange}
-                onBlur={handleEmailReg}
+                onBlur={handleEmailReg} 
               />
               <Form.Control.Feedback type="invalid">請輸入Email</Form.Control.Feedback>
             </Form.Group>
@@ -260,7 +264,7 @@ return (
             </Form.Group>
           </Row>
           <Row className="mt-3 d-flex justify-content-center align-items-center">
-            <Form.Group as={Col} md="12" xs="12" className="p-0 text-center">
+            <Form.Group as={Col} md="12" xs="12" className="p-0 text-center" >
               <Link
                 type="button"
                 className="mx-4 mt-2 mb-5 text-decoration-none reserve-bt1  "
