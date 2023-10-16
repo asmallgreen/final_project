@@ -282,5 +282,34 @@ transporter.sendMail(mailOptions, (err, response) => {
 //   })
 // })
 
+// router.get('/favorite-course-id', authenticate, async (req, res, next) => {
+//     const sql = `SELECT f.course_id
+//           FROM fav_course AS f
+//           WHERE f.member_id = ${req.member.id}
+//           ORDER BY f.course_id ASC;`
+  
+//     const { rows } = await executeQuery(sql)
+//     // 將結果中的course_id取出變為一個純資料的陣列
+//     const favoriteCourses = rows.map((v) => v.course_id)
+  
+//     res.json({ favoriteCourses })
+//   })
+//   // 再去產品資料表拿收藏的商品資料
+//   router.get('/fav-courses', authenticate, async (req, res, next) => {
+//     const member = req.member
+//     const mid = member.id
+  
+//     const sql = `SELECT c.*
+//   FROM course AS c
+//       INNER JOIN fav_course AS fc ON fc.course_id = c.id
+//       AND fc.member_id = ${mid}
+//   ORDER BY c.id ASC`
+  
+//     const { rows } = await executeQuery(sql)
+  
+//     console.log(rows)
+  
+//     res.json({ courses: rows })
+//   })
 })
 export default router;

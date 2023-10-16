@@ -10,7 +10,7 @@ export default function CommentCard(props) {
     comment_title,
     comment_content,
   } = props;
-
+console.log(member_avatar)
   const [showFullContent, setShowFullContent] = useState(false);
   const toggleContent = () => {
     setShowFullContent(!showFullContent);
@@ -18,11 +18,12 @@ export default function CommentCard(props) {
 
   return (
     <>
-      <div className="comment-card container p-4 ">
+      <div className="comment-card container p-4 mb-3 ">
         <div className="comment-card-header d-flex mb-2">
           <Avatar
             className=""
-            src={member_avatar}
+            // src={`/Duo/${member_avatar}`}
+            src={`/Duo/${member_avatar}`}
             size={{
               xs: 40,
               xl: 65,

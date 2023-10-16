@@ -12,8 +12,6 @@ export default function ModalSort(props) {
   const [sortSend, setSortSend] = useState(sortState);
   props.sortChange(sortSend);
   //傳回filter-btns動作
-  console.log(sortState);
-  console.log(sortSend);
 
   const handleModal = () => {
     setAttr(true);

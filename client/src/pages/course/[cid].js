@@ -11,6 +11,7 @@ import TeacherDescription from "../../components/course-detail/TeacherDescriptio
 import Syllabus from "../../components/course-detail/Syllabus";
 import Faq from "../../components/course-detail/Faq";
 import Review from "../../components/course-detail/Review";
+import { set } from "lodash";
 
 const onChange = (key) => {
   // console.log(key);
@@ -44,6 +45,8 @@ export default function CourseDetail() {
   const [CourseDateById, setCourseDateById] = useState(null);
   const [TeacherDateById, setTeacherDateById] = useState(null);
   const [SyllabusDateByCourseId, setSyllabusDateByCourseId] = useState(null);
+  const [RatingCourseDateByCourseId, setRatingCourseDateByCourseId] = useState(null)
+  const [MemberDataByCourseId, setMemberDataByCourseId] = useState(null)
   const [items, setItems] = useState([]);
 
   useEffect(() => {
@@ -68,14 +71,28 @@ export default function CourseDetail() {
           );
           setSyllabusDateByCourseId(syllabusResponse.data);
         }
+        if (cid) {
+          const ratingCourseResponse = await axios.get(
+            `http://localhost:3005/rating-course/${cid}`
+          );
+          setRatingCourseDateByCourseId(ratingCourseResponse.data);
+        }
+        if (cid) {
+          const memberResponse = await axios.get(
+            `http://localhost:3005/rating-course/member/${cid}`
+
+          );
+          setMemberDataByCourseId(memberResponse.data)
+        }
       } catch (error) {
         console.error("錯誤，請確認API", error);
       }
+      // console.log(RatingCourseDateByCourseId)
     };
 
     fetchData();
   }, [cid]);
-
+  // console.log(MemberDataByCourseId)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -108,7 +125,9 @@ export default function CourseDetail() {
             {
               key: "5",
               label: "學員評價",
-              children: <Review />,
+              children: <Review 
+              ratingCourseData={RatingCourseDateByCourseId}
+              memberData={MemberDataByCourseId} />,
             },
           ];
 
@@ -120,8 +139,10 @@ export default function CourseDetail() {
     };
 
     fetchData();
-  }, [TeacherDateById, SyllabusDateByCourseId]);
+  }, [TeacherDateById, SyllabusDateByCourseId, RatingCourseDateByCourseId, MemberDataByCourseId]);
+  useEffect(() => {
 
+  })
   return CourseDateById !== null && TeacherDateById !== null ? (
     <div className="course-detail-body">
       <div className="container">

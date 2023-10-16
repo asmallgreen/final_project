@@ -23,6 +23,7 @@ router.get("/", async (req, res) => {
   switch (sort) {
     case "default":
       sortValue = { id: "ASC" };
+      break;
     case "hot":
       sortValue = { hot: "ASC" };
       break;
@@ -46,16 +47,16 @@ router.get("/", async (req, res) => {
       attrValue = "";
       break;
     case "attr1":
-      attrValue = { category_id: 1 };
+      attrValue = { price: 500 };
       break;
     case "attr2":
-      attrValue = { category_id: 2 };
+      attrValue = { price: 2 };
       break;
     case "attr3":
-      attrValue = { category_id: 3 };
+      attrValue = { price: 3 };
       break;
     case "attr4":
-      attrValue = { category_id: 4 };
+      attrValue = { price: 4 };
       break;
   }
   const allCourse = await getAllCourse();
