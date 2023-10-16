@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 export default function RecommendedCard(props) {
   const { filterRecommendProduct } = props;
-  // console.log(filterRecommendProduct);
   // const idData = filterRecommendProduct.id;
-  // console.log(idData);
+  useEffect(() => {
+    console.log(filterRecommendProduct);
+  }, [filterRecommendProduct]);
 
   return (
     <>
@@ -16,17 +17,17 @@ export default function RecommendedCard(props) {
                 href={`/product/${123}`}
                 className="img position-relative"
               >
-                <img src='' alt=""></img>
+                <img src={filterRecommendProduct.img1} alt=""></img>
                 <div className="tag position-absolute">NEW</div>
               </Link>
 
               <div className="content">
                 <div className="product-name">
-                  {/* {filterRecommendProduct.name} */}
+                  {filterRecommendProduct.name}
                 </div>
 
                 <div className="price text-end">
-                  {/* NT${filterRecommendProduct.price} */}
+                  NT${filterRecommendProduct.price}
                 </div>
               </div>
             </div>

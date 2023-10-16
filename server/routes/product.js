@@ -94,6 +94,7 @@ router.get("/:pid", async (req, res) => {
     const id = req.params.pid;
     const where = { id: id };
     const data = await getOne(where);
+    const alldata = await getAll()
     const cate = data.category_id;
 
     let tables = [];
@@ -140,6 +141,7 @@ router.get("/:pid", async (req, res) => {
     return res.json({
       message: "getAllProduct success",
       code: "200",
+      alldata,
       tables,
       attrTitle,
       attrValue,

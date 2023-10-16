@@ -26,7 +26,24 @@ function Product() {
   const [allProduct, setAllProduct] = useState([]);
   const newProduct = allProduct.filter((product) => product.launched === 1);
   const saleProduct = allProduct.filter((product) => product.sale === 1);
-  const hotProduct = allProduct.filter((product) => product.hot === 1);
+// ************************隨機商品***************************************
+  const shuffleArray = (array) => {
+    let currentIndex = array.length, randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  };
+  // 複製一份原始陣列，避免修改原始資料
+  const shuffledProducts = shuffleArray([...allProduct]);
+  // 從隨機排序後的陣列中取得前 10 個元素
+  const randomProducts = shuffledProducts.slice(0, 10);
+
+
+  // const hotProduct = allProduct.filter((product) => product.hot === 1);
+  // ***************************************************************
 
   const [filterProduct, setFilterProduct] = useState([]);
   const [displayProduct, setDisplayProduct] = useState([]);
@@ -83,6 +100,15 @@ function Product() {
     }
   }, [limit, page, sort, attr]);
   // useEffect(()=>{},[randomProducts])
+  useEffect(()=>{
+    // console.log(newProduct);
+  },[newProduct])
+  useEffect(()=>{
+    // console.log(saleProduct);
+  },[saleProduct])
+  useEffect(()=>{
+    console.log(randomProducts);
+  },[randomProducts])
   useEffect(() => {
     // console.log(allProduct);
   }, [allProduct]);
@@ -344,7 +370,7 @@ function Product() {
         modules={[Navigation, Pagination]}
         className="mySwiper recommend-product-swiper"
       >
-        {hotProduct.map((data) => {
+        {randomProducts.map((data) => {
           return (
             <SwiperSlide>
               <RecommendedCard key={data.id} filterRecommendProduct={data} />

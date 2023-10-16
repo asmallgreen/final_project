@@ -33,18 +33,13 @@ function Cate(props) {
   const [allProduct, setAllProduct] = useState([]);
   const newProduct = allProduct.filter((product) => product.launched === 1);
   const saleProduct = allProduct.filter((product) => product.sale === 1);
-  const hotProduct = allProduct.filter((product) => product.hot === 1);
-  // Fisher-Yates Shuffle（Knuth Shuffle）用來實現真正的隨機排序
+  // ************************隨機商品***************************************
   const shuffleArray = (array) => {
-    let currentIndex = array.length,
-      randomIndex;
+    let currentIndex = array.length, randomIndex;
     while (currentIndex !== 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
-      ];
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
     }
     return array;
   };
@@ -52,8 +47,11 @@ function Cate(props) {
   const shuffledProducts = shuffleArray([...allProduct]);
   // 從隨機排序後的陣列中取得前 10 個元素
   const randomProducts = shuffledProducts.slice(0, 10);
-  // console.log(randomProducts);
 
+
+  // const hotProduct = allProduct.filter((product) => product.hot === 1);
+  // ***************************************************************
+ 
   const [filterProduct, setFilterProduct] = useState([]);
   const [displayProduct, setDisplayProduct] = useState([]);
   const [alldataLength, setAlldataLength] = useState();
@@ -397,7 +395,7 @@ function Cate(props) {
         modules={[Navigation, Pagination]}
         className="mySwiper recommend-product-swiper"
       >
-        {hotProduct.map((data) => {
+        {randomProducts.map((data) => {
           return (
             <SwiperSlide>
               <RecommendedCard key={data.id} filterRecommendProduct={data} />
