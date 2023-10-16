@@ -8,7 +8,7 @@ export default function Description(props) {
     <>
       <div className="product-information">
         <div className="product-name">{pidData.name}</div>
-        <div className=" description">{pidData.description}</div>
+        <div className=" description">{pidData.summery}</div>
         <div className="price">NT${pidData.price}</div>
       </div>
     </>

@@ -174,9 +174,10 @@ FROM product AS p
 JOIN product_arrow_length AS pal ON p.id = pal.product_id
 JOIN arrow_length AS al ON al.id = pal.arrow_length_id;
 `;
-
-- [ ]
-- [ ]
+### 20231016
+##### 篩選Modal-Attr
+- [ ] 搜尋商品名稱移到篩選裡面
+- [ ] 搜尋排序切換按鈕刪除
 - [ ]
 - [ ]
 - [ ]
