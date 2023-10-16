@@ -28,7 +28,7 @@ export default function ReserveDate({ formType, setFormType }) {
 
   // react 表單檢查(不可空白欄位)
   const [validated, setValidated] = useState(false);
-  const [elememtId, setElementId] = useState()
+  // const [elememtId, setElementId] = useState()
 
   // const chineseNameRegex = /^[\u4e00-\u9fa5]+$/; // 中文姓名正規表達式
   // const taiwanPhoneRegex = /^09\d{8}$/; // 09開頭的手機號碼正規表達式
@@ -92,20 +92,20 @@ export default function ReserveDate({ formType, setFormType }) {
     });}
   }
 
-  useEffect(()=>{
-    setElementId('input-1')
-  },[])
+  // useEffect(()=>{
+  //   setElementId('input-1')
+  // },[])
 
-  const parseJwt = (token) => {
-    const base64Payload = token.split('.')[1]
-    const payload = Buffer.from(base64Payload, 'base64')
-    return JSON.parse(payload.toString())
-  }
+  // const parseJwt = (token) => {
+  //   const base64Payload = token.split('.')[1]
+  //   const payload = Buffer.from(base64Payload, 'base64')
+  //   return JSON.parse(payload.toString())
+  // }
   const router = useRouter()
 
-    const handleGoBack = () => {
-      history.push('/venue/date');
-  };
+  //   const handleGoBack = () => {
+  //     history.push('/venue/date');
+  // };
   
 
   // 表單提交時檢查input並用try catch寫入資料庫
@@ -120,22 +120,6 @@ export default function ReserveDate({ formType, setFormType }) {
     // setValidated(true);
 
     try {
-
-    //   // 準備要提交的資料
-    // const dataToSubmit = {
-    //   venue_id: id, // 或者您的場地 ID
-    //   date_1: selectedDates[0], // 假設 selectedDates 是一個日期字串陣列
-    //   date_2: selectedDates[1],
-    //   date_3: selectedDates[2],
-    //   date_4: selectedDates[3],
-    //   date_5: selectedDates[4],
-    //   rental_duration: '您的租借持續時間',
-    //   reserve_name: name,
-    //   reserve_email: email,
-    //   reserve_phone: phone,
-    //   created_at: new Date().toISOString(), // 用現在的時間作為 created_at
-    // };
-
       const res = await axios.post(
         "http://localhost:3005/venue_reserve",
         reserve,
@@ -143,8 +127,8 @@ export default function ReserveDate({ formType, setFormType }) {
           withCredentials: true,
         }
       );
-      console.log(res);
-      console.log(res.data);
+      // console.log(res);
+      // console.log(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -158,14 +142,14 @@ export default function ReserveDate({ formType, setFormType }) {
   const { isReady } = router
   // const { id } = router.query
 
-const [selectedDates, setSelectedDates] = useState(toString);
-const [venuePosition, setVenuePosition] = useState(toString);
-const [venueName, setVenueName] = useState(toString);
+  const [selectedDates, setSelectedDates] = useState(toString);
+  const [venuePosition, setVenuePosition] = useState(toString);
+  const [venueName, setVenueName] = useState(toString);
 
 
-const [name, setName] = useState('');
-const [email, setEmail] = useState('');
-const [phone, setPhone] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
 
 // const router = useRouter();
 
@@ -175,58 +159,58 @@ useEffect(()=>{
   const venuePosition = localStorage.getItem('venuePosition');
 const venueName = localStorage.getItem('venueName');
 
-console.log(venuePosition);
-  console.log('this is id',id);
-  console.log(sd)
+  // console.log(venuePosition);
+  // console.log('this is id',id);
+  // console.log(sd)
   setSelectedDates (sd)
+  setId (id)
   setVenuePosition (venuePosition)
   setVenueName (venueName)
-  setId (id)
 },[])
 
-  useEffect (() => {
-    async function fetchVenueData(id) {
-      async function fetchVenueData(id) {
-        try {
-          const response = await axios.get(`http://localhost:3005/venue/${id}`, { params: { id: id } });
-          setVenueData(response.data.once);
-        } catch (error) {
-          console.error('資料庫連結錯誤:', error);
-        }
-        console.log(VenueData)  
-      }
-      try {
-        const response = await axios.get(`http://localhost:3005/venue`);
-        setVenueData(response.data.allVenue);
-      } catch (error) {
-        console.error('資料庫連結錯誤:', error);
-      }
-    }
-    async function fetchVenueReserveData() {
-      try {
-        const response = await axios.get('http://localhost:3005/venue_reserve');
-        setReserveData(response.data.allVenueReserve);
+  // useEffect (() => {
+  //   async function fetchVenueData(id) {
+  //     async function fetchVenueData(id) {
+  //       try {
+  //         const response = await axios.get(`http://localhost:3005/venue/${id}`, { params: { id: id } });
+  //         setVenueData(response.data.once);
+  //       } catch (error) {
+  //         console.error('資料庫連結錯誤:', error);
+  //       }
+  //       console.log(VenueData)  
+  //     }
+  //     try {
+  //       const response = await axios.get(`http://localhost:3005/venue`);
+  //       setVenueData(response.data.allVenue);
+  //     } catch (error) {
+  //       console.error('資料庫連結錯誤:', error);
+  //     }
+  //   }
+  //   async function fetchVenueReserveData() {
+  //     try {
+  //       const response = await axios.get('http://localhost:3005/venue_reserve');
+  //       setReserveData(response.data.allVenueReserve);
 
-      } catch (error) {
-        console.error('資料庫連結錯誤:', error);
-      }
-    }
+  //     } catch (error) {
+  //       console.error('資料庫連結錯誤:', error);
+  //     }
+  //   }
 
-    async function saveVenueReserveData() {
-      try {
-        const response = await axios.get('http://localhost:3005/venue_reserve', { array: { id: id }});
-        setReserveData(response.data.saveDb);
+  //   async function saveVenueReserveData() {
+  //     try {
+  //       const response = await axios.get('http://localhost:3005/venue_reserve', { array: { id: id }});
+  //       setReserveData(response.data.saveDb);
 
-      } catch (error) {
-        console.error('資料庫連結錯誤:', error);
-      }
-    }
+  //     } catch (error) {
+  //       console.error('資料庫連結錯誤:', error);
+  //     }
+  //   }
 
-    if (isReady) {
-      fetchVenueData(id);
-      fetchVenueReserveData();
-    }
-  }, [isReady]);
+  //   if (isReady) {
+  //     fetchVenueData(id);
+  //     fetchVenueReserveData();
+  //   }
+  // }, [isReady]);
 
 return (
   <Container>
@@ -245,7 +229,7 @@ return (
       <Row>
         <Form.Group as={Col} md="12" controlId="validationCustom01" className="mb-2">
           <Form.Label className="mb-0">預約人姓名</Form.Label>
-          <Form.Control required type="text" name="name" onChange={handleChange} />
+          <Form.Control required type="text" name="reserve_name" onChange={handleChange} />
           <Form.Control.Feedback type="invalid">請輸入姓名</Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} md="12" xs="5" controlId="validationCustom05" className="mb-2">
@@ -284,32 +268,18 @@ return (
               >
                 <div className='text-center reserve-bn-text'>返回上一步</div>
               </Link>
-              <Link
+              <button
                 type="submit"
                 className="mx-4 mt-2 mb-5 reserve-bt2 "
                 href={`/venue/check`}
                 onClick={handleReserveSubmit}
               >
                 下一步
-                    </Link>
+                    </button>
                   </Form.Group>
                 </Row>
               </Form.Group>
           </Row>
-      {/* <div className="d-flex justify-content-center">
-        <a href="/venue/date">
-          <button className="mx-4 mt-2 mb-5 reserve-bt1">返回上一步</button>
-        </a>
-        <a href="/venue/check">
-          <button
-            className="mx-4 mt-2 mb-5 reserve-bt2"
-            type="submit"
-            disabled={!isInputValid()}
-          >
-            下一步
-          </button>
-        </a>
-      </div> */}
     </div>
   </Container>
 );

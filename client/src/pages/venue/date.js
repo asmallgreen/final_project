@@ -18,7 +18,6 @@ const css = `
 }
 
 `
-//偷偷marge
 export default function ReserveDate() {
   const [selected, setSelected] = useState([]);
   const [VenueData, setVenueData] = useState([]);
@@ -42,7 +41,7 @@ export default function ReserveDate() {
       } catch (error) {
         console.error('資料庫連結錯誤:', error);
       }
-      console.log(VenueData)
+      // console.log(VenueData)
     }
     async function fetchVenueReserveData() {
       try {
@@ -57,11 +56,11 @@ export default function ReserveDate() {
           reserve.date_4,
           reserve.date_5,
         ]).flat();
+        console.log(reservedDates);
 
         // 在日期选择器中禁用已被预定的日期
         const disabledDates = reservedDates.map((date) => new Date(date));
         setDisabledDates(disabledDates);
-        // console.log(disabledDates); 
 
       } catch (error) {
         console.error('資料庫連結錯誤:', error);
@@ -153,6 +152,10 @@ export default function ReserveDate() {
                 ));
                 localStorage.setItem('selectedDates', selectedDates);
                 localStorage.setItem('id', id);
+                localStorage.setItem('venuePosition', VenueData.venue_position);
+                localStorage.setItem('venueName', VenueData.venue_name);
+
+
 
                 router.push(`/venue/reserve`);
               } else {
