@@ -455,13 +455,14 @@ ORDER BY p.id ASC`
 // 刪除收藏的商品
 router.delete('/:pid', authenticate, async (req, res, next) => {
   const pid = req.params.pid
+  console.log('pid:',pid);
   const memberId = req.body.memberId
   console.log('這是memberId',memberId);
   // console.log('刪除收藏商品的 res.body',res.body);
   // console.log('刪除收藏商品的 res.params',res.params);
 
   // return res.json({ message: '刪除點擊後有傳到後端', code: '200' })
-  const sql = `DELETE FROM fav_product WHERE product_id=${pid} AND member_id=${memberId}; `
+  const sql = `DELETE FROM fav_product WHERE product_id IN (${pid}) AND member_id=${memberId}; `
 
   const { rows } = await executeQuery(sql)
 

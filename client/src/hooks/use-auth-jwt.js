@@ -119,6 +119,8 @@ const checkAuth = async () => {
         setFavoriteProducts,
         favoriteCourses,
         setFavoriteCourses,
+        getFavoriteProducts,
+        getFavoriteCourses
       }}
     >
       {children}

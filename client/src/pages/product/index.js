@@ -116,6 +116,7 @@ function Product() {
   // console.log(favoriteProducts);
   // const [products, setProducts] = useState([])
   // 判斷是否該商品id有在收藏資料表，有代表已收藏
+  
   function isProductFavorited(productId) {
     return favoriteProducts.includes(productId);
   }
@@ -192,8 +193,6 @@ function Product() {
       setFavoriteProducts([...favoriteProducts, id])
     }
   }
-
-
   return (
     <>
       {/* **************** */}

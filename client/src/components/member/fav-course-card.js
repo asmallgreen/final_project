@@ -1,8 +1,9 @@
 import React from 'react'
 
-export default function FavCourseCard({courses}) {
-  const handleInput = (e) => {
+export default function FavCourseCard({courses, toggleCourseCheck}) {
+  const handleCheckboxChange = (e, courseId) => {
     e.stopPropagation()
+    toggleCourseCheck(courseId);
 }
 
 
@@ -12,7 +13,7 @@ export default function FavCourseCard({courses}) {
           <div key={course.id} className="course-list-item">
             <div className="course-list-img"></div>
             <div className="course-list-text">
-            <input type='checkbox' onClick={handleInput}/>
+            <input type='checkbox' checked={course.checked || false} onClick={(e) => e.stopPropagation()} onChange={(e)=>handleCheckboxChange(e, course.id) }/>
               <div className="title">{course.name}</div>
               <div className="intro">
                 {course.description}</div>
