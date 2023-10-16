@@ -169,6 +169,23 @@ useEffect(()=>{
   getFavoriteCourses()
   },[courses])
     
+
+  // 全選商品
+  const handleSelectAllProduct = () => {
+    const allSelected = products.every((product)=>product.checked)
+    const updatedProducts = products.map((product) => {
+      return { ...product, checked: !allSelected };
+    });
+    setProducts(updatedProducts);
+  }
+    // 全選課程
+    const handleSelectAllCourse = () => {
+      const allSelected = courses.every((course)=>course.checked)
+      const updatedCourses = courses.map((course) => {
+        return { ...course, checked: !allSelected };
+      });
+      setCourses(updatedCourses);
+    }
   return (
     <>
   <Row>
@@ -187,7 +204,7 @@ useEffect(()=>{
       <Tab eventKey="product" title="收藏商品">
 {/* 全選/取消收藏/加入購物車 */}
 <div className='text-end fav-select-all'>
-        <input type='checkbox'/> 全選
+        <input type='checkbox' onChange={handleSelectAllProduct}/> 全選
         <Button className='mx-3 update-profile-btn'
          onClick={()=>handleCancelFavProductClick(products)} 
         >取消收藏</Button>
@@ -200,7 +217,7 @@ useEffect(()=>{
       <Tab eventKey="course" title="收藏課程" className='member-fav-course'>
       {/* 全選/取消收藏/加入購物車 */}
       <div className='text-end fav-select-all'>
-        <input type='checkbox'/> 全選
+        <input type='checkbox' onChange={handleSelectAllCourse}/> 全選
         <Button className='mx-3 update-profile-btn'
         onClick={()=>handleCancelFavCourseClick(courses)}>取消收藏</Button>
         {/* <Button className='update-profile-btn'>加入購物車</Button> */}

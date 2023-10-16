@@ -535,7 +535,7 @@ router.delete('/course/:cid', authenticate, async (req, res, next) => {
   // console.log('刪除收藏課程的 res.params',res.params);
 
   // return res.json({ message: '刪除課程收藏點擊後有傳到後端', code: '200' })
-  const sql = `DELETE FROM fav_course WHERE course_id=${cid} AND member_id=${memberId}; `
+  const sql = `DELETE FROM fav_course WHERE course_id IN (${cid}) AND member_id=${memberId}; `
 
   const { rows } = await executeQuery(sql)
 
