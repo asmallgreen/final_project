@@ -167,9 +167,14 @@
 
 ### 20231014
 ##### 商品分類頁
-- [ ]
-- [ ]
-- [ ]
+- [x] 點進分類頁會過濾一次category_id=${cate}的資料catedata
+- [x] 定義where當新增篩選條件時，會AND新的條件
+- [ ] 關聯資料表:`SELECT p.*
+FROM product AS p
+JOIN product_arrow_length AS pal ON p.id = pal.product_id
+JOIN arrow_length AS al ON al.id = pal.arrow_length_id;
+`;
+
 - [ ]
 - [ ]
 - [ ]

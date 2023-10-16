@@ -188,54 +188,75 @@ router.get("/category/:cate", async (req, res) => {
       attrValue = "";
       break;
     case "attr1":
-      attrValue = "WHERE price>4000";
+      attrValue = "price>4000";
       break;
     case "attr2":
-      attrValue = "WHERE price>5000";
+      attrValue = "price>5000";
       break;
     case "attr3":
-      attrValue = "WHERE price>6000";
+      attrValue = "price>6000";
       break;
     case "attr4":
-      attrValue = "WHERE price>7000";
+      attrValue = "price>7000";
       break;
     case "attr5":
-      attrValue = "WHERE price>8000";
+      attrValue = "price>8000";
       break;
     case "attr6":
-      attrValue = "WHERE price>9000";
+      attrValue = "price>9000";
       break;
     case "attr7":
-      attrValue = "WHERE price>100000";
+      attrValue = "price>100000";
       break;
     case "attr8":
-      attrValue = "WHERE price>12000";
+      attrValue = "price>12000";
       break;
   }
   let cateValue;
   switch (cate) {
     case "1":
-      cateValue = { category_id: 1 };
+      cateValue = "WHERE category_id=1";
       break;
     case "2":
-      cateValue = { category_id: 2 };
+      cateValue = "WHERE category_id= 2";
       break;
     case "3":
-      cateValue = { category_id: 3 };
+      cateValue = "WHERE category_id= 3";
       break;
     case "4":
-      cateValue = { category_id: 4 };
+      cateValue = "WHERE category_id=4";
       break;
   }
-
+  // 定義where條件內容
+  let where;
+  // 使用條件判斷來擴充 SQL 查詢語句
+  
+  if (cateValue) {
+    where = `${cateValue}`;
+  }
+  if (attrValue) {
+    // 如果已經有 WHERE 子句，則新增 AND
+    where += ` AND ${attrValue}`;
+    
+  }
+  console.log(where);
   const catedata = await getCate(cateValue);
-  const filterdata = await getFilter(cateValue, sortValue);
+  const filterdata = await getFilter(where, sortValue);
   const displaydata = await getDisplay(
-    attrValue,
+    where,
     sortValue,
     limitValue,
     offset
   );
+
+  
+const sql = `SELECT p.*
+FROM product AS p
+JOIN product_arrow_length AS pal ON p.id = pal.product_id
+JOIN arrow_length AS al ON al.id = pal.arrow_length_id;
+`
+const { rows } = await executeQuery(sql);
+console.log(rows);
   //所有產品的數量改用catedata
   const alldataLength = catedata.length;
   const filterdataLength = filterdata.length;
@@ -248,6 +269,7 @@ router.get("/category/:cate", async (req, res) => {
   res.json({
     message: "getAllProduct success",
     code: "200",
+    rows,
     catedata,
     // alldata,
     displaydata,
