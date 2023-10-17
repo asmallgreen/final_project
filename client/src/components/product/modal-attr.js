@@ -1,25 +1,26 @@
 import React, { useState } from "react";
 import { FaX } from "react-icons/fa6";
-import ModalSort from "./modal-sort";
+import { FaSearch } from "react-icons/fa";
+import { Form } from "react-bootstrap";
+// import ModalSort from "./modal-sort";
 
 export default function ModalAttr(props) {
-  
   const [open, setOpen] = useState(true);
   const [arrtSelect, setArrtSelect] = useState(false);
-  const [modal, setModal] = useState();
-  const [sort, setSort] = useState(false);
+  // const [modal, setModal] = useState();
+  // const [sort, setSort] = useState(false);
   const [attrState, setAttrState] = useState("");
   const [attrSend, setAttrSend] = useState(attrState);
   props.attrChange(attrSend);
-  console.log(attrState);
-  console.log(attrSend);
-  
+  // console.log(attrState);
+  // console.log(attrSend);
+
   //篩選&排序切換
-  const handleModal = () => {
-    setSort(true);
-    setModal(sort ? 1 : <ModalSort />);
-    setOpen(false);
-  };
+  // const handleModal = () => {
+  //   setSort(true);
+  //   setModal(sort ? 1 : <ModalSort />);
+  //   setOpen(false);
+  // };
   //用close-btn切換
   const handleClose = () => {
     setOpen((prevState) => !prevState);
@@ -44,7 +45,7 @@ export default function ModalAttr(props) {
   };
   const handleSend = () => {
     setAttrSend(attrState);
-    setOpen(false)
+    setOpen(false);
   };
   return (
     <>
@@ -52,16 +53,30 @@ export default function ModalAttr(props) {
         <div className="product-attr-modal">
           <div className="click-area">
             <div className="filter-btn title">篩選</div>
-            <div className="sort-btn title" onClick={handleModal}>
+            {/* <div className="sort-btn title" onClick={handleModal}>
               排序
-            </div>
+            </div> */}
             <div className="close-btn" onClick={handleClose}>
               <FaX />
             </div>
           </div>
           <div className="select-area">
-        
-       
+
+          <div className="nav-fk">
+              <Form className="list-unstyled search-form">
+                <div className="position-relative">
+                  <Form.Control
+                    type="text"
+                    placeholder="請輸入商品名稱"
+                    className="search-product-name"
+                  />
+                  <FaSearch className="fa-magnifying-glass position-absolute" />
+                </div>
+              </Form>
+            </div>
+           
+
+
             <div className="select-attr-area ">
               <div className="attr-title">價格：</div>
               <div className="attr-buttons">
@@ -95,11 +110,8 @@ export default function ModalAttr(props) {
                   ></div>
                   <span className="attr-text">大於NT6,000</span>
                 </div>
-                
               </div>
             </div>
-           
-            
           </div>
           <div className="fk-area">
             <div className="confirm-btn pick" onClick={handleSend}>
@@ -112,7 +124,7 @@ export default function ModalAttr(props) {
         </div>
       </div>
       <div className={open ? "product-sort-overlay" : "d-none"}></div>
-      {modal}
+      {/* {modal} */}
     </>
   );
 }

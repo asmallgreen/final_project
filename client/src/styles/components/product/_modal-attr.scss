@@ -17,21 +17,15 @@
       justify-content: center;
       background-color: #ebdc99;
       position: relative;
-      .title {
-        font-size: 23px;
-        width: 50%;
-        text-align: center;
-        padding-block: 10px;
-        &:hover {
-          background-color: #f0d07f;
-          cursor: pointer;
-          transition: 0.4s;
-        }
-      }
-      .filter-btn {
-        background-color: #f0d07f;
-        cursor: pointer;
-      }
+      font-size: 23px;
+      // width: 50%;
+      text-align: center;
+      padding-block: 10px;
+
+      // .filter-btn {
+      //   background-color: #f0d07f;
+      //   cursor: pointer;
+      // }
       .close-btn {
         cursor: pointer;
         position: absolute;
@@ -126,7 +120,7 @@
     }
   }
 }
-.product-attr-overlay{
+.product-attr-overlay {
   position: fixed;
   top: 0;
   left: 0;

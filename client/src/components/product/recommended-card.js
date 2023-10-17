@@ -13,12 +13,28 @@ export default function RecommendedCard(props) {
         <div className="recommend-cards">
           <div className="rows">
             <div className="card">
-              <Link
-                href={`/product/${123}`}
-                className="img position-relative"
-              >
+              <Link href={`/product/${123}`} className="img position-relative">
                 <img src={filterRecommendProduct.img1} alt=""></img>
-                <div className="tag position-absolute">NEW</div>
+                <div className="tags d-flex">
+                  <div
+                    className={
+                      filterRecommendProduct.launched === 1
+                        ? "tag1 position-absolute"
+                        : "d-none"
+                    }
+                  >
+                    NEW
+                  </div>
+                  <div
+                    className={
+                      filterRecommendProduct.hot === 1
+                        ? "tag2 position-absolute"
+                        : "d-none"
+                    }
+                  >
+                    NEW
+                  </div>
+                </div>
               </Link>
 
               <div className="content">

@@ -64,7 +64,7 @@ export default function Navbar() {
   // const [results, setResults] = useState([]);
   const { updateResults } = useProductContext();
   // console.log(keyword);
-  console.log(updateResults);
+  // console.log(updateResults);
   const handleSearch = async () => {
     try {
       const res = await axios.get(

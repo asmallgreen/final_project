@@ -4,6 +4,7 @@
   justify-content: center;
   .normal-cards {
     display: flex;
+
     .rows {
       margin: 0 auto;
       display: flex;
@@ -25,25 +26,54 @@
           height: 100%;
           object-fit: cover;
           border: 0px solid transparent;
-          
         }
-        .tag {
-          border-radius: 0 0 0px 0;
-          bottom: 1px;
-          right: 1px;
-          text-align: center;
-          padding-block: 5px;
-          width: 50px;
-          height: 30px;
-          font-size: 12px;
-          background-color: $accent;
-          color: $primary;
+
+        .tags {
+          .tag1 {
+            border-radius: 0 0 0px 0;
+            bottom: 1px;
+            right: 1px;
+            text-align: center;
+            padding-block: 5px;
+            width: 50px;
+            height: 30px;
+            font-size: 12px;
+            background-color: $accent;
+            color: $primary;
+          }
+          .tag2 {
+            border-radius: 0 0 0px 0;
+            bottom: 1px;
+            right: 51px;
+            text-align: center;
+            padding-block: 5px;
+            margin-inline: 5px;
+            width: 50px;
+            height: 30px;
+            font-size: 12px;
+            background-color: $secondary;
+            color: $primary;
+          }
         }
+
+        // .tag {
+        //   border-radius: 0 0 0px 0;
+        //   bottom: 1px;
+        //   right: 1px;
+        //   text-align: center;
+        //   padding-block: 5px;
+        //   width: 50px;
+        //   height: 30px;
+        //   font-size: 12px;
+        //   background-color: $accent;
+        //   color: $primary;
+        // }
       }
       .content {
         padding: 5px;
         .product-name {
           color: $secondary;
+          text-decoration: none;
           // font-size: 18px;
           // .tag {
           //   text-align: center;
@@ -58,6 +88,7 @@
         .description {
           color: $secondary;
           font-size: 15px;
+          text-decoration: none;
         }
         .price {
           font-size: 18px;
@@ -92,11 +123,10 @@
               height: 100%;
               object-fit: cover;
             }
-
           }
-.content{
-  display: none;
-}
+          .content {
+            display: none;
+          }
         }
       }
     }

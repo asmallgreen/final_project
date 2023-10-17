@@ -24,17 +24,30 @@ export default function FilterProductCard(props) {
     setIsSolidHeart((prevState) => !prevState);
   };
 
-
   return (
     <>
-     
       <div className="card">
-        <div className="img position-relative">
-          <Link href={`/product/${idData}`}>
-            <img src={filterProduct.img1} alt=""></img>
+        <div className="img">
+          <Link href={`/product/${idData}`} className=" tags d-flex">
+            <img src={filterProduct.img1} alt="" className=" position-relative">
+            </img>
           </Link>
+          <div
+            className={
+              filterProduct.launched === 1 ? "tag1 position-absolute" : "d-none"
+            }
+          >
+            NEW
+          </div>
+          <div
+            className={
+              filterProduct.hot === 1 ? "tag2 position-absolute" : "d-none"
+            }
+          >
+            HOT
+          </div>
 
-          <div className="tag position-absolute">NEW</div>
+          {/* <div className="tag position-absolute">NEW</div> */}
           <button className="p-0 position-absolute">
             <FontAwesomeIcon
               icon={isSolidHeart ? faHeart : farHeart}
@@ -49,10 +62,10 @@ export default function FilterProductCard(props) {
           <div className="price d-flex justify-content-between my-1">
             NT$ {filterProduct.price}
             <button className="">
-              <FontAwesomeIcon
+              {/* <FontAwesomeIcon
                 icon={faCartShopping}
                 className="fa-solid fa-cart-shopping"
-              />
+              /> */}
             </button>
           </div>
         </div>

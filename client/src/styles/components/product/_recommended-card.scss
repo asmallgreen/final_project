@@ -22,18 +22,44 @@
           object-fit: cover;
           border: 0px solid transparent;
         }
-        .tag {
-          border-radius: 0 0 0px 0;
-          bottom: 1px;
-          right: 1px;
-          text-align: center;
-          padding-block: 5px;
-          width: 50px;
-          height: 30px;
-          font-size: 12px;
-          background-color: $accent;
-          color: $primary;
+        .tags {
+          .tag1 {
+            border-radius: 0 0 0px 0;
+            bottom: 1px;
+            right: 1px;
+            text-align: center;
+            padding-block: 5px;
+            width: 50px;
+            height: 30px;
+            font-size: 12px;
+            background-color: $accent;
+            color: $primary;
+          }
+          .tag2 {
+            border-radius: 0 0 0px 0;
+            bottom: 1px;
+            right: 1px;
+            text-align: center;
+            padding-block: 5px;
+            width: 50px;
+            height: 30px;
+            font-size: 12px;
+            background-color: $secondary;
+            color: $primary;
+          }
         }
+        // .tag {
+        //   border-radius: 0 0 0px 0;
+        //   bottom: 1px;
+        //   right: 1px;
+        //   text-align: center;
+        //   padding-block: 5px;
+        //   width: 50px;
+        //   height: 30px;
+        //   font-size: 12px;
+        //   background-color: $accent;
+        //   color: $primary;
+        // }
       }
       .content {
         padding: 5px;
