@@ -1,8 +1,31 @@
 import React from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
+import { useEffect, useState } from 'react';
+
 
 
 export default function ReserveCheck() {
+
+    const [selectedDates, setSelectedDates] = useState(toString);
+    const [venuePosition, setVenuePosition] = useState(toString);
+    const [venueName, setVenueName] = useState(toString);
+
+
+    useEffect(() => {
+        const sd = localStorage.getItem('selectedDates');
+        const id = localStorage.getItem('id');
+        const venuePosition = localStorage.getItem('venuePosition');
+        const venueName = localStorage.getItem('venueName');
+        const selectedDatesString = localStorage.getItem('selectedDates');
+        const selectedDatesArray = selectedDatesString.split(',');
+        console.log(selectedDatesArray);
+    
+        setSelectedDates(sd)
+        // setId(id)
+        setVenuePosition(venuePosition)
+        setVenueName(venueName)
+      }, [])
+
     return (
         <>
             <Container>
@@ -13,8 +36,8 @@ export default function ReserveCheck() {
                 <div className='reserve-text '>
                     <div>
                         <p className='fs-5 fw-bold'>您所選擇的</p>
-                        <p className='fs-5 fw-bold'>道場：北道場　藏月弓道場</p>
-                        <p className='fs-5 fw-bold'>日期：２０２３／０７／２７</p>
+                        <p className='fs-5 fw-bold'>道場：{venuePosition} {venueName}</p>
+                        <p className='fs-5 fw-bold'>日期：{selectedDates}</p>
                     </div>
                     <hr></hr>
 

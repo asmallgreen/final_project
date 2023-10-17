@@ -1,5 +1,4 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { Container, Form, Row, Col, Button } from 'react-bootstrap';
 import { format, isValid } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
@@ -167,6 +166,13 @@ export default function ReserveDate({ formType, setFormType }) {
   const handleReserveSubmit = async (e) => {
     const form = e.currentTarget;
     e.preventDefault();
+
+    localStorage.setItem('selectedDates', selectedDates);
+    localStorage.setItem('id', id);
+    localStorage.setItem('venuePosition', venuePosition);
+    localStorage.setItem('venueName', venueName);
+
+    router.push(`/venue/check`);
 
     // if (form.checkValidity() === false) {
     //   // 先檢查是否有填寫必填欄位
