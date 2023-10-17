@@ -79,7 +79,7 @@ export default function OrderDetail() {
             <div className="row align-items-center py-2">
               <div className="row col-md-10 col-lg-6 text-start">
                 <div className="col-6">訂單編號：{oid}</div>
-                <div className="col-6">訂單時間：{order[0] ? order[0].order_date : '載入中...'}</div>
+                <div className="col-6">訂單時間：<br/>{order[0] ? order[0].order_date : '載入中...'}</div>
               </div>
               <div className="col text-end d-none d-md-block">
                 <Link href="/member/order-list">
@@ -118,10 +118,11 @@ export default function OrderDetail() {
                         key={index}
                         header={(
                           <div>
-                            <div className="row text-center">
+                            <div className="row text-center align-items-center">
                               <div className="col">
-                              {/* <img src="/images/member/default_member.png" /> */}
-                              {order.product_img}
+                              <img src={order.product_img} 
+                                alt={order.product_img} 
+                              />
                               </div>
                               <div className="col">{order.product_name}</div>
                               <div className="col">{order.price}</div>
@@ -159,8 +160,7 @@ export default function OrderDetail() {
                   {productDetail.map((order, index) => (
                     <div className="row align-items-center py-3">
                       <div className="col-4 text-center">
-                        {/* <img src="/images/member/default_member.png" /> */}
-                        {order.product_img}
+                        <img src={order.product_img} alt={order.product_img}/>
                       </div>
                       <div className="col-5">
                         <div className="order-title">{order.product_name}</div>
@@ -187,10 +187,10 @@ export default function OrderDetail() {
               <Tab eventKey="course" title="課程">
               <div className="order-table-pc d-none d-md-block">
                   <div className="thead text-center py-2 row">
-                    <div className="col">#</div>
-                    <div className="col">名稱</div>
-                    <div className="col">單價</div>
-                    <div className="col">評價</div>
+                    <div className="col-4">#</div>
+                    <div className="col-3">名稱</div>
+                    <div className="col-3">單價</div>
+                    <div className="col-2">評價</div>
                   </div>
                   <Collapse
                     accordion
@@ -207,11 +207,11 @@ export default function OrderDetail() {
                         key={index}
                         header={(
                           <div>
-                            <div className="row text-center">
-                              <div className="col">{/* <img src="/images/member/default_member.png" /> */}
-                              {order.course_img}</div>
-                              <div className="col">{order.course_name}</div>
-                              <div className="col">{order.price}</div>
+                            <div className="row text-center align-items-center">
+                              <div className="col-4"><img src={order.course_img} alt={order.course_img}/>
+                              </div>
+                              <div className="col-4">{order.course_name}</div>
+                              <div className="col-4">{order.price}</div>
                             </div>
                           </div>
                         )}
@@ -239,8 +239,7 @@ export default function OrderDetail() {
                 {courseDetail.map((order, index) => (
                     <div className="row align-items-center py-3">
                       <div className="col-4 text-center">
-                        {/* <img src="/images/member/default_member.png" /> */}
-                        {order.course_img}
+                        <img src={order.course_img} alt={order.course_img} />
                       </div>
                       <div className="col-5">
                         <div className="order-title">{order.course_name}</div>

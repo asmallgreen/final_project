@@ -39,7 +39,7 @@ export default function List() {
         return (
           <div className="tbody row text-center align-items-center" key={v.id}>
             <div className="col-3 d-flex justify-content-center align-items-center">
-              <img src="/images/member/default_member.png" height={50} alt="" />
+              <img src={v.product_img} height={50} alt="" />
               <div className="px-2">{v.name}</div>
             </div>
             <div className="col-2">
