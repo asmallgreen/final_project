@@ -133,37 +133,37 @@ export default function MemberCoupon() {
                   </div>
                 </Tab>
                 <Tab eventKey="course" title="優惠券使用紀錄">
-                  <table className="coupon-table text-center">
-                    <thead>
-                      <tr>
-                        <th>已使用優惠券</th>
-                        <th>訂單編號</th>
+                  <div className="coupon-table text-center">
+                    <div className="thead">
+                      <div className="row">
+                        <div className="col-5">已使用優惠券</div>
+                        <div className="col-3">訂單編號</div>
                         {/* <th>折扣金額</th> */}
-                        <th>訂單折扣後金額</th>
-                        <th>使用日期</th>
-                      </tr>
-                    </thead>
-                    <tbody>
+                        <div className="col-2">折扣後金額</div>
+                        <div className="col-2">使用日期</div>
+                      </div>
+                    </div>
+                    <div className="tbody">
                       {UsedCoupon.map((coupon, index) => (
-                        <tr key={index}>
-                          <td>
+                        <div className="row align-items-center" key={index}>
+                          <div className="col-lg-5 col-12">
                             <CouponCard
                             name={coupon.coupon_name}
                             type={coupon.coupon_type}
                             discount={coupon.coupon_discount}
                             deadline={coupon.coupon_deadline}
                             />
-                          </td>
-                          <td>
+                          </div>
+                          <div className="col-lg-3 col-4">
                           <Link href={`/member/order-detail/${coupon.order_id}`}>{coupon.order_id}</Link>
-                        </td>
+                        </div>
                         {/* <td>$ {coupon.discount}</td> */}
-                        <td>$ {coupon.subtotal}</td>
-                        <td>{coupon.order_date}</td>
-                        </tr>
+                        <div className="col-lg-2 col-4">$ {coupon.subtotal}</div>
+                        <div className="col-lg-2 col-4">{coupon.order_date}</div>
+                        </div>
                       ))}
-                    </tbody>
-                  </table>
+                    </div>
+                  </div>
                 </Tab>
               </Tabs>
               {/* <Pagination /> */}
