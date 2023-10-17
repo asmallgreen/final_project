@@ -55,7 +55,7 @@ function Product() {
   // ***********************************************
   const handleSearchName = (name) => {
     setSearch(name)
-    console.log(name);
+    // console.log(name);
     // console.log(search);
   }
   const updateLimit = (newLimit) => {
@@ -90,7 +90,7 @@ function Product() {
     const fetchData = async () => {
       try {
         const res = await axios.get("http://localhost:3005/product", {
-          params: { limit, page, sort, attr },
+          params: { limit, page, sort, attr, search },
         });
         //用來篩選出新上架商品
         // console.log(res.data.alldata);
@@ -109,8 +109,8 @@ function Product() {
     if (typeof window !== "undefined") {
       fetchData();
     }
-  }, [limit, page, sort, attr]);
-  // useEffect(()=>{},[randomProducts])
+  }, [limit, page, sort, attr, search]);
+  useEffect(()=>{},[search])
   useEffect(()=>{
     // console.log(newProduct);
   },[newProduct])
@@ -118,7 +118,7 @@ function Product() {
     // console.log(saleProduct);
   },[saleProduct])
   useEffect(()=>{
-    console.log(randomProducts);
+    // console.log(randomProducts);
   },[randomProducts])
   useEffect(() => {
     // console.log(allProduct);

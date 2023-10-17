@@ -13,7 +13,7 @@ export default function ModalAttr(props) {
   const [attrSend, setAttrSend] = useState(attrState);
   const [searchName, setSearchName] = useState();
   props.attrChange(attrSend);
-  props.searchName(searchName)
+  props.searchName(searchName);
   // console.log(attrState);
   // console.log(attrSend);
 
@@ -26,7 +26,6 @@ export default function ModalAttr(props) {
   //用close-btn切換
   const handleNameValue = (e) => {
     setSearchName(e.target.value);
-
   };
   const handleClose = () => {
     setOpen((prevState) => !prevState);
@@ -53,7 +52,9 @@ export default function ModalAttr(props) {
     setAttrSend(attrState);
     setOpen(false);
   };
-  useEffect(()=>{console.log(searchName);},[searchName])
+  useEffect(() => {
+    // console.log(searchName);
+  }, [searchName]);
   return (
     <>
       <div className={open ? "product-modal" : "d-none"}>

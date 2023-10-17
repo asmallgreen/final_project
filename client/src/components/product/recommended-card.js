@@ -4,7 +4,7 @@ export default function RecommendedCard(props) {
   const { filterRecommendProduct } = props;
   // const idData = filterRecommendProduct.id;
   useEffect(() => {
-    console.log(filterRecommendProduct);
+    // console.log(filterRecommendProduct);
   }, [filterRecommendProduct]);
 
   return (

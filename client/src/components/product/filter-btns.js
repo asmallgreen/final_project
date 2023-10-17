@@ -16,7 +16,7 @@ export default function FilterBtns(props) {
 
   const handleSearchName = (name) => {
     setSearchName(name);
-    console.log(name);
+    // console.log(name);
   };
   props.searchName(searchName);
   //子元件的屬性
@@ -59,7 +59,7 @@ export default function FilterBtns(props) {
   }, []);
 
   useEffect(() => {
-    console.log(searchName);
+    // console.log(searchName);
   }, [searchName]);
   //每次進入網站都要回傳值給父元件index
   useEffect(() => {

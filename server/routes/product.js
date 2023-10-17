@@ -14,8 +14,8 @@ const router = express.Router();
 
 //***********產品頁************
 router.get("/", async (req, res) => {
-  const { limit = 20, page = 1, sort, attr } = req.query;
-  console.log(limit, page, sort, attr);
+  const { limit = 20, page = 1, sort, attr, search } = req.query;
+  console.log(limit, page, sort, attr, search);
   const limitValue = parseInt(limit);
   const pageValue = parseInt(page);
   const offset = (pageValue - 1) * limitValue;
@@ -47,19 +47,29 @@ router.get("/", async (req, res) => {
       attrValue = "";
       break;
     case "attr1":
-      attrValue = "WHERE price<4000";
+      attrValue = "price<4000";
       break;
     case "attr2":
-      attrValue = "WHERE price BETWEEN 4000 AND 6000";
+      attrValue = "price BETWEEN 4000 AND 6000";
       break;
     case "attr3":
-      attrValue = "WHERE price>6000";
+      attrValue = "price>6000";
       break;
-
+  }
+  let searchValue = `name LIKE '%${search}%'`;
+  // 定義where條件內容
+  let where;
+  // 使用條件判斷來擴充 SQL 查詢語句
+  if (attrValue) {
+    where = `WHERE ${attrValue}`;
+  } else if (searchValue) {
+    where = `WHERE ${searchValue}`;
+  } else if (attrValue && searchValue) {
+    where = `WHERE ${attrValue} AND ${searchValue}`
   }
 
   const alldata = await getAll();
-  const filterdata = await getFilter(attrValue, sortValue);
+  const filterdata = await getFilter(where, sortValue);
   const displaydata = await getDisplay(
     attrValue,
     sortValue,
@@ -94,7 +104,7 @@ router.get("/:pid", async (req, res) => {
     const id = req.params.pid;
     const where = { id: id };
     const data = await getOne(where);
-    const alldata = await getAll()
+    const alldata = await getAll();
     const cate = data.category_id;
 
     let tables = [];
@@ -198,7 +208,6 @@ router.get("/category/:cate", async (req, res) => {
     case "attr3":
       attrValue = "price>6000";
       break;
-
   }
   let cateValue;
   switch (cate) {
@@ -218,33 +227,25 @@ router.get("/category/:cate", async (req, res) => {
   // 定義where條件內容
   let where;
   // 使用條件判斷來擴充 SQL 查詢語句
-  
   if (cateValue) {
     where = `${cateValue}`;
   }
   if (attrValue) {
     // 如果已經有 WHERE 子句，則新增 AND
     where += ` AND ${attrValue}`;
-    
   }
   // console.log(where);
   const catedata = await getCate(cateValue);
   const filterdata = await getFilter(where, sortValue);
-  const displaydata = await getDisplay(
-    where,
-    sortValue,
-    limitValue,
-    offset
-  );
+  const displaydata = await getDisplay(where, sortValue, limitValue, offset);
 
-  
-const sql = `SELECT p.*
+  const sql = `SELECT p.*
 FROM product AS p
 JOIN product_arrow_length AS pal ON p.id = pal.product_id
 JOIN arrow_length AS al ON al.id = pal.arrow_length_id;
-`
-const { rows } = await executeQuery(sql);
-console.log(rows);
+`;
+  const { rows } = await executeQuery(sql);
+  console.log(rows);
   //所有產品的數量改用catedata
   const alldataLength = catedata.length;
   const filterdataLength = filterdata.length;
