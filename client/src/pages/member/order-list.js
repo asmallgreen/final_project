@@ -21,7 +21,7 @@ export default function OrderList() {
       const memberId = authJWT.memberData.id;
       axios
         .get(
-          `http://localhost:3005/memberDashboard/FindMemberOrder?memberId=${memberId}}`
+          `http://localhost:3005/memberDashboard/FindMemberOrder?memberId=${memberId}`
         )
         .then((response) => {
           setOrdersData(response.data.ordersData);
@@ -37,13 +37,13 @@ export default function OrderList() {
       const memberId = authJWT.memberData.id;
       axios
         .get(
-          `http://localhost:3005/memberDashboard/FindFinishedOrder?memberId=${memberId}}`
+          `http://localhost:3005/memberDashboard/FindFinishedOrder?memberId=${memberId}`
         )
         .then((response) => {
           setFinishedOrder(response.data.finishedOrder);
         })
         .catch((error) => {
-          console.error("前端請求訂單資料錯誤:", error);
+          console.error("前端請求已完成訂單資料錯誤:", error);
         });
     }
   }, [authJWT.isAuth]);

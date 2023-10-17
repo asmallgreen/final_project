@@ -1,13 +1,15 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Button } from "react-bootstrap";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import { set } from "lodash";
 
 export default function Index() {
+  const { authJWT } = useAuthJWT();
+  const [couponList, setCouponList] = useState([]); //優惠券列表
+
   const [isDisabled, setIsDisabled] = useState(false);
   const [isDisabledTwo, setIsDisabledTwo] = useState(false);
-
-  const { authJWT } = useAuthJWT();
 
   const handleClickOne = () => {
     setIsDisabled(true);
@@ -27,13 +29,27 @@ export default function Index() {
         console.error("前端新增優惠券錯誤:", error);
       });
   };
-  const handleSendCoupon = () => {
+  const handleSendCoupon = (couponId) => {
     const addCoupon = {
       member_id: authJWT.memberData.id,
-      coupon_id: 9487,
+      coupon_id: couponId,
     };
     sendAddCoupon(addCoupon);
   };
+
+  useEffect(() => {
+    if (authJWT.isAuth) {
+      axios
+        .get(`http://localhost:3005/memberDashboard//findLimitCoupon`)
+        .then((response) => {
+          setCouponList(response.data.couponList);
+        })
+        .catch((error) => {
+          console.error("前端請求優惠券列表錯誤:", error);
+        });
+    }
+  }, [authJWT.isAuth]);
+
   return (
     <>
       <div className="couponBg">
@@ -42,6 +58,19 @@ export default function Index() {
           <div className="ruleTitle mb-5">會員累積消費說明</div>
           <div className="ruleImg mb-5" />
           <div className="ruleTitle mb-5">限時促銷</div>
+          <div className="">
+            {couponList.map((coupon, index) => (
+              <div key={index}>
+                <div>{coupon.name}</div>
+                <div>
+                  {coupon.type === 2
+                    ? `現折${coupon.discount}元`
+                    : `商品 ${coupon.discount} 折券`}
+                </div>
+                <button onClick={() => {handleSendCoupon(coupon.id);alert(`已領取優惠券 ${coupon.name}`)}}>點擊領取</button>
+              </div>
+            ))}
+          </div>
           <div className="flashRule mb-1">
             <div className="couponFlashSales fs-4 d-lg-flex d-none">
               <span>中秋節全館商品&nbsp;8折</span>
