@@ -31,7 +31,7 @@ router.get("/", async (req, res) => {
     case "default":
       sortValue = { id: "ASC" };
     case "hot":
-      sortValue = { hot: "asc" };
+      sortValue = { hot: "desc" };
       break;
     case "launched":
       sortValue = { launched: "asc" };
@@ -66,8 +66,8 @@ router.get("/", async (req, res) => {
   if (search) {
     searchValue = `name LIKE '%${search}%'`;
   }
-  console.log(searchValue);
-  console.log(search);
+  // console.log(searchValue);
+  // console.log(search);
   // console.log(searchValue);
   // 定義where條件內容
   let where;
@@ -80,7 +80,7 @@ router.get("/", async (req, res) => {
     where = `WHERE ${searchValue}`;
   }
 
-  console.log(where);
+  // console.log(where);
 
   const alldata = await getAll();
   const filterdata = await getFilter(where, sortValue);
@@ -176,7 +176,7 @@ router.get("/:pid", async (req, res) => {
 });
 
 router.get("/category/:cate", async (req, res) => {
-  const { sort, attr, limit = 5, page = 1, cate } = req.query;
+  const { sort, attr, limit = 20, page = 1, cate, search = "" } = req.query;
   const limitValue = parseInt(limit);
   const pageValue = parseInt(page);
   const offset = (pageValue - 1) * limitValue;
@@ -186,10 +186,10 @@ router.get("/category/:cate", async (req, res) => {
     case "default":
       sortValue = { id: "ASC" };
     case "hot":
-      sortValue = { hot: "asc" };
+      sortValue = { hot: "desc" };
       break;
     case "launched":
-      sortValue = { launched: "asc" };
+      sortValue = { launched: "desc" };
       break;
     case "priceAsc":
       sortValue = { price: "desc" };
@@ -201,13 +201,27 @@ router.get("/category/:cate", async (req, res) => {
       sortValue = { name: "desc" };
       break;
   }
-  // 篩選改where
+
+  let cateValue;
+  switch (cate) {
+    case "1":
+      cateValue = "WHERE category_id = 1";
+      break;
+    case "2":
+      cateValue = "WHERE category_id = 2";
+      break;
+    case "3":
+      cateValue = "WHERE category_id = 3";
+      break;
+    case "4":
+      cateValue = "WHERE category_id = 4";
+      break;
+  }
   let attrValue;
   switch (attr) {
     case "default":
       attrValue = "";
       break;
-
     case "attr1":
       attrValue = "price<4000";
       break;
@@ -218,34 +232,37 @@ router.get("/category/:cate", async (req, res) => {
       attrValue = "price>6000";
       break;
   }
-  let cateValue;
-  switch (cate) {
-    case "1":
-      cateValue = "WHERE category_id=1";
-      break;
-    case "2":
-      cateValue = "WHERE category_id= 2";
-      break;
-    case "3":
-      cateValue = "WHERE category_id= 3";
-      break;
-    case "4":
-      cateValue = "WHERE category_id=4";
-      break;
+  let searchValue;
+  if (search) {
+    searchValue = `name LIKE '%${search}%'`;
   }
   // 定義where條件內容
   let where;
   // 使用條件判斷來擴充 SQL 查詢語句
+
+  // if (cateValue) {
+  //   where = `${cateValue}`;
+  // }
+  // if (attrValue) {
+  //   where += ` AND ${attrValue}`;
+  console.log(attrValue);
+  console.log(searchValue);
   if (cateValue) {
     where = `${cateValue}`;
   }
-  if (attrValue) {
-    // 如果已經有 WHERE 子句，則新增 AND
+  if (cateValue && attrValue && searchValue) {
+    where += ` AND ${attrValue} AND ${searchValue}`;
+  } else if (cateValue && searchValue) {
+    where += ` AND ${searchValue}`;
+  } else if (cateValue && attrValue) {
     where += ` AND ${attrValue}`;
-  }
-  // console.log(where);
+  } 
+  console.log(where);
+
+  console.log(where);
   const catedata = await getCate(cateValue);
   const filterdata = await getFilter(where, sortValue);
+  // console.log(filterdata);
   const displaydata = await getDisplay(where, sortValue, limitValue, offset);
 
   const sql = `SELECT p.*

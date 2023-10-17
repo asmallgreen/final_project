@@ -25,6 +25,7 @@ import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 function Cate(props) {
   const router = useRouter();
   const { cate } = router.query;
+  const [search ,setSearch] = useState('');
   const [attr, setAttr] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState();
@@ -74,11 +75,16 @@ function Cate(props) {
       currentPage = "其他";
       break;
   }
-  console.log(currentPage);
+  // console.log(currentPage);
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
     // console.log(limit);
   };
+  const handleSearchName = (name) => {
+    setSearch(name)
+    // console.log(name);
+    // console.log(search);
+  }
   const updatePage = (newPage) => {
     if (newPage !== undefined) {
       setPage(newPage);
@@ -104,7 +110,7 @@ function Cate(props) {
         const res = await axios.get(
           `http://localhost:3005/product/category/${cate}`,
           {
-            params: { sort, attr, limit, page, cate },
+            params: { sort, attr, limit, page, cate, search },
           }
         );
         setAllProduct(res.data.catedata);
@@ -122,17 +128,18 @@ function Cate(props) {
     if (typeof window !== "undefined") {
       fetchData();
     }
-  }, [limit, page, sort, attr, cate]);
+  }, [limit, page, sort, attr, cate, search]);
   useEffect(() => {
-    console.log(cate);
+    // console.log(cate);
     // setCategory(cate);
   }, [cate]);
   // useEffect(() => {
   //   console.log(category);
   //   // setCategory(cate)
   // }, [category]);
+  useEffect(()=>{},[search])
   useEffect(() => {
-    console.log(currentPage);
+    // console.log(currentPage);
   }, [currentPage]);
   useEffect(() => {
     // console.log(allProduct);
@@ -243,7 +250,7 @@ function Cate(props) {
         spaceBetween={0}
         slidesPerView={5}
         navigation={true}
-        pagination={true}
+        // pagination={true}
         modules={[Navigation, Pagination]}
         className="mySwiper launched-product-swiper"
       >
@@ -318,6 +325,7 @@ function Cate(props) {
                 setLimit={updateLimit}
                 setSort={updateSort}
                 setAttr={updateAttr}
+                searchName={handleSearchName}
                 filterdataLength={filterdataLength}
                 //要dataLength幹嘛?抓篩選旁邊的篩選筆數ui
               />
@@ -355,7 +363,7 @@ function Cate(props) {
         spaceBetween={10}
         slidesPerView={2}
         navigation={true}
-        pagination={true}
+        // pagination={true}
         modules={[Navigation, Pagination, History]}
         className="mySwiper sale-product-swiper pt-5"
       >

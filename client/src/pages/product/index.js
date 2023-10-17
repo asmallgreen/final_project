@@ -229,7 +229,7 @@ function Product() {
         spaceBetween={0}
         slidesPerView={5}
         navigation={true}
-        pagination={true}
+        // pagination={true}
         modules={[Navigation, Pagination]}
         className="mySwiper launched-product-swiper"
       >
@@ -342,7 +342,7 @@ function Product() {
         spaceBetween={10}
         slidesPerView={2}
         navigation={true}
-        pagination={true}
+        // pagination={true}
         modules={[Navigation, Pagination, History]}
         className="mySwiper sale-product-swiper pt-5"
       >
