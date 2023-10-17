@@ -43,14 +43,15 @@ router.post('/sendOrder', async (req, res) => {
     // 檢查是否有產品
     if (productDetail && productDetail.length > 0) {
       const ProductDetailSql = `
-        INSERT INTO order_product(order_id, product_id, product_name, detail_1, detail_2, detail_3, quantity, price) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?);`;
+        INSERT INTO order_product(order_id, product_id, product_img,product_name, detail_1, detail_2, detail_3, quantity, price) 
+        VALUES (?, ?, ?, ?, ?, ?, ?,?,?);`;
 
       // 迴圈INSERT
       for (const product of productDetail) {
         await pool.execute(ProductDetailSql, [
           orderList.order_id,
-          product.product.id,
+          product.product.id,          
+          product.product.product_img || null,
           product.product.name,
           product.product.detail_1 || null,
           product.product.detail_2 || null, 
@@ -64,14 +65,15 @@ router.post('/sendOrder', async (req, res) => {
     // 檢查是否有課程
     if (courseDetail && courseDetail.length > 0) {
       const CourseDetailSql = `
-        INSERT INTO order_course(order_id, course_id, course_name, quantity, price) 
-        VALUES (?, ?, ?, ?, ?);`;
+        INSERT INTO order_course(order_id, course_id, course_img,course_name, quantity, price) 
+        VALUES (?, ?, ?, ?, ?,?);`;
 
       // 迴圈INSERT
       for (const course of courseDetail) {
         await pool.execute(CourseDetailSql, [
           orderList.order_id,
           course.course.id,
+          course.course.course_img || null,
           course.course.name,
           course.course.quantity,
           course.course.price,

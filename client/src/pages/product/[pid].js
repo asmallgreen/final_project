@@ -253,8 +253,8 @@ function Pid() {
                   }
                 });
                 addProduct({
-                  images: product.img1,
                   id: product.id,
+                  product_img: product.img1,
                   name: product.name,
                   detail_1: activeAttrValues[0],
                   detail_2: activeAttrValues[1],
