@@ -1,3 +1,19 @@
+.all-course{
+  .btn-group{
+    .btn{
+      min-width: 90px!important;
+    }
+    .dropdown-toggle{
+      min-width: 160px!important;
+    }
+    
+  }
+}
+.collapsed-content-box{
+  background-color: $primary;
+  color: $secondary;
+  border: 1px solid $secondary;
+}
 .course-list {
   .course-list-info-mobile {
     display: none;
