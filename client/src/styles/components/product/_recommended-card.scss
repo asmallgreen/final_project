@@ -27,41 +27,31 @@
         .tags {
           .tag1 {
             border-radius: 0 0 0px 0;
-            bottom: 1px;
-            right: 1px;
+            bottom: 0px;
+            right: 0px;
             text-align: center;
             padding-block: 5px;
             width: 50px;
             height: 30px;
-            font-size: 12px;
+            font-size: 14px;
+            letter-spacing: 1px;
             background-color: $accent;
             color: $primary;
           }
           .tag2 {
             border-radius: 0 0 0px 0;
-            bottom: 1px;
-            right: 1px;
+            bottom: 0px;
+            right: 0px;
             text-align: center;
             padding-block: 5px;
             width: 50px;
             height: 30px;
-            font-size: 12px;
+            font-size: 14px;
+            letter-spacing: 1px;
             background-color: $secondary;
             color: $primary;
           }
         }
-        // .tag {
-        //   border-radius: 0 0 0px 0;
-        //   bottom: 1px;
-        //   right: 1px;
-        //   text-align: center;
-        //   padding-block: 5px;
-        //   width: 50px;
-        //   height: 30px;
-        //   font-size: 12px;
-        //   background-color: $accent;
-        //   color: $primary;
-        // }
       }
       .content {
         padding: 5px;
@@ -69,14 +59,18 @@
         border-radius: 0;
         border: 1px solid $secondary 0.5;
         .product-name {
+          padding: 5px 0 0 5px;
           color: $secondary;
+          font-size: 18px;
+          font-weight: bold;
         }
         .description {
           color: $secondary;
           font-size: 15px;
         }
         .price {
-          font-size: 18px;
+          padding-right: 5px;
+          font-size: 20px;
           color: $accent;
         }
       }

@@ -31,7 +31,9 @@ export default function FilterProductCard(props) {
           <Link href={`/product/${idData}`} className="">
             <img src={filterProduct.img1} alt="" className=""></img>
             <div className=" tags d-flex">
-              <div
+              {/* {filterProduct.launched === 1 && <div className="tag1">NEW</div>}
+              {filterProduct.hot === 1 && <div className="tag2">HOT</div>} */}
+              {/* <div
                 className={
                   filterProduct.launched === 1
                     ? "tag1 position-absolute"
@@ -46,7 +48,7 @@ export default function FilterProductCard(props) {
                 }
               >
                 HOT
-              </div>
+              </div>*/}
             </div>
           </Link>
 
@@ -60,9 +62,17 @@ export default function FilterProductCard(props) {
           </button>
         </div>
         <div className="content">
-          <div className="product-name">{filterProduct.name}</div>
+          {/* <div className="d-flex">
+            
+          </div> */}
 
-          <div className="price d-flex justify-content-between my-1">
+          <div className="product-name">
+            {filterProduct.launched === 1 && <div className="tag1">NEW</div>}
+            {filterProduct.hot === 1 && <div className="tag2">HOT</div>}
+            {filterProduct.name}
+          </div>
+
+          <div className="price">
             NT$ {filterProduct.price}
             <button className="">
               {/* <FontAwesomeIcon

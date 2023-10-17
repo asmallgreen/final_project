@@ -29,24 +29,27 @@ function Pid() {
   const id = parseInt(pid, 10);
   const [allProduct, setAllProduct] = useState([]);
   const [product, setProduct] = useState({});
-// ************************隨機商品***************************************
-const shuffleArray = (array) => {
-  let currentIndex = array.length, randomIndex;
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-  }
-  return array;
-};
-// 複製一份原始陣列，避免修改原始資料
-const shuffledProducts = shuffleArray([...allProduct]);
-// 從隨機排序後的陣列中取得前 10 個元素
-const randomProducts = shuffledProducts.slice(0, 10);
+  // ************************隨機商品***************************************
+  const shuffleArray = (array) => {
+    let currentIndex = array.length,
+      randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+    return array;
+  };
+  // 複製一份原始陣列，避免修改原始資料
+  const shuffledProducts = shuffleArray([...allProduct]);
+  // 從隨機排序後的陣列中取得前 10 個元素
+  const randomProducts = shuffledProducts.slice(0, 10);
 
-
-// const hotProduct = allProduct.filter((product) => product.hot === 1);
-// ***************************************************************
+  // const hotProduct = allProduct.filter((product) => product.hot === 1);
+  // ***************************************************************
 
   const [tables, setTables] = useState();
   const [attrValue, setAttrValue] = useState();
@@ -84,9 +87,9 @@ const randomProducts = shuffledProducts.slice(0, 10);
       })();
     }
   }, [pid]);
-  useEffect(()=>{
+  useEffect(() => {
     // console.log(allProduct);
-  },[allProduct])
+  }, [allProduct]);
   useEffect(() => {
     // console.log(cate);
   }, [cate]);
@@ -125,12 +128,12 @@ const randomProducts = shuffledProducts.slice(0, 10);
       </div>
       {/* *********************** */}
       <Row>
-        <Col xl="4" md="5" className="product-info-img offset-md-1 offset-xl-2">
+        <Col xl="5" md="5" className="product-info-img offset-md-1 offset-xl-2">
           <div className="img">
-            <img src={product.img1}></img>
+            <img src={product.img1} alt=""></img>
           </div>
         </Col>
-        <Col xl="5" md="5" className="product-info-select">
+        <Col xl="4" md="5" className="product-info-select">
           <div className="product-info-des">
             <Description pidData={product} />
           </div>
@@ -188,7 +191,9 @@ const randomProducts = shuffledProducts.slice(0, 10);
       {/* 商品資訊(手風琴) */}
       <ProductInfoAccordion pidData={product} />
       {/* </div> */}
-
+      <div className="inter-img">
+        {/* <img src="/product/top2.jpg" alt=""></img> */}
+      </div>
       {/* 相關商品推薦 */}
       <div className="product-page-title">
         <p>相關商品推薦</p>

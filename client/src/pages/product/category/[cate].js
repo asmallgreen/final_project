@@ -317,7 +317,7 @@ function Cate(props) {
         <div className="container">
           <div className="all-product">
             <div className="p-0">
-              <p>所有商品</p>
+              <p>{currentPage} 所有商品</p>
             </div>
             <div className="p-0">
               <FilterBtns
@@ -360,12 +360,12 @@ function Cate(props) {
         <p>優惠專區</p>
       </div>
       <Swiper
-        spaceBetween={10}
-        slidesPerView={2}
+        spaceBetween={5}
+        slidesPerView={3}
         navigation={true}
         // pagination={true}
         modules={[Navigation, Pagination, History]}
-        className="mySwiper sale-product-swiper pt-5"
+        className="mySwiper sale-product-swiper"
       >
         {saleProduct.map((data) => {
           return (

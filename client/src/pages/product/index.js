@@ -81,11 +81,6 @@ function Product() {
     // console.log(newAttr);
   };
 
-  // const updateSearch = (newSearch) => {
-  //   setSearch(newSearch)
-  //   console.log(search);
-  //   setPage(1)
-  // }
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -224,7 +219,6 @@ function Product() {
       <div className="product-page-title">
         <p>新品上架</p>
       </div>
-      {/* <Router> */}
       <Swiper
         spaceBetween={0}
         slidesPerView={5}
@@ -241,7 +235,6 @@ function Product() {
           );
         })}
       </Swiper>
-      {/* </Router> */}
 
       {/* 分類 */}
       <div className="category position-relative">
@@ -339,12 +332,12 @@ function Product() {
         <p>優惠專區</p>
       </div>
       <Swiper
-        spaceBetween={10}
-        slidesPerView={2}
+        spaceBetween={5}
+        slidesPerView={3}
         navigation={true}
         // pagination={true}
         modules={[Navigation, Pagination, History]}
-        className="mySwiper sale-product-swiper pt-5"
+        className="mySwiper sale-product-swiper"
       >
         {saleProduct.map((data) => {
           return (

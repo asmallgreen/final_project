@@ -1,4 +1,5 @@
 .filter-cards-area {
+  // font-family: 'Inter';
   justify-content: center;
   padding: 48px 20px;
   .filter-cards {
@@ -10,14 +11,15 @@
     }
   }
   .card {
-    width: 250px;
+    width: 220px;
     border-radius: 0;
     border: 1px solid $secondary 0.5;
     // height: 400px;
+    background-color: #fff;
     margin: 10px 5px;
     padding: 0;
     .img {
-      height: 300px;
+      height: 220px;
       width: 100%;
       // background-color: $secondary;
       img {
@@ -25,45 +27,7 @@
         height: 100%;
         object-fit: cover;
       }
-      .tags {
-        .tag1 {
-          border-radius: 0 0 0px 0;
-          bottom: 1px;
-          right: 1px;
-          text-align: center;
-          padding-block: 5px;
-          width: 50px;
-          height: 30px;
-          font-size: 12px;
-          background-color: $accent;
-          color: $primary;
-        }
-        .tag2 {
-          border-radius: 0 0 0px 0;
-          bottom: 1px;
-          right: 51px;
-          text-align: center;
-          padding-block: 5px;
-          margin-inline: 5px;
-          width: 50px;
-          height: 30px;
-          font-size: 12px;
-          background-color: $secondary;
-          color: $primary;
-        }
-      }
-      // .tag {
-      //   border-radius: 0 0 0px 0;
-      //   bottom: 1px;
-      //   right: 1px;
-      //   text-align: center;
-      //   padding-block: 10px;
-      //   width: 60px;
-      //   height: 40px;
-      //   font-size: 14px;
-      //   background-color: $accent;
-      //   color: $primary;
-      // }
+
       button {
         border: transparent;
         background-color: transparent;
@@ -84,19 +48,54 @@
       }
     }
     .content {
-      padding: 5px 10px;
+      padding: 5px 0 5px 10px;
       background-color: #fff;
+
       .product-name {
-        color: $secondary;
+        display: flex;
+        padding: 3px 0 0 0;
+        font-weight: bold;
+        color: #848470;
         font-size: 20px;
+        .tag1 {
+          border-radius: 0 0 0px 0;
+          bottom: 1px;
+          right: 1px;
+          text-align: center;
+          padding-block: 5px;
+          margin-right: 5px;
+          width: 50px;
+          height: 30px;
+          font-size: 14px;
+          letter-spacing: 1px;
+          background-color: $accent;
+          color: $primary;
+        }
+        .tag2 {
+          border-radius: 0 0 0px 0;
+          bottom: 1px;
+          right: 51px;
+          text-align: center;
+          padding-block: 5px;
+          margin-right: 5px;
+          width: 50px;
+          height: 30px;
+          font-size: 14px;
+          letter-spacing: 1px;
+          background-color: $secondary;
+          color: $primary;
+        }
       }
-      .description {
-        color: $secondary;
-        font-size: 15px;
-      }
+      // .description {
+      //   color: $secondary;
+      //   font-size: 15px;
+      // }
       .price {
-        font-size: 18px;
+        // padding-right: 5px;
+        font-size: 20px;
+        font-weight: bold;
         color: $accent;
+        text-align: end;
         button {
           border: transparent;
           color: $secondary;

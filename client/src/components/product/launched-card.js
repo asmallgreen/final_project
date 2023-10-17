@@ -37,7 +37,7 @@ function LaunchedCard(props) {
                     : "d-none"
                 }
               >
-                NEW
+                HOT
               </div>
               </div>
               

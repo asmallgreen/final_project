@@ -21,6 +21,11 @@
   height: 72px;
   background-color: $secondary;
 }
+.fa-bars {
+  display: none;
+  color: $secondary !important;
+  position: absolute;
+}
 //Navbar
 .table-nav {
   // width: 1440px;
@@ -251,8 +256,6 @@
     right: 20px;
     position: fixed;
     z-index: 9999;
-    // top: 31px;
-    // right: 20px;
   }
   .ham-login {
     // 手機ham

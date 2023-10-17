@@ -126,11 +126,27 @@ body {
 }
 //卡片在各自component
 // 優惠卡片的swiper
-.launched-product-swiper, .recommend-product-swiper, .sale-product-swiper{
+.launched-product-swiper{
   .swiper-button-next {
+    margin-bottom: 10px;
+    opacity: 0.8;
     color: $secondary !important;
   }
   .swiper-button-prev {
+    margin-bottom: 10px;
+    opacity: 0.8;
+    color: $secondary !important;
+  }
+}
+ .sale-product-swiper{
+  .swiper-button-next {
+    // margin-top: 10px;
+    opacity: 0.8;
+    color: $secondary !important;
+  }
+  .swiper-button-prev {
+    // margin-top: 5px;
+    opacity: 0.8;
     color: $secondary !important;
   }
   .swiper-pagination {
@@ -138,6 +154,19 @@ body {
         background-color: $secondary !important;
       }
     }
+}
+.recommend-product-swiper{
+  .swiper-button-next {
+    display: none;
+  }
+  .swiper-button-prev {
+    display: none;
+  }
+  .swiper-pagination {
+    .swiper-pagination-bullet-active {
+      background-color: $secondary !important;
+    }
+  }
 }
 //手機板 優惠專區
 .phone-sales {
@@ -346,6 +375,7 @@ body {
   }
 }
 .inter-block {
+  border-top: 1px solid $secondary;
   font-size: 20px;
   color: $secondary;
   height: 200vh;
