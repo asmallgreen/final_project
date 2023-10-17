@@ -4,7 +4,7 @@ import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import { useProductCart } from "@/hooks/use-product-cart";
 import { useCourseCart } from "@/hooks/use-course-cart";
 import { useOrder } from "@/hooks/use-order";
-import next from "next";
+import CartList from "@/components/cart/cartlist.js";
 
 export default function StepThree({ setstepType }) {
   //Member資料
@@ -125,7 +125,8 @@ export default function StepThree({ setstepType }) {
           </Form>
         </div>
       </div>
-      <div className="orderTitle">
+      <CartList />
+      {/* <div className="orderTitle">
         <Col xs={1}>
           <span>+</span>
         </Col>
@@ -135,7 +136,7 @@ export default function StepThree({ setstepType }) {
         <Col xs={1}>
           <span>+</span>
         </Col>
-      </div>
+      </div> */}
       <div>
         <div className="order">
           <div className="fs-5">

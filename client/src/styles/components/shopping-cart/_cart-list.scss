@@ -1,0 +1,20 @@
+.collapse-cart-list{
+    .ant-collapse-content-box{
+        padding: 0;
+        border: 1px solid $secondary;
+    }
+    .ant-collapse-header {
+        font-size: 1.25rem;
+        background-color: $secondary;
+        padding: 2rem 0 !important;
+        color: white !important;
+        border-radius: 0 !important;
+    }
+     .ant-collapse-content {
+        border-radius: 0 !important;
+    }
+    .thead{
+        background-color: $secondary-half;
+        color:white
+    }
+}

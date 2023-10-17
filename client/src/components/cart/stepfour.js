@@ -6,6 +6,7 @@ import { useProductCart } from "@/hooks/use-product-cart";
 import { useCourseCart } from "@/hooks/use-course-cart";
 import { useOrder } from "@/hooks/use-order";
 import axios from "axios";
+import CartList from "./cartlist";
 
 export default function StepThree({ setstepType }) {
   //hooks
@@ -142,7 +143,8 @@ export default function StepThree({ setstepType }) {
             </div>
           </Form>
         </div>
-        <div className="orderTitle">
+        <CartList/>
+        {/* <div className="orderTitle">
           <Col xs={1}>
             <span>+</span>
           </Col>
@@ -152,7 +154,7 @@ export default function StepThree({ setstepType }) {
           <Col xs={1}>
             <span>+</span>
           </Col>
-        </div>
+        </div> */}
         <div>
           <div className="order">
             <div className="fs-5">

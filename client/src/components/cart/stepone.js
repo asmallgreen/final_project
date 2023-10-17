@@ -11,7 +11,7 @@ import CourseList from "@/components/cart/course-list.js";
 
 export default function StepOne({ setstepType }) {
   const sendData = () => {
-    if (productCart.totalItems === 0) {
+    if (productCart.totalItems === 0 && courseCart.totalItems === 0) {
       alert("没有商品~先去看看吧");
     } else {
       setstepType(2);
@@ -57,11 +57,11 @@ export default function StepOne({ setstepType }) {
       setCouponOptions(memberCoupon);
     }
   }, [memberCoupon]);
-  
+
   useEffect(() => {
     if (!selectedCouponId || couponOptions.length === 0) {
       setNetTotal(productCart.cartTotal);
-  
+
       // 重置coupon_id
       setSelectedCouponId(null);
       setOrderInfo({
@@ -71,16 +71,16 @@ export default function StepOne({ setstepType }) {
       });
     } else {
       const coupon = couponOptions.find((v) => v.id === selectedCouponId);
-  
+
       //計算購物車
       if (coupon) {
         const newNetTotal =
           coupon.type === 1
             ? Math.round(productCart.cartTotal * (coupon.discount / 10))
             : productCart.cartTotal - coupon.discount;
-  
+
         setNetTotal(newNetTotal);
-      //傳入orderInfo hook  
+        //傳入orderInfo hook
         setOrderInfo({
           ...orderInfo,
           coupon_id: selectedCouponId,
@@ -89,7 +89,7 @@ export default function StepOne({ setstepType }) {
       }
     }
   }, [selectedCouponId, couponOptions, productCart.cartTotal]);
-  
+
   // 修正 Next hydration 錯誤
   // 一定要在最後面
   // https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html
@@ -107,15 +107,11 @@ export default function StepOne({ setstepType }) {
   return (
     <Container>
       <div className="listTitle">
-        <Col xs={1}>
-          <input type="checkbox" className="expand pcDNone" />
-        </Col>
-        <Col xs={10}>商品</Col>
-        <Col xs={1}>
-          <span className="expand phoneDNone">+</span>
-        </Col>
+        商品
       </div>
-      <ProductList />
+      <div>
+        <ProductList />
+      </div>
       <div className="productList">
         <div>
           <button
@@ -155,15 +151,12 @@ export default function StepOne({ setstepType }) {
         </div>
       </div>
       <div className="listTitle">
-        <Col xs={1}>
-          <input type="checkbox" className="expand pcDNone" />
-        </Col>
-        <Col xs={10}>課程</Col>
-        <Col xs={1}>
-          <span className="expand phoneDNone">+</span>
-        </Col>
+        課程
       </div>
-      <CourseList />
+      <div>
+        <CourseList />
+      </div>
+      
       <div className="productList">
         <Col>
           <button

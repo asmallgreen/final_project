@@ -4,6 +4,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useProductCart } from "@/hooks/use-product-cart";
 import { useCourseCart } from "@/hooks/use-course-cart";
 import { useOrder } from "@/hooks/use-order";
+import CartList from "@/components/cart/cartlist.js";
 
 export default function StepTwo({ setstepType, setNetTotal }) {
   const { productCart, products } = useProductCart();
@@ -65,8 +66,8 @@ export default function StepTwo({ setstepType, setNetTotal }) {
           <span>{` 宅配 貨到付款（限台灣本島）`}</span>
         </label>
       </div>
-
-      <div className="orderTitle">
+      <CartList />
+      {/* <div className="orderTitle">
         <Col xs={1}>
           <span>+</span>
         </Col>
@@ -76,7 +77,7 @@ export default function StepTwo({ setstepType, setNetTotal }) {
         <Col xs={1}>
           <span>+</span>
         </Col>
-      </div>
+      </div> */}
       <div>
         <div className="order">
           <div className="fs-5">

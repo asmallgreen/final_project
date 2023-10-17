@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { useCourseCart } from "@/hooks/use-course-cart";
 import { FaTrashAlt } from "react-icons/fa";
-
 export default function List() {
-  // 使用hooks 解出所需的狀態與函式(自context)
+  // 使用hooks
   const { courseCart, courses, removeCourse } = useCourseCart();
 
   // 修正 Next hydration 錯誤
