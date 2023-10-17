@@ -14,8 +14,14 @@ const router = express.Router();
 
 //***********產品頁************
 router.get("/", async (req, res) => {
-  const { limit = 20, page = 1, sort, attr, search } = req.query;
-  console.log(limit, page, sort, attr, search);
+  const {
+    limit = 20,
+    page = 1,
+    sort,
+    attr = "default",
+    search = "",
+  } = req.query;
+  // console.log(limit, page, sort, attr, search);
   const limitValue = parseInt(limit);
   const pageValue = parseInt(page);
   const offset = (pageValue - 1) * limitValue;
@@ -56,26 +62,29 @@ router.get("/", async (req, res) => {
       attrValue = "price>6000";
       break;
   }
-  let searchValue = `name LIKE '%${search}%'`;
+  let searchValue;
+  if (search) {
+    searchValue = `name LIKE '%${search}%'`;
+  }
+  console.log(searchValue);
+  console.log(search);
+  // console.log(searchValue);
   // 定義where條件內容
   let where;
   // 使用條件判斷來擴充 SQL 查詢語句
-  if (attrValue) {
+  if (attrValue && searchValue) {
+    where = `WHERE ${attrValue} AND ${searchValue}`;
+  } else if (attrValue) {
     where = `WHERE ${attrValue}`;
   } else if (searchValue) {
     where = `WHERE ${searchValue}`;
-  } else if (attrValue && searchValue) {
-    where = `WHERE ${attrValue} AND ${searchValue}`
   }
+
+  console.log(where);
 
   const alldata = await getAll();
   const filterdata = await getFilter(where, sortValue);
-  const displaydata = await getDisplay(
-    attrValue,
-    sortValue,
-    limitValue,
-    offset
-  );
+  const displaydata = await getDisplay(where, sortValue, limitValue, offset);
   const alldataLength = alldata.length;
   const filterdataLength = filterdata.length;
   const displaydataLength = displaydata.length;

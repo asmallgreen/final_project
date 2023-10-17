@@ -2,27 +2,18 @@ import React, { useEffect, useState } from "react";
 import { FaX } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { Form } from "react-bootstrap";
-// import ModalSort from "./modal-sort";
 
 export default function ModalAttr(props) {
   const [open, setOpen] = useState(true);
   const [arrtSelect, setArrtSelect] = useState(false);
-  // const [modal, setModal] = useState();
-  // const [sort, setSort] = useState(false);
+  const [searchName, setSearchName] = useState();
   const [attrState, setAttrState] = useState("");
   const [attrSend, setAttrSend] = useState(attrState);
-  const [searchName, setSearchName] = useState();
+  const [searchSend, setSearchSend] = useState(searchName)
+  
   props.attrChange(attrSend);
-  props.searchName(searchName);
-  // console.log(attrState);
-  // console.log(attrSend);
+  props.searchName(searchSend);
 
-  //篩選&排序切換
-  // const handleModal = () => {
-  //   setSort(true);
-  //   setModal(sort ? 1 : <ModalSort />);
-  //   setOpen(false);
-  // };
   //用close-btn切換
   const handleNameValue = (e) => {
     setSearchName(e.target.value);
@@ -50,8 +41,10 @@ export default function ModalAttr(props) {
   };
   const handleSend = () => {
     setAttrSend(attrState);
+    setSearchSend(searchName)
     setOpen(false);
   };
+  
   useEffect(() => {
     // console.log(searchName);
   }, [searchName]);
