@@ -15,11 +15,11 @@ import CourseSlider from "../components/homepage/CourseSlider";
 import IntroCard from "../components/homepage/IntroCard";
 
 // Tabs分頁內容
-import New from "../components/homepage/New";
-import Season from "../components/homepage/Season";
-import Hot from "../components/homepage/Hot";
-import Beginner from "../components/homepage/Beginner";
-import Welfare from "../components/homepage/Welfare";
+import New from "../components/homepage/New"
+import Season from "../components/homepage/Season"
+import Hot from "../components/homepage/Hot"
+import Beginner from "../components/homepage/Beginner"
+import Welfare from "../components/homepage/Welfare"
 
 //引入圖片
 // import CourseSlider1 from "../../../public/images/homepage/course-image1.png";
@@ -105,12 +105,12 @@ export default function Homepage() {
     <>
       <div className="homepage-body">
         <div className="homepageHero1">
-          <video
+        <video
             autoPlay={true}
             muted={true}
             loop={true}
             playsInline=""
-            src="https://raw.githubusercontent.com/asmallgreen/final_project/Jim/client/public/images/homepage/hero_1.mp4"
+            src="images/homepage/hero_1.mp4"
             width={1902}
             data-object-fit="cover"
             data-object-position="45% 45%"

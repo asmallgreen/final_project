@@ -35,7 +35,6 @@ import {
     const forgotPwdGetUser = async ({ account, email }) =>
     Boolean(await count(table, { account, email }))
 
-
   // 針對PUT更新user資料
   const updateUserById = async (member, id) => await updateById(table, member, id)
   const updateUser = async (member) => await updateById(table, member, member.id)
@@ -46,6 +45,9 @@ import {
   
   const getUser = async ({ account, password }) =>
     await findOne(table, { account, password })
+
+    const getUserByAccount = async ({ account}) =>
+    await findOne(table, { account})
 
 
   // 其它用途
@@ -66,5 +68,6 @@ import {
     verifyUser,
     checkAccount,
     checkEmail,
-    forgotPwdGetUser
+    forgotPwdGetUser,
+    getUserByAccount,
   }

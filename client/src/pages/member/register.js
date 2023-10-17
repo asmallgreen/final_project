@@ -45,7 +45,7 @@ export default function Login({ formType, setFormType }) {
     level: "1",
     member_img: "avatar01.jpg",
     created_at: "",
-    total_spant: "0",
+    total_spent: "0",
     valid: "1",
   });
   // 抓到表單內填寫的內容寫進member物件
@@ -184,7 +184,6 @@ export default function Login({ formType, setFormType }) {
       );
       console.log(res.data);
       if(res.data.message === "帳號已有人使用"){
-        console.log('條件成立');
         await Swal.fire({
         icon: 'error',
         title: '此帳號已有人使用',
@@ -200,7 +199,6 @@ export default function Login({ formType, setFormType }) {
       return
       }
       if(res.data.message === "信箱已被註冊過"){
-        console.log('條件成立');
         await Swal.fire({
         icon: 'error',
         title: '此信箱已被註冊',
@@ -232,7 +230,6 @@ export default function Login({ formType, setFormType }) {
           popup: 'shadow-sm',
         },
       })
-      console.log(process.env.BASE_URL || '/');
         router.push(process.env.BASE_URL || '/')
       }
     } catch (error) {

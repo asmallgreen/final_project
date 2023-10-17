@@ -11,18 +11,11 @@ import {
 
 export default function FilterProductCard(props) {
   // const [filterProduct, setFilterProduct]= useState;
-  const { filterProduct } = props;
+  const { filterProduct, id, is_favorite, handleTriggerProductFav } = props;
   console.log(filterProduct);
   //取得卡片id
   const idData = filterProduct.id;
 
-  // 切換愛心的實心和空心狀態
-  const [isSolidHeart, setIsSolidHeart] = useState(true);
-  // Toggle切換
-  const handleToggle = (e) => {
-    e.stopPropagation();
-    setIsSolidHeart((prevState) => !prevState);
-  };
   const handleAddCart = () => {
     // 发送GET请求到后端，获取filterProduct.id
     fetch(`product/getProductId/id=${filterProduct.id}`)
@@ -58,17 +51,23 @@ export default function FilterProductCard(props) {
   // },[])
 
   // console.log(filterProduct);
+
+  // 會員收藏商品
+
+
   return (
     <>
       {/* <div className="card">
         <div className="img position-relative">
           <img src={filterProduct.img1}></img>
           <div className="tag position-absolute">NEW</div>
-          <button className="p-0 position-absolute">
+          <button className="p-0 position-absolute"
+            id={id}
+            onClick={()=>handleTriggerProductFav(id)}
+            >
             <FontAwesomeIcon
-              icon={isSolidHeart ? faHeart : farHeart}
-              className={isSolidHeart ? "fa-heart" : "far-heart"}
-              onClick={handleToggle}
+              icon={is_favorite ?  farHeart : faHeart}
+              className={is_favorite ? "fa-heart z-3" : "far-heart z-3"}
             />
           </button>
         </div>
@@ -94,11 +93,13 @@ export default function FilterProductCard(props) {
           </Link>
 
           <div className="tag position-absolute">NEW</div>
-          <button className="p-0 position-absolute">
+          <button className="p-0 position-absolute"
+            id={id}
+            onClick={()=>handleTriggerProductFav(idData)}
+            >
             <FontAwesomeIcon
-              icon={isSolidHeart ? faHeart : farHeart}
-              className={isSolidHeart ? "fa-heart" : "far-heart"}
-              onClick={handleToggle}
+              icon={is_favorite ?  farHeart : faHeart}
+              className={is_favorite ? "fa-heart z-3" : "far-heart z-3"}
             />
           </button>
         </div>

@@ -11,8 +11,8 @@ transport = {
   secure: true, // use TLS
   //在專案的 .env 檔案中定義關於寄送郵件的 process.env 變數
   auth: {
-    // user: process.env.SMTP_TO_EMAIL,
-    // pass: process.env.SMTP_TO_PASSWORD,
+    user: process.env.SMTP_TO_EMAIL,
+    pass: process.env.SMTP_TO_PASSWORD,
   },
 }
 

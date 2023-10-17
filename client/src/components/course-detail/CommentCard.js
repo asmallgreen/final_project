@@ -18,22 +18,25 @@ export default function CommentCard(props) {
 
   return (
     <>
-      <div className="comment-card bg-white container p-4 ">
+      <div className="comment-card container p-4 ">
         <div className="comment-card-header d-flex mb-2">
           <Avatar
             className=""
             src={member_avatar}
             size={{
-              xs: 24,
-              xxl: 64,
+              xs: 40,
+              xl: 65,
             }}
           />
-          <div className="comment-card-info ms-3">
-            <div className="d-flex align-items-baseline">
-              <h5 className="">{member_name}</h5>
-              <p className="ms-3">{comment_time}</p>
+          <div className="comment-card-info">
+            <div className="comment-card-info-text">
+              <div className="member-name">{member_name}</div>
+              <div className="comment-time">{comment_time}</div>
             </div>
-            <Rate disabled defaultValue={rating_score} />
+            <Rate disabled 
+            defaultValue={rating_score}
+            className="comment-rating"
+             />
           </div>
         </div>
         <div className="comment-card-content mt-3 ">

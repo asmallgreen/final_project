@@ -5,7 +5,6 @@ import { Form } from "react-bootstrap";
 //fontawesome
 import { FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
 // 登入後才會顯示登出按鈕
-
 import { FiLogOut } from "react-icons/fi";
 import { Button } from "react-bootstrap";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
@@ -96,9 +95,7 @@ export default function Navbar() {
       <div className="table-nav position-relative">
         <ul className="nav position-absolute">
           <li className="list-unstyled">
-            <Link href="/" className="titleLi">
-              關於良弓
-            </Link>
+            <Link href="/product" className="titleLi">關於良弓</Link>
           </li>
           <li className="list-unstyled product-page">
             <Link href="/product">商品介紹</Link>
@@ -139,14 +136,12 @@ export default function Navbar() {
             <div className="hover-space position-absolute"></div>
           </li>
           <li className="list-unstyled">
-            <Link href="/course-list" className="titleLi">
+            <Link href="/course" className="titleLi">
               弓道課程
             </Link>
           </li>
           <li className="list-unstyled">
-            <Link href="/venue" className="titleLi">
-              場地租借
-            </Link>
+            <Link href="/venue" className="titleLi">場地租借</Link>
           </li>
           <li className="list-unstyled">
             <Link href="/product" className="titleLi">
@@ -157,7 +152,7 @@ export default function Navbar() {
 
         <ul className="nav-fk">
           <Form className="list-unstyled search-form">
-            <div className="position-relative">
+          <div className="position-relative">
               <Form.Control
                 type="text"
                 placeholder="請輸入商品名稱"
@@ -188,13 +183,6 @@ export default function Navbar() {
               </Button>
             </li>
           )}
-          {authJWT.isAuth && (
-            <li className="list-unstyled">
-              <Button onClick={handleLogout}>
-                <FiLogOut className="fi-logout" />
-              </Button>
-            </li>
-          )}
         </ul>
       </div>
       {/* 在这里显示搜索结果 */}
@@ -213,7 +201,7 @@ export default function Navbar() {
             <Link href="/product">商店</Link>
           </li>
           <li>
-            <Link href="/course-list">課程</Link>
+            <Link href="/course">課程</Link>
           </li>
           <li>
             <Link href="/venue">場地</Link>
