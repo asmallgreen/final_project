@@ -20,7 +20,7 @@ export default function Venue() {
   }, [])
   console.log(VenueData)
   return (
-    <div className='height: 1000px'>
+    <div className='idh'>
       <Container>
         {
           VenueData && VenueData.map((venue, index) => {
