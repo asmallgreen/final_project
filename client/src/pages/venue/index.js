@@ -6,7 +6,6 @@ import Link from "next/link";
 
 export default function Venue() {
   const [VenueData, setVenueData] = useState(null)
-  const [reserveData, setReserveData] = useState(null);
 
   useEffect(() => {
     async function fetchVenueData() {
@@ -17,23 +16,11 @@ export default function Venue() {
         console.error('資料庫連結錯誤:', error);
       }
     }
-    async function fetchVenueReserveData(){
-      try {
-        const response = await axios.get('http://localhost:3005/venue_reserve');
-        setReserveData(response.data.allVenueReserve);
-
-      } catch (error) {
-        console.error('資料庫連結錯誤:', error);
-      }
-    }
-
     fetchVenueData();
-    fetchVenueReserveData()
   }, [])
   console.log(VenueData)
-  console.log(reserveData)
   return (
-    <>
+    <div className='height: 1000px'>
       <Container>
         {
           VenueData && VenueData.map((venue, index) => {
@@ -46,12 +33,16 @@ export default function Venue() {
                 type="button"
                 href={`/venue/date?id=${venue.id}`}
               >
-                <img src={`/images/venue/${venue.venue_img}`}></img>
+                <img src={`/images/venue/${venue.venue_img}`}
+                  onLoad={() => {
+                    // 图像已加载，可以执行一些操作，例如重新排列组件
+                  }}
+                />
               </Link>
             </div>
           })
         }
       </Container>
-    </>
+    </div>
   )
 }

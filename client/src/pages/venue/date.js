@@ -39,32 +39,66 @@ export default function ReserveDate() {
         setVenueData(response.data.once);
         // console.log(VenueData)
       } catch (error) {
-        console.error('資料庫連結錯誤:', error);
+        console.error('場地資料庫連結錯誤:', error);
       }
       // console.log(VenueData)
     }
-    async function fetchVenueReserveData() {
-      try {
-        const response = await axios.get('http://localhost:3005/venue_reserve');
-        setReserveData(response.data.allVenueReserve);
+// 刪除重複日期
+function mergeAndRemoveDuplicates(dateLists) {
+  const mergedDates = [];
 
-        // 取得 venue_reserve 中的日期
-        const reservedDates = response.data.allVenueReserve.map((reserve) => [
-          reserve.date_1,
-          reserve.date_2,
-          reserve.date_3,
-          reserve.date_4,
-          reserve.date_5,
-        ]).flat().map(date => date.replace('-', ', '));
-        console.log(reservedDates);
+  dateLists.forEach((dates) => {
+    if (dates !== null) {
+      dates.forEach((date) => {
+        if (!mergedDates.includes(date)) {
+          mergedDates.push(date);
+        }
+      });
+    }
+  });
 
-        // 在日期选择器中禁用已被预定的日期
-        const disabledDates = reservedDates;
-        setDisabledDates(disabledDates);
-        console.log(disabledDates);
+  return mergedDates;
+}
+
+async function fetchVenueReserveData() {
+  const response = await axios.get('http://localhost:3005/venue_reserve');
+  try {
+    setReserveData(response.data.allVenueReserve);
+
+   // 取得 venue_reserve 中的日期
+   const reservedDates = response.data.allVenueReserve.map((reserve) => [
+    reserve.date_1,
+    reserve.date_2,
+    reserve.date_3,
+    reserve.date_4,
+    reserve.date_5,
+  ]).flat().map(date => date ? date.replace('-', ', ') : null); // 将 null 替换为 null
+  console.log(reservedDates);
+
+    // 在日期选择器中禁用已被预定的日期
+    const disabledDates = reservedDates;
+    setDisabledDates(disabledDates);
+    console.log(disabledDates);
+  
+
+      // 将已被预定的日期添加到disabledDates数组中
+      // const reservedDateObjects = response.data.allVenueReserve.map((reserve) => [
+      //   new Date(reserve.date_1),
+      //   new Date(reserve.date_2),
+      //   new Date(reserve.date_3),
+      //   new Date(reserve.date_4),
+      //   new Date(reserve.date_5),
+      // ]);
+    
+
+      // 合并已被预定的日期并去重
+    // const mergedReservedDates = mergeAndRemoveDuplicates(reservedDateObjects);
+
+    // 更新disabledDates数组
+    // setDisabledDates(mergedReservedDates);
 
       } catch (error) {
-        console.error('資料庫連結錯誤:', error);
+        console.error('預約資料庫連結錯誤:', error);
       }
     }
     if (isReady) {
