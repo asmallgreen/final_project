@@ -174,22 +174,24 @@ export default function Login() {
           </div>
       <Row className="mb-3">
         <Form.Group as={Col} md="12" controlId="validationCustom01">
-          <Form.Label>帳號</Form.Label>
+          <Form.Label className='login-account-table'>帳號</Form.Label>
           <Form.Control
             required
             type="text"
             name='account'
+            placeholder='帳號'
             value={loginData.account}
             onChange={handleInputChange}
           />
           <Form.Control.Feedback type="invalid">請輸入帳號</Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} md="12" controlId="validationCustom02" className='password-eye'>
-          <Form.Label>密碼</Form.Label>
+          <Form.Label className='login-account-table'>密碼</Form.Label>
           <Form.Control
             required
             type={showPassword?'text':'password'}
             name='password'
+            placeholder='密碼'
             value={loginData.password}
             onChange={handleInputChange}
           />

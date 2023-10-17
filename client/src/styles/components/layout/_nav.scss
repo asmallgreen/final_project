@@ -7,6 +7,8 @@
   margin: 0;
   height: 72px;
   background-color: $secondary;
+  z-index: 9999;
+  position:relative;
 }
 //Navbar
 .table-nav {
@@ -14,9 +16,10 @@
   display: flex;
   align-items: center;
   background-color: $primary;
-  height: 90px;
+  height: 70px;
+  z-index: 9999;
   .nav {
-    height: 90px;
+    height: 70px;
     margin: 0 auto;
     width: 100%;
     padding: 0;
@@ -139,7 +142,7 @@
 
   .nav-fk {
     display: flex;
-    height: 90px;
+    height: 70px;
     padding-inline: 30px;
     position: absolute;
     // top-0 end-0 align-items-center
@@ -316,6 +319,8 @@
     display: flex;
     background-color: $primary;
     height: 40px;
+    z-index: 9999;
+    position: relative;
     .nav {
       display: flex;
       justify-content: center;

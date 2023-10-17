@@ -283,6 +283,7 @@ body{
   border: 0px;
   padding-inline: 40px;
   color: #fff;
+  margin-bottom: 30px;
   &:hover {
     background-color: $secondary;
     color: #fff;
@@ -327,6 +328,22 @@ body{
 }
   }
 // 會員資料內容
+.mobile-member-update-container{
+  width: 100%;
+  margin-bottom: 100px;
+
+  @media (max-width:393px){
+    width: 100%;
+    margin-bottom: 80px;
+  }
+}
+
+  .shadow-sm{
+    width: 400px;
+    @media (max-width:393px){
+      width: 80%;
+    }
+  }
 .upload-profile-form{
   color: $secondary;
   font-family: NSimSun;

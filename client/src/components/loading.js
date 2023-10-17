@@ -4,10 +4,12 @@ import React from 'react';
 
 const Loading = () => {
   return (
-    <div className='loadingContainer expand'>
-      <div className='loadingContent'>
-        <img src='/logo_1.png' alt="良弓logo" className=''/>
+    <div className='loadingContainer'>
+    <div className='topBackground'></div>
+      <div className='loadingContent expand'>
+        <img src='/logo_1.png' alt="良弓logo" className='logo'/>
       </div>
+      <div className='bottomBackground'></div>
     </div>
   );
 };
