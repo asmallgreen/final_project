@@ -139,6 +139,16 @@ router.post('/', async (req, res) => {
 });
 
 
+router.post('/deleteCourseCart', async (req, res) => {
+    const memberId = req.body.memberId
+    const courseId = req.body.courseId
+
+});
+
+router.post('/deleteProductCart', async (req, res) => {
+
+
+})
 
 router.post('/MemberCoupon', async (req, res) => {
     const memberId = req.body.memberId
@@ -146,7 +156,9 @@ router.post('/MemberCoupon', async (req, res) => {
         `SELECT * 
     FROM member_coupon
     JOIN coupon ON member_coupon.coupon_id = coupon.id 
-    WHERE member_id = ?`
+    WHERE member_id = ?
+    AND status = "可使用" 
+    `
 
     try {
         const result = await pool.query(sql, [memberId]);

@@ -31,24 +31,35 @@ import CountCom from "@/components/cart/countCom";
 function Pid() {
 
   // 購物車專用
-  const [prodId, setProdId] = useState(0);
   const [cartQuantity, setCartQuantity] = useState(1);
   const [n, setN] = useState(3);
-  const [btnValues, setBtnValues] = useState(Array.from({ length: n }).fill(null));
-  const [activeSelection, setActiveSelection] = useState([]);
+  const [activeValues, setActiveValues] = useState("");
 
-  const handleClick = (tableIndex, index) => {
-    const value = attrValue[tableIndex][index];
-    setActiveSelection((prevSelection) => {
-      const newSelection = [...prevSelection];
-      const rowIndex = Math.floor(newSelection.length / attrValue[0].length);
-      if (newSelection.length % attrValue[0].length === 0) {
-        newSelection.push([]);
-      }
-      newSelection[rowIndex].push(value);
-      return newSelection.slice(0, 3);
+
+  const handleClick = (e, tableIndex, index) => {
+
+    const targetBtn = document.querySelectorAll(`.dtlBtnGroup .${tables[tableIndex].replace("_", "-")}-style `)
+    // 移除所有按鈕的 active 類別
+    targetBtn.forEach((btn) => {
+      btn.classList.remove("dtlActive");
     });
-    
+
+    // 為目標按鈕添加 active 類別
+    e.target.classList.add("dtlActive");
+    const activeElements = document.querySelectorAll('.dtlActive');
+    const Values = Array.from(activeElements).map((el) => el.value);
+    // console.log("調換前"+Values)
+    // const temp = Values[0];
+    //  Values[0] =  Values[1];
+    //  Values[1] = temp;
+    // // setActiveValues(Values);
+    // console.log("調換後"+Values)
+
+
+    const str = Values.map((obj) => obj).join(',')
+
+    setActiveValues(str)
+    console.log("activeValues"+activeValues)
   };
 
   // 購物車專用
@@ -62,19 +73,33 @@ function Pid() {
   const [tables, setTables] = useState();
   const [attrValue, setAttrValue] = useState();
   const [attrTitle, setAttrTitle] = useState();
-
+  // 購物車有改
   const getButtonStyle = (tableName) => {
     switch (tableName) {
       case "bow_strength":
         return "bow-strength-style ";
       case "bow_meterial":
-        return "bow-material-style";
+        return "bow-meterial-style";
       case "bow_length":
         return "bow-length-style";
+
+      case "arrow_length":
+        return "arrow-length-style ";
+      case "arrow_meterial":
+        return "arrow-meterial-style";
+      case "arrow_shaft":
+        return "arrow-shaft-style";
+
+      case "suit_color":
+        return "suit-color-style ";
+      case "suit_size":
+        return "suit-size-style";
+
       default:
         return ""; // 默认样式，可以是空字符串或其他默认样式
     }
   };
+  // 購物車有改
 
   useEffect(() => {
     if (typeof window !== "undefined" && !product.length) {
@@ -88,7 +113,7 @@ function Pid() {
           setTables(res.data.tables);
           setAttrValue(res.data.attrValue);
           setAttrTitle(res.data.attrTitle);
-          console.log(res.data);
+          console.log(res.data)
         } catch (error) {
           console.log(error);
         }
@@ -227,34 +252,36 @@ function Pid() {
                   </div>
                 ))}
             </div>
-
-            <div className="">
+            {/* 購物車有改 */}
+            <div className="dtlBtnSection">
               {attrValue &&
                 Array.isArray(attrValue) &&
                 attrValue.map((tableData, tableIndex) => (
-                  
-                  <div className="d-flex dtlBtnGroup" key={tableIndex}>
-                    {/* 購物車有改 */}
+
+                  <div className="d-flex dtlBtnGroup" key={tableIndex} id={tableIndex}>
+
                     {tableData.map((v, index) => (
 
-                      <div
-                        className={`btn attr-value-style ${activeSelection === index ? 'dtlActive' : ''}
+                      <button
+                        className={`btn attr-value-style 
                         ${getButtonStyle(
-                          tables[tableIndex] 
-                        ) }`}
+                          tables[tableIndex]
+                        )}`}
                         key={index}
-                        onClick={() => {
-                          handleClick(tableIndex, index);
+                        onClick={(e) => {
+                          handleClick(e, tableIndex, index);
+
                         }}
                         value={v}
                       >
                         {v}
-                      </div>
+                      </button>
                     ))}
-                    {/* 購物車有改 */}
+
                   </div>
                 ))}
             </div>
+            {/* 購物車有改 */}
           </div>
 
           <div className="product-info-attr">
@@ -265,22 +292,17 @@ function Pid() {
 
           <div className="product-info-btns">
             {/* 數量按鈕 */}
-            <QuantityBtn />
+            <QuantityBtn setCartQuantity={setCartQuantity}/>
             {/* 購物車 收藏按鈕 */}
             <div className="product-info-btn">
               <FavBtn is_favorite={isProductFavorited(id)} id={id} handleTriggerProductFav={handleTriggerProductFav} />
-              <CartBtn />
+              <CartBtn cartQuantity={cartQuantity} prodId={id} activeValues={activeValues}/>
             </div>
 
 
 
           </div>
-          {/* 購物車按鈕們 */}
-          <div>
-            <CountCom setCartQuantity={setCartQuantity} />
-            <AddCartProduct cartQuantity={cartQuantity} prodId={id} />
-          </div>
-          {/* 購物車按鈕們 */}
+
         </Col>
 
       </Row>

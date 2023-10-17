@@ -188,11 +188,15 @@
 
 .productList .couponSection select{
     height: 45px;
-    width: 270px;
+    width: 200px;
     
 }
 @media (max-width: 393px) {
-    
+    .productList .couponSection select{
+        height: 30px;
+        width: 150px;
+        
+    }
 }
 .productList select {
     padding: 10px 40px;
@@ -351,9 +355,27 @@
 }
 
 .prodImg{
-   background:  url("/Ciro/checkbox.png") no-repeat center center;
+  
    width: 150px;
-   height: 120px;
+   height: 150px;
+}
+@media (max-width: 393px) {
+    .prodImg{
+        width: 80px;
+        height: 80px;
+    }
+}
+.fakeSelect{
+    display: flex;
+    padding: 0px 15px;
+    width: 148px;
+    border: 1px solid #616153;
+    background-color: #fff;
+}
+@media (max-width: 393px) {
+    .fakeSelect{
+        width: 100px;
+    }
 }
 
 .calGroup .calBtn{
@@ -484,6 +506,14 @@
 .orderTitle div button {
     border: 0;
     color: #fff;
+}
+
+.card-section .rccs{
+    margin-inline:auto ;
+    margin-block: 20px;
+}
+.cardForm{
+    width: 250px;
 }
 
 /* -----------orderList----------- */

@@ -1,15 +1,15 @@
 import { useCart } from '@/hooks/use-cart'
 import { set } from 'lodash'
-import { useEffect, useState, useReducer, createContext ,useContext } from 'react'
+import { useEffect, useState, useReducer, createContext, useContext } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 
 
 
 
-export default function List({ mode, setCartProductDtl ,setCartOriginDtl}) {
-  const [state , setState] = useState(null)
+export default function List({ mode, setCartProductDtl, setCartOriginDtl }) {
+  const [state, setState] = useState(null)
   // 使用hooks 解出所需的狀態與函式(自context)
-  const { cart, items, plusOne, minusOne, removeItem, setChecked ,cartList} = useCart()
+  const { cart, items, plusOne, minusOne, removeItem, setChecked, cartList } = useCart()
 
   const [productDtl, setProductDtl] = useState([])
 
@@ -17,32 +17,32 @@ export default function List({ mode, setCartProductDtl ,setCartOriginDtl}) {
 
   const [activeSelection, setActiveSelection] = useState([]);
 
- 
-  const handleSelectChange = (event, productId, index,arr) => {
+
+  const handleSelectChange = (event, productId, index, arr) => {
     const newValue = event.target.value;
     console.log(arr);
     setProductDtl((prevValues) => ({
       ...prevValues,
       [productId]: {
         ...prevValues[productId],
-        
-        product_detail: 
-        
-        arr.map((value, i) => i === index ? newValue : value),
-         
+
+        product_detail:
+
+          arr.map((value, i) => i === index ? newValue : value),
+
       }
     }));
-    console.log('productDtL'+productDtl)
+    console.log('productDtL' + productDtl)
     setCartProductDtl(productDtl)
   };
 
   const handleSendDtl = (v) => {
-    if(v!==undefined && v.product_detail!==null){
-    const { name, product_detail } = v
-    const newObject = { name, product_detail };
-    setOriginDtl([...originDtl, newObject]);
-    console.log('originDtl'+originDtl) //物件陣列
-    setCartOriginDtl(originDtl)
+    if (v !== undefined && v.product_detail !== null) {
+      const { name, product_detail } = v
+      const newObject = { name, product_detail };
+      setOriginDtl([...originDtl, newObject]);
+      console.log('originDtl' + originDtl) //物件陣列
+      setCartOriginDtl(originDtl)
     }
   }
 
@@ -120,15 +120,24 @@ export default function List({ mode, setCartProductDtl ,setCartOriginDtl}) {
               checked={v.isChecked ? v.isChecked : ''}
 
             /></Col>
-            <Col className='d-sm-flex d-none prodImg'></Col>
+            <Col className='d-sm-flex d-none'>
+              <img alt='' src={v.image} className='prodImg' />
+
+            </Col>
             <Col className='d-sm-flex d-none'>{v.name}</Col>
 
-            <Col xs={3} className='d-block d-xl-none'>{v.image}</Col>
+            <Col xs={4} className='d-block d-xl-none'>
+              <img alt='' src={v.image} className='prodImg' />
+            </Col>
             <Col className='d-flex d-xl-none flex-column justify-content-around m-0 align-items-start'>
               <span className='m-0'>{v.name}</span>
               <span className='m-0'>${v.itemTotal}</span>
-              <span className={`${mode === 'product' ? 'd-none' : 'd-lg-none d-block'} `}>日期&nbsp;{v.start_date}&nbsp;時間&nbsp;{v.hour}小時</span>
-              <span className={`${mode === 'product' ? 'd-none' : 'd-lg-none d-block'} `}>地點&nbsp;{v.location}</span>
+              <span className={`${mode === 'product' ? 'd-none' : 'd-lg-none d-block'} `}>
+                日期&nbsp;{v.start_date}&nbsp;{v.hour}小時
+              </span>
+              <span className={`${mode === 'product' ? 'd-none' : 'd-lg-none d-block'} `}>
+                地點&nbsp;{v.location}
+              </span>
               <div className={`${mode === 'course' ? 'd-none' : ''}  d-xl-none calGroup m-0`} role="group">
                 <button
                   type="button"
@@ -158,8 +167,18 @@ export default function List({ mode, setCartProductDtl ,setCartOriginDtl}) {
                 mode !== 'course' && arr !== "" ?
                   v.cateList.map((eachCate, j) => {
                     const productId = v.product_id;
+
                     return (
-                      <select
+                      <div
+                        className='fakeSelect my-2 py-1'
+                        key={j}
+                      >{arr[j]}</div>
+                    )
+                  })
+                  : ""
+              }
+
+              {/* <select
                         key={j}
                         id={j}
                         className='m-1'
@@ -175,12 +194,7 @@ export default function List({ mode, setCartProductDtl ,setCartOriginDtl}) {
                           )
                         })
                         }
-                      </select>
-                    )
-                  })
-                  : ""
-              }
-
+                      </select> */}
 
             </Col>
             <Col className={`${mode === 'course' ? 'd-none' : 'd-sm-flex d-none'}`}>${v.price}</Col>

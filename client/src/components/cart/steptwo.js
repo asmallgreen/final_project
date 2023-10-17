@@ -1,21 +1,31 @@
-import React, { use, useState } from 'react';
-import { Container, Row, Col, Accordion } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Col, } from 'react-bootstrap';
 import { useCart } from '@/hooks/use-cart';
 import axios from 'axios';
 import CreditCard from './creditCard'
 import OrderList from './orderList'
+import Swal from "sweetalert2";
 
 export default function StepTwo({ setstepType, discountPrice, discountAmount, setPayment }) {
   const [selectedOption, setSelectedOption] = useState('');
+
+  const [cardSelectedOption, setCardSelectedOption] = useState('')
 
   const { cart, items } = useCart();
 
   const [accordionState, setAccordionState] = useState(false)
 
+  const [cardState, setCardState] = useState([]);
+
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
+
     console.log(selectedOption)
   };
+
+
+
+  const detectCard = cardState.number == '' || cardState.expiry == '' || cardState.cvc == '' || cardState.name == '' || selectedOption == ''
 
   const sendData = (n) => {
     // 在子组件中调用父组件传递的回调函数，并传递数据
@@ -23,9 +33,10 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
 
   };
 
+  console.log(cardState)
 
-  const detectOnlyCourse = items.filter((item) => item.product_id === null&& item.isChecked === true);
-  const detectNullProduct = items.filter((item) => item.course_id === null&& item.isChecked === true);
+  const detectOnlyCourse = items.filter((item) => item.product_id === null && item.isChecked === true);
+  const detectNullProduct = items.filter((item) => item.course_id === null && item.isChecked === true);
 
 
   const handleNewOrder = async () => {
@@ -68,22 +79,22 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
             value="cashOn"
             checked={selectedOption === 'cashOn'}
             onChange={handleOptionChange}
-            disabled={detectOnlyCourse.length>0 && detectNullProduct.length ==0 ? true : false}
+            disabled={detectOnlyCourse.length > 0 && detectNullProduct.length == 0 ? true : false}
           />
           <span>{` 宅配 貨到付款（限台灣本島）`}</span>
         </label>
-        <CreditCard selectedOption={selectedOption} />
+        <CreditCard selectedOption={selectedOption} setCardState={setCardState} />
       </div>
       <div
         className="orderTitle"
 
       >
         <Col className=''>
-          <button 
-          className='btn d-flex justify-content-between w-100'
-          onClick={()=>{
-            setAccordionState(!accordionState)
-          }}
+          <button
+            className='btn d-flex justify-content-between w-100'
+            onClick={() => {
+              setAccordionState(!accordionState)
+            }}
           >
             <span>+</span>
             <span>訂單明細</span>
@@ -92,8 +103,8 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
         </Col>
 
       </div>
-      
-      <OrderList discountPrice={discountPrice} discountAmount={discountAmount} accordionState={accordionState}/>
+
+      <OrderList discountPrice={discountPrice} discountAmount={discountAmount} accordionState={accordionState} />
       <div className='stepBtnGroup'>
         <button
           className='nextStepBtn fs-5 opacity-50 d-lg-block d-none'
@@ -112,18 +123,86 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
         <button
           className='nextStepBtn fs-5 d-sm-block d-none'
           onClick={() => {
-            sendData(3);
-            setPayment(selectedOption);
 
-          }}>填寫訂單資料</button>
+            if ((selectedOption === 'credit' || !detectCard) == true) {
+
+              Swal.fire({
+                icon: 'error',
+                title: '信用卡資料不能為空',
+                showConfirmButton: false,
+                timer: 1500,
+                backdrop: `rgba(255, 255, 255, 0.55)`,
+                width: '55%',
+                padding: '0 0 3.25em',
+                customClass: {
+                }
+
+              })
+              sendData(2);
+
+            } else if (selectedOption == '') {
+              Swal.fire({
+                icon: 'error',
+                title: '請選取付款方式',
+                showConfirmButton: false,
+                timer: 1500,
+                backdrop: `rgba(255, 255, 255, 0.55)`,
+                width: '55%',
+                padding: '0 0 3.25em',
+                customClass: {
+                }
+
+              })
+              sendData(2);
+            } else {
+              sendData(3);
+              setPayment(selectedOption);
+            }
+
+          }}
+        // disabled={detecteCard && selectedOption==='credit'? true : false}
+        >填寫訂單資料</button>
 
         <button
           className='nextStepBtn fs-5 d-sm-none d-block'
           onClick={() => {
-            sendData(3);
-            setPayment(selectedOption);
+            if ((selectedOption === 'credit' && !detectCard) == false) {
 
-          }}>下一步</button>
+              Swal.fire({
+                icon: 'error',
+                title: '信用卡資料不能為空',
+                showConfirmButton: false,
+                timer: 1500,
+                backdrop: `rgba(255, 255, 255, 0.55)`,
+                width: '60%',
+                padding: '0 0 3.25em',
+                customClass: {
+                }
+
+              })
+              sendData(2);
+
+            } else if (selectedOption == '') {
+              Swal.fire({
+                icon: 'error',
+                title: '請選取付款方式',
+                showConfirmButton: false,
+                timer: 1500,
+                backdrop: `rgba(255, 255, 255, 0.55)`,
+                width: '35%',
+                padding: '0 0 3.25em',
+                customClass: {
+                }
+
+              })
+              sendData(2);
+            } else {
+              sendData(3);
+              setPayment(selectedOption);
+            }
+          }}
+        // disabled={detecteCard && selectedOption==='credit'? true : false}
+        >下一步</button>
       </div>
     </div>
 
