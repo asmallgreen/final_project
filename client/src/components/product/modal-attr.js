@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaX } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { Form } from "react-bootstrap";
@@ -11,7 +11,9 @@ export default function ModalAttr(props) {
   // const [sort, setSort] = useState(false);
   const [attrState, setAttrState] = useState("");
   const [attrSend, setAttrSend] = useState(attrState);
+  const [searchName, setSearchName] = useState();
   props.attrChange(attrSend);
+  props.searchName(searchName)
   // console.log(attrState);
   // console.log(attrSend);
 
@@ -22,6 +24,10 @@ export default function ModalAttr(props) {
   //   setOpen(false);
   // };
   //用close-btn切換
+  const handleNameValue = (e) => {
+    setSearchName(e.target.value);
+
+  };
   const handleClose = () => {
     setOpen((prevState) => !prevState);
   };
@@ -47,6 +53,7 @@ export default function ModalAttr(props) {
     setAttrSend(attrState);
     setOpen(false);
   };
+  useEffect(()=>{console.log(searchName);},[searchName])
   return (
     <>
       <div className={open ? "product-modal" : "d-none"}>
@@ -61,22 +68,7 @@ export default function ModalAttr(props) {
             </div>
           </div>
           <div className="select-area">
-
-          <div className="nav-fk">
-              <Form className="list-unstyled search-form">
-                <div className="position-relative">
-                  <Form.Control
-                    type="text"
-                    placeholder="請輸入商品名稱"
-                    className="search-product-name"
-                  />
-                  <FaSearch className="fa-magnifying-glass position-absolute" />
-                </div>
-              </Form>
-            </div>
-           
-
-
+            {/* 篩選button */}
             <div className="select-attr-area ">
               <div className="attr-title">價格：</div>
               <div className="attr-buttons">
@@ -111,6 +103,21 @@ export default function ModalAttr(props) {
                   <span className="attr-text">大於NT6,000</span>
                 </div>
               </div>
+            </div>
+            {/* 搜尋商品名稱 */}
+            <div className="search-attr">
+              <div className="attr-title">關鍵字搜尋：</div>
+              <Form className="list-unstyled search-form">
+                <div className="position-relative">
+                  <Form.Control
+                    type="text"
+                    placeholder="請輸入商品名稱"
+                    className="search-product-name"
+                    onChange={handleNameValue}
+                  />
+                  <FaSearch className="fa-magnifying-glass position-absolute" />
+                </div>
+              </Form>
             </div>
           </div>
           <div className="fk-area">

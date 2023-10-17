@@ -11,8 +11,9 @@
       justify-content: center;
     }
     .card {
-      cursor: pointer;
-      // border-radius: 0;
+      // cursor: pointer;
+      border-radius: 0;
+      border: 1px solid $secondary 0.5;
       width: 230px;
       margin: 10px 5px;
       padding: 0;
@@ -71,6 +72,7 @@
       }
       .content {
         padding: 5px;
+        background-color: #fff;
         .product-name {
           color: $secondary;
           text-decoration: none;

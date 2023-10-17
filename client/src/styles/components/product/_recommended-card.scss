@@ -9,6 +9,8 @@
       justify-content: center;
     }
     .card {
+      border-radius: 0;
+      border: 1px solid $secondary 0.5;
       width: 230px;
       margin: 10px 5px;
       padding: 0;
@@ -63,6 +65,9 @@
       }
       .content {
         padding: 5px;
+        background-color: #fff;
+        border-radius: 0;
+        border: 1px solid $secondary 0.5;
         .product-name {
           color: $secondary;
         }

@@ -32,7 +32,7 @@ export default function RecommendedCard(props) {
                         : "d-none"
                     }
                   >
-                    NEW
+                    HOT
                   </div>
                 </div>
               </Link>

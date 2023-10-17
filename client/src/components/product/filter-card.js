@@ -27,25 +27,28 @@ export default function FilterProductCard(props) {
   return (
     <>
       <div className="card">
-        <div className="img">
-          <Link href={`/product/${idData}`} className=" tags d-flex">
-            <img src={filterProduct.img1} alt="" className=" position-relative">
-            </img>
+        <div className="img position-relative">
+          <Link href={`/product/${idData}`} className="">
+            <img src={filterProduct.img1} alt="" className=""></img>
+            <div className=" tags d-flex">
+              <div
+                className={
+                  filterProduct.launched === 1
+                    ? "tag1 position-absolute"
+                    : "d-none"
+                }
+              >
+                NEW
+              </div>
+              <div
+                className={
+                  filterProduct.hot === 1 ? "tag2 position-absolute" : "d-none"
+                }
+              >
+                HOT
+              </div>
+            </div>
           </Link>
-          <div
-            className={
-              filterProduct.launched === 1 ? "tag1 position-absolute" : "d-none"
-            }
-          >
-            NEW
-          </div>
-          <div
-            className={
-              filterProduct.hot === 1 ? "tag2 position-absolute" : "d-none"
-            }
-          >
-            HOT
-          </div>
 
           {/* <div className="tag position-absolute">NEW</div> */}
           <button className="p-0 position-absolute">

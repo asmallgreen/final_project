@@ -18,6 +18,7 @@ import "swiper/css/navigation";
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
 function Product() {
+  const [search ,setSearch] = useState('');
   const [attr, setAttr] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState();
@@ -52,6 +53,11 @@ function Product() {
   const [displaydataLength, setDisplaydataLength] = useState();
   const [pageLength, setPageLength] = useState();
   // ***********************************************
+  const handleSearchName = (name) => {
+    setSearch(name)
+    console.log(name);
+    // console.log(search);
+  }
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
     // console.log(limit);
@@ -75,6 +81,11 @@ function Product() {
     // console.log(newAttr);
   };
 
+  // const updateSearch = (newSearch) => {
+  //   setSearch(newSearch)
+  //   console.log(search);
+  //   setPage(1)
+  // }
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -292,6 +303,7 @@ function Product() {
                 setLimit={updateLimit}
                 setSort={updateSort}
                 setAttr={updateAttr}
+                searchName={handleSearchName}
                 filterdataLength={filterdataLength}
                 //要dataLength幹嘛?抓篩選旁邊的篩選筆數ui
               />

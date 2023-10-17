@@ -41,6 +41,39 @@
       background-color: #ffffff;
       padding: 30px 40px;
       border-bottom: 1px solid $secondary;
+      .search-attr {
+        // width: 50%;
+        width: 80%;
+        .attr-title{
+          margin-top: 20px;
+          font-size: 20px;
+          font-weight: bold;
+        }
+        .search-form {
+          display: flex;
+          align-items: center;
+          color: $secondary;
+          padding-inline: 10px;
+          
+          &:hover {
+            color: #90907b;
+            cursor: pointer;
+          }
+          .search-product-name {
+            border: 1px solid $secondary;
+            border-radius:0 ;
+            margin-top: 10px;
+            &:focus {
+              border: 1px solid #4d4d43;
+              background-color: #ffffff;
+            }
+          }
+          .fa-magnifying-glass {
+            right: 10px;
+            top: 22px;
+          }
+        }
+      }
       .select-attr-area {
         .attr-title {
           font-size: 20px;
