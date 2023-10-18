@@ -15,6 +15,13 @@ export default function StepThree({ setstepType, discountPrice, discountAmount, 
 
   const [accordionState, setAccordionState] = useState(true)
 
+  const [nameValue, setNameValue] = useState('')
+
+  const [phoneValue, setPhoneValue] = useState('')
+
+  const [addressValue, setAddressValue] = useState('')
+
+
   const handleSetInputState = () => {
     setInputState(!inputState)
     setNameValue(authJWT.memberData.name)
@@ -25,6 +32,12 @@ export default function StepThree({ setstepType, discountPrice, discountAmount, 
       document.getElementById('name').value = ''
       document.getElementById('phone').value = ''
       document.getElementById('address').value = ''
+     
+
+    }else if(inputState){
+      setNameValue('')
+      setPhoneValue('')
+      setAddressValue('')
     }
   }
   const sendData = (n) => {
@@ -32,11 +45,7 @@ export default function StepThree({ setstepType, discountPrice, discountAmount, 
     setstepType(n);
   };
 
-  const [nameValue, setNameValue] = useState('')
 
-  const [phoneValue, setPhoneValue] = useState('')
-
-  const [addressValue, setAddressValue] = useState('')
 
 
   return (
@@ -119,11 +128,11 @@ export default function StepThree({ setstepType, discountPrice, discountAmount, 
 
       >
         <Col className=''>
-          <button 
-          className='btn d-flex justify-content-between w-100'
-          onClick={()=>{
-            setAccordionState(!accordionState)
-          }}
+          <button
+            className='btn d-flex justify-content-between w-100'
+            onClick={() => {
+              setAccordionState(!accordionState)
+            }}
           >
             <span>+</span>
             <span>訂單明細</span>
@@ -132,8 +141,8 @@ export default function StepThree({ setstepType, discountPrice, discountAmount, 
         </Col>
 
       </div>
-      
-      <OrderList discountPrice={discountPrice} discountAmount={discountAmount} accordionState={accordionState}/>
+
+      <OrderList discountPrice={discountPrice} discountAmount={discountAmount} accordionState={accordionState} />
       <div className='stepBtnGroup'>
         <button
           className='nextStepBtn fs-5 opacity-50 d-lg-block d-none'

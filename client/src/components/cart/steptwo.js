@@ -40,7 +40,7 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
 
   const detectCourse = items.filter((item) => item.course_id != null && item.isChecked === true )
 
-  console.log("detect課程",detectCourse)
+  
 
   const handleNewOrder = async () => {
     try {
