@@ -58,6 +58,16 @@ export default function List({ mode, setCartProductDtl, setCartOriginDtl }) {
     setState(cartList)
   }, [cartList])
 
+  const handleCheckboxChange = (event) => {
+    let thisEle = event.target
+    let itemid = +thisEle.getAttribute("data-itemid")
+    let isChecked = thisEle.checked
+
+    setChecked(itemid,isChecked)
+    // console.log(items) 
+    //setCheckValue();
+    
+  };
   // 修正 Next hydration 錯誤
   // https://stackoverflow.com/questions/72673362/error-text-content-does-not-match-server-rendered-html
   const [hydrated, setHydrated] = useState(false)

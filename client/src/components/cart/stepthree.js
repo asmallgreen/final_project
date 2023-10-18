@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Col } from 'react-bootstrap';
 import { useCart } from '@/hooks/use-cart';
 import { useAuthJWT } from '@/hooks/use-auth-jwt';
@@ -60,8 +61,11 @@ export default function StepThree({ setstepType, discountPrice, discountAmount, 
             <div className='cartMemberInfo'>
               <Form.Control type='text' placeholder={authJWT.memberData.name} disabled value={authJWT.memberData.name}></Form.Control>
               <Form.Control type='text' placeholder={authJWT.memberData.phone} disabled value={authJWT.memberData.phone}></Form.Control>
+              <Form.Control type='text' placeholder={authJWT.memberData.name} disabled value={authJWT.memberData.name}></Form.Control>
+              <Form.Control type='text' placeholder={authJWT.memberData.phone} disabled value={authJWT.memberData.phone}></Form.Control>
             </div>
             <div className='m-2'>
+              <Form.Control type='text' value={authJWT.memberData.address} disabled></Form.Control>
               <Form.Control type='text' value={authJWT.memberData.address} disabled></Form.Control>
             </div>
           </Form>
@@ -74,6 +78,10 @@ export default function StepThree({ setstepType, discountPrice, discountAmount, 
               type="checkbox"
               name="choice"
               value="creditCard"
+              onChange={
+                handleSetInputState
+
+              }
               onChange={
                 handleSetInputState
 
@@ -106,8 +114,42 @@ export default function StepThree({ setstepType, discountPrice, discountAmount, 
                   setPhoneValue(e.target.value)
                 }}
               />
+              <Form.Control type='text'
+                placeholder={
+                  inputState ? authJWT.memberData.name : '姓名*'
+                }
+
+                disabled={inputState ? true : false}
+                defaultValue={inputState ? authJWT.memberData.name : nameValue}
+                id='name'
+                onChange={(e) => {
+                  setNameValue(e.target.value)
+                }}
+              />
+              <Form.Control type='text'
+                placeholder={
+                  inputState ? authJWT.memberData.phone : '手機*'
+                }
+                disabled={inputState ? true : false}
+                defaultValue={inputState ? authJWT.memberData.phone : phoneValue}
+                id='phone'
+                onChange={(e) => {
+                  setPhoneValue(e.target.value)
+                }}
+              />
             </div>
             <div className='m-2'>
+              <Form.Control type='text'
+                placeholder={
+                  inputState ? authJWT.memberData.address : '配送地址*'
+                }
+                disabled={inputState ? true : false}
+                defaultValue={inputState ? authJWT.memberData.address : addressValue}
+                id='address'
+                onChange={(e) => {
+                  setAddressValue(e.target.value)
+                }}
+              />
               <Form.Control type='text'
                 placeholder={
                   inputState ? authJWT.memberData.address : '配送地址*'
@@ -168,11 +210,25 @@ export default function StepThree({ setstepType, discountPrice, discountAmount, 
           }}
           disabled={nameValue && phoneValue && addressValue !== "" ? false : true}
         >確認訂單明細</button>
+            setOrderName(nameValue)
+            setOrderPhone(phoneValue)
+            setOrderAddress(addressValue)
+          }}
+          disabled={nameValue && phoneValue && addressValue !== "" ? false : true}
+        >確認訂單明細</button>
 
         <button
           className='nextStepBtn fs-5 d-sm-none d-block'
           onClick={() => {
             sendData(4);
+            setOrderName(nameValue)
+            setOrderPhone(phoneValue)
+            setOrderAddress(addressValue)
+          }}
+
+          disabled={nameValue && phoneValue && addressValue !== "" ? false : true}
+
+        >下一步</button>
             setOrderName(nameValue)
             setOrderPhone(phoneValue)
             setOrderAddress(addressValue)
