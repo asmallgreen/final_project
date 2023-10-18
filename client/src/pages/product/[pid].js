@@ -22,7 +22,7 @@ import "swiper/css/navigation";
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import Swal from "sweetalert2";
-import { set } from "lodash";
+import { set, values } from "lodash";
 // 購物車按鈕們
 import AddCartProduct from "@/components/cart/addCartProduct";
 import CountCom from "@/components/cart/countCom";
@@ -47,6 +47,7 @@ function Pid() {
     // 為目標按鈕添加 active 類別
     e.target.classList.add("dtlActive");
     const activeElements = document.querySelectorAll('.dtlActive');
+    const limitLength = document.querySelectorAll('.dtlBtnGroup')
     const Values = Array.from(activeElements).map((el) => el.value);
     // console.log("調換前"+Values)
     // const temp = Values[0];
@@ -55,8 +56,11 @@ function Pid() {
     // // setActiveValues(Values);
     // console.log("調換後"+Values)
 
-    if(Values.length<3){
+    console.log("value長度 ",Values.length)
+
+    if(Values.length<limitLength.length){
       setActiveValues("")
+      
     }else{
     const str = Values.map((obj) => obj).join(',')
     setActiveValues(str)
