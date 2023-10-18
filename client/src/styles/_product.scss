@@ -194,8 +194,18 @@ body {
     }
   }
   .recommend-product-swiper{
-    padding-inline: 20px!important;
+    padding:30px 20px!important;
   } 
+  .sale-product-swiper{
+    padding-inline: 0px!important;
+    .swiper-button-next {
+      display: none;
+    }
+    .swiper-button-prev {
+      display: none;
+    }
+  }
+
 }
 //手機板 優惠專區
 .phone-sales {

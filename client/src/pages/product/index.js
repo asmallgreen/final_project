@@ -126,7 +126,7 @@ function Product() {
       } else if(window.innerWidth <= windowWidth2){
         setSlidesPerView(3);
       }else if(window.innerWidth <= windowWidth3){
-        setSlidesPerView(4);
+        setSlidesPerView(3);
       }else if(window.innerWidth <= windowWidth4){
         setSlidesPerView(6);
       }else{

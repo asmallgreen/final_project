@@ -137,6 +137,92 @@ function Cate(props) {
   //   console.log(category);
   //   // setCategory(cate)
   // }, [category]);
+
+  // ****************************
+  const [slidesPerView, setSlidesPerView] = useState(7);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // 在這裡設置你的視窗寬度閾值
+      const windowWidth4 = 1140;
+      const windowWidth3 = 768;
+      const windowWidth2 = 500;
+      const windowWidth1 = 393;
+
+      // 根據視窗寬度動態設定 slidesPerView
+      if (window.innerWidth <= windowWidth1) {
+        setSlidesPerView(2);
+      } else if(window.innerWidth <= windowWidth2){
+        setSlidesPerView(3);
+      }else if(window.innerWidth <= windowWidth3){
+        setSlidesPerView(3);
+      }else if(window.innerWidth <= windowWidth4){
+        setSlidesPerView(6);
+      }else{
+        setSlidesPerView(7);
+      }
+    };
+
+    // 初始加載時設定一次
+    handleResize();
+
+    // 添加視窗大小變化監聽器
+    window.addEventListener('resize', handleResize);
+
+    // 清理事件監聽器以避免內存洩漏
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // 空的依賴數組表示僅在第一次渲染時運行
+
+
+  const [slidesPerView2, setSlidesPerView2] = useState(7);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // 在這裡設置你的視窗寬度閾值
+      const windowWidth4 = 1140;
+      const windowWidth3 = 768;
+      const windowWidth2 = 500;
+      const windowWidth1 = 393;
+
+      // 根據視窗寬度動態設定 slidesPerView
+      if (window.innerWidth <= windowWidth1) {
+        setSlidesPerView2(1);
+      } else if(window.innerWidth <= windowWidth2){
+        setSlidesPerView2(1);
+      }else if(window.innerWidth <= windowWidth3){
+        setSlidesPerView2(1);
+      }else if(window.innerWidth <= windowWidth4){
+        setSlidesPerView2(2);
+      }else{
+        setSlidesPerView2(4);
+      }
+    };
+
+    // 初始加載時設定一次
+    handleResize();
+
+    // 添加視窗大小變化監聽器
+    window.addEventListener('resize', handleResize);
+
+    // 清理事件監聽器以避免內存洩漏
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // 空的依賴數組表示僅在第一次渲染時運行
+
+
+
+
+  // ****************************
+
+
+
+
+
+
+  
   useEffect(()=>{},[search])
   useEffect(() => {
     // console.log(currentPage);
@@ -248,7 +334,7 @@ function Cate(props) {
       {/* <Router> */}
       <Swiper
         spaceBetween={0}
-        slidesPerView={5}
+        slidesPerView={slidesPerView}
         navigation={true}
         // pagination={true}
         modules={[Navigation, Pagination]}
@@ -361,7 +447,7 @@ function Cate(props) {
       </div>
       <Swiper
         spaceBetween={5}
-        slidesPerView={3}
+        slidesPerView={slidesPerView2}
         navigation={true}
         // pagination={true}
         modules={[Navigation, Pagination, History]}
@@ -397,7 +483,7 @@ function Cate(props) {
       </div>
       <Swiper
         spaceBetween={10}
-        slidesPerView={6}
+        slidesPerView={slidesPerView}
         navigation={true}
         pagination={true}
         modules={[Navigation, Pagination]}

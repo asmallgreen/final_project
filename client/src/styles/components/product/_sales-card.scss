@@ -62,11 +62,43 @@
 
 @media screen and (max-width: 768px) {
   .sales {
-    display: none;
+    margin-block: 48px;
     .sales-row {
       .card {
-        display: none;
+        .img {
+          width: 150px;
+          height: 150px;
+        }
+        .content {
+          background-color: #fff;
+          height: 150px;
+          width: 110px;
+          padding: 50px 10px;
+          .tags {
+            .tag1 {
+              letter-spacing: 1px;
+              font-size: 12px;
+              padding-block: 3px;
+              margin-bottom: 5px;
+              width: 40px;
+            }
+            .tag2 {
+              
+              letter-spacing: 1px;
+              font-size: 12px;
+              width: 40px;
+            }
+          }
+          .product-name {
+            font-size: 12px;
+            font-weight: bold;
+          }
+          .price {
+            font-size: 14px;
+            margin-top: 10px;
+          }
+        }
       }
     }
   }
-}
+  }
