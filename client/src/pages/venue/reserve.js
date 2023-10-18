@@ -321,14 +321,13 @@ export default function ReserveDate({ formType, setFormType }) {
           </Form.Group>
         </Row>
         <div className='d-flex justify-content-center'>
-          <a href='/venue/date'>
-            <button
-              className='mx-4 mt-2 mb-5 reserve-bt1'
-              onClick={handleReserveGoback}
-              >
-              返回上一步
-            </button>
-          </a>
+          <Link
+            type="button"
+            className="mx-4 mt-2 mb-5 text-decoration-none reserve-bt1  "
+            href={`/venue/date?id=${id}`}
+          >
+            <div className='text-center reserve-bn-text'>返回上一步</div>
+          </Link>
           <div className='d-flex justify-content-center '>
           <button
             className='mx-4 mt-2 mb-5 reserve-bt2'
