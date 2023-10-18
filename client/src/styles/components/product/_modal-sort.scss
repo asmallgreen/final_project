@@ -16,21 +16,15 @@
       justify-content: center;
       background-color: #ebdc99;
       position: relative;
-      .title {
-        font-size: 23px;
-        width: 50%;
-        text-align: center;
-        padding-block: 10px;
-        &:hover {
-          background-color: #f0d07f;
-          cursor: pointer;
-          transition: 0.4s;
-        }
-      }
-      .sort-btn {
-        background-color: #f0d07f;
-        cursor: pointer;
-      }
+      font-size: 23px;
+      // width: 50%;
+      text-align: center;
+      padding-block: 10px;
+
+      // .sort-btn {
+      //   background-color: #f0d07f;
+      //   cursor: pointer;
+      // }
       .close-btn {
         cursor: pointer;
         position: absolute;
@@ -98,12 +92,12 @@
     }
   }
 }
-.product-sort-overlay{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
+.product-sort-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
 }

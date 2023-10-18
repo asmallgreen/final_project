@@ -11,109 +11,74 @@ import {
 
 export default function FilterProductCard(props) {
   // const [filterProduct, setFilterProduct]= useState;
-  const { filterProduct, id, is_favorite, handleTriggerProductFav } = props;
-  console.log(filterProduct);
+  const { filterProduct } = props;
+  // console.log(filterProduct);
   //取得卡片id
   const idData = filterProduct.id;
 
-  const handleAddCart = () => {
-    // 发送GET请求到后端，获取filterProduct.id
-    fetch(`product/getProductId/id=${filterProduct.id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const productId = data.productId;
-        // 在这里使用productId进行其他操作
-        console.log(productId);
-      })
-      .catch((error) => {
-        console.error("Error fetching product ID:", error);
-      });
+  // 切換愛心的實心和空心狀態
+  const [isSolidHeart, setIsSolidHeart] = useState(true);
+  // Toggle切換
+  const handleToggle = (e) => {
+    e.stopPropagation();
+    setIsSolidHeart((prevState) => !prevState);
   };
-  const handleInfo = () => {};
-  // useEffect(()=>{
-  //   if(typeof window !== 'undefined'){
-  //     (async () => {
-  //     try {
-  //       const res = await axios.get("http://localhost:3005/product");
-  //       // setAllProduct(res.data.alldata);
-  //       // setNewProduct(res.data.launchdata);
-  //       // setLimitProduct(res.data.limitdata);
-  //       // setFilterProduct(res.data.filterdata);
-  //       console.log(filterProduct);
-  //       const filterdata =1
-  //       console.log(filterdata);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   })();
-
-  //   }
-  // },[])
-
-  // console.log(filterProduct);
-
-  // 會員收藏商品
-
 
   return (
     <>
-      {/* <div className="card">
-        <div className="img position-relative">
-          <img src={filterProduct.img1}></img>
-          <div className="tag position-absolute">NEW</div>
-          <button className="p-0 position-absolute"
-            id={id}
-            onClick={()=>handleTriggerProductFav(id)}
-            >
-            <FontAwesomeIcon
-              icon={is_favorite ?  farHeart : faHeart}
-              className={is_favorite ? "fa-heart z-3" : "far-heart z-3"}
-            />
-          </button>
-        </div>
-        <div className="content">
-          <div className="product-name">{filterProduct.name}</div>
-
-          <div className="price d-flex justify-content-between my-1">
-            NT$ {filterProduct.price}
-            <button className="">
-              <FontAwesomeIcon
-                icon={faCartShopping}
-                className="fa-solid fa-cart-shopping"
-                onClick={handleAddCart}
-              />
-            </button>
-          </div>
-        </div>
-      </div> */}
       <div className="card">
         <div className="img position-relative">
-          <Link href={`/product/${idData}`}>
-            <img src={filterProduct.img1} onClick={handleInfo}></img>
+          <Link href={`/product/${idData}`} className="">
+            <img src={filterProduct.img1} alt="" className=""></img>
+            <div className=" tags d-flex">
+              {/* {filterProduct.launched === 1 && <div className="tag1">NEW</div>}
+              {filterProduct.hot === 1 && <div className="tag2">HOT</div>} */}
+              {/* <div
+                className={
+                  filterProduct.launched === 1
+                    ? "tag1 position-absolute"
+                    : "d-none"
+                }
+              >
+                NEW
+              </div>
+              <div
+                className={
+                  filterProduct.hot === 1 ? "tag2 position-absolute" : "d-none"
+                }
+              >
+                HOT
+              </div>*/}
+            </div>
           </Link>
 
-          <div className="tag position-absolute">NEW</div>
-          <button className="p-0 position-absolute"
-            id={id}
-            onClick={()=>handleTriggerProductFav(idData)}
-            >
+          {/* <div className="tag position-absolute">NEW</div> */}
+          <button className="p-0 position-absolute">
             <FontAwesomeIcon
-              icon={is_favorite ?  farHeart : faHeart}
-              className={is_favorite ? "fa-heart z-3" : "far-heart z-3"}
+              icon={isSolidHeart ? faHeart : farHeart}
+              className={isSolidHeart ? "fa-heart" : "far-heart"}
+              onClick={handleToggle}
             />
           </button>
         </div>
         <div className="content">
-          <div className="product-name">{filterProduct.name}</div>
+          {/* <div className="d-flex">
+            
+          </div> */}
 
-          <div className="price d-flex justify-content-between my-1">
+          <div className="product-name">
+            {filterProduct.launched === 1 && <div className="tag1">NEW</div>}
+            {filterProduct.hot === 1 && <div className="tag2">HOT</div>}
+            {filterProduct.name}
+          </div>
+
+          <div className="price">
             NT$ {filterProduct.price}
             <button className="">
-              <FontAwesomeIcon
+              {/* <FontAwesomeIcon
                 icon={faCartShopping}
                 className="fa-solid fa-cart-shopping"
-                onClick={handleAddCart}
-              />
+              /> */}
             </button>
           </div>
         </div>

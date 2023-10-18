@@ -77,10 +77,35 @@ function Pid() {
   const queryParams = router.query;
   const { pid } = queryParams;
   const id = parseInt(pid, 10);
+  const [allProduct, setAllProduct] = useState([]);
   const [product, setProduct] = useState({});
+  // ************************隨機商品***************************************
+  const shuffleArray = (array) => {
+    let currentIndex = array.length,
+      randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+    return array;
+  };
+  // 複製一份原始陣列，避免修改原始資料
+  const shuffledProducts = shuffleArray([...allProduct]);
+  // 從隨機排序後的陣列中取得前 10 個元素
+  const randomProducts = shuffledProducts.slice(0, 10);
+
+  // const hotProduct = allProduct.filter((product) => product.hot === 1);
+  // ***************************************************************
+
   const [tables, setTables] = useState();
   const [attrValue, setAttrValue] = useState();
   const [attrTitle, setAttrTitle] = useState();
+  const [cate, setCate] = useState();
+
   // 購物車有改
   const getButtonStyle = (tableName) => {
     switch (tableName) {
@@ -108,43 +133,6 @@ function Pid() {
     }
   };
   // 購物車有改
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && !product.length) {
-      (async () => {
-        try {
-          const res = await axios.get(`http://localhost:3005/product/${id}`, {
-            params: { pid: id },
-          });
-          //從後端接收:pid商品資料
-          setProduct(res.data.data);
-          setTables(res.data.tables);
-          setAttrValue(res.data.attrValue);
-          setAttrTitle(res.data.attrTitle);
-          console.log(res.data)
-        } catch (error) {
-          console.log(error);
-        }
-      })();
-    }
-  }, [pid]);
-
-  useEffect(() => {
-    console.log(product);
-  }, [product]);
-  useEffect(() => {
-    console.log(tables);
-  }, []);
-  useEffect(() => {
-    console.log(attrTitle);
-  }, [attrTitle]);
-  useEffect(() => {
-    console.log(attrValue);
-    if (attrValue != undefined) {
-      setN(Number(attrValue.length))
-      console.log(n)
-    }
-  }, [attrValue]);
 
   // 會員收藏商品
   const { authJWT, favoriteProducts, setFavoriteProducts } = useAuthJWT()
@@ -233,20 +221,73 @@ function Pid() {
   }
 
 
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && !product.length) {
+      (async () => {
+        try {
+          const res = await axios.get(`http://localhost:3005/product/${id}`, {
+            params: { pid: id },
+          });
+          //從後端接收:pid商品資料
+          setAllProduct(res.data.alldata);
+          setProduct(res.data.data);
+          setTables(res.data.tables);
+          setAttrValue(res.data.attrValue);
+          setAttrTitle(res.data.attrTitle);
+        } catch (error) {
+          console.log(error);
+        }
+      })();
+    }
+  }, [pid]);
+  useEffect(() => {
+    // console.log(allProduct);
+  }, [allProduct]);
+  useEffect(() => {
+    // console.log(cate);
+  }, [cate]);
+  useEffect(() => {
+    // console.log(product);
+    switch (product.category_id) {
+      case 1:
+        setCate("良弓");
+        break;
+      case 2:
+        setCate("羽箭");
+        break;
+      case 3:
+        setCate("道服");
+        break;
+      case 4:
+        setCate("其他");
+        break;
+    }
+    // console.log(cate);
+  }, [product]);
+  useEffect(() => {
+    // console.log(tables);
+  }, []);
+  useEffect(() => {
+    // console.log(attrTitle);
+  }, [attrTitle]);
+  useEffect(() => {
+    // console.log(attrValue);
+  }, [attrValue]);
   return (
     <>
       {/* 麵包屑 */}
       <div className="product-info-crum">
-        <BreadCrumb />
+        <BreadCrumb currentPage={cate} />
       </div>
       {/* *********************** */}
       <Row>
-        <Col xl="4" md="5" className="product-info-img offset-md-1 offset-xl-2">
+        <Col xl="5" md="5" className="product-info-img offset-md-1 offset-xl-2">
           <div className="img">
-            <img src={product.img1}></img>
+            <img src={product.img1} alt=""></img>
           </div>
         </Col>
-        <Col xl="5" md="5" className="product-info-select">
+        <Col xl="4" md="5" className="product-info-select">
           <div className="product-info-des">
             <Description pidData={product} />
           </div>
@@ -260,8 +301,9 @@ function Pid() {
                   </div>
                 ))}
             </div>
-            {/* 購物車有改 */}
-            <div className="dtlBtnSection">
+
+              {/* 購物車有改 */}
+              <div className="dtlBtnSection">
               {attrValue &&
                 Array.isArray(attrValue) &&
                 attrValue.map((tableData, tableIndex) => (
@@ -303,16 +345,11 @@ function Pid() {
             <QuantityBtn setCartQuantity={setCartQuantity}/>
             {/* 購物車 收藏按鈕 */}
             <div className="product-info-btn">
-              <FavBtn is_favorite={isProductFavorited(id)} id={id} handleTriggerProductFav={handleTriggerProductFav} />
+            <FavBtn is_favorite={isProductFavorited(id)} id={id} handleTriggerProductFav={handleTriggerProductFav} />
               <CartBtn cartQuantity={cartQuantity} prodId={id} activeValues={activeValues}/>
             </div>
-
-
-
           </div>
-
         </Col>
-
       </Row>
 
       {/* *********************** */}
@@ -320,7 +357,9 @@ function Pid() {
       {/* 商品資訊(手風琴) */}
       <ProductInfoAccordion pidData={product} />
       {/* </div> */}
-
+      <div className="inter-img">
+        {/* <img src="/product/top2.jpg" alt=""></img> */}
+      </div>
       {/* 相關商品推薦 */}
       <div className="product-page-title">
         <p>相關商品推薦</p>
@@ -333,33 +372,14 @@ function Pid() {
         modules={[Navigation, Pagination]}
         className="mySwiper recommend-product-swiper"
       >
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
+        {randomProducts.map((data) => {
+          return (
+            <SwiperSlide>
+              <RecommendedCard key={data.id} filterRecommendProduct={data} />
+            </SwiperSlide>
+          );
+        })}
+      
       </Swiper>
 
       {/* ----------------------- */}

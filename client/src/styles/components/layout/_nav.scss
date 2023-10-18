@@ -1,21 +1,50 @@
 // @media screen and (min-width: 768px) {
 //Logobar
 .logo-bar {
-  img {
+  position: sticky;
+  top: 0; /* 或者你想要的距離頂部的像素值 */
+  z-index: 9999;
+  .logo-img {
     height: 45px;
+    position: absolute;
+    top: 15px;
+    left: calc(50% - 160px);
   }
+  .logo-text {
+    height: 45px;
+    position: absolute;
+    top: 12px;
+    left: calc(50% - 102px);
+  }
+
   margin: 0;
   height: 72px;
   background-color: $secondary;
 }
+.fa-bars {
+  display: none;
+  color: $secondary !important;
+  position: absolute;
+}
 //Navbar
 .table-nav {
   // width: 1440px;
+  // position-relative
+  position: sticky;
+  top: 72px;
+  z-index: 9999;
+  /* 水平偏移量 | 垂直偏移量 | 模糊度 | 顏色 */
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+
+  /* 或者你想要的距離頂部的像素值 */
+  // position: relative;
   display: flex;
   align-items: center;
   background-color: $primary;
   height: 90px;
   .nav {
+    // position-absolute
+    position: absolute;
     height: 90px;
     margin: 0 auto;
     width: 100%;
@@ -42,6 +71,8 @@
       }
       .hover-type {
         // d-flex justify-content-center position-absolute align-items-center
+        // position-absolute
+        position: absolute;
         display: none;
         visibility: hidden;
         z-index: 90;
@@ -49,8 +80,8 @@
         left: 0;
         width: 100vw;
         height: 200px;
-        a{
-          border-bottom: 4px solid transparent!important;
+        a {
+          border-bottom: 4px solid transparent !important;
         }
         .box {
           position: relative;
@@ -153,7 +184,7 @@
       padding-inline: 10px;
       &:hover {
         color: #90907b;
-        cursor:pointer;
+        cursor: pointer;
       }
       .search-product-name {
         margin-left: 10px;
@@ -177,7 +208,6 @@
       &:hover {
         color: #90907b;
       }
-      
     }
     // a{
     //   color: $secondary;
@@ -197,15 +227,24 @@
 
 @media screen and (max-width: 768px) {
   .logo-bar {
-    // height: 57px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0; /* 或者你想要的距離頂部的像素值 */
     height: 78px;
     margin: 0;
     background-color: $secondary;
     .logo-img {
       width: 38px;
+      top: 17px;
+      left: calc(50% - 120px);
     }
     .logo-text {
       width: 150px;
+      top: 17px;
+      left: calc(50% - 75px);
     }
   }
   //漢堡icon
@@ -214,19 +253,40 @@
     height: 20px;
     top: calc(39px - 17px);
     right: 20px;
+    position: fixed;
+    z-index: 9999;
   }
-  .fa-bars:hover + .ham-login {
+  .ham-login {
     // 手機ham
+    // background-color: #fff;
+    // position-absolute top-0 end-0
+    // position: absolute;
+    position: fixed;
+    height: 104vh;
+    // position: sticky;
+    
+    top: 0;
+    right: 0; /* 或者你想要的距離頂部的像素值 */
+    z-index: 999999;
     display: flex;
-
-    .opacity-50 {
+    .opac {
       background-color: $secondary;
       width: 75px;
+      opacity: 0.5;
+      // height: 100%;
     }
     .btns {
+      // opacity: 1!important;
+      // z-index: 9999999;
+      background-color: #fff;
+      overflow-y: scroll;
       border: 0;
       width: 318px;
       .info {
+        // d-flex align-items-center justify-content-between
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: 78px;
         background-color: $secondary;
         border-left: 1px solid $primary;
@@ -252,7 +312,7 @@
           }
         }
         .text {
-          font-size: 16px;
+          font-size: 12px;
           margin-inline: 10px 30px;
         }
         .edit {
@@ -262,6 +322,7 @@
           padding-inline: 10px;
           border: 1px solid $primary;
           color: $primary;
+          text-decoration: none;
           &:hover {
             background-color: $primary;
             color: $secondary;
@@ -275,10 +336,13 @@
         height: 58px;
         font-size: 15px;
         text-align: start;
+        text-decoration: none;
       }
       .fk {
+        display: block;
         padding: 15px 40px;
         color: $secondary;
+        text-decoration: none;
         background-color: #ffffff;
         height: 46px;
         font-size: 13px;
@@ -298,21 +362,27 @@
         color: $primary;
         font-size: 15px;
         padding: 20px;
+        text-decoration: none;
+        display: block;
+        text-align: center;
       }
     }
   }
-
   .nav-fk {
     display: none !important;
   }
-
   // 桌機nav
   .table-nav {
     display: none;
   }
   // 手機nav
   .phone-nav {
+    width: 100%;
     // width: 393px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    position: sticky;
+    top: 78px; /* 或者你想要的距離頂部的像素值 */
     display: flex;
     background-color: $primary;
     height: 40px;
@@ -346,46 +416,3 @@
   }
 }
 
-//登出版漢堡 暫存
-// .ham-logout {
-//   display: flex;
-//   .opacity-50 {
-//     background-color: $secondary;
-//     width: 75px;
-//   }
-//   .btn {
-//     border: 0;
-//     width: 318px;
-//     .type {
-//       padding: 20px;
-//       color: $secondary;
-//       background-color: $primary;
-//       height: 58px;
-//       font-size: 15px;
-//       text-align: start;
-//     }
-//     .fk {
-//       padding: 15px 40px;
-//       color: $secondary;
-//       background-color: #ffffff;
-//       height: 46px;
-//       font-size: 13px;
-//       font-weight: bold;
-//       text-align: start;
-//       .sesstion {
-//         background-color: $accent;
-//         color: $primary;
-//         width: 20px;
-//         height: 20px;
-//         border-radius: 50%;
-//       }
-//     }
-//     .login {
-//       height: 62px;
-//       background-color: $secondary;
-//       color: $primary;
-//       font-size: 15px;
-//       padding: 20px;
-//     }
-//   }
-// }

@@ -24,7 +24,7 @@ export default function Syllabus(props) {
 
         {syllabusData.map((item) => (
           <TableBody
-            Key={item.id}
+            key={item.id}
             week_number={item.times}
             course_date={item.date}
             course_topic={item.topic}
@@ -52,7 +52,7 @@ export default function Syllabus(props) {
 
       <div className="syllabus-container-mobile container">
         {syllabusData.map((item, index) => (
-          <div className="pb-4">
+          <div className="pb-4" key={item.id}>
             <div className="row ">
               <div className="col-2">
                 <div className="table-header">週次</div>

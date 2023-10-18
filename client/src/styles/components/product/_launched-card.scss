@@ -4,14 +4,16 @@
   justify-content: center;
   .normal-cards {
     display: flex;
+
     .rows {
       margin: 0 auto;
       display: flex;
       justify-content: center;
     }
     .card {
-      cursor: pointer;
-      // border-radius: 0;
+      // cursor: pointer;
+      border-radius: 0;
+      border: 1px solid $secondary 0.5;
       width: 230px;
       margin: 10px 5px;
       padding: 0;
@@ -25,41 +27,55 @@
           height: 100%;
           object-fit: cover;
           border: 0px solid transparent;
-          
         }
-        .tag {
-          border-radius: 0 0 0px 0;
-          bottom: 1px;
-          right: 1px;
-          text-align: center;
-          padding-block: 5px;
-          width: 50px;
-          height: 30px;
-          font-size: 12px;
-          background-color: $accent;
-          color: $primary;
+
+        .tags {
+          .tag1 {
+            border-radius: 0 0 0px 0;
+            bottom: 1px;
+            right: 1px;
+            text-align: center;
+            padding-block: 5px;
+            width: 50px;
+            height: 30px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            background-color: $accent;
+            color: $primary;
+          }
+          .tag2 {
+            border-radius: 0 0 0px 0;
+            bottom: 1px;
+            right: 51px;
+            text-align: center;
+            padding-block: 5px;
+            margin-inline: 5px;
+            width: 50px;
+            height: 30px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            background-color: $secondary;
+            color: $primary;
+          }
         }
       }
       .content {
         padding: 5px;
+        background-color: #fff;
         .product-name {
-          color: $secondary;
-          // font-size: 18px;
-          // .tag {
-          //   text-align: center;
-          //   padding-block: 5px;
-          //   width: 50px;
-          //   height: 30px;
-          //   font-size: 12px;
-          //   background-color: $accent;
-          //   color: $primary;
-          // }
+          font-size: 18px;
+          color: #848470;
+          text-decoration: none;
+          font-weight: bold;
+          padding: 3px 0 0 5px;
         }
-        .description {
-          color: $secondary;
-          font-size: 15px;
-        }
+        // .description {
+        //   color: $secondary;
+        //   font-size: 15px;
+        //   text-decoration: none;
+        // }
         .price {
+          padding-right: 5px;
           font-size: 18px;
           color: $accent;
         }
@@ -70,21 +86,25 @@
 
 @media screen and (max-width: 768px) {
   .normal-cards-area {
+    // display: flex;
+    // justify-content: center;
     padding-block: 0px;
     margin: 0;
     .normal-cards {
+      // width: 140px;
       display: flex;
       .rows {
-        margin: 0 auto;
+        width: 150px;
+        margin: 0;
         display: flex;
         justify-content: center;
         .card {
-          width: 178px;
-          // height: 400px;
-          margin: 10px 5px;
+          // width: 140px;
+          height: 160px;
+          margin: 10px 0px;
           padding: 0;
           .img {
-            height: 200px;
+            // height: 140px;
             width: 100%;
             background-color: $secondary;
             img {
@@ -92,11 +112,31 @@
               height: 100%;
               object-fit: cover;
             }
-
+            .tags {
+              .tag1 {
+                padding-block: 3px;
+                right: 0;
+                bottom: 0;
+                width: 35px;
+                height: 20px;
+                font-size: 10px;
+                letter-spacing: 1px;
+              }
+              .tag2 {
+                margin: 0;
+                padding-block: 3px;
+                right: 35px;
+                bottom: 0;
+                width: 35px;
+                height: 20px;
+                font-size: 10px;
+                letter-spacing: 1px;
+              }
+            }
           }
-.content{
-  display: none;
-}
+          .content {
+            display: none;
+          }
         }
       }
     }
