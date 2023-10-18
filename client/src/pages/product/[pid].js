@@ -91,6 +91,20 @@ function Pid() {
   }
 
   const handleTriggerProductFav = async (id) => {
+    if(!authJWT.isAuth){
+      Swal.fire({
+        icon: 'error',
+        title: '請先登入',
+        showConfirmButton: false,
+        timer: 1500,
+        backdrop: `rgba(255, 255, 255, 0.55)`,
+        width: '35%',
+        padding: '0 0 3.25em',
+        customClass: {
+        }
+      })
+      return
+    }
     // 在陣列中->移出，不在陣列中加入
     // console.log(id);
       // 未登入時，會出現請先登入的內容
