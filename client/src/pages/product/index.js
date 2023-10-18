@@ -115,6 +115,7 @@ function Product() {
   useEffect(() => {
     const handleResize = () => {
       // 在這裡設置你的視窗寬度閾值
+      const windowWidth5 = 1650;
       const windowWidth4 = 1140;
       const windowWidth3 = 768;
       const windowWidth2 = 500;
@@ -128,7 +129,9 @@ function Product() {
       }else if(window.innerWidth <= windowWidth3){
         setSlidesPerView(3);
       }else if(window.innerWidth <= windowWidth4){
-        setSlidesPerView(6);
+        setSlidesPerView(3);
+      }else if(window.innerWidth <= windowWidth5){
+        setSlidesPerView(5);
       }else{
         setSlidesPerView(7);
       }
@@ -152,6 +155,7 @@ function Product() {
   useEffect(() => {
     const handleResize = () => {
       // 在這裡設置你的視窗寬度閾值
+      const windowWidth5 = 1650;
       const windowWidth4 = 1140;
       const windowWidth3 = 768;
       const windowWidth2 = 500;
@@ -166,8 +170,10 @@ function Product() {
         setSlidesPerView2(1);
       }else if(window.innerWidth <= windowWidth4){
         setSlidesPerView2(2);
+      }else if(window.innerWidth <= windowWidth5){
+        setSlidesPerView2(3);
       }else{
-        setSlidesPerView2(4);
+        setSlidesPerView2(3);
       }
     };
 
@@ -229,6 +235,7 @@ function Product() {
       {/* **************** */}
 
       <Swiper
+        loop={true}
         spaceBetween={0}
         slidesPerView={3}
         centeredSlides={true}
@@ -239,7 +246,7 @@ function Product() {
         pagination={{
           clickable: true,
         }}
-        initialSlide={1}
+        initialSlide={2}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper ad-swiper"
@@ -307,7 +314,7 @@ function Product() {
       >
         {newProduct.map((data) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={data.id}>
               <LaunchedCard key={data.id} filterNewProduct={data} />
             </SwiperSlide>
           );
@@ -419,7 +426,7 @@ function Product() {
       >
         {saleProduct.map((data) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={data.id}>
               <SalesCard key={data.id} filterSaleProduct={data} />
             </SwiperSlide>
           );
@@ -455,7 +462,7 @@ function Product() {
       >
         {randomProducts.map((data) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={data.id}>
               <RecommendedCard key={data.id} filterRecommendProduct={data} />
             </SwiperSlide>
           );

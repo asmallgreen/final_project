@@ -225,7 +225,7 @@
 }
 // }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 930px) {
   .logo-bar {
     width: 100vw;
     display: flex;
@@ -262,7 +262,7 @@
     // position-absolute top-0 end-0
     // position: absolute;
     position: fixed;
-    height: 104vh;
+    height: 100vh;
     // position: sticky;
     
     top: 0;

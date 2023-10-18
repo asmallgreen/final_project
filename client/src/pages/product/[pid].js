@@ -317,7 +317,7 @@ function Pid() {
                         ${getButtonStyle(
                           tables[tableIndex]
                         )}`}
-                        key={index}
+                        key={`${tableIndex}-${index}`}
                         onClick={(e) => {
                           handleClick(e, tableIndex, index);
 
@@ -372,13 +372,11 @@ function Pid() {
         modules={[Navigation, Pagination]}
         className="mySwiper recommend-product-swiper"
       >
-        {randomProducts.map((data) => {
-          return (
-            <SwiperSlide>
-              <RecommendedCard key={data.id} filterRecommendProduct={data} />
-            </SwiperSlide>
-          );
-        })}
+        {randomProducts.map((data, index) => (
+    <SwiperSlide key={index}>
+      <RecommendedCard key={data.id} filterRecommendProduct={data} />
+    </SwiperSlide>
+  ))}
       
       </Swiper>
 

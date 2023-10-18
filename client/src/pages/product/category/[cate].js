@@ -25,7 +25,7 @@ import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 function Cate(props) {
   const router = useRouter();
   const { cate } = router.query;
-  const [search ,setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [attr, setAttr] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState();
@@ -36,11 +36,15 @@ function Cate(props) {
   const saleProduct = allProduct.filter((product) => product.sale === 1);
   // ************************隨機商品***************************************
   const shuffleArray = (array) => {
-    let currentIndex = array.length, randomIndex;
+    let currentIndex = array.length,
+      randomIndex;
     while (currentIndex !== 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
     }
     return array;
   };
@@ -49,10 +53,9 @@ function Cate(props) {
   // 從隨機排序後的陣列中取得前 10 個元素
   const randomProducts = shuffledProducts.slice(0, 10);
 
-
   // const hotProduct = allProduct.filter((product) => product.hot === 1);
   // ***************************************************************
- 
+
   const [filterProduct, setFilterProduct] = useState([]);
   const [displayProduct, setDisplayProduct] = useState([]);
   const [alldataLength, setAlldataLength] = useState();
@@ -81,10 +84,10 @@ function Cate(props) {
     // console.log(limit);
   };
   const handleSearchName = (name) => {
-    setSearch(name)
+    setSearch(name);
     // console.log(name);
     // console.log(search);
-  }
+  };
   const updatePage = (newPage) => {
     if (newPage !== undefined) {
       setPage(newPage);
@@ -152,13 +155,13 @@ function Cate(props) {
       // 根據視窗寬度動態設定 slidesPerView
       if (window.innerWidth <= windowWidth1) {
         setSlidesPerView(2);
-      } else if(window.innerWidth <= windowWidth2){
+      } else if (window.innerWidth <= windowWidth2) {
         setSlidesPerView(2);
-      }else if(window.innerWidth <= windowWidth3){
+      } else if (window.innerWidth <= windowWidth3) {
         setSlidesPerView(3);
-      }else if(window.innerWidth <= windowWidth4){
+      } else if (window.innerWidth <= windowWidth4) {
         setSlidesPerView(6);
-      }else{
+      } else {
         setSlidesPerView(7);
       }
     };
@@ -167,14 +170,13 @@ function Cate(props) {
     handleResize();
 
     // 添加視窗大小變化監聽器
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // 清理事件監聽器以避免內存洩漏
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []); // 空的依賴數組表示僅在第一次渲染時運行
-
 
   const [slidesPerView2, setSlidesPerView2] = useState(7);
 
@@ -189,13 +191,13 @@ function Cate(props) {
       // 根據視窗寬度動態設定 slidesPerView
       if (window.innerWidth <= windowWidth1) {
         setSlidesPerView2(1);
-      } else if(window.innerWidth <= windowWidth2){
+      } else if (window.innerWidth <= windowWidth2) {
         setSlidesPerView2(1);
-      }else if(window.innerWidth <= windowWidth3){
+      } else if (window.innerWidth <= windowWidth3) {
         setSlidesPerView2(1);
-      }else if(window.innerWidth <= windowWidth4){
+      } else if (window.innerWidth <= windowWidth4) {
         setSlidesPerView2(2);
-      }else{
+      } else {
         setSlidesPerView2(4);
       }
     };
@@ -204,26 +206,17 @@ function Cate(props) {
     handleResize();
 
     // 添加視窗大小變化監聽器
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     // 清理事件監聽器以避免內存洩漏
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []); // 空的依賴數組表示僅在第一次渲染時運行
 
-
-
-
   // ****************************
 
-
-
-
-
-
-  
-  useEffect(()=>{},[search])
+  useEffect(() => {}, [search]);
   useEffect(() => {
     // console.log(currentPage);
   }, [currentPage]);
@@ -256,9 +249,11 @@ function Cate(props) {
     <>
       {/* **************** */}
       {/* 廣告 */}
+
       <Swiper
+        loop={true}
         spaceBetween={0}
-        slidesPerView={1}
+        slidesPerView={3}
         centeredSlides={true}
         autoplay={{
           delay: 2500,
@@ -267,61 +262,54 @@ function Cate(props) {
         pagination={{
           clickable: true,
         }}
+        initialSlide={2}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper ad-swiper"
       >
         <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
+          <div className="ads">
+            <div className="ad">
               <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
               <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
               <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
+            </div>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="top1.jpg" />
-            </Col>
-            <Col md="6" className="ad main">
+          <div className="ads">
+            <div className="ad">
               <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
+            </div>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
+          <div className="ads">
+            <div className="ad">
               <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
+            </div>
+          </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
+          <div className="ads">
+            <div className="ad">
               <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="ads">
+            <div className="ad">
               <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="ads">
+            <div className="ad">
               <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
+            </div>
+          </div>
         </SwiperSlide>
       </Swiper>
       <div className="phone-ad">
@@ -340,13 +328,11 @@ function Cate(props) {
         modules={[Navigation, Pagination]}
         className="mySwiper launched-product-swiper"
       >
-        {newProduct.map((data) => {
-          return (
-            <SwiperSlide>
-              <LaunchedCard key={data.id} filterNewProduct={data} />
-            </SwiperSlide>
-          );
-        })}
+        {newProduct.map((data) => (
+          <SwiperSlide key={data.id}>
+            <LaunchedCard filterNewProduct={data} />
+          </SwiperSlide>
+        ))}
       </Swiper>
       {/* </Router> */}
 
@@ -455,8 +441,8 @@ function Cate(props) {
       >
         {saleProduct.map((data) => {
           return (
-            <SwiperSlide>
-              <SalesCard key={data.id} filterSaleProduct={data} />
+            <SwiperSlide key={data.id}  >
+              <SalesCard filterSaleProduct={data} />
             </SwiperSlide>
           );
         })}
@@ -491,8 +477,8 @@ function Cate(props) {
       >
         {randomProducts.map((data) => {
           return (
-            <SwiperSlide>
-              <RecommendedCard key={data.id} filterRecommendProduct={data} />
+            <SwiperSlide key={data.id}>
+              <RecommendedCard filterRecommendProduct={data} />
             </SwiperSlide>
           );
         })}

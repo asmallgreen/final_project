@@ -1,5 +1,17 @@
-import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+
+import { Form } from "react-bootstrap";
+//fontawesome
+import { FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
+// 登入後才會顯示登出按鈕
+
+import { FiLogOut } from "react-icons/fi";
+import { Button } from "react-bootstrap";
+import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import axios from "axios";
+import { useRouter } from "next/router";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //fontawesome
 import {
@@ -7,7 +19,6 @@ import {
   faChevronRight,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAuthJWT } from "@/hooks/use-auth-jwt";
 //fontawesome
 export default function Logobar() {
   const [ham, setHam] = useState(false);
@@ -42,7 +53,50 @@ export default function Logobar() {
     // console.log(accordion);
   };
 
-  const { authJWT } = useAuthJWT();
+  // const { authJWT } = useAuthJWT();
+  const { authJWT, setAuthJWT } = useAuthJWT();
+
+  const router = useRouter();
+  // 首頁路由
+
+  const homeRoute = "/";
+  // 隱私頁面路由，登出時會，檢查後跳轉至首頁
+
+  const protectedRoutes = [
+    "/member",
+    "/member/update-profile",
+    "member/update-pwd",
+    "/member/order-list",
+    "/member/coupon",
+    "/member/fav-product",
+    "/cart",
+  ];
+  const handleLogout = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost:3005/member/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      if (res.data.message === "success") {
+        setAuthJWT({
+          isAuth: false,
+          memberData: {
+            id: 0,
+            account: "",
+            name: "",
+            email: "",
+            level: "",
+            created_date: "",
+          },
+        });
+        router.push(process.env.BASE_URL || '/')
+      }
+      setHam((prevState) => !prevState);
+    } catch (error) {}
+  };
   return (
     <>
       <div className="logo-bar">
@@ -95,6 +149,7 @@ export default function Logobar() {
                 <Link
                   href="/member/register"
                   className="edit align-items-center d-flex justify-content-center rounded-2"
+                  onClick={handleHam}
                 >
                   註冊會員資料
                 </Link>
@@ -244,7 +299,7 @@ export default function Logobar() {
           <Link href="" className="type d-block">
             關於良弓制販所
           </Link>
-          <div className="type d-flex justify-content-between">
+          {/* <div className="type d-flex justify-content-between">
             聯絡我們
             <FontAwesomeIcon
               icon={accordion5 ? faChevronDown : faChevronRight}
@@ -256,18 +311,16 @@ export default function Logobar() {
           </Link>
           <Link href="" className={accordion5 ? "fk" : "d-none"}>
             聯絡線上客服
-          </Link>
+          </Link> */}
           {authJWT.isAuth ? (
             <>
-              {" "}
-              <Link href="/member/logout" className="logout">
+              <div href="/member/logout" className="logout" onClick={handleLogout}>
                 登出
-              </Link>
+              </div>
             </>
           ) : (
             <>
-              {" "}
-              <Link href="/member/login" className="logout">
+              <Link href="/member/login" className="logout" onClick={handleHam}>
                 登入
               </Link>
             </>

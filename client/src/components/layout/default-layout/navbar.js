@@ -151,13 +151,7 @@ export default function Navbar() {
               <FaUser className="fa-user" />
             </Link>
           </li>
-          {authJWT.isAuth && (
-            <li className="list-unstyled">
-              <Button onClick={handleLogout}>
-                <FiLogOut className="fi-logout" />
-              </Button>
-            </li>
-          )}
+          {/* {authJWT.isAuth ? (<><li>嗨</li></>):(<></>)} */}
           {authJWT.isAuth && (
             <li className="list-unstyled">
               <Button onClick={handleLogout}>

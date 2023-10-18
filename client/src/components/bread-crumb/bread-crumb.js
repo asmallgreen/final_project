@@ -12,7 +12,7 @@ export default function BreadCrumb(props) {
   // 在 useEffect 中監聽路由的變化
   useEffect(()=>{
     
-console.log(currentLink);
+// console.log(currentLink);
   },[currentLink])
   useEffect(()=>{
     switch (currentPage) {
@@ -56,7 +56,7 @@ console.log(currentLink);
         </div>
         <div className="crumb-item">
           <Link
-            href={`/product/${currentLink == null ? "" : 'category'}/${currentLink == null ? "" : currentLink}`}
+            href={`/product${currentLink == null ? "" : '/category'}/${currentLink == null ? "" : currentLink}`}
             className="crumb-link"
           >
             {currentPage}
