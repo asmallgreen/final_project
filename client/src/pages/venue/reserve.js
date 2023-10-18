@@ -323,10 +323,10 @@ export default function ReserveDate({ formType, setFormType }) {
         <div className='d-flex justify-content-center'>
           <Link
             type="button"
-            className="mx-4 mt-2 mb-5 text-decoration-none reserve-bt1  "
+            className="mx-4 mt-2 mb-5 text-decoration-none"
             href={`/venue/date?id=${id}`}
           >
-            <div className='text-center reserve-bn-text'>返回上一步</div>
+            <button className='text-center reserve-bt1'>返回上一步</button>
           </Link>
           <div className='d-flex justify-content-center '>
           <button
