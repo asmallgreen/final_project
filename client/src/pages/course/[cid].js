@@ -13,7 +13,6 @@ import Review from "../../components/course-detail/Review";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import Swal from "sweetalert2";
 
-
 const onChange = (key) => {
   // console.log(key);
 };
@@ -163,6 +162,21 @@ export default function CourseDetail() {
    }
 
    const handleTriggerCourseFav = async (id) => {
+    if(!authJWT.isAuth){
+      Swal.fire({
+        icon: 'error',
+        title: '請先登入',
+        showConfirmButton: false,
+        timer: 1500,
+        backdrop: `rgba(255, 255, 255, 0.55)`,
+        // width: '35%',
+        padding: '0 0 3.25em',
+        customClass: {
+          width:'shadow-sm'
+        }
+      })
+      return
+    }
      // 在陣列中->移出，不在陣列中加入
      console.log('id=',id);
      if (favoriteCourses.includes(id)) {
@@ -181,10 +195,11 @@ export default function CourseDetail() {
              showConfirmButton: false,
              timer: 1500,
              backdrop: `rgba(255, 255, 255, 0.55)`,
-             width: '35%',
+            //  width: '35%',
              padding: '0 0 3.25em',
              customClass: {
-             }
+              width:'shadow-sm'
+            }
            })
          }
        }catch(error){
@@ -208,10 +223,11 @@ export default function CourseDetail() {
              showConfirmButton: false,
              timer: 1500,
              backdrop: `rgba(255, 255, 255, 0.55)`,
-             width: '35%',
+            //  width: '35%',
              padding: '0 0 3.25em',
              customClass: {
-             }
+              width:'shadow-sm'
+            }
            })
          }
        }catch(error){

@@ -257,8 +257,9 @@ function Cate(props) {
       {/* **************** */}
       {/* 廣告 */}
       <Swiper
+        loop={true}
         spaceBetween={0}
-        slidesPerView={1}
+        slidesPerView={3}
         centeredSlides={true}
         autoplay={{
           delay: 2500,
@@ -267,62 +268,56 @@ function Cate(props) {
         pagination={{
           clickable: true,
         }}
+        initialSlide={1}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper ad-swiper"
       >
-        <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
+      <SwiperSlide>
+      <div className="ads">
+        <div className="ad">
+        <img src="/product/top1.jpg" alt="img" />
+        <img src="/product/top2.jpg" alt="img" />
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+      </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="top1.jpg" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
+      <div className="ads">
+        <div className="ad">
+        <img src="/product/top2.jpg" alt="img" />
+        </div>
+      </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
+      <div className="ads">
+        <div className="ad">
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+      </div>          
         </SwiperSlide>
         <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
+      <div className="ads">
+        <div className="ad">
+        <img src="/product/top1.jpg" alt="img" />
+        </div>
+      </div>
         </SwiperSlide>
+        <SwiperSlide>
+      <div className="ads">
+        <div className="ad">
+        <img src="/product/top2.jpg" alt="img" />
+        </div>
+      </div>
+        </SwiperSlide>
+        <SwiperSlide>
+      <div className="ads">
+        <div className="ad">
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+      </div>          
+        </SwiperSlide>
+       
       </Swiper>
       <div className="phone-ad">
         <img src="/product/top1.jpg" alt="img"></img>

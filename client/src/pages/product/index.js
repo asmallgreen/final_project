@@ -16,6 +16,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
+import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import Swal from "sweetalert2";
 
 function Product() {
   const [search, setSearch] = useState("");
@@ -224,11 +226,102 @@ function Product() {
     // console.log(page);
   }, [page]);
 
+  // const router = useRouter();
+
+  // 會員收藏商品
+  const { authJWT,favoriteProducts, setFavoriteProducts } = useAuthJWT()
+  const memberId = authJWT.memberData.id
+  // 拿出會員收藏的所有商品id
+  // console.log(favoriteProducts);
+  // const [products, setProducts] = useState([])
+  // 判斷是否該商品id有在收藏資料表，有代表已收藏
+  
+  function isProductFavorited(productId) {
+    return favoriteProducts.includes(productId);
+  }
+
+  const handleTriggerProductFav = async (id) => {
+    // 在陣列中->移出，不在陣列中加入
+    // console.log(id);
+      // 未登入時，會出現請先登入的內容
+  if (!authJWT.isAuth){
+    Swal.fire({
+      icon: 'warning',
+      title: '請先登入',
+      showConfirmButton: false,
+      timer: 1500,
+      backdrop: `rgba(255, 255, 255, 0.55)`,
+      // width: '35%',
+      padding: '0 0 3.25em',
+      customClass: {
+        width:'shadow-sm'
+      }
+  })
+  return
+}
+    if (favoriteProducts.includes(id)) {
+// 如果在陣列中，執行移除收藏
+      try{
+        const res = await axios.delete(`http://localhost:3005/member/${id}`,
+        {
+          data:{memberId},
+          withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
+        })
+        console.log(res.data);
+        if(res.data.message === '已取消收藏'){
+          await Swal.fire({
+            icon: 'success',
+            title: '商品已取消收藏',
+            showConfirmButton: false,
+            timer: 1500,
+            backdrop: `rgba(255, 255, 255, 0.55)`,
+            // width: '35%',
+            padding: '0 0 3.25em',
+            customClass: {
+              width:'shadow-sm'
+            }
+          })
+        }
+      }catch(error){
+        console.log(error);
+      }
+      setFavoriteProducts(favoriteProducts.filter((v) => v !== id))
+    } else {
+// 如果不在陣列中，執行加入收藏
+      try{
+        const res = await axios.put(`http://localhost:3005/member/${id}`,
+        {memberId},
+        {
+          withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
+        })
+        console.log(res.data);
+
+        if(res.data.message === '商品收藏成功'){
+          await Swal.fire({
+            icon: 'success',
+            title: '商品收藏成功',
+            showConfirmButton: false,
+            timer: 1500,
+            backdrop: `rgba(255, 255, 255, 0.55)`,
+            // width: '35%',
+            padding: '0 0 3.25em',
+            customClass: {
+              width:'shadow-sm'
+            }
+          })
+        }
+      }catch(error){
+        console.log(error);
+      }
+      setFavoriteProducts([...favoriteProducts, id])
+    }
+  }
   return (
     <>
       {/* **************** */}
 
       <Swiper
+        loop={true}
         spaceBetween={0}
         slidesPerView={3}
         centeredSlides={true}
@@ -244,54 +337,76 @@ function Product() {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper ad-swiper"
       >
+      {/* <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top1.jpg" alt="img" />
+        <img src="/product/top2.jpg" alt="img" />
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+      </div>
+      </Link>
+      </SwiperSlide> */}
       <SwiperSlide>
-      <div className="ads">
-        <div className="ad">
-        <img src="/product/top1.jpg" alt="img" />
-        <img src="/product/top2.jpg" alt="img" />
-        <img src="/product/top3.jpg" alt="img" />
-        </div>
-      </div>
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+      <Link href='/publicCoupon'>
+        <div className="ads">
         <div className="ad">
         <img src="/product/top2.jpg" alt="img" />
         </div>
-      </div>
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
         <div className="ad">
         <img src="/product/top3.jpg" alt="img" />
         </div>
-      </div>          
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+        </div>   
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
         <div className="ad">
         <img src="/product/top1.jpg" alt="img" />
         </div>
-      </div>
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+         <div className="ads">
         <div className="ad">
         <img src="/product/top2.jpg" alt="img" />
         </div>
-      </div>
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
         <div className="ad">
         <img src="/product/top3.jpg" alt="img" />
         </div>
-      </div>          
-        </SwiperSlide>
-       
+        </div>  
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top4.jpg" alt="img" />
+        </div>
+        </div>  
+      </Link>
+      </SwiperSlide>
       </Swiper>
       <div className="phone-ad">
+      <Link href='/publicCoupon'>
         <img src="/product/top1.jpg" alt="img"></img>
+      </Link>
       </div>
       {/* 新品上架 */}
       <div className="product-page-title">
@@ -389,9 +504,8 @@ function Product() {
       <Row className="filter-cards-area">
         <Col md="auto" className="filter-cards">
           <Row className="rows">
-            {/* filterProduct更改成displayProduct */}
             {displayProduct.map((data) => {
-              return <FilterProductCard key={data.id} filterProduct={data} />;
+              return <FilterProductCard key={data.id} filterProduct={data} is_favorite={isProductFavorited(data.id)} handleTriggerProductFav={handleTriggerProductFav}/>;
             })}
           </Row>
         </Col>

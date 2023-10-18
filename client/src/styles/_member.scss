@@ -2,6 +2,10 @@ body{
   color: $secondary;
   font-family: NSimSun;
 }
+body{
+  color: $secondary;
+  font-family: NSimSun;
+}
 .login-bg {
   height: 100%;
   width: 100%;
@@ -43,6 +47,7 @@ body{
 }
 
 // 會員導覽列桌機版
+
 
 .nav-item {
   border-left: 7px solid transparent;
@@ -87,6 +92,29 @@ body{
         border-left: 0;
         border-bottom: 7px solid $accent;
       }
+    }
+  }
+}
+.fav-product-cards{
+  .fav-product-card-div{
+  padding:20px;
+  }
+  .product-name{
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 0;
+    // padding:20px,0,0,10px;
+  }
+  .product-price{
+    font-size: 18px;
+    font-weight: 600;
+    color: #b61c1c;
+  }
+  @media (max-width:393px){
+    .product-name{
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 0;
     }
   }
 }
@@ -189,6 +217,12 @@ body{
         right:15px;
         top: 10px;
       }
+      position: relative;
+      input{
+        position: absolute;
+        right:15px;
+        top: 10px;
+      }
       background: lightyellow;
       width: 560px;
       height: 280px;
@@ -283,6 +317,7 @@ body{
   border: 0px;
   padding-inline: 40px;
   color: #fff;
+  margin-bottom: 30px;
   &:hover {
     background-color: $secondary;
     color: #fff;
@@ -327,6 +362,22 @@ body{
 }
   }
 // 會員資料內容
+.mobile-member-update-container{
+  width: 100%;
+  margin-bottom: 100px;
+
+  @media (max-width:393px){
+    width: 100%;
+    margin-bottom: 80px;
+  }
+}
+
+  .shadow-sm{
+    width: 400px;
+    @media (max-width:393px){
+      width: 80%;
+    }
+  }
 .upload-profile-form{
   color: $secondary;
   font-family: NSimSun;
@@ -374,7 +425,7 @@ body{
       position: absolute;
       background-color: $accent;
       color: #fff;
-      right: 12px;
+      right: 0;
       top: 32px;
     }
   }
@@ -386,5 +437,11 @@ body{
     text-decoration: none;
     display: flex;
     align-items: center;
+  }
+}
+.shadow-sm{
+  width: 400px;
+  @media (max-width:393px){
+    width: 350px;
   }
 }

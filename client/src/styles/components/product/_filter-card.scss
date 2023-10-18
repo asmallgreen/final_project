@@ -146,14 +146,14 @@
             color: $accent;
           }
           .far-heart {
-            display: none;
+            // display: none;
           }
           &:hover {
             .fa-heart {
-              display: none;
+              // display: none;
             }
             .far-heart {
-              display: block;
+              // display: block;
               width: 26px;
               height: 26px;
               color: $accent;

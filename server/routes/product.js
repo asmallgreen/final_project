@@ -318,7 +318,7 @@ router.get("/searchProduct", async (req, res) => {
   const searchKeyword = {
     name: `%${keyword}%`,
   };
-  //從資料庫中使用searchProduct函式(查詢產品名稱)
+  //從資料庫中使用searchProduct函式(查詢產品名稱)f
   const searchProducts = await searchProduct(searchKeyword);
   console.log(searchProducts);
   return res.json({ searchProducts });
