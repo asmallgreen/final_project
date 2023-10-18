@@ -1,13 +1,12 @@
 import express from "express";
 import { executeQuery } from "../models/base.js";
 import "dotenv/config.js";
-import pool from "../config/db.js";
 import {
-  // executeQuery,
   getAll,
-  getNew,
   getFilter,
   getOne,
+  getDisplay,
+  getCate,
   searchProduct,
 } from "../models/products.js";
 
@@ -15,7 +14,14 @@ const router = express.Router();
 
 //***********產品頁************
 router.get("/", async (req, res) => {
-  const { limit, page, sort, attr } = req.query;
+  const {
+    limit = 20,
+    page = 1,
+    sort,
+    attr = "default",
+    search = "",
+  } = req.query;
+  // console.log(limit, page, sort, attr, search);
   const limitValue = parseInt(limit);
   const pageValue = parseInt(page);
   const offset = (pageValue - 1) * limitValue;
@@ -25,7 +31,7 @@ router.get("/", async (req, res) => {
     case "default":
       sortValue = { id: "ASC" };
     case "hot":
-      sortValue = { hot: "asc" };
+      sortValue = { hot: "desc" };
       break;
     case "launched":
       sortValue = { launched: "asc" };
@@ -41,41 +47,64 @@ router.get("/", async (req, res) => {
       break;
   }
   // 篩選改where
-  // let arrValue={category_id:1}
   let attrValue;
   switch (attr) {
     case "default":
       attrValue = "";
       break;
     case "attr1":
-      attrValue = { category_id: 1 };
+      attrValue = "price<4000";
       break;
     case "attr2":
-      attrValue = { category_id: 2 };
+      attrValue = "price BETWEEN 4000 AND 6000";
       break;
     case "attr3":
-      attrValue = { category_id: 3 };
-      break;
-    case "attr4":
-      attrValue = { category_id: 4 };
+      attrValue = "price>6000";
       break;
   }
-  console.log(attrValue);
-  console.log(sortValue);
-  // const where = {id:1}
-  const alldata = await getAll();
-  // const newdata = await getNew();
-  // const filterdata = await getFilter(attrValue, sortValue, limitValue, offset);
+  let searchValue;
+  if (search) {
+    searchValue = `name LIKE '%${search}%'`;
+  }
+  // console.log(searchValue);
+  // console.log(search);
+  // console.log(searchValue);
+  // 定義where條件內容
+  let where;
+  // 使用條件判斷來擴充 SQL 查詢語句
+  if (attrValue && searchValue) {
+    where = `WHERE ${attrValue} AND ${searchValue}`;
+  } else if (attrValue) {
+    where = `WHERE ${attrValue}`;
+  } else if (searchValue) {
+    where = `WHERE ${searchValue}`;
+  }
 
-  const filterdata = await getFilter(attrValue, sortValue, 5, 0);
+  // console.log(where);
+
+  const alldata = await getAll();
+  const filterdata = await getFilter(where, sortValue);
+  const displaydata = await getDisplay(where, sortValue, limitValue, offset);
+  const alldataLength = alldata.length;
+  const filterdataLength = filterdata.length;
+  const displaydataLength = displaydata.length;
+  const pageLength =
+    filterdataLength % limit === 0
+      ? filterdataLength / limit
+      : Math.ceil(filterdataLength / limit);
 
   res.json({
-    // arrow_length,
     message: "getAllProduct success",
     code: "200",
-    filterdata,
     alldata,
-    // newdata,
+    displaydata,
+    filterdata,
+    alldataLength,
+    filterdataLength,
+    displaydataLength,
+    pageLength,
+    limitValue,
+    pageValue,
   });
 });
 
@@ -84,6 +113,7 @@ router.get("/:pid", async (req, res) => {
     const id = req.params.pid;
     const where = { id: id };
     const data = await getOne(where);
+    const alldata = await getAll();
     const cate = data.category_id;
 
     let tables = [];
@@ -107,7 +137,7 @@ router.get("/:pid", async (req, res) => {
     // ************OK的sql語法***********************
     // 屬性
     const sql2 = `SELECT name FROM product_attribute WHERE category_id = ${cate}`;
-    const attrTitle = []
+    const attrTitle = [];
     const { rows } = await executeQuery(sql2);
     const attr = rows.map((item) => (item && item.name) || "");
     attrTitle.push(attr);
@@ -130,6 +160,7 @@ router.get("/:pid", async (req, res) => {
     return res.json({
       message: "getAllProduct success",
       code: "200",
+      alldata,
       tables,
       attrTitle,
       attrValue,
@@ -145,42 +176,128 @@ router.get("/:pid", async (req, res) => {
 });
 
 router.get("/category/:cate", async (req, res) => {
-  // const { limit, page, sort } = req.query;
-  // const limitValue = parseInt(limit);
-  // const pageValue = parseInt(page);
-  // const offset = (pageValue - 1) * limitValue;
-  // let sortValue;
-  // switch (sort) {
-  //   case "default":
-  //     sortValue = { id: "ASC" };
-  //   case "hot":
-  //     sortValue = { hot: "asc" };
-  //     break;
-  //   case "launched":
-  //     sortValue = { launched: "asc" };
-  //     break;
-  //   case "priceAsc":
-  //     sortValue = { price: "desc" };
-  //     break;
-  //   case "priceDesc":
-  //     sortValue = { price: "asc" };
-  //     break;
-  //   case "nameAZ":
-  //     sortValue = { name: "desc" };
-  //     break;
-  // }
+  const { sort, attr, limit = 20, page = 1, cate, search = "" } = req.query;
+  const limitValue = parseInt(limit);
+  const pageValue = parseInt(page);
+  const offset = (pageValue - 1) * limitValue;
+  // 排序改order
+  let sortValue;
+  switch (sort) {
+    case "default":
+      sortValue = { id: "ASC" };
+    case "hot":
+      sortValue = { hot: "desc" };
+      break;
+    case "launched":
+      sortValue = { launched: "desc" };
+      break;
+    case "priceAsc":
+      sortValue = { price: "desc" };
+      break;
+    case "priceDesc":
+      sortValue = { price: "asc" };
+      break;
+    case "nameAZ":
+      sortValue = { name: "desc" };
+      break;
+  }
 
-  const alldata = await getAll();
-  const newdata = await getNew();
-  // const filterdata = await getFilter(sortValue, limitValue, offset);
+  let cateValue;
+  switch (cate) {
+    case "1":
+      cateValue = "WHERE category_id = 1";
+      break;
+    case "2":
+      cateValue = "WHERE category_id = 2";
+      break;
+    case "3":
+      cateValue = "WHERE category_id = 3";
+      break;
+    case "4":
+      cateValue = "WHERE category_id = 4";
+      break;
+  }
+  let attrValue;
+  switch (attr) {
+    case "default":
+      attrValue = "";
+      break;
+    case "attr1":
+      attrValue = "price<4000";
+      break;
+    case "attr2":
+      attrValue = "price BETWEEN 4000 AND 6000";
+      break;
+    case "attr3":
+      attrValue = "price>6000";
+      break;
+  }
+  let searchValue;
+  if (search) {
+    searchValue = `name LIKE '%${search}%'`;
+  }
+  // 定義where條件內容
+  let where;
+  // 使用條件判斷來擴充 SQL 查詢語句
+
+  // if (cateValue) {
+  //   where = `${cateValue}`;
+  // }
+  // if (attrValue) {
+  //   where += ` AND ${attrValue}`;
+  console.log(attrValue);
+  console.log(searchValue);
+  if (cateValue) {
+    where = `${cateValue}`;
+  }
+  if (cateValue && attrValue && searchValue) {
+    where += ` AND ${attrValue} AND ${searchValue}`;
+  } else if (cateValue && searchValue) {
+    where += ` AND ${searchValue}`;
+  } else if (cateValue && attrValue) {
+    where += ` AND ${attrValue}`;
+  } 
+  console.log(where);
+
+  console.log(where);
+  const catedata = await getCate(cateValue);
+  const filterdata = await getFilter(where, sortValue);
+  // console.log(filterdata);
+  const displaydata = await getDisplay(where, sortValue, limitValue, offset);
+
+  const sql = `SELECT p.*
+FROM product AS p
+JOIN product_arrow_length AS pal ON p.id = pal.product_id
+JOIN arrow_length AS al ON al.id = pal.arrow_length_id;
+`;
+  const { rows } = await executeQuery(sql);
+  console.log(rows);
+  //所有產品的數量改用catedata
+  const alldataLength = catedata.length;
+  const filterdataLength = filterdata.length;
+  const displaydataLength = displaydata.length;
+  const pageLength =
+    filterdataLength % limit === 0
+      ? filterdataLength / limit
+      : Math.ceil(filterdataLength / limit);
 
   res.json({
-    msg: "產品分類頁 success",
-    code: 200,
-    alldata,
-    newdata,
+    message: "getAllProduct success",
+    code: "200",
+    rows,
+    catedata,
+    // alldata,
+    displaydata,
+    filterdata,
+    alldataLength,
+    filterdataLength,
+    displaydataLength,
+    pageLength,
+    limitValue,
+    pageValue,
   });
 });
+
 // ***********test***********
 router.get("/productInfo", async (req, res) => {
   // const productId = alldata.filter(data=>data.id)

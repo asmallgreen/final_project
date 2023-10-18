@@ -10,8 +10,6 @@ import { Button } from "react-bootstrap";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { result } from "lodash";
-import { useProductContext } from "../../../hooks/use-product-context.js";
 
 export default function Navbar() {
   const { authJWT, setAuthJWT } = useAuthJWT();
@@ -58,49 +56,21 @@ export default function Navbar() {
     } catch (error) {}
   };
 
-  // *****************************
-  const [keyword, setKeyword] = useState("");
-  // const [results, setResults] = useState([]);
-  const { updateResults } = useProductContext();
-  // console.log(keyword);
-  console.log(updateResults);
-  const handleSearch = async () => {
-    try {
-      const res = await axios.get(
-        `http://localhost:3005/product/searchProduct?keyword=${keyword}`
-      );
-      // setResults(res.data);
-      updateResults(res.data.searchProducts); // 假設 API 回傳的資料結構中有 searchProducts
-    } catch (error) {
-      console.error("Error:", error.msg);
-    }
-  };
-  // *****************************
+  
   return (
     <>
-      {/* {results &&
-        results.searchProducts &&
-        results.searchProducts.length > 0 && (
-          <div>
-            {" "}
-            <ul>
-              {results.searchProducts.map((product) => (
-                <li key={product.id}>{product.name}</li>
-              ))}
-            </ul>
-          </div>
-        )} */}
+    
 
       {/* 桌機版nav */}
-      <div className="table-nav position-relative">
-        <ul className="nav position-absolute">
+      <div className="table-nav">
+        <ul className="nav">
           <li className="list-unstyled">
             <Link href="/product" className="titleLi">關於良弓</Link>
           </li>
           <li className="list-unstyled product-page">
             <Link href="/product">商品介紹</Link>
-            <div className="hover-type position-absolute">
-              <Link href="/product/category/bow">
+            <div className="hover-type">
+              <Link href="/product/category/1">
                 <div className="box">
                   <img src="/layout/type1.png" />
                   <div className="text">
@@ -108,7 +78,7 @@ export default function Navbar() {
                   </div>
                 </div>
               </Link>
-              <Link href="/product/category/arrow">
+              <Link href="/product/category/2">
                 <div className="box">
                   <img src="/layout/type2.png" />
                   <div className="text">
@@ -116,7 +86,7 @@ export default function Navbar() {
                   </div>
                 </div>
               </Link>
-              <Link href="/product/category/suit">
+              <Link href="/product/category/3">
                 <div className="box">
                   <img src="/layout/type3.png" />
                   <div className="text">
@@ -124,7 +94,7 @@ export default function Navbar() {
                   </div>
                 </div>
               </Link>
-              <Link href="/product/category/other">
+              <Link href="/product/category/4">
                 <div className="box">
                   <img src="/layout/type4.png" />
                   <div className="text">
@@ -151,8 +121,8 @@ export default function Navbar() {
         </ul>
 
         <ul className="nav-fk">
-          <Form className="list-unstyled search-form">
-          <div className="position-relative">
+          {/* <Form className="list-unstyled search-form">
+            <div className="position-relative">
               <Form.Control
                 type="text"
                 placeholder="請輸入商品名稱"
@@ -165,7 +135,7 @@ export default function Navbar() {
                 onClick={handleSearch}
               />
             </div>
-          </Form>
+          </Form> */}
           <li className="list-unstyled">
             <Link href="/cart">
               <FaShoppingCart className="fa-cart-shopping" />
@@ -201,7 +171,7 @@ export default function Navbar() {
             <Link href="/product">商店</Link>
           </li>
           <li>
-            <Link href="/course">課程</Link>
+            <Link href="/course-list">課程</Link>
           </li>
           <li>
             <Link href="/venue">場地</Link>

@@ -25,6 +25,27 @@ const storage = multer.diskStorage({
   }
 })
 const upload = multer({storage:storage})
+import multer from 'multer'
+import { createOtp, updatePassword } from '../models/otp.js'
+import 'dotenv/config.js'
+import { executeQuery } from '../models/base.js'
+
+// 定義頭像上傳後存放的地方
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+
+
+    console.log('step 1: destination');
+    cb(null, './uploads/')
+  },
+  filename: function (req, file, cb) {
+    console.log('step 2: filename');
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix); // 使用唯一的檔案名稱
+    console.log(file.fieldname);
+  }
+})
+const upload = multer({storage:storage})
 import {
   verifyUser,
   getUser,
@@ -32,6 +53,10 @@ import {
   getCount,
   checkAccount,
   checkEmail,
+  forgotPwdGetUser,
+  getUserByAccount,
+  updateUserById,
+  getUserById,
   forgotPwdGetUser,
   getUserByAccount,
   updateUserById,
@@ -69,7 +94,31 @@ router.post("/login", async (req, res) => {
   try {
     // 先檢查資料庫有沒有這個帳號
     const user = await checkAccount({ account });
+  try {
+    // 先檢查資料庫有沒有這個帳號
+    const user = await checkAccount({ account });
 
+    if (!user) {
+      return res.json({ message: '帳號不存在', code: '400' });
+    }else{
+      const member = await getUserByAccount({account})
+      // 使用 argon2.verify 驗證使用者輸入的密碼是否匹配
+      // 使用註冊時設定的 Argon2 加密哈希參數
+      const options = {
+      timeCost: 4, // 迭代次數
+      memoryCost: 2 ** 16, // 内存成本（以字節為單位）
+      parallelism: 1, // 並行性參數
+      };
+    const isPasswordValid = await argon2.verify(member.password, password, options);
+
+    if (isPasswordValid) {
+      console.log('密碼驗證成功！');
+      // 成功驗證就執行登入成功的邏輯(生成JWT並跳轉)
+      delete member.password
+       // 產生存取令牌(access token)，其中包含會員資料
+      const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
+        expiresIn: '24h',
+      })
     if (!user) {
       return res.json({ message: '帳號不存在', code: '400' });
     }else{
@@ -94,7 +143,35 @@ router.post("/login", async (req, res) => {
 
       // 使用httpOnly cookie來讓瀏覽器端儲存access token
       res.cookie('accessToken', accessToken, { httpOnly: true })
+      // 使用httpOnly cookie來讓瀏覽器端儲存access token
+      res.cookie('accessToken', accessToken, { httpOnly: true })
 
+      // 傳送access token回應(react可以儲存在state中使用)
+      return res.json({
+        message: 'login success',
+        code: '200',
+        accessToken,
+      })
+    } else {
+      console.log('密碼驗證失敗！');
+      return res.json({ message: '密碼驗證失敗', code: '401' });
+    }
+    }
+  } catch (error) {
+    console.error('登入錯誤：', error);
+    return res.status(500).json({ message: '伺服器出現錯誤', code: '500' });
+  }
+  // // 先查詢資料庫是否有同member account/password的資料
+  // const isMember = await verifyUser({
+  //   account,
+  //   password,
+  // })
+
+  // console.log(isMember)
+
+  // if (!isMember) {
+  //   return res.json({ message: 'fail', code: '400' })
+  // }
       // 傳送access token回應(react可以儲存在state中使用)
       return res.json({
         message: 'login success',
@@ -142,7 +219,16 @@ router.post("/login", async (req, res) => {
   // // const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
   // //   expiresIn: '24h',
   // // })
+  // // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
+  // delete member.password
 
+  // // // 產生存取令牌(access token)，其中包含會員資料
+  // // const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
+  // //   expiresIn: '24h',
+  // // })
+
+  // // // 使用httpOnly cookie來讓瀏覽器端儲存access token
+  // // res.cookie('accessToken', accessToken, { httpOnly: true })
   // // // 使用httpOnly cookie來讓瀏覽器端儲存access token
   // // res.cookie('accessToken', accessToken, { httpOnly: true })
 
@@ -154,8 +240,37 @@ router.post("/login", async (req, res) => {
   // // })
   })
 
+  // // // 傳送access token回應(react可以儲存在state中使用)
+  // // res.json({
+  // //   message: 'success',
+  // //   code: '200',
+  // //   accessToken,
+  // // })
+  })
+
 
 // 登出 -------------------------------------------------------
+  router.post('/logout', authenticate, (req, res) => {
+    // 清除cookie
+    cookieParser()(req, res, ()=>{
+    res.clearCookie('accessToken', { httpOnly: true })
+  
+    res.json({ message: 'success', code: '200' })      
+    })
+
+  })
+  
+  router.post('/logout-ssl-proxy', authenticate, (req, res) => {
+    // 清除cookie
+    res.clearCookie('accessToken', {
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true,
+    })
+  
+    res.json({ message: 'success', code: '200' })
+  })
+  
   router.post('/logout', authenticate, (req, res) => {
     // 清除cookie
     cookieParser()(req, res, ()=>{
@@ -206,6 +321,13 @@ router.post("/register", async (req, res) => {
     parallelism: 1, // 並行性參數
     };
     const hashedPassword = await argon2.hash(member.password,options);
+    // Argon2 使用的加密哈希參數
+    const options = {
+    timeCost: 4, // 迭代次數
+    memoryCost: 2 ** 16, // 内存成本（以字節為單位）
+    parallelism: 1, // 並行性參數
+    };
+    const hashedPassword = await argon2.hash(member.password,options);
     member.password = hashedPassword;
     // 抓到當下時間
     const currentDateTime = new Date();
@@ -222,20 +344,37 @@ router.post("/register", async (req, res) => {
     const createNewMember = await createUser(member);
     console.log('createNewMember',createNewMember);
     if (!createNewMember.insertId) {
+    const year = currentDateTime.getFullYear();
+    const month = String(currentDateTime.getMonth() + 1).padStart(2, '0'); // 月份從0開始，需要加1，並且補零
+    const day = String(currentDateTime.getDate()).padStart(2, '0'); // 日需要補零
+    const hours = String(currentDateTime.getHours()).padStart(2, '0'); // 小時需要補零
+    const minutes = String(currentDateTime.getMinutes()).padStart(2, '0'); // 分鐘需要補零
+    const seconds = String(currentDateTime.getSeconds()).padStart(2, '0'); // 秒需要補零
+
+    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    member.created_at = formattedDateTime
+    const account = member.account
+    const createNewMember = await createUser(member);
+    console.log('createNewMember',createNewMember);
+    if (!createNewMember.insertId) {
       return res.json({ message: "fail", code: "400" });
     }
+    const newMember = await getUserByAccount({account})
     const newMember = await getUserByAccount({account})
     // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
     delete newMember.password;
     console.log('newMember',newMember);
+    console.log('newMember',newMember);
     // 產生存取令牌(access token)，其中包含會員資料
     const accessToken = jsonwebtoken.sign(
+      newMember,
       newMember,
       accessTokenSecret,
       {
         expiresIn: "24h",
       }
     );
+    console.log('second newMember',newMember);
     console.log('second newMember',newMember);
 
     // 使用httpOnly cookie來讓瀏覽器端儲存access token
@@ -254,6 +393,107 @@ router.post("/register", async (req, res) => {
 });
 
 // 忘記密碼 ------------------------------------------------------
+// 電子郵件文字訊息樣版
+const mailText = (otpToken) => `親愛的會員 您好，
+以下為重設密碼所需要的驗証碼，
+請在重設密碼頁面的"電子郵件驗証碼"欄位中輸入下方的OTP驗證碼，。
+請注意驗証碼將於寄送後30分鐘後到期，如有任何問題請洽網站客服人員:
+    
+您的OTP驗證碼為：
+${otpToken}
+    
+敬上
+
+良弓制販所`
+
+// create otp
+router.post('/otp', async (req, res) => {
+  const { email } = req.body
+
+  if (!email) return res.json({ message: '此信箱並未註冊過', code: '400' })
+
+  // 建立otp資料表記錄，成功回傳otp記錄物件，失敗為空物件{}
+  const otp = await createOtp(email)
+
+  if (!otp.token) return res.json({ message: 'OTP碼輸入錯誤', code: '400' })
+
+  // 寄送email
+  const mailOptions = {
+    // 這裡要改寄送人名稱，email在.env檔中代入
+    from: `"良弓製販所"<${process.env.SMTP_TO_EMAIL}>`,
+    to: email,
+    subject: '良弓製販所-會員重設密碼驗証信',
+    text: mailText(otp.token),
+  }
+  const token = otp.token 
+  transporter.sendMail(mailOptions, (err, response) => {
+    if (err) {
+      // 失敗處理
+      return res.status(400).json({ message: 'email fail', detail: err })
+      console.log(err);
+    } else {
+      // 成功回覆的json
+      return res.json({ message: 'OTP驗證信已寄出', code: '200',token })
+    }
+  })
+})
+
+// 重設密碼用
+router.post('/resetpassword', async (req, res, next) => {
+  const { email, token, newPassword } = req.body
+  // 使用 argon2.verify 驗證使用者輸入的密碼是否匹配
+  // 使用註冊時設定的 Argon2 加密哈希參數
+  const options = {
+    timeCost: 4, // 迭代次數
+    memoryCost: 2 ** 16, // 内存成本（以字節為單位）
+    parallelism: 1, // 並行性參數
+  };
+  const argon2Password = await argon2.hash(newPassword,options)
+  if (!token) return res.json({ message: '請確認token已正確輸入', code: '400' })
+
+  // updatePassword中會驗証otp的存在與合法性(是否有到期)
+  const result = await updatePassword(email, token, argon2Password)
+
+  if (!result) return res.json({ message: '後端路由 /resetpassword 失敗', code: '400' })
+
+  return res.json({ message: '成功修改密碼', code: '200' })
+})
+
+// 確定上傳頭像
+router.put('/update-profile-img-confirm', async(req, res)=>{
+  console.log('確定要上傳的檔名與id：',req.body);
+  if(!req.body){
+    res.json({message:'請選擇檔案', code:'400'})
+  }
+    const member = {member_img: req.body.filename}
+    const id = req.body.id
+    const result = await updateUserById(member,id)
+    console.log(result);
+    const updatedMember = await getUserById(id)
+    // 先清除原本的cookie
+    cookieParser()(req, res, ()=>{
+      res.clearCookie('accessToken', { httpOnly: true })     
+      })
+      const accessToken = jsonwebtoken.sign({ ...updatedMember }, accessTokenSecret, {
+        expiresIn: '24h',
+      })
+    
+      // 使用httpOnly cookie來讓瀏覽器端儲存access token
+      res.cookie('accessToken', accessToken, { httpOnly: true })
+  res.json({message:'圖片成功更新至資料表', code:'200',accessToken})
+})
+// 修改會員頭像(選擇檔案並預覽)
+router.put('/update-profile-img', upload.single('avatar'), async (req, res)=>{
+  console.log('step 3: entering router');
+  console.log((req.file, req.body));
+
+  if(req.file){
+    console.log('step 4: file upload successfully');
+    console.log('req.file',req.file);
+    // console.log('req.body',req.body);
+    const filename = req.file.filename
+    
+    return res.json({message:'圖片成功傳入後端指定資料夾', code:'200', filename})
 // 電子郵件文字訊息樣版
 const mailText = (otpToken) => `親愛的會員 您好，
 以下為重設密碼所需要的驗証碼，

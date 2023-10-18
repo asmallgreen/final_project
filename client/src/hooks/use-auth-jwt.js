@@ -1,8 +1,8 @@
-import React, { useState, useContext, createContext, useEffect } from 'react'
-import { useRouter } from 'next/router'
-import axios from 'axios'
+import React, { useState, useContext, createContext, useEffect } from "react";
+import { useRouter } from "next/router";
+import axios from "axios";
 
-const AuthContextJWT = createContext(null)
+const AuthContextJWT = createContext(null);
 export const AuthProviderJWT = ({ children }) => {
     const [authJWT , setAuthJWT] = useState({
         isAuth: false,
@@ -41,15 +41,34 @@ const checkAuth = async () => {
     // 可以在這裡實作跳轉
     else {
       if (protectedRoutes.includes(router.pathname)) {
-        router.push(loginRoute)
+        router.push(loginRoute);
       }
     }
-  }
+  };
+
+  //撈取memberCoupon的state
+  const [memberCoupon, setMemberCoupon] = useState([]);
+  const getMemberCoupon = async () => {
+    const res = await axios.get(
+      `http://localhost:3005/memberDashboard/findMemberCoupon?memberId=${authJWT.memberData.id}`
+    );
+    // console.log(res.data.memberCoupon);
+    if (res.data.memberCoupon) {
+      setMemberCoupon(res.data.memberCoupon);
+    }
+  };
+  useEffect(() => {
+    if (authJWT.isAuth) {
+      getMemberCoupon();
+    }else{
+      setMemberCoupon([]);
+    }
+  }, [authJWT]);
 
   // // didMount(初次渲染)後，向伺服器要求檢查會員是否登入中
   useEffect(() => {
     if (router.isReady && !authJWT.isAuth) {
-      checkAuth()
+      checkAuth();
     }
     // 下面加入router.pathname，是為了要在向伺服器檢查後，
     // 如果有比對到是隱私路由，就執行跳轉到登入頁面工作
@@ -125,7 +144,7 @@ const checkAuth = async () => {
     >
       {children}
     </AuthContextJWT.Provider>
-  )
-}
+  );
+};
 
-export const useAuthJWT = () => useContext(AuthContextJWT)
+export const useAuthJWT = () => useContext(AuthContextJWT);

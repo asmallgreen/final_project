@@ -2,6 +2,10 @@ body{
   color: $secondary;
   font-family: NSimSun;
 }
+body{
+  color: $secondary;
+  font-family: NSimSun;
+}
 .login-bg {
   height: 100%;
   width: 100%;
@@ -43,6 +47,7 @@ body{
 }
 
 // 會員導覽列桌機版
+
 
 .nav-item {
   border-left: 7px solid transparent;
@@ -183,6 +188,12 @@ body{
       height: 280px;
     }
     .course-list-text {
+      position: relative;
+      input{
+        position: absolute;
+        right:15px;
+        top: 10px;
+      }
       position: relative;
       input{
         position: absolute;

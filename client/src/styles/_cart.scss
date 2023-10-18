@@ -91,6 +91,12 @@
     margin-left: 12px;
     color: #616153;
 }
+.stepLine{
+    height: 1px;
+    width: 147px;
+    background-color: #000;
+    margin-block: 10px;
+}
 
 @media (max-width: 393px) {
     .stepWords {
@@ -125,6 +131,7 @@
     .listTitle {
         height: 47px;
         justify-content: center;
+        padding-inline: 12px;
     }
 
 }
@@ -148,15 +155,31 @@
     padding: 20px;
     border-inline: 1px solid #616153;
     border-bottom: 1px solid #616153;
-    justify-content: space-between;
+    display: flex;
+}
+@media (max-width: 393px) {
+    .productList {
+        padding:10px 5px;
+        font-size: 14px;
+    }
 }
 
 .productList div {
     margin-block: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    justify-content: center;
     align-items: center;
 
+}
+.productList .deleteSection{
+    justify-content: space-between;
+    padding-inline: 15px;
+}
+@media (max-width: 393px) {
+    .productList .deleteSection{
+        padding-inline: 5px;
+    }
 }
 
 .productList .couponSection {
@@ -164,18 +187,55 @@
     flex-direction: column;
 }
 
+.productList .couponSection select{
+    height: 45px;
+    width: 200px;
+    
+}
+@media (max-width: 393px) {
+    .productList .couponSection select{
+        height: 30px;
+        width: 150px;
+        
+    }
+}
 .productList select {
     padding: 10px 40px;
     margin-bottom: 10px;
-    border-radius: 5px;
+    border-radius: 2px;
+    width: 150px;
 }
 
 @media (max-width: 393px) {
     .productList select {
-        padding: 10px 15px;
+        padding: 0;
+        height: 25px;
+        font-size: 12px;
+        width: 100px;
+    }
+    .couponSection select{
+        width: 150px;
     }
 }
-
+.courseList{
+    padding: 20px;
+    border-inline: 1px solid #616153;
+    border-bottom: 1px solid #616153;
+    display: flex;
+    justify-content: space-between;
+}
+@media (max-width: 393px) {
+    .courseList{
+        padding:10px 5px;
+        font-size: 14px;
+    }
+}
+.courseList div{
+    margin-block: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .deleteBtn {
     background-color: #B16464;
     border: #B16464 1px solid;
@@ -184,6 +244,12 @@
     color: #fff;
     height: 45px;
     width: 72px;
+}
+@media (max-width: 393px) {
+    .deleteBtn{
+        width: 44px;
+        height: 30px;
+    }
 }
 
 .deleteBtn:hover {
@@ -208,6 +274,7 @@
         padding-inline: 0;
         font-size: 14px;
         align-items: flex-end;
+        padding-bottom: 80px;
     }
 
     .totalSection label {
@@ -268,9 +335,79 @@
     font-weight: bold;
     padding-right: 10px;
 }
+/* -----------list----------- */
+.calGroup{
+    border: 2px solid #616153;
+    border-radius: 0;
+}
+.numSquare{
+    width: 119px;
+    border-inline: 1px solid #616153;
+    height: 48px;
+    z-index: 5000;
+    background-color: #fff;
+}
+@media (max-width: 393px) {
+    .numSquare{
+        width: 33px;    
+        height: 22px;
+        background-color: #fff;
+    }
+}
+
+.prodImg{
+  
+   width: 150px;
+   height: 150px;
+}
+@media (max-width: 393px) {
+    .prodImg{
+        width: 80px;
+        height: 80px;
+    }
+}
+.fakeSelect{
+    display: flex;
+    padding: 0px 15px;
+    width: 148px;
+    border: 1px solid #616153;
+    background-color: #fff;
+}
+@media (max-width: 393px) {
+    .fakeSelect{
+        width: 100px;
+    }
+}
+
+.calGroup .calBtn{
+    width: 59px;
+    height: 48px;
+    border-radius: 0;
+    background-color: #ffffff00;
+    
+}
+@media (max-width: 393px) {
+    .calGroup .calBtn{
+        width: 26px;    
+        height: 22px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        background-color: #FFF;
+    }
+}
+.calGroup .calBtn:hover{
+    background-color: #6161535e;
+}
+
+
 
 /* -----------step2----------- */
 
+.opacity50{
+    opacity: 0.1;
+}
 .stepTypeTitle {
     border-top: 2px solid rgba(97, 97, 83, 0.50);
     padding: 20px;
@@ -343,6 +480,11 @@
     justify-content: space-between;
     align-items: center;
 }
+@media (max-width: 393px) {
+    .stepBtnGroup {
+        padding-bottom: 100px;
+    }
+}
 
 .orderTitle {
     color: #fff;
@@ -365,8 +507,30 @@
     display: flex;
 }
 
-.orderTitle div span {
-    cursor: pointer;
+.orderTitle div button {
+    border: 0;
+    color: #fff;
+}
+
+.card-section .rccs{
+    margin-inline:auto ;
+    margin-block: 20px;
+}
+.cardForm{
+    width: 250px;
+}
+
+/* -----------orderList----------- */
+
+.orderTableHead{
+    background-color: rgba(97, 97, 83, 0.50);
+    color: #fff;
+}
+.orderDetail{
+    background-color: #fff;
+}
+.itemDetail{
+    height: 90px;
 }
 
 /* -----------step3----------- */

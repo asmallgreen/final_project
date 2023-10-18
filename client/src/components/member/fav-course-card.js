@@ -1,4 +1,5 @@
 import React from 'react'
+import Link from 'next/link';
 
 export default function FavCourseCard({courses, toggleCourseCheck}) {
   const handleCheckboxChange = (e, courseId) => {
@@ -11,7 +12,9 @@ export default function FavCourseCard({courses, toggleCourseCheck}) {
     <>
     {courses.map((course)=>(
           <div key={course.id} className="course-list-item">
-            <div className="course-list-img"></div>
+            <div className="course-list-img">
+              <img className="course-list-img" src={course.images}></img>
+            </div>
             <div className="course-list-text">
             <input type='checkbox' checked={course.checked || false} onClick={(e) => e.stopPropagation()} onChange={(e)=>handleCheckboxChange(e, course.id) }/>
               <div className="title">{course.name}</div>
@@ -36,7 +39,7 @@ export default function FavCourseCard({courses, toggleCourseCheck}) {
               </div>
               <div className="bottom">
                 <h2 className="price">NT${course.price}</h2>
-                <div className="btn moreBtn">詳細資訊</div>
+                <Link href={`/course/${course.id}`} className="btn moreBtn">詳細資訊</Link>
               </div>
             </div>
           </div>

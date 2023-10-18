@@ -13,6 +13,9 @@
     select{
         background-color: #fff;
     }
+    select{
+        background-color: #fff;
+    }
     .password-eye{
         position: relative;
         .password-eye2{
@@ -59,6 +62,13 @@
             border: 1px solid $secondary;
         }
     }
+    input{
+        background-color: #fff;
+        &:focus{
+            background-color: #fff;
+            border: 1px solid $secondary;
+        }
+    }
 }
 .login-border-bottom{
     width: 40%;
@@ -78,6 +88,7 @@
     img{
         width: 6%;
         position: absolute;
+        top: 10px;
         top: 10px;
         left: 5%;
     }
