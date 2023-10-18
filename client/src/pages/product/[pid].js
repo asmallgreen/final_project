@@ -27,7 +27,9 @@ function Pid() {
   const [tables, setTables] = useState([]);
   const [attrValue, setAttrValue] = useState([]);
   const [attrTitle, setAttrTitle] = useState([]);
-  const [activeAttrs, setActiveAttrs] = useState(Array(attrValue.length).fill(-1));
+  const [activeAttrs, setActiveAttrs] = useState(
+    Array(attrValue.length).fill(-1)
+  );
   const [newQuantity, setNewQuantity] = useState(1);
   const { productCart, products, addProduct, plusOneProduct, minusOneProduct } =
     useProductCart();
@@ -252,17 +254,51 @@ function Pid() {
                     return activeValue;
                   }
                 });
-                addProduct({
-                  id: product.id,
-                  product_img: product.img1,
-                  name: product.name,
-                  detail_1: activeAttrValues[0],
-                  detail_2: activeAttrValues[1],
-                  detail_3: activeAttrValues[2],
-                  quantity: newQuantity,
-                  price: product.price,
-                });
-                alert(`將 ${product.name} 加入購物車`);
+                if (activeAttrValues.length < attrValue.length) {
+                  Swal.fire({
+                    icon: "warning",
+                    title: "請選擇規格",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    backdrop: `rgba(255, 255, 255, 0.55)`,
+                    width: "35%",
+                    padding: "0 0 3.25em",
+                    customClass: {},
+                  });
+                  return;
+                } else if (newQuantity > 0) {
+                  addProduct({
+                    id: product.id,
+                    product_img: product.img1,
+                    name: product.name,
+                    detail_1: activeAttrValues[0],
+                    detail_2: activeAttrValues[1],
+                    detail_3: activeAttrValues[2],
+                    quantity: newQuantity,
+                    price: product.price,
+                  });
+                  Swal.fire({
+                    icon: "success",
+                    title: "商品加入購物車",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    backdrop: `rgba(255, 255, 255, 0.55)`,
+                    width: "35%",
+                    padding: "0 0 3.25em",
+                    customClass: {},
+                  });
+                } else {
+                  Swal.fire({
+                    icon: "warning",
+                    title: "請選擇正確數量",
+                    showConfirmButton: false,
+                    timer: 1500,
+                    backdrop: `rgba(255, 255, 255, 0.55)`,
+                    width: "35%",
+                    padding: "0 0 3.25em",
+                    customClass: {},
+                  });
+                }
               }}
             >
               <FaShoppingCart className="me-2" />
