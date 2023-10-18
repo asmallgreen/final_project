@@ -25,7 +25,8 @@
 - [X] 功能：規格Active
 - [X] 功能：在商品細節頁挑選隨機商品並且寫入規格數量等
 - [X] 功能：限要先制選規格數量才能加入購物車 if (selectValue.length < value.map.length) 
-- [ ] 功能：加入購物車後icon顯示數量
+- [X] 功能：加入購物車後icon顯示數量(手機板)
+- [ ] 功能：加入購物車後icon顯示數量(PC板)
 
 #### 不DEMO就不會死
 - [ ] 功能：同一商品ID只能一次一種規格，新選的規格會直接覆蓋舊規格並且額外添加數量( if(product_id && detail ===)product quantity+1)
