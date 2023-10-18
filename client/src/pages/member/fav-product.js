@@ -25,7 +25,7 @@ export default function MemberCenter() {
         withCredentials: true,
       }
     )
-      console.log('this is product res.data:',res.data);
+      // console.log('this is product res.data:',res.data);
     if (res.data.products) {
       const productsWithChecked = res.data.products.map((product) => ({
         ...product,
@@ -39,8 +39,8 @@ export default function MemberCenter() {
     getProducts()
     getCourses()
   }, [])
-console.log('products:',products);
-console.log('courses:',courses);
+// console.log('products:',products);
+// console.log('courses:',courses);
 
 
 //   // 收藏的課程----------------------------------------
@@ -51,7 +51,7 @@ console.log('courses:',courses);
         withCredentials: true,
       }
     )
-      console.log('this is res.data:',res.data);
+      // console.log('this is res.data:',res.data);
     if (res.data.courses) {
       const coursesWithChecked = res.data.courses.map((course) => ({
         ...course,
@@ -103,16 +103,17 @@ const handleCancelFavProductClick = async (products) => {
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: '35%',
+        // width: '35%',
         padding: '0 0 3.25em',
         customClass: {
+          width:'shadow-sm'
         }
       })
     }
   }catch(error){
     console.log(error);
   }
-  console.log('選中的商品：', selectedProductsToCancel);
+  // console.log('選中的商品：', selectedProductsToCancel);
   getProducts()
 };
 
@@ -132,7 +133,7 @@ const handleCancelFavCourseClick = async (courses) => {
   const selectedCoursesToCancel = courses.filter((course) => course.checked);
   const idsToCancel = selectedCoursesToCancel.map((course) => course.id);
   // 在這裡可以處理取消收藏的邏輯
-  console.log('selectedCoursesToCancel',idsToCancel);
+  // console.log('selectedCoursesToCancel',idsToCancel);
   try{
     const res = await axios.delete(`http://localhost:3005/member/course/${idsToCancel}`,
     {
@@ -143,20 +144,21 @@ const handleCancelFavCourseClick = async (courses) => {
     if(res.data.message === '已取消收藏'){
       await Swal.fire({
         icon: 'success',
-        title: '商品已取消收藏',
+        title: '課程已取消收藏',
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: '35%',
+        // width: '35%',
         padding: '0 0 3.25em',
         customClass: {
+          width:'shadow-sm'
         }
       })
     }
   }catch(error){
     console.log(error);
   }
-  console.log('選中的商品：', selectedCoursesToCancel);
+  // console.log('選中的商品：', selectedCoursesToCancel);
   getCourses()
 };
 

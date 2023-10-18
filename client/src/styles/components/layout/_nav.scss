@@ -41,8 +41,7 @@
   display: flex;
   align-items: center;
   background-color: $primary;
-  height: 70px;
-  z-index: 9999;
+  height: 90px;
   .nav {
     // position-absolute
     position: absolute;
@@ -171,7 +170,7 @@
 
   .nav-fk {
     display: flex;
-    height: 70px;
+    height: 90px;
     padding-inline: 30px;
     position: absolute;
     // top-0 end-0 align-items-center
@@ -387,8 +386,6 @@
     display: flex;
     background-color: $primary;
     height: 40px;
-    z-index: 9999;
-    position: relative;
     .nav {
       display: flex;
       justify-content: center;
@@ -418,4 +415,3 @@
     }
   }
 }
-

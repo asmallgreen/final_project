@@ -25,27 +25,7 @@ const storage = multer.diskStorage({
   }
 })
 const upload = multer({storage:storage})
-import multer from 'multer'
-import { createOtp, updatePassword } from '../models/otp.js'
-import 'dotenv/config.js'
-import { executeQuery } from '../models/base.js'
 
-// 定義頭像上傳後存放的地方
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-
-
-    console.log('step 1: destination');
-    cb(null, './uploads/')
-  },
-  filename: function (req, file, cb) {
-    console.log('step 2: filename');
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix); // 使用唯一的檔案名稱
-    console.log(file.fieldname);
-  }
-})
-const upload = multer({storage:storage})
 import {
   verifyUser,
   getUser,
@@ -53,10 +33,6 @@ import {
   getCount,
   checkAccount,
   checkEmail,
-  forgotPwdGetUser,
-  getUserByAccount,
-  updateUserById,
-  getUserById,
   forgotPwdGetUser,
   getUserByAccount,
   updateUserById,
@@ -91,9 +67,7 @@ router.get("/check-login", authenticate, async (req, res) => {
 router.post("/login", async (req, res) => {
   // res.send("後端登入頁")
   const { account, password } = req.body
-  try {
-    // 先檢查資料庫有沒有這個帳號
-    const user = await checkAccount({ account });
+  
   try {
     // 先檢查資料庫有沒有這個帳號
     const user = await checkAccount({ account });
@@ -119,30 +93,7 @@ router.post("/login", async (req, res) => {
       const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
         expiresIn: '24h',
       })
-    if (!user) {
-      return res.json({ message: '帳號不存在', code: '400' });
-    }else{
-      const member = await getUserByAccount({account})
-      // 使用 argon2.verify 驗證使用者輸入的密碼是否匹配
-      // 使用註冊時設定的 Argon2 加密哈希參數
-      const options = {
-      timeCost: 4, // 迭代次數
-      memoryCost: 2 ** 16, // 内存成本（以字節為單位）
-      parallelism: 1, // 並行性參數
-      };
-    const isPasswordValid = await argon2.verify(member.password, password, options);
 
-    if (isPasswordValid) {
-      console.log('密碼驗證成功！');
-      // 成功驗證就執行登入成功的邏輯(生成JWT並跳轉)
-      delete member.password
-       // 產生存取令牌(access token)，其中包含會員資料
-      const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
-        expiresIn: '24h',
-      })
-
-      // 使用httpOnly cookie來讓瀏覽器端儲存access token
-      res.cookie('accessToken', accessToken, { httpOnly: true })
       // 使用httpOnly cookie來讓瀏覽器端儲存access token
       res.cookie('accessToken', accessToken, { httpOnly: true })
 
@@ -161,91 +112,6 @@ router.post("/login", async (req, res) => {
     console.error('登入錯誤：', error);
     return res.status(500).json({ message: '伺服器出現錯誤', code: '500' });
   }
-  // // 先查詢資料庫是否有同member account/password的資料
-  // const isMember = await verifyUser({
-  //   account,
-  //   password,
-  // })
-
-  // console.log(isMember)
-
-  // if (!isMember) {
-  //   return res.json({ message: 'fail', code: '400' })
-  // }
-      // 傳送access token回應(react可以儲存在state中使用)
-      return res.json({
-        message: 'login success',
-        code: '200',
-        accessToken,
-      })
-    } else {
-      console.log('密碼驗證失敗！');
-      return res.json({ message: '密碼驗證失敗', code: '401' });
-    }
-    }
-  } catch (error) {
-    console.error('登入錯誤：', error);
-    return res.status(500).json({ message: '伺服器出現錯誤', code: '500' });
-  }
-  // // 先查詢資料庫是否有同member account/password的資料
-  // const isMember = await verifyUser({
-  //   account,
-  //   password,
-  // })
-
-  // console.log(isMember)
-
-  // if (!isMember) {
-  //   return res.json({ message: 'fail', code: '400' })
-  // }
-
-// // 會員存在，將會員的資料取出
-// const member = {
-//   id: 1,
-//   account,
-//   password,
-//   name: '怡君',
-//   email: 'luna@gmail.com',
-//   level: '2',
-//   created_date: '2023-08-21',
-// }
-
-// // console.log(member)
-
-  // // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
-  // delete member.password
-
-  // // // 產生存取令牌(access token)，其中包含會員資料
-  // // const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
-  // //   expiresIn: '24h',
-  // // })
-  // // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
-  // delete member.password
-
-  // // // 產生存取令牌(access token)，其中包含會員資料
-  // // const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
-  // //   expiresIn: '24h',
-  // // })
-
-  // // // 使用httpOnly cookie來讓瀏覽器端儲存access token
-  // // res.cookie('accessToken', accessToken, { httpOnly: true })
-  // // // 使用httpOnly cookie來讓瀏覽器端儲存access token
-  // // res.cookie('accessToken', accessToken, { httpOnly: true })
-
-  // // // 傳送access token回應(react可以儲存在state中使用)
-  // // res.json({
-  // //   message: 'success',
-  // //   code: '200',
-  // //   accessToken,
-  // // })
-  })
-
-  // // // 傳送access token回應(react可以儲存在state中使用)
-  // // res.json({
-  // //   message: 'success',
-  // //   code: '200',
-  // //   accessToken,
-  // // })
   })
 
 
@@ -321,13 +187,6 @@ router.post("/register", async (req, res) => {
     parallelism: 1, // 並行性參數
     };
     const hashedPassword = await argon2.hash(member.password,options);
-    // Argon2 使用的加密哈希參數
-    const options = {
-    timeCost: 4, // 迭代次數
-    memoryCost: 2 ** 16, // 内存成本（以字節為單位）
-    parallelism: 1, // 並行性參數
-    };
-    const hashedPassword = await argon2.hash(member.password,options);
     member.password = hashedPassword;
     // 抓到當下時間
     const currentDateTime = new Date();
@@ -344,37 +203,21 @@ router.post("/register", async (req, res) => {
     const createNewMember = await createUser(member);
     console.log('createNewMember',createNewMember);
     if (!createNewMember.insertId) {
-    const year = currentDateTime.getFullYear();
-    const month = String(currentDateTime.getMonth() + 1).padStart(2, '0'); // 月份從0開始，需要加1，並且補零
-    const day = String(currentDateTime.getDate()).padStart(2, '0'); // 日需要補零
-    const hours = String(currentDateTime.getHours()).padStart(2, '0'); // 小時需要補零
-    const minutes = String(currentDateTime.getMinutes()).padStart(2, '0'); // 分鐘需要補零
-    const seconds = String(currentDateTime.getSeconds()).padStart(2, '0'); // 秒需要補零
-
-    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    member.created_at = formattedDateTime
-    const account = member.account
-    const createNewMember = await createUser(member);
-    console.log('createNewMember',createNewMember);
-    if (!createNewMember.insertId) {
       return res.json({ message: "fail", code: "400" });
     }
-    const newMember = await getUserByAccount({account})
+    
     const newMember = await getUserByAccount({account})
     // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
     delete newMember.password;
     console.log('newMember',newMember);
-    console.log('newMember',newMember);
     // 產生存取令牌(access token)，其中包含會員資料
     const accessToken = jsonwebtoken.sign(
-      newMember,
       newMember,
       accessTokenSecret,
       {
         expiresIn: "24h",
       }
     );
-    console.log('second newMember',newMember);
     console.log('second newMember',newMember);
 
     // 使用httpOnly cookie來讓瀏覽器端儲存access token
@@ -484,119 +327,18 @@ router.put('/update-profile-img-confirm', async(req, res)=>{
 })
 // 修改會員頭像(選擇檔案並預覽)
 router.put('/update-profile-img', upload.single('avatar'), async (req, res)=>{
-  console.log('step 3: entering router');
+  // console.log('step 3: entering router');
   console.log((req.file, req.body));
 
   if(req.file){
-    console.log('step 4: file upload successfully');
-    console.log('req.file',req.file);
-    // console.log('req.body',req.body);
-    const filename = req.file.filename
-    
-    return res.json({message:'圖片成功傳入後端指定資料夾', code:'200', filename})
-// 電子郵件文字訊息樣版
-const mailText = (otpToken) => `親愛的會員 您好，
-以下為重設密碼所需要的驗証碼，
-請在重設密碼頁面的"電子郵件驗証碼"欄位中輸入下方的OTP驗證碼，。
-請注意驗証碼將於寄送後30分鐘後到期，如有任何問題請洽網站客服人員:
-    
-您的OTP驗證碼為：
-${otpToken}
-    
-敬上
-
-良弓制販所`
-
-// create otp
-router.post('/otp', async (req, res) => {
-  const { email } = req.body
-
-  if (!email) return res.json({ message: '此信箱並未註冊過', code: '400' })
-
-  // 建立otp資料表記錄，成功回傳otp記錄物件，失敗為空物件{}
-  const otp = await createOtp(email)
-
-  if (!otp.token) return res.json({ message: 'OTP碼輸入錯誤', code: '400' })
-
-  // 寄送email
-  const mailOptions = {
-    // 這裡要改寄送人名稱，email在.env檔中代入
-    from: `"良弓製販所"<${process.env.SMTP_TO_EMAIL}>`,
-    to: email,
-    subject: '良弓製販所-會員重設密碼驗証信',
-    text: mailText(otp.token),
-  }
-  const token = otp.token 
-  transporter.sendMail(mailOptions, (err, response) => {
-    if (err) {
-      // 失敗處理
-      return res.status(400).json({ message: 'email fail', detail: err })
-      console.log(err);
-    } else {
-      // 成功回覆的json
-      return res.json({ message: 'OTP驗證信已寄出', code: '200',token })
-    }
-  })
-})
-
-// 重設密碼用
-router.post('/resetpassword', async (req, res, next) => {
-  const { email, token, newPassword } = req.body
-  // 使用 argon2.verify 驗證使用者輸入的密碼是否匹配
-  // 使用註冊時設定的 Argon2 加密哈希參數
-  const options = {
-    timeCost: 4, // 迭代次數
-    memoryCost: 2 ** 16, // 内存成本（以字節為單位）
-    parallelism: 1, // 並行性參數
-  };
-  const argon2Password = await argon2.hash(newPassword,options)
-  if (!token) return res.json({ message: '請確認token已正確輸入', code: '400' })
-
-  // updatePassword中會驗証otp的存在與合法性(是否有到期)
-  const result = await updatePassword(email, token, argon2Password)
-
-  if (!result) return res.json({ message: '後端路由 /resetpassword 失敗', code: '400' })
-
-  return res.json({ message: '成功修改密碼', code: '200' })
-})
-
-// 確定上傳頭像
-router.put('/update-profile-img-confirm', async(req, res)=>{
-  console.log('確定要上傳的檔名與id：',req.body);
-  if(!req.body){
-    res.json({message:'請選擇檔案', code:'400'})
-  }
-    const member = {member_img: req.body.filename}
-    const id = req.body.id
-    const result = await updateUserById(member,id)
-    console.log(result);
-    const updatedMember = await getUserById(id)
-    // 先清除原本的cookie
-    cookieParser()(req, res, ()=>{
-      res.clearCookie('accessToken', { httpOnly: true })     
-      })
-      const accessToken = jsonwebtoken.sign({ ...updatedMember }, accessTokenSecret, {
-        expiresIn: '24h',
-      })
-    
-      // 使用httpOnly cookie來讓瀏覽器端儲存access token
-      res.cookie('accessToken', accessToken, { httpOnly: true })
-  res.json({message:'圖片成功更新至資料表', code:'200',accessToken})
-})
-// 修改會員頭像(選擇檔案並預覽)
-router.put('/update-profile-img', upload.single('avatar'), async (req, res)=>{
-  console.log('step 3: entering router');
-  console.log((req.file, req.body));
-
-  if(req.file){
-    console.log('step 4: file upload successfully');
+    // console.log('step 4: file upload successfully');
     console.log('req.file',req.file);
     // console.log('req.body',req.body);
     const filename = req.file.filename
     
     return res.json({message:'圖片成功傳入後端指定資料夾', code:'200', filename})
   } else {
-    console.log('step 5: file upload failed');
+    // console.log('step 5: file upload failed');
     console.log('檔案傳入失敗');
     return res.json({message:'檔案傳入失敗', code:'409'})
   }
@@ -688,16 +430,16 @@ ORDER BY p.id ASC`
 
   const { rows } = await executeQuery(sql)
 
-  console.log(rows)
+  // console.log(rows)
 
   res.json({ products: rows })
 })
 // 刪除收藏的商品
 router.delete('/:pid', authenticate, async (req, res, next) => {
   const pid = req.params.pid
-  console.log('pid:',pid);
+  // console.log('pid:',pid);
   const memberId = req.body.memberId
-  console.log('這是memberId',memberId);
+  // console.log('這是memberId',memberId);
   // console.log('刪除收藏商品的 res.body',res.body);
   // console.log('刪除收藏商品的 res.params',res.params);
 
@@ -706,7 +448,7 @@ router.delete('/:pid', authenticate, async (req, res, next) => {
 
   const { rows } = await executeQuery(sql)
 
-  console.log(rows.affectedRows)
+  // console.log(rows.affectedRows)
 
   if (rows.affectedRows) {
     return res.json({ message: '已取消收藏', code: '200' })
@@ -727,7 +469,7 @@ router.put('/:pid', authenticate, async (req, res, next) => {
 
   const { rows } = await executeQuery(sql)
 
-  console.log(rows.affectedRows)
+  // console.log(rows.affectedRows)
 
   if (rows.affectedRows) {
     return res.json({ message: '商品收藏成功', code: '200' })
@@ -762,7 +504,7 @@ ORDER BY c.id ASC`
 
   const { rows } = await executeQuery(sql)
 
-  console.log(rows)
+  // console.log(rows)
 
   res.json({ courses: rows })
 })
@@ -770,7 +512,7 @@ ORDER BY c.id ASC`
 router.delete('/course/:cid', authenticate, async (req, res, next) => {
   const cid = req.params.cid
   const memberId = req.body.memberId
-  console.log('這是memberId',memberId);
+  // console.log('這是memberId',memberId);
   // console.log('刪除收藏課程的 res.body',res.body);
   // console.log('刪除收藏課程的 res.params',res.params);
 
@@ -779,7 +521,7 @@ router.delete('/course/:cid', authenticate, async (req, res, next) => {
 
   const { rows } = await executeQuery(sql)
 
-  console.log(rows.affectedRows)
+  // console.log(rows.affectedRows)
 
   if (rows.affectedRows) {
     return res.json({ message: '已取消收藏', code: '200' })
@@ -791,16 +533,16 @@ router.delete('/course/:cid', authenticate, async (req, res, next) => {
 router.put('/course/:cid', authenticate, async (req, res, next) => {
   const cid = req.params.cid
   const memberId = req.body.memberId
-  console.log('這是memberId',memberId);
+  // console.log('這是memberId',memberId);
   // const member = req.member
   // const mid = member.id
-  console.log('新增課程req.params:',req.params);
+  // console.log('新增課程req.params:',req.params);
   // return res.json({ message: '新增課程收藏點擊後有傳到後端', code: '200' })
   const sql = `INSERT INTO fav_course (member_id, course_id) VALUES (${memberId}, ${cid})`
 
   const { rows } = await executeQuery(sql)
 
-  console.log(rows.affectedRows)
+  // console.log(rows.affectedRows)
 
   if (rows.affectedRows) {
     return res.json({ message: '課程收藏成功', code: '200' })

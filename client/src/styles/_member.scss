@@ -95,6 +95,29 @@ body{
     }
   }
 }
+.fav-product-cards{
+  .fav-product-card-div{
+  padding:20px;
+  }
+  .product-name{
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 0;
+    // padding:20px,0,0,10px;
+  }
+  .product-price{
+    font-size: 18px;
+    font-weight: 600;
+    color: #b61c1c;
+  }
+  @media (max-width:393px){
+    .product-name{
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 0;
+    }
+  }
+}
 
 // 會員中心側邊欄
 .member-sidebar {
@@ -402,7 +425,7 @@ body{
       position: absolute;
       background-color: $accent;
       color: #fff;
-      right: 12px;
+      right: 0;
       top: 32px;
     }
   }
@@ -414,5 +437,11 @@ body{
     text-decoration: none;
     display: flex;
     align-items: center;
+  }
+}
+.shadow-sm{
+  width: 400px;
+  @media (max-width:393px){
+    width: 350px;
   }
 }

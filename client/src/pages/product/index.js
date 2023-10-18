@@ -251,9 +251,10 @@ function Product() {
       showConfirmButton: false,
       timer: 1500,
       backdrop: `rgba(255, 255, 255, 0.55)`,
-      width: '35%',
+      // width: '35%',
       padding: '0 0 3.25em',
       customClass: {
+        width:'shadow-sm'
       }
   })
   return
@@ -274,9 +275,10 @@ function Product() {
             showConfirmButton: false,
             timer: 1500,
             backdrop: `rgba(255, 255, 255, 0.55)`,
-            width: '35%',
+            // width: '35%',
             padding: '0 0 3.25em',
             customClass: {
+              width:'shadow-sm'
             }
           })
         }
@@ -301,9 +303,10 @@ function Product() {
             showConfirmButton: false,
             timer: 1500,
             backdrop: `rgba(255, 255, 255, 0.55)`,
-            width: '35%',
+            // width: '35%',
             padding: '0 0 3.25em',
             customClass: {
+              width:'shadow-sm'
             }
           })
         }
@@ -334,54 +337,76 @@ function Product() {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper ad-swiper"
       >
+      {/* <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top1.jpg" alt="img" />
+        <img src="/product/top2.jpg" alt="img" />
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+      </div>
+      </Link>
+      </SwiperSlide> */}
       <SwiperSlide>
-      <div className="ads">
-        <div className="ad">
-        <img src="/product/top1.jpg" alt="img" />
-        <img src="/product/top2.jpg" alt="img" />
-        <img src="/product/top3.jpg" alt="img" />
-        </div>
-      </div>
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+      <Link href='/publicCoupon'>
+        <div className="ads">
         <div className="ad">
         <img src="/product/top2.jpg" alt="img" />
         </div>
-      </div>
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
         <div className="ad">
         <img src="/product/top3.jpg" alt="img" />
         </div>
-      </div>          
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+        </div>   
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
         <div className="ad">
         <img src="/product/top1.jpg" alt="img" />
         </div>
-      </div>
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+         <div className="ads">
         <div className="ad">
         <img src="/product/top2.jpg" alt="img" />
         </div>
-      </div>
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
         <div className="ad">
         <img src="/product/top3.jpg" alt="img" />
         </div>
-      </div>          
-        </SwiperSlide>
-       
+        </div>  
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top4.jpg" alt="img" />
+        </div>
+        </div>  
+      </Link>
+      </SwiperSlide>
       </Swiper>
       <div className="phone-ad">
+      <Link href='/publicCoupon'>
         <img src="/product/top1.jpg" alt="img"></img>
+      </Link>
       </div>
       {/* 新品上架 */}
       <div className="product-page-title">

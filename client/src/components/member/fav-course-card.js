@@ -11,7 +11,7 @@ export default function FavCourseCard({courses, toggleCourseCheck}) {
   return (
     <>
     {courses.map((course)=>(
-          <div key={course.id} className="course-list-item">
+          <div key={course.id} className="course-list-item mb-5 pb-5">
             <div className="course-list-img">
               <img className="course-list-img" src={course.images}></img>
             </div>

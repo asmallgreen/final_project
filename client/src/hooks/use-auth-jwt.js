@@ -33,9 +33,9 @@ const checkAuth = async () => {
       }
     )
     if (res.data.message === 'authorized') {
-      console.log('checklogin ahthorized');
-      console.log(res.data);
-      console.log(res.data.memberData);
+      // console.log('checklogin ahthorized');
+      // console.log(res.data);
+      // console.log(res.data.memberData);
       setAuthJWT({ isAuth: true, memberData: res.data.memberData })
     }
     // 可以在這裡實作跳轉
@@ -65,6 +65,7 @@ const checkAuth = async () => {
     }
   }, [authJWT]);
 
+  
   // // didMount(初次渲染)後，向伺服器要求檢查會員是否登入中
   useEffect(() => {
     if (router.isReady && !authJWT.isAuth) {
@@ -87,7 +88,7 @@ const checkAuth = async () => {
         withCredentials: true,
       }
     )
-        console.log('getFavoriteProducts:',res.data);
+        // console.log('getFavoriteProducts:',res.data);
     if (res.data.favoriteProducts) {
       setFavoriteProducts(res.data.favoriteProducts)
     }
@@ -113,7 +114,7 @@ const checkAuth = async () => {
         withCredentials: true,
       }
     )
-      console.log('this is fav course:',res.data);
+      // console.log('this is fav course:',res.data);
     if (res.data.favoriteCourses) {
       setFavoriteCourses(res.data.favoriteCourses)
     }
@@ -139,7 +140,9 @@ const checkAuth = async () => {
         favoriteCourses,
         setFavoriteCourses,
         getFavoriteProducts,
-        getFavoriteCourses
+        getFavoriteCourses,
+        memberCoupon,
+        setMemberCoupon,
       }}
     >
       {children}

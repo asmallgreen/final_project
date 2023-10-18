@@ -210,9 +210,10 @@ function Pid() {
       showConfirmButton: false,
       timer: 1500,
       backdrop: `rgba(255, 255, 255, 0.55)`,
-      width: '35%',
+      // width: '35%',
       padding: '0 0 3.25em',
       customClass: {
+        width:'shadow-sm'
       }
   })
   return
@@ -233,9 +234,10 @@ function Pid() {
             showConfirmButton: false,
             timer: 1500,
             backdrop: `rgba(255, 255, 255, 0.55)`,
-            width: '35%',
+            // width: '35%',
             padding: '0 0 3.25em',
             customClass: {
+              width:'shadow-sm'
             }
           })
         }
@@ -260,9 +262,10 @@ function Pid() {
             showConfirmButton: false,
             timer: 1500,
             backdrop: `rgba(255, 255, 255, 0.55)`,
-            width: '35%',
+            // width: '35%',
             padding: '0 0 3.25em',
             customClass: {
+              width:'shadow-sm'
             }
           })
         }
