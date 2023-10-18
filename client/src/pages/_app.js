@@ -5,6 +5,7 @@ import { AuthProviderJWT } from "@/hooks/use-auth-jwt";
 import { ProductProvider } from "@/hooks/use-product-context";
 import Loading from "@/components/loading";
 import { useRouter } from "next/router";
+import FlareCursor from "@/components/mouse-icon2";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -39,6 +40,8 @@ function MyApp({ Component, pageProps }) {
     <>
       <AuthProviderJWT>
         <ProductProvider>
+        <FlareCursor/>
+        {/* <MouseIcon/> */}
         {isLoading && <Loading />}
         {getLayout(<Component {...pageProps} />)}
         </ProductProvider>
