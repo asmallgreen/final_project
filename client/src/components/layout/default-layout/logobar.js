@@ -7,41 +7,42 @@ import {
   faChevronRight,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
+import { useAuthJWT } from "@/hooks/use-auth-jwt";
 //fontawesome
 export default function Logobar() {
-  const [ham, setHam] = useState(false)
-  const [accordion1, setAccordion1] = useState(true)
-  const [accordion2, setAccordion2] = useState(true)
-  const [accordion3, setAccordion3] = useState(true)
-  const [accordion4, setAccordion4] = useState(true)
-  const [accordion5, setAccordion5] = useState(true)
-  
+  const [ham, setHam] = useState(false);
+  const [accordion1, setAccordion1] = useState(true);
+  const [accordion2, setAccordion2] = useState(true);
+  const [accordion3, setAccordion3] = useState(true);
+  const [accordion4, setAccordion4] = useState(true);
+  const [accordion5, setAccordion5] = useState(true);
+
   // console.log(ham);
   const handleHam = () => {
     setHam((prevState) => !prevState);
-  }
+  };
   const handleAccordion1 = () => {
     setAccordion1((prevState) => !prevState);
     // console.log(accordion);
-  }
+  };
   const handleAccordion2 = () => {
     setAccordion2((prevState) => !prevState);
     // console.log(accordion);
-  }
+  };
   const handleAccordion3 = () => {
     setAccordion3((prevState) => !prevState);
     // console.log(accordion);
-  }
+  };
   const handleAccordion4 = () => {
     setAccordion4((prevState) => !prevState);
     // console.log(accordion);
-  }
+  };
   const handleAccordion5 = () => {
     setAccordion5((prevState) => !prevState);
     // console.log(accordion);
-  }
+  };
 
-
+  const { authJWT } = useAuthJWT();
   return (
     <>
       <div className="logo-bar">
@@ -49,86 +50,229 @@ export default function Logobar() {
           <img className="logo-img" src="/layout/logo-img.svg" />
           <img className="logo-text" src="/layout/logo-text.svg" />
         </Link>
-
       </div>
-        <FontAwesomeIcon
+      <FontAwesomeIcon
         icon={faBars}
         className="fa-bars btn"
         onClick={handleHam}
       />
-      
+
       {/* 手機版ham 登入版*/}
-      <div className={ham?'ham-login':'d-none'}>
+      <div className={ham ? "ham-login" : "d-none"}>
         <div className="opacity-50" onClick={handleHam}></div>
         <div className="btns p-0">
           <div className="info d-flex align-items-center justify-content-between">
-            <Link href='' className="img">
-              <img src='' alt='' className="img-edit opacity-50"></img>
-            </Link>
-            <div className="text">Hi, 慕朵</div>
-            <Link href='' className="edit align-items-center d-flex justify-content-center rounded-2">
-              修改會員資料
-            </Link>
+            {authJWT.isAuth ? (
+              <>
+                <Link href="" className="img">
+                  <img src="" alt="" className="img-edit opacity-50"></img>
+                </Link>
+              </>
+            ) : (
+              ""
+            )}
+
+            {authJWT.isAuth ? (
+              <>
+                <div className="text">Hi, {authJWT.memberData.name}</div>
+              </>
+            ) : (
+              <>
+                <div className="text">Hi, 訪客</div>
+              </>
+            )}
+            {authJWT.isAuth ? (
+              <>
+                <Link
+                  href="/member/update-profile"
+                  className="edit align-items-center d-flex justify-content-center rounded-2"
+                >
+                  修改會員資料
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/member/register"
+                  className="edit align-items-center d-flex justify-content-center rounded-2"
+                >
+                  註冊會員資料
+                </Link>
+              </>
+            )}
           </div>
-          <div className="type d-flex justify-content-between">
-            會員專區
-            <FontAwesomeIcon
-              icon={accordion1?faChevronDown:faChevronRight}
-              onClick={handleAccordion1}
-            />
-          </div>
-          <Link href='' className={accordion1?'fk':'d-none'}>會員資料設定</Link>
-          <Link href='' className={accordion1?'fk':'d-none'}>修改密碼</Link>
-          <Link href='' className={accordion1?'fk':'d-none'}>訂單記錄</Link>
-          <Link href='' className={accordion1?'fk':'d-none'}>我的收藏</Link>
-          <Link href='' className={accordion1?'fk':'d-none'}>我的優惠券</Link>
+          {authJWT.isAuth ? (
+            <>
+              <div className="type d-flex justify-content-between">
+                會員專區
+                <FontAwesomeIcon
+                  icon={accordion1 ? faChevronDown : faChevronRight}
+                  onClick={handleAccordion1}
+                />
+              </div>
+              <Link href="/member" className={accordion1 ? "fk" : "d-none"}>
+                會員資料設定
+              </Link>
+              <Link
+                href="/member/update-pwd"
+                className={accordion1 ? "fk" : "d-none"}
+              >
+                修改密碼
+              </Link>
+              <Link
+                href="/member/order-list"
+                className={accordion1 ? "fk" : "d-none"}
+              >
+                訂單記錄
+              </Link>
+              <Link
+                href="/member/fav-product"
+                className={accordion1 ? "fk" : "d-none"}
+              >
+                我的收藏
+              </Link>
+              <Link
+                href="/member/coupon"
+                className={accordion1 ? "fk" : "d-none"}
+              >
+                我的優惠券
+              </Link>
+            </>
+          ) : (
+            <></>
+          )}
+
+          {/* <Link href='/member/register' className={accordion1?'fk':'d-none'}>註冊</Link>
+          <Link href='/member/login' className={accordion1?'fk':'d-none'}>登入</Link> */}
           <div className="type d-flex justify-content-between">
             商品分類
             <FontAwesomeIcon
-              icon={accordion2?faChevronDown:faChevronRight}
+              icon={accordion2 ? faChevronDown : faChevronRight}
               onClick={handleAccordion2}
             />
           </div>
-          <Link href='/product/category/1' className={accordion2?'fk ':'d-none'} onClick={handleHam}>弓</Link>
-          <Link href='/product/category/2' className={accordion2?'fk':'d-none'} onClick={handleHam}>箭</Link>
-          <Link href='/product/category/3' className={accordion2?'fk':'d-none'} onClick={handleHam}>道服</Link>
-          <Link href='/product/category/4' className={accordion2?'fk':'d-none'} onClick={handleHam}>其他</Link>
+          <Link
+            href="/product/category/1"
+            className={accordion2 ? "fk " : "d-none"}
+            onClick={handleHam}
+          >
+            弓
+          </Link>
+          <Link
+            href="/product/category/2"
+            className={accordion2 ? "fk" : "d-none"}
+            onClick={handleHam}
+          >
+            箭
+          </Link>
+          <Link
+            href="/product/category/3"
+            className={accordion2 ? "fk" : "d-none"}
+            onClick={handleHam}
+          >
+            道服
+          </Link>
+          <Link
+            href="/product/category/4"
+            className={accordion2 ? "fk" : "d-none"}
+            onClick={handleHam}
+          >
+            其他
+          </Link>
           <div className="type d-flex justify-content-between">
             課程分類
             <FontAwesomeIcon
-              icon={accordion3?faChevronDown:faChevronRight}
+              icon={accordion3 ? faChevronDown : faChevronRight}
               onClick={handleAccordion3}
             />
           </div>
-          <Link href='' className={accordion3?'fk':'d-none'} onClick={handleHam}>初探</Link>
-          <Link href='' className={accordion3?'fk':'d-none'} onClick={handleHam}>進階</Link>
-          <Link href='' className={accordion3?'fk':'d-none'} onClick={handleHam}>專業</Link>
-          <Link href='/venue' className="type d-block">場地租借</Link>
+          <Link
+            href=""
+            className={accordion3 ? "fk" : "d-none"}
+            onClick={handleHam}
+          >
+            初探
+          </Link>
+          <Link
+            href=""
+            className={accordion3 ? "fk" : "d-none"}
+            onClick={handleHam}
+          >
+            進階
+          </Link>
+          <Link
+            href=""
+            className={accordion3 ? "fk" : "d-none"}
+            onClick={handleHam}
+          >
+            專業
+          </Link>
+          <Link href="/venue" className="type d-block">
+            場地租借
+          </Link>
           <div className="type d-flex justify-content-between">
             功能選單
             <FontAwesomeIcon
-              icon={accordion4?faChevronDown:faChevronRight}
+              icon={accordion4 ? faChevronDown : faChevronRight}
               onClick={handleAccordion4}
             />
           </div>
-          <Link href='' className={accordion4?'fk':'d-none'}>熱銷商品</Link>
-          <Link href='' className={accordion4?'fk':'d-none'}>瀏覽紀錄</Link>
-          <Link href='' className={accordion4?'fk d-flex justify-content-between align-content-center':'d-none'}>
-            購物車
-            <div className="sesstion text-center">10</div>
+          {/* <Link href='' className={accordion4?'fk':'d-none'}>熱銷商品</Link>
+          <Link href='' className={accordion4?'fk':'d-none'}>瀏覽紀錄</Link> */}
+          {authJWT.isAuth ? (
+            <>
+              {" "}
+              <Link
+                href="/cart"
+                className={
+                  accordion4
+                    ? "fk d-flex justify-content-between align-content-center"
+                    : "d-none"
+                }
+              >
+                購物車
+                {/* <div className="sesstion text-center">10</div> */}
+              </Link>
+            </>
+          ) : (
+            <></>
+          )}
+
+          <Link href="/member/coupon" className={accordion4 ? "fk" : "d-none"}>
+            優惠總覽
           </Link>
-          <Link href='' className={accordion4?'fk':'d-none'}>優惠總覽</Link>
-          <Link href='' className="type d-block">關於良弓制販所</Link>
+          <Link href="" className="type d-block">
+            關於良弓制販所
+          </Link>
           <div className="type d-flex justify-content-between">
             聯絡我們
             <FontAwesomeIcon
-              icon={accordion5?faChevronDown:faChevronRight}
+              icon={accordion5 ? faChevronDown : faChevronRight}
               onClick={handleAccordion5}
             />
           </div>
-          <Link href='' className={accordion5?'fk':'d-none'}>寫信給良弓</Link>
-          <Link href='' className={accordion5?'fk':'d-none'}>聯絡線上客服</Link>
-          <div className="logout">登出</div>
+          <Link href="" className={accordion5 ? "fk" : "d-none"}>
+            寫信給良弓
+          </Link>
+          <Link href="" className={accordion5 ? "fk" : "d-none"}>
+            聯絡線上客服
+          </Link>
+          {authJWT.isAuth ? (
+            <>
+              {" "}
+              <Link href="/member/logout" className="logout">
+                登出
+              </Link>
+            </>
+          ) : (
+            <>
+              {" "}
+              <Link href="/member/login" className="logout">
+                登入
+              </Link>
+            </>
+          )}
+          {/* <div className="logout">登出</div> */}
         </div>
       </div>
       {/* 手機版ham 登出版 */}

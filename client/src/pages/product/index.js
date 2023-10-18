@@ -18,7 +18,7 @@ import "swiper/css/navigation";
 import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
 
 function Product() {
-  const [search ,setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [attr, setAttr] = useState("");
   const [sort, setSort] = useState("");
   const [page, setPage] = useState();
@@ -27,13 +27,17 @@ function Product() {
   const [allProduct, setAllProduct] = useState([]);
   const newProduct = allProduct.filter((product) => product.launched === 1);
   const saleProduct = allProduct.filter((product) => product.sale === 1);
-// ************************隨機商品***************************************
+  // ************************隨機商品***************************************
   const shuffleArray = (array) => {
-    let currentIndex = array.length, randomIndex;
+    let currentIndex = array.length,
+      randomIndex;
     while (currentIndex !== 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex--;
-      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
     }
     return array;
   };
@@ -41,7 +45,6 @@ function Product() {
   const shuffledProducts = shuffleArray([...allProduct]);
   // 從隨機排序後的陣列中取得前 10 個元素
   const randomProducts = shuffledProducts.slice(0, 10);
-
 
   // const hotProduct = allProduct.filter((product) => product.hot === 1);
   // ***************************************************************
@@ -54,10 +57,10 @@ function Product() {
   const [pageLength, setPageLength] = useState();
   // ***********************************************
   const handleSearchName = (name) => {
-    setSearch(name)
+    setSearch(name);
     // console.log(name);
     // console.log(search);
-  }
+  };
   const updateLimit = (newLimit) => {
     setLimit(newLimit);
     // console.log(limit);
@@ -105,16 +108,97 @@ function Product() {
       fetchData();
     }
   }, [limit, page, sort, attr, search]);
-  useEffect(()=>{},[search])
-  useEffect(()=>{
+
+  // ****************************
+  const [slidesPerView, setSlidesPerView] = useState(7);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // 在這裡設置你的視窗寬度閾值
+      const windowWidth4 = 1140;
+      const windowWidth3 = 768;
+      const windowWidth2 = 500;
+      const windowWidth1 = 393;
+
+      // 根據視窗寬度動態設定 slidesPerView
+      if (window.innerWidth <= windowWidth1) {
+        setSlidesPerView(2);
+      } else if(window.innerWidth <= windowWidth2){
+        setSlidesPerView(3);
+      }else if(window.innerWidth <= windowWidth3){
+        setSlidesPerView(4);
+      }else if(window.innerWidth <= windowWidth4){
+        setSlidesPerView(6);
+      }else{
+        setSlidesPerView(7);
+      }
+    };
+
+    // 初始加載時設定一次
+    handleResize();
+
+    // 添加視窗大小變化監聽器
+    window.addEventListener('resize', handleResize);
+
+    // 清理事件監聽器以避免內存洩漏
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // 空的依賴數組表示僅在第一次渲染時運行
+
+
+  const [slidesPerView2, setSlidesPerView2] = useState(7);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // 在這裡設置你的視窗寬度閾值
+      const windowWidth4 = 1140;
+      const windowWidth3 = 768;
+      const windowWidth2 = 500;
+      const windowWidth1 = 393;
+
+      // 根據視窗寬度動態設定 slidesPerView
+      if (window.innerWidth <= windowWidth1) {
+        setSlidesPerView2(1);
+      } else if(window.innerWidth <= windowWidth2){
+        setSlidesPerView2(1);
+      }else if(window.innerWidth <= windowWidth3){
+        setSlidesPerView2(1);
+      }else if(window.innerWidth <= windowWidth4){
+        setSlidesPerView2(2);
+      }else{
+        setSlidesPerView2(4);
+      }
+    };
+
+    // 初始加載時設定一次
+    handleResize();
+
+    // 添加視窗大小變化監聽器
+    window.addEventListener('resize', handleResize);
+
+    // 清理事件監聽器以避免內存洩漏
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // 空的依賴數組表示僅在第一次渲染時運行
+
+
+
+
+  // ****************************
+  useEffect(() => {
+    // console.log(search);
+  }, [search]);
+  useEffect(() => {
     // console.log(newProduct);
-  },[newProduct])
-  useEffect(()=>{
+  }, [newProduct]);
+  useEffect(() => {
     // console.log(saleProduct);
-  },[saleProduct])
-  useEffect(()=>{
+  }, [saleProduct]);
+  useEffect(() => {
     // console.log(randomProducts);
-  },[randomProducts])
+  }, [randomProducts]);
   useEffect(() => {
     // console.log(allProduct);
   }, [allProduct]);
@@ -146,7 +230,7 @@ function Product() {
 
       <Swiper
         spaceBetween={0}
-        slidesPerView={1}
+        slidesPerView={3}
         centeredSlides={true}
         autoplay={{
           delay: 2500,
@@ -155,62 +239,56 @@ function Product() {
         pagination={{
           clickable: true,
         }}
+        initialSlide={1}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper ad-swiper"
       >
-        <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
+      <SwiperSlide>
+      <div className="ads">
+        <div className="ad">
+        <img src="/product/top1.jpg" alt="img" />
+        <img src="/product/top2.jpg" alt="img" />
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+      </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="top1.jpg" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
+      <div className="ads">
+        <div className="ad">
+        <img src="/product/top2.jpg" alt="img" />
+        </div>
+      </div>
         </SwiperSlide>
         <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
+      <div className="ads">
+        <div className="ad">
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+      </div>          
         </SwiperSlide>
         <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
+      <div className="ads">
+        <div className="ad">
+        <img src="/product/top1.jpg" alt="img" />
+        </div>
+      </div>
         </SwiperSlide>
+        <SwiperSlide>
+      <div className="ads">
+        <div className="ad">
+        <img src="/product/top2.jpg" alt="img" />
+        </div>
+      </div>
+        </SwiperSlide>
+        <SwiperSlide>
+      <div className="ads">
+        <div className="ad">
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+      </div>          
+        </SwiperSlide>
+       
       </Swiper>
       <div className="phone-ad">
         <img src="/product/top1.jpg" alt="img"></img>
@@ -221,7 +299,7 @@ function Product() {
       </div>
       <Swiper
         spaceBetween={0}
-        slidesPerView={5}
+        slidesPerView={slidesPerView}
         navigation={true}
         // pagination={true}
         modules={[Navigation, Pagination]}
@@ -333,7 +411,7 @@ function Product() {
       </div>
       <Swiper
         spaceBetween={5}
-        slidesPerView={3}
+        slidesPerView={slidesPerView2}
         navigation={true}
         // pagination={true}
         modules={[Navigation, Pagination, History]}
@@ -369,7 +447,7 @@ function Product() {
       </div>
       <Swiper
         spaceBetween={10}
-        slidesPerView={6}
+        slidesPerView={slidesPerView}
         navigation={true}
         pagination={true}
         modules={[Navigation, Pagination]}

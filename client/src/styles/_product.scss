@@ -9,38 +9,50 @@ body {
   box-sizing: border-box;
 }
 .ad-swiper {
-  .swiper-button-prev {
-    display: none !important;
-  }
-  .swiper-button-next {
-    display: none !important;
-  }
-  .swiper-pagination {
-    .swiper-pagination-bullet-active {
-      background-color: $secondary !important;
+  // padding-inline: 10px;
+  // .swiper-wrapper{
+    .swiper-slide{
+      // background-image:url('/client/public/product/top4.jpg');
+      // background-size: cover;
+      // margin: 10px!important;  
+      .ads {
+        height: 600px;
+        .ad {
+          width: 100%;
+          padding: 0;
+          height: 100%;
+          img {
+            // margin:0 30px;
+            width: 150%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+        .main {
+          padding: 0;
+      
+          .scrolls {
+            bottom: 10px;
+          }
+        }
+      }
     }
-  }
-}
-.ads {
-  height: 500px;
-  .ad {
-    padding: 0;
     
-    height: 100%;
-    img {
-      width: 150%;
-      height: 100%;
-      object-fit: cover;
+    .swiper-button-prev {
+      display: none !important;
     }
-  }
-  .main {
-    padding: 0;
-
-    .scrolls {
-      bottom: 10px;
+    .swiper-button-next {
+      display: none !important;
     }
-  }
+    .swiper-pagination {
+      .swiper-pagination-bullet-active {
+        background-color: $secondary !important;
+      }
+    }
+  // }
+ 
 }
+
 @media screen and (max-width: 768px) {
   .ads {
     display: none !important;
@@ -168,14 +180,31 @@ body {
     }
   }
 }
+@media screen and (max-width: 768px){
+  .launched-product-swiper{
+    padding-inline: 20px!important;
+    .swiper-slide{
+      padding-inline: 5px;
+    }
+    .swiper-button-next {
+      display: none;
+    }
+    .swiper-button-prev {
+      display: none;
+    }
+  }
+  .recommend-product-swiper{
+    padding-inline: 20px!important;
+  } 
+}
 //手機板 優惠專區
 .phone-sales {
   display: none;
 }
 @media screen and (max-width: 768px) {
   .phone-sales {
-    display: flex;
-
+    // display: flex;
+    display: none;
     justify-content: center;
     .cards {
       display: flex;
@@ -313,6 +342,7 @@ body {
 }
 @media screen and (max-width: 768px) {
   .category {
+    margin-top: 15px;
     height: 40px;
     padding: 5px 10px;
     .type-title {
@@ -327,6 +357,7 @@ body {
       padding: 0;
       // z-index: 999;
       .item {
+        text-align: center;
         margin-inline: 2.5px;
         width: 100%;
         height: 30px;
@@ -339,6 +370,7 @@ body {
           color: $secondary;
           font-size: 12px;
           text-decoration: none;
+          text-align: center;
         }
         &:hover {
           background-color: $secondary;
