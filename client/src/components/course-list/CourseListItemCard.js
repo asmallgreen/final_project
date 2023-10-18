@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function CourseListItemCard(props) {
   const { CourseData } = props;
-  // console.log(CourseData);
+  console.log(CourseData);
   return (
     <>
       <div className="course-list-info-desktop">
@@ -33,8 +33,8 @@ export default function CourseListItemCard(props) {
               <br />
             </div>
             <div className="course-rating">
-              <Rate disabled defaultValue={0} />
-              <div className="counting">XXXXXX人已評價</div>
+              <Rate disabled defaultValue={CourseData.rating} />
+              {/* <div className="counting">XXXXXX人已評價</div> */}
             </div>
           </div>
           <div className="course-list-bottom">
@@ -73,7 +73,7 @@ export default function CourseListItemCard(props) {
         <div className="course-rating">
           <Rate disabled defaultValue={4} className="rating-star" />
           <div className="counting">
-            <small>XXX人已評價</small>
+            {/* <small>XXX人已評價</small> */}
           </div>
         </div>
       </div>

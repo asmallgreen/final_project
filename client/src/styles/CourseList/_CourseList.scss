@@ -1,15 +1,14 @@
-.all-course{
-  .btn-group{
-    .btn{
-      min-width: 90px!important;
+.all-course {
+  .btn-group {
+    .btn {
+      min-width: 90px !important;
     }
-    .dropdown-toggle{
-      min-width: 160px!important;
+    .dropdown-toggle {
+      min-width: 160px !important;
     }
-    
   }
 }
-.collapsed-content-box{
+.collapsed-content-box {
   background-color: $primary;
   color: $secondary;
   border: 1px solid $secondary;
@@ -237,6 +236,6 @@
   }
 }
 
-.rating-star{
-  color: $secondary;
+.ant-rate {
+  color: $secondary !important;
 }

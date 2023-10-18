@@ -55,7 +55,7 @@ function CourseList() {
       setFilteredCourses(allCourse);
     }
   }, [allCourse]);
-
+  // console.log(allCourse);
   // 使用useEffect來監聽篩選條件的變化並應用篩選
   useEffect(() => {
     applyFilters();
@@ -99,8 +99,8 @@ function CourseList() {
     setSortOrder(event.target.value);
   };
 
-  //   篩選
-  //   抓取篩選條件更新的事件
+  // 篩選
+  // 抓取篩選條件更新的事件
   // 處理篩選條件改變
   const handleFilterChange = (event) => {
     const { name, value, checked } = event.target;
@@ -222,9 +222,7 @@ function CourseList() {
         pagination={true}
         modules={[Navigation, Pagination]}
         className="mySwiper launched-product-swiper"
-      >
-      </Swiper>
-     
+      ></Swiper>
 
       <div className="filter-area container-fluid">
         <div className="container">

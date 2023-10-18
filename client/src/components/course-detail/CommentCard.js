@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Rate, Avatar } from "antd";
 import Collapse from "@mui/material/Collapse";
 
@@ -11,22 +11,23 @@ export default function CommentCard(props) {
     comment_content,
   } = props;
 
-  const [checked, setChecked] = useState(false);
+  const [showMore, setShowMore] = useState(false);
   const contentBoxRef = useRef(null);
   const textContainerRef = useRef(null);
 
-  const checkHeight = useCallback(() => {
-    if (textContainerRef.current) {
-      const textContainerHeight = textContainerRef.current.clientHeight;
-      if (textContainerHeight > 70) {
-        setChecked(true);
-      } else {
-        setChecked(false);
-      }
-    }
-  }, []);
-
   useEffect(() => {
+    const checkHeight = () => {
+      if (textContainerRef.current) {
+        const textContainerHeight = textContainerRef.current.clientHeight;
+        // console.log(textContainerHeight)
+        if (textContainerHeight > 80) {
+          setShowMore(false); // 默认显示"更多"
+        } else {
+          setShowMore(true);
+        }
+      }
+    };
+
     // 在组件初次渲染时检查高度
     checkHeight();
 
@@ -37,10 +38,10 @@ export default function CommentCard(props) {
       // 在组件卸载时移除监听器
       window.removeEventListener("resize", checkHeight);
     };
-  }, [checkHeight]);
+  }, []);
 
-  const handleChange = () => {
-    setChecked((prev) => !prev);
+  const toggleContent = () => {
+    setShowMore((prev) => !prev);
   };
 
   return (
@@ -64,20 +65,24 @@ export default function CommentCard(props) {
               disabled
               defaultValue={rating_score}
               className="comment-rating"
+              key={70}
             />
           </div>
         </div>
         <div className="comment-card-content mt-3">
-          <div className="comment-content-box" ref={contentBoxRef}>
-            <Collapse in={checked} collapsedSize={70}>
+        {/* 先放棄這個雞巴按鈕 */}
+          {/* <div className="comment-content-box" ref={contentBoxRef}>
+            <Collapse in={showMore} collapsedSize={70}>
               <div ref={textContainerRef}>{comment_content}</div>
             </Collapse>
           </div>
-          {checked && (
-            <button className="btn" onClick={handleChange}>
-              {checked ? "收起" : "更多"}
-            </button>
-          )}
+          {textContainerRef.current &&
+            textContainerRef.current.clientHeight > 80 && ( // 只在高度大于80时显示按钮
+              <button className="btn" onClick={toggleContent}>
+                {showMore ? "收起" : "更多"}
+              </button>
+            )} */}
+            {comment_content}
         </div>
       </div>
     </>

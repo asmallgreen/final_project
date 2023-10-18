@@ -1,4 +1,5 @@
 import express from "express";
+import { executeQuery } from "../models/base.js"
 import {
   getAllCourse,
   getCourseById,
@@ -8,6 +9,7 @@ import {
   getDisplay,
   getCate,
   searchCourse,
+  updateCourse,
 } from "../models/course.js";
 const router = express.Router();
 
@@ -16,8 +18,6 @@ router.get("/", async (req, res) => {
   const limitValue = parseInt(limit);
   const pageValue = parseInt(page);
   const offset = (pageValue - 1) * limitValue;
-
-
 
   let sortValue;
   switch (sort) {
@@ -63,14 +63,20 @@ router.get("/", async (req, res) => {
   const coursePageAsc = await getCoursePageAsc(limit);
 
   const filterdata = await getFilter(attrValue, sortValue);
-  const displaydata = await getDisplay(attrValue, sortValue, limitValue, offset);
+  const displaydata = await getDisplay(
+    attrValue,
+    sortValue,
+    limitValue,
+    offset
+  );
 
   const alldataLength = allCourse.length;
   const filterdataLength = filterdata.length;
   const displaydataLength = displaydata.length;
-  const pageLength = filterdataLength % limit === 0
-  ? filterdataLength / limit
-  : Math.ceil(filterdataLength / limit);
+  const pageLength =
+    filterdataLength % limit === 0
+      ? filterdataLength / limit
+      : Math.ceil(filterdataLength / limit);
 
   res.json({
     message: "success to get all course",
@@ -101,12 +107,40 @@ router.get("/:cid", async (req, res, next) => {
 
 router.get("/searchCourse", async (req, res) => {
   const { keyword } = req.query;
-  const searchKeyword ={
-    name: `%${keyword}%`
+  const searchKeyword = {
+    name: `%${keyword}%`,
   };
   const searchResult = await searchCourse(searchKeyword);
   return res.json(searchResult);
 });
+
+router.put("/ratingPush/:cid", async (req, res) => {
+  console.log(req.body);
+  try {
+    const { cid } = req.params;
+    const { rating } = req.body;
+    const sql = `UPDATE course SET rating = ${rating} WHERE id = ${cid}`;
+    const result = await executeQuery(sql)
+    const newRating = {
+      rating,
+    };
+    if (result) {
+      return res.json({
+        message: "評分更新成功",
+        code: "200",
+        newRating,
+      });
+    } else {
+      return res.json({
+        message: "評分更新失敗",
+        code: "400",
+      });
+    }
+  } catch {
+    console.log("錯誤");
+  }
+});
+
 
 // TODO: 處理課程篩選的邏輯
 

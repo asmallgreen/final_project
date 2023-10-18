@@ -49,7 +49,8 @@ export default function CourseDetail() {
     useState(null);
   const [MemberDataByCourseId, setMemberDataByCourseId] = useState(null);
   const [items, setItems] = useState([]);
-  const [scoreAverageFromRatingCourse, setScoreAverageFromRatingCourse] = useState(0);
+  const [scoreAverageFromRatingCourse, setScoreAverageFromRatingCourse] =
+    useState(0);
   const [ratingNumber, setRatingNumber] = useState(0);
 
   useEffect(() => {
@@ -95,6 +96,27 @@ export default function CourseDetail() {
     fetchData();
   }, [cid]);
   // console.log(MemberDataByCourseId)
+  // console.log(scoreAverageFromRatingCourse);
+  // 將取得的scoreAverageFromRatingCourse更新push至course的後端路由進行資料庫操作
+useEffect(() => {
+  const updateScoreAverageFromRatingCourse = async () => {
+    try {
+      const Response = await axios.put(
+        `http://localhost:3005/course/ratingPush/${cid}`,
+        { rating: scoreAverageFromRatingCourse }
+      );
+      if (Response.data.code === "200") {
+        console.log(Response.data.message);
+      } else {
+        console.error("錯誤，請確認API");
+      }
+    } catch (error) {
+      console.error("錯誤，請確認API", error);
+    }
+  };
+  updateScoreAverageFromRatingCourse();
+})
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -150,7 +172,7 @@ export default function CourseDetail() {
           // console.log(ratingNumber);
 
           setScoreAverageFromRatingCourse(newScoreAverageFromRatingCourse);
-          setRatingNumber(newRatingNumber)
+          setRatingNumber(newRatingNumber);
         }
       } catch (error) {
         console.error("錯誤，請確認API", error);
@@ -210,13 +232,17 @@ export default function CourseDetail() {
                   <small>NT$</small> {CourseDateById.price}
                 </h2>
                 <div className="stars">
-                  <div className="counting-mobile">{ ratingNumber ? ratingNumber : 0 } 人已評價</div>
+                  <div className="counting-mobile">
+                    {ratingNumber ? ratingNumber : 0} 人已評價
+                  </div>
                   <Rate
                     disabled
                     value={scoreAverageFromRatingCourse}
                     className="rating-star"
                   />
-                  <div className="counting-desktop">{ ratingNumber ? ratingNumber : 0 } 人已評價</div>
+                  <div className="counting-desktop">
+                    {ratingNumber ? ratingNumber : 0} 人已評價
+                  </div>
                 </div>
               </div>
             </div>

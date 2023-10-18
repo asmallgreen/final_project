@@ -53,4 +53,9 @@ const searchCourse = async (where) => {
   return rows;
 }; 
 
-export { getAllCourse, getCourseById, getCoursePageAsc, searchCourse, getOne, getFilter, getDisplay, getCate };
+const updateCourse = async (id, data) => {
+  await updateById(table, id, data);
+
+}
+
+export { getAllCourse, getCourseById, getCoursePageAsc, searchCourse, getOne, getFilter, getDisplay, getCate, updateCourse };

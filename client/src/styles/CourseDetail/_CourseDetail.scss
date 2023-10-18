@@ -102,6 +102,25 @@
   margin-top: 60px;
   margin-bottom: 100px;
   padding-inline: 100px;
+  // 評論陳列區 按鈕群樣式
+  .review-container {
+    .funtion-btns {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: flex-end;
+      // justify-content: space-between;
+      // align-items: center;
+      margin-bottom: 20px;
+      .btn {
+        margin-inline-start: 10px;
+        padding: 5px 0px;
+        width: 100px;
+        font: 14px inter;
+        background: $secondary;
+        color: $primary;
+      }
+    }
+  }
 
   // 評價卡片樣式
   .comment-card {
@@ -328,10 +347,6 @@
           background: $secondary;
           color: $primary;
           border-radius: 0%;
-          &:hover {
-            color: $secondary;
-            background-color: $primary;
-          }
         }
       }
     }
@@ -340,12 +355,31 @@
   .course-detail-tabs-desktop {
     display: none;
   }
+
   .course-detail-tabs-mobile {
     display: block;
     // margin-top: 30px;
     margin-bottom: 100px;
     // padding-inline: 10px;
-
+    // 評論陳列區 按鈕群樣式
+    .review-container {
+      .funtion-btns {
+        display: flex;
+        // flex-direction: column-reverse;
+        // align-items: flex-end;
+        justify-content:space-between;
+        // align-items: center;
+        margin-bottom: 20px;
+        .btn {
+          // margin-inline-start: 10px;
+          padding: 5px 0px;
+          width: 100px;
+          font: 14px inter;
+          background: $secondary;
+          color: $primary;
+        }
+      }
+    }
     // 評價卡片樣式
     .comment-card {
       background-color: rgba(224, 224, 217, 0.5);
