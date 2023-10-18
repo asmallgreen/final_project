@@ -17,6 +17,8 @@ $nav-pills-border-radius:  0;
 $nav-tabs-border-width:0;
 $nav-tabs-border-radius:0;
 $link-color:$secondary;
+// Bootstrap 基本字體樣式
+$font-family-base:NSimSun;
 
 // ↑↑↑  變數覆蓋(Variable overrides) 要寫在這行"上面"  ↑↑↑
 
@@ -26,13 +28,15 @@ $link-color:$secondary;
 //全站PC樣式
 html{
   font-size: 16px;
-  font-family: 'Inter','AbeeZee', sans-serif;
+  font-family: NSimSun,'Inter','AbeeZee', sans-serif!important;
+  
   color: $font;
   background-color: $primary;
   // scroll-behavior: smooth;
   overflow-x: hidden;
 }
 body{
+  font-family: NSimSun,'Inter','AbeeZee', sans-serif!important;
   margin: 0  !important ;
   padding: 0 !important;
   box-sizing: border-box;

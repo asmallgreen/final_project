@@ -10,13 +10,20 @@
 @import 'Homepage/Homepage.scss';
 
 //會員專區
-@import "member.scss";
 @import "member-order.scss";
 @import "member-order-detail.scss";
 @import "member-coupon.scss";
 
 //商品
 @import "product.scss";
+@import "pid.scss";
+
+// Course scss
+@import 'CourseList/CourseList.scss';
+@import 'CourseDetail/CourseDetail.scss';
+
+//jim測試元件用的scss
+//tabs test scss
 
 
 // Course scss
@@ -36,16 +43,11 @@
 @import "reserve.scss";
 @import "check.scss";
 
-//category
-@import "category.scss";
-
-//商品頁篩選、排序
-@import "filter-modal.scss";
-
 
 // bootstrap
 // npm install react-bootstrap bootstrap
 @import "~bootstrap/scss/bootstrap";
+@import "member.scss";
 
 // npm install --save normalize.css
 @import "~normalize.css";

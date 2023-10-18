@@ -13,7 +13,9 @@ export const AuthProviderJWT = ({ children }) => {
             email: '',
             level: '',
             created_date: '',
-        }
+        },
+        favoriteProducts:[],
+        favoriteCourses:[],
     })
 
     const router = useRouter()
@@ -32,6 +34,8 @@ const checkAuth = async () => {
     )
     if (res.data.message === 'authorized') {
       console.log('checklogin ahthorized');
+      console.log(res.data);
+      console.log(res.data.memberData);
       setAuthJWT({ isAuth: true, memberData: res.data.memberData })
     }
     // 可以在這裡實作跳轉
@@ -53,13 +57,68 @@ const checkAuth = async () => {
     // eslint-disable-next-line
   }, [router.isReady, router.pathname])
 
+  // 會員收藏清單
+  // 收藏的商品
+  const [favoriteProducts, setFavoriteProducts] = useState([])
+  // 得到會員的商品收藏清單
+  const getFavoriteProducts = async () => {
+    const res = await axios.get(
+      'http://localhost:3005/member/favorite-product-id',
+      {
+        withCredentials: true,
+      }
+    )
+        console.log('getFavoriteProducts:',res.data);
+    if (res.data.favoriteProducts) {
+      setFavoriteProducts(res.data.favoriteProducts)
+    }
+  }
+
+  useEffect(() => {
+    if (authJWT.isAuth) {
+      // 成功登入後要執行一次向伺服器取得商品收藏清單
+      getFavoriteProducts()
+    } else {
+      // 登出時要設回空陣列
+      setFavoriteProducts([])
+    }
+  }, [authJWT])
+
+  // 收藏的課程
+  const [favoriteCourses, setFavoriteCourses] = useState([])
+    // 得到會員的課程收藏清單
+  const getFavoriteCourses = async () => {
+    const res = await axios.get(
+      'http://localhost:3005/member/favorite-course-id',
+      {
+        withCredentials: true,
+      }
+    )
+      console.log('this is fav course:',res.data);
+    if (res.data.favoriteCourses) {
+      setFavoriteCourses(res.data.favoriteCourses)
+    }
+  }
+
+  useEffect(() => {
+    if (authJWT.isAuth) {
+      // 成功登入後要執行一次向伺服器取得商品收藏清單
+      getFavoriteCourses()
+    } else {
+      // 登出時要設回空陣列
+      setFavoriteCourses([])
+    }
+  }, [authJWT])
+
   return (
     <AuthContextJWT.Provider
       value={{
         authJWT,
         setAuthJWT,
-        // favorites,
-        // setFavorites,
+        favoriteProducts,
+        setFavoriteProducts,
+        favoriteCourses,
+        setFavoriteCourses,
       }}
     >
       {children}

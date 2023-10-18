@@ -7,7 +7,8 @@ import { useAuthJWT } from '@/hooks/use-auth-jwt';
 import { useRouter } from 'next/router';
 import Swal from 'sweetalert2';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-
+// google 第三方登入
+import useFirebase from '@/hooks/use-firebase'
 
 export default function Login() {
 
@@ -56,10 +57,24 @@ export default function Login() {
 
       console.log(res.data);
       // console.log(parseJwt(res.data.accessToken));
-      if(res.data.message === 'verifyUser fail'){
+      if(res.data.message === '帳號不存在'){
         await Swal.fire({
           icon: 'error',
-          title: '帳號或密碼輸入錯誤',
+          title: '帳號不存在',
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: `rgba(255, 255, 255, 0.55)`,
+          width: '35%',
+          padding: '0 0 3.25em',
+          customClass: {
+          }
+        })
+        return
+      }
+      if(res.data.message === '密碼驗證失敗'){
+        await Swal.fire({
+          icon: 'error',
+          title: '請輸入正確密碼',
           showConfirmButton: false,
           timer: 1500,
           backdrop: `rgba(255, 255, 255, 0.55)`,
@@ -112,9 +127,36 @@ export default function Login() {
   // 密碼顯示功能
   const [showPassword, setShowPassword] = useState(false)
 
+  // google 第三方登入
+  const { loginGoogle, logoutFirebase } = useFirebase()
+  const callbackGoogleLogin = async (providerData) => {
+    console.log(providerData)
+
+    const res = await axios.post(
+      'http://localhost:3005/google-login/jwt',
+      providerData,
+      {
+        withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
+      }
+    )
+
+    console.log(res.data)
+
+    console.log(res.data)
+    console.log(parseJwt(res.data.accessToken))
+
+    if (res.data.message === 'google登入成功') {
+      setAuthJWT({
+        isAuth: true,
+        memberData: parseJwt(res.data.accessToken),
+      })
+      router.push(process.env.BASE_URL || '/')
+    }
+  }
   return (
     <>
-    {formType? (<div className='login-bg'>
+    {/* {formType? ( */}
+    <div className='login-bg'>
 
       <div className='position-relative d-flex justify-content-center align-items-center bt-container'>
         <div className='login-block my-3'>
@@ -169,9 +211,9 @@ export default function Login() {
             
         </Form.Group>
       </Row>
-    <Row className='d-flex justify-content-center'>
-      <Form.Group as={Col} md='7' xs='5' className='p-0 '>
-        <Link href='/' className='forgetpwd-link' onClick={(e)=>{e.preventDefault();setFormType(false) }}>忘記密碼</Link>
+    <Row className='d-flex justify-content-center px-2'>
+      <Form.Group as={Col} md='7' xs='5'>
+        <Link href='/member/reset-password' className='forgetpwd-link'>忘記密碼</Link>
       </Form.Group>
       <Form.Group as={Col} md='5' xs='5' className='p-0 text-end'>
         <Button type="submit" className='login-button bgc-primary update-profile-btn' onClick={handleSubmit}>登入</Button>
@@ -180,21 +222,22 @@ export default function Login() {
     </Form>
     <div><p className='text-center'>_______________________________________</p></div>
     <div className='text-center mb-5'>
-    <button className='google-login-btn'>
-    <Link href='/google-login/jwt'>
+    {/* <button className='google-login-btn'> */}
+    <Button  className='google-login-btn' onClick={() => loginGoogle(callbackGoogleLogin)}>
       <img src='/Duo/googleLogin.svg' alt='googleicon'/>使用Google登入
-    </Link>
+    </Button>
       
-    </button>
+    {/* </button> */}
     </div>
         </div>
       </div>
 
-      </div>):(<div className='login-bg'><div className='position-relative d-flex justify-content-center align-items-center bt-container'>
+      </div>
+      {/* ):(<div className='login-bg'><div className='position-relative d-flex justify-content-center align-items-center bt-container'>
         <ForgotPwd formType={formType} setFormType={setFormType}/>
       </div>
       
-      </div>)}
+      </div>)} */}
       
     </>
   )

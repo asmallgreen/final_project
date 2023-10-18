@@ -4,15 +4,14 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import { Row, Col } from "react-bootstrap";
 import SalesCard from "@/components/product/sales-card";
-import FilterProductCard from "@/components/product/filter-product-card";
+import FilterProductCard from "@/components/product/filter-card";
 import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import LunaPagination from "@/components/pagination/luna-pagination";
-import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
 import FilterBtns from "@/components/product/filter-btns";
 import RecommendedCard from "@/components/product/recommended-card";
 import LaunchedCard from "@/components/product/launched-card";
 
-function Product() {
+function Tmp() {
   // 判斷目前網址狀態
   // const [currentUrl, setCurrentUrl] = useState();
   // filter category的所有產品
@@ -31,37 +30,36 @@ function Product() {
     let newCate = category;
     // let newCate
     switch (currentUrl) {
-      case "/product/bow":
-        newCate = "所有「弓」相關商品";
+      case "/product/category/bow":
+        newCate = "所有「弓」商品";
         break;
-      case "/product/arrow":
-        newCate = "所有「箭」相關商品";
+      case "/product/category/arrow":
+        newCate = "所有「箭」商品";
         break;
-      case "/product/suit":
-        newCate = "所有「道服」相關商品";
+      case "/product/category/suit":
+        newCate = "所有「道服」商品";
         break;
-      case "/product/other":
-        newCate = "所有「其他」相關商品";
+      case "/product/category/other":
+        newCate = "所有「其他」商品";
         break;
       default:
         newCate = "所有商品";
         break;
     }
     setCategory(newCate);
-    
   }, [router.asPath, category]);
 
   useEffect(() => {
     (async () => {
       try {
         const currentUrl = router.asPath;
-        console.log(currentUrl)
-        const res = await axios.get(`http://localhost:3005${currentUrl}`, []);
+        console.log(currentUrl);
+        const res = await axios.get(`http://localhost:3005/product/category${currentUrl}`, []);
         console.log(res.data);
         // console.log(res.data.products);
         setCateProduct(res.data.catedata);
         setNewProduct(res.data.launchedData);
-        console.log(cateProduct)
+        console.log(cateProduct);
       } catch (error) {
         console.log(error);
       }
@@ -69,18 +67,15 @@ function Product() {
   }, [router.asPath]);
 
   useEffect(() => {
-    console.log(newProduct)
+    console.log(newProduct);
     console.log(cateProduct);
-  }, [cateProduct,newProduct]);
+  }, [cateProduct, newProduct]);
 
   return (
     <>
       {/* test */}
 
       <div>
-        {/* <p>當前網頁的網址是：{currentUrl}</p> */}
-        {/* <p>當前的newCate：{newCate}</p> */}
-        {/* <p>當前的setCategory：{category}</p> */}
       </div>
 
       {/* //////////////////////////////////// */}
@@ -97,7 +92,7 @@ function Product() {
         </Col>
       </Row>
       <div className="phone-ad">
-        <img src=""></img>
+        <img src="/product/top1.jpg"></img>
       </div>
       {/* 新品上架 */}
       <div className="product-page-title">
@@ -106,7 +101,7 @@ function Product() {
       <Row className="normal-cards-area">
         <Col className="normal-cards">
           <Row className="rows">
-          {newProduct.map((data) => {
+            {newProduct.map((data) => {
               return <LaunchedCard key={data.id} filterNewProduct={data} />;
             })}
           </Row>
@@ -117,19 +112,19 @@ function Product() {
       <div className="category position-relative">
         <div className="type-title">｜ 產品分類 ｜</div>
         <div className="type">
-          <Link href="/product/bow" className="item">
+          <Link href="/product/category/bow" className="item">
             <img src="/product/cate1.jpg"></img>
             <span>弓</span>
           </Link>
-          <Link href="/product/arrow" className="item">
+          <Link href="/product/category/arrow" className="item">
             <img src="/product/cate2.jpg"></img>
             <span>箭</span>
           </Link>
-          <Link href="/product/suit" className="item">
+          <Link href="/product/category/suit" className="item">
             <img src="/product/cate3.jpg"></img>
             <span>道服</span>
           </Link>
-          <Link href="/product/other" className="item">
+          <Link href="/product/category/other" className="item">
             <img src="/product/cate4.jpg"></img>
             <span>其他</span>
           </Link>
@@ -164,12 +159,6 @@ function Product() {
                 />
               );
             })}
-            {/* <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard /> */}
           </Row>
         </Col>
       </Row>
@@ -223,11 +212,11 @@ function Product() {
       <Row className="normal-cards-area">
         <Col className="normal-cards">
           <Row className="rows">
-           <RecommendedCard/>
-           <RecommendedCard/>
-           <RecommendedCard/>
-           <RecommendedCard/>
-           <RecommendedCard/>
+            <RecommendedCard />
+            <RecommendedCard />
+            <RecommendedCard />
+            <RecommendedCard />
+            <RecommendedCard />
           </Row>
         </Col>
       </Row>
@@ -237,4 +226,4 @@ function Product() {
     </>
   );
 }
-export default Product;
+export default Tmp;

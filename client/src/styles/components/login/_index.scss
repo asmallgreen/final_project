@@ -10,6 +10,9 @@
     .hmgnAx{
         border: 0.5px solid rgba(196, 198, 204, 0.2);
     }
+    select{
+        background-color: #fff;
+    }
     .password-eye{
         position: relative;
         .password-eye2{
@@ -37,6 +40,13 @@
         padding-top: 30px;
         padding-inline: 50px;
     }
+    input{
+        background-color: #fff;
+        &:focus{
+            background-color: #fff;
+            border: 1px solid $secondary;
+        }
+    }
 }
 .login-border-bottom{
     width: 40%;
@@ -50,11 +60,12 @@
 .google-login-btn{
     width: 60%;
     border: 0;
-    background-color:#fff;
+    background-color:#fff!important;
     position: relative;
     img{
         width: 6%;
         position: absolute;
+        top: 10px;
         left: 5%;
     }
     }

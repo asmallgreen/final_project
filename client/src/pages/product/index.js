@@ -1,127 +1,340 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
 import { Row, Col } from "react-bootstrap";
 import SalesCard from "@/components/product/sales-card";
-import FilterProductCard from "@/components/product/filter-product-card";
+import FilterProductCard from "@/components/product/filter-card";
 import BreadCrumb from "@/components/bread-crumb/bread-crumb";
 import LunaPagination from "@/components/pagination/luna-pagination";
-import ScrollsCircle from "@/components/scroll-btn/scrolls-circle";
 import FilterBtns from "@/components/product/filter-btns";
 import RecommendedCard from "@/components/product/recommended-card";
 import LaunchedCard from "@/components/product/launched-card";
+import { useProductContext } from "../../hooks/use-product-context.js";
+//AnimatedArrow
+import AnimatedArrow from "../../components/product/animate-arrow.js";
+import ConcentricCircles from "../../components/product/animate-concent-circle.js";
+// 廣告
+import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+import { Navigation, Pagination, History, Autoplay } from "swiper/modules";
+import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import Swal from "sweetalert2";
 
 function Product() {
-  // const [productList ,setproductList] = useState(null);
-  // const [cateData, setCateData] = useState(null);
+  // const [offset, setOffset] = useState(0);
+  const [attr, setAttr] = useState("");
+  const [sort, setSort] = useState("");
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
+  const [dataLength, setDataLength] = useState();
+  const [pageLength, setPageLength] = useState();
   const [allProduct, setAllProduct] = useState([]);
-  const [newProduct, setNewProduct] = useState([]);
+  // const product = allProduct;
+  const newProduct = allProduct.filter((product) => product.launched === 1);
+  const [filterProduct, setFilterProduct] = useState([]);
+  // const [newProduct, setNewProduct] = useState([]);
+  // console.log(`篩選:${attr}`);
+  // console.log(`排序:${sort}`);
 
-  // const handleProduct = async (e) => {
-  //   const res = await axios.get(
-  //     "http://localhost:3005/product",
-  //     {},
-  //     {
-  //       withCredentials: true,
-  //     }
-  //   );
-  //   console.log(res.data);
-  // };
+  const updateLimit = (newLimit) => {
+    setLimit(newLimit);
+  };
+  const updatePage = (newPage) => {
+    if (newPage !== undefined) {
+      setPage(newPage);
+    } else {
+      setPage(1);
+    }
+  };
+  const updateSort = (newSort) => {
+    // console.log(newSort);
+    setSort(newSort);
+  };
+  const updateAttr = (newAttr) => {
+    // console.log(newAttr);
+    setAttr(newAttr);
+  };
+
   useEffect(() => {
-    (async () => {
+    const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:3005/product", []);
-        // console.log(res.data);
-        // console.log(res.data.products);
+        const res = await axios.get("http://localhost:3005/product", {
+          params: { limit, page, sort, attr },
+        });
+        console.log(limit,page,sort,attr);
         setAllProduct(res.data.alldata);
-        setNewProduct(res.data.launchedData);
-        console.log(allProduct);
-        console.log(newProduct);
+        setDataLength(Object.entries(res.data.alldata).length);
+        setPageLength(Math.ceil((Object.entries(res.data.alldata).length) / limit));
+        setFilterProduct(res.data.filterdata);
+        // setNewProduct(res.data.newdata);
       } catch (error) {
         console.log(error);
       }
-    })();
+    };
+
+    if (typeof window !== "undefined") {
+      fetchData();
+    }
   }, []);
 
   useEffect(() => {
-    console.log(allProduct);
-    console.log(newProduct);
-  }, [allProduct, newProduct]);
+    // console.log(allProduct);
+  }, [allProduct]);
 
-  // const handleCate = async (e) => {
-  //   const res = await axios.get(
-  //     "http://localhost:3005/product",
-  //     { cateData },
-  //     {
-  //       withCredentials: true,
-  //     }
-  //   );
-  //   console.log(res.data);
-  //   if (res.data.message === "getAllProduct success") {
-  //     setAllProduct(res.data.product);
-  //   }
-  //   console.log(allProduct);
-  // };
+  useEffect(() => {
+    setPageLength(Math.ceil(dataLength / limit));
+    // console.log(limit);
+  }, [limit]);
+
+  useEffect(() => {
+    // console.log(dataLength);
+  }, [dataLength]);
+
+  useEffect(() => {
+    // console.log(pageLength,limit);
+  }, [pageLength,limit]);
+
+  useEffect(() => {
+    // console.log(page);
+  }, [page]);
+  useEffect(() => {}, []);
+  useEffect(() => {}, []);
+
+  // dataLength, pageLength, limit, page, sort, attr
+
+  // const router = useRouter();
+
+  // 會員收藏商品
+  const { authJWT,favoriteProducts, setFavoriteProducts } = useAuthJWT()
+  const memberId = authJWT.memberData.id
+  // 拿出會員收藏的所有商品id
+  // console.log(favoriteProducts);
+  // const [products, setProducts] = useState([])
+  // 判斷是否該商品id有在收藏資料表，有代表已收藏
+  function isProductFavorited(productId) {
+    return favoriteProducts.includes(productId);
+  }
+
+  const handleTriggerProductFav = async (id) => {
+    // 在陣列中->移出，不在陣列中加入
+    // console.log(id);
+      // 未登入時，會出現請先登入的內容
+  if (!authJWT.isAuth){
+    Swal.fire({
+      icon: 'warning',
+      title: '請先登入',
+      showConfirmButton: false,
+      timer: 1500,
+      backdrop: `rgba(255, 255, 255, 0.55)`,
+      width: '35%',
+      padding: '0 0 3.25em',
+      customClass: {
+      }
+  })
+}
+    if (favoriteProducts.includes(id)) {
+// 如果在陣列中，執行移除收藏
+      try{
+        const res = await axios.delete(`http://localhost:3005/member/${id}`,
+        {
+          data:{memberId},
+          withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
+        })
+        console.log(res.data);
+        if(res.data.message === '已取消收藏'){
+          await Swal.fire({
+            icon: 'success',
+            title: '商品已取消收藏',
+            showConfirmButton: false,
+            timer: 1500,
+            backdrop: `rgba(255, 255, 255, 0.55)`,
+            width: '35%',
+            padding: '0 0 3.25em',
+            customClass: {
+            }
+          })
+        }
+      }catch(error){
+        console.log(error);
+      }
+      setFavoriteProducts(favoriteProducts.filter((v) => v !== id))
+    } else {
+// 如果不在陣列中，執行加入收藏
+      try{
+        const res = await axios.put(`http://localhost:3005/member/${id}`,
+        {memberId},
+        {
+          withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
+        })
+        console.log(res.data);
+
+        if(res.data.message === '商品收藏成功'){
+          await Swal.fire({
+            icon: 'success',
+            title: '商品收藏成功',
+            showConfirmButton: false,
+            timer: 1500,
+            backdrop: `rgba(255, 255, 255, 0.55)`,
+            width: '35%',
+            padding: '0 0 3.25em',
+            customClass: {
+            }
+          })
+        }
+      }catch(error){
+        console.log(error);
+      }
+      setFavoriteProducts([...favoriteProducts, id])
+    }
+  }
+
+
   return (
     <>
-      {/* 商品廣告 */}
-      <Row className="ads">
-        <Col md="3" className="ad">
-          <img src="/product/top1.jpg" />
-        </Col>
-        <Col md="6" className="ad main">
-          <img src="/product/top2.jpg" />
-        </Col>
-        <Col md="3" className="ad">
-          <img src="/product/top3.jpg" />
-        </Col>
-      </Row>
+      {/* **************** */}
+
+      <Swiper
+        spaceBetween={0}
+        slidesPerView={1}
+        centeredSlides={true}
+        autoplay={{
+          delay: 2500,
+          disableOnInteraction: false,
+        }}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={true}
+        modules={[Autoplay, Pagination, Navigation]}
+        className="mySwiper ad-swiper"
+      >
+        <SwiperSlide>
+          <Row className="ads">
+            <Col md="3" className="ad">
+              <img src="/product/top1.jpg" alt="img" />
+            </Col>
+            <Col md="6" className="ad main">
+              <img src="/product/top2.jpg" alt="img" />
+            </Col>
+            <Col md="3" className="ad">
+              <img src="/product/top3.jpg" alt="img" />
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide>
+          <Row className="ads">
+            <Col md="3" className="ad">
+              <img src="/product/top1.jpg" alt="top1.jpg" />
+            </Col>
+            <Col md="6" className="ad main">
+              <img src="/product/top2.jpg" alt="img" />
+            </Col>
+            <Col md="3" className="ad">
+              <img src="/product/top3.jpg" alt="img" />
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide>
+          <Row className="ads">
+            <Col md="3" className="ad">
+              <img src="/product/top1.jpg" alt="img" />
+            </Col>
+            <Col md="6" className="ad main">
+              <img src="/product/top2.jpg" alt="img" />
+            </Col>
+            <Col md="3" className="ad">
+              <img src="/product/top3.jpg" alt="img" />
+            </Col>
+          </Row>
+        </SwiperSlide>
+        <SwiperSlide>
+          <Row className="ads">
+            <Col md="3" className="ad">
+              <img src="/product/top1.jpg" alt="img" />
+            </Col>
+            <Col md="6" className="ad main">
+              <img src="/product/top2.jpg" alt="img" />
+            </Col>
+            <Col md="3" className="ad">
+              <img src="/product/top3.jpg" alt="img" />
+            </Col>
+          </Row>
+        </SwiperSlide>
+      </Swiper>
       <div className="phone-ad">
-        <img src=""></img>
+        <img src="/product/top1.jpg" alt="img"></img>
       </div>
       {/* 新品上架 */}
       <div className="product-page-title">
         <p>新品上架</p>
       </div>
-      <Row className="normal-cards-area">
-        <Col className="normal-cards">
-          <Row className="rows">
-            {/* <div>
+      {/* <Router> */}
+      <Swiper
+        spaceBetween={0}
+        slidesPerView={5}
+        navigation={true}
+        pagination={true}
+        modules={[Navigation, Pagination]}
+        className="mySwiper launched-product-swiper"
+      >
         {newProduct.map((data) => {
-          return <div key={data.id}>{data.name}</div>;
+          return (
+            <SwiperSlide>
+              <LaunchedCard key={data.id} filterNewProduct={data} />
+            </SwiperSlide>
+          );
         })}
-      </div> */}
-            {newProduct.map((data) => {
-              return <LaunchedCard key={data.id} filterNewProduct={data} />;
-            })}
-            {/* <LaunchedCard/> */}
-            {/* <NormalCard newProduct/>
-            <NormalCard />
-            <NormalCard />
-            <NormalCard /> */}
-          </Row>
-        </Col>
-      </Row>
+      </Swiper>
+      {/* </Router> */}
 
       {/* 分類 */}
       <div className="category position-relative">
         <div className="type-title">｜ 產品分類 ｜</div>
         <div className="type">
-          <Link href="/product/bow" className="item">
-            <img src="/product/cate1.jpg"></img>
-            <span>弓</span>
+          <Link href="/product/category/1" className="item">
+            <img src="/product/cate1.jpg" alt="img"></img>
+            <span className="text-decoration-none">良弓</span>
+            <div className="animate-content-circle position-absolute">
+              <ConcentricCircles />
+            </div>
+            <div className="animate-arrow">
+              <AnimatedArrow />
+            </div>
           </Link>
-          <Link href="/product/arrow" className="item">
-            <img src="/product/cate2.jpg"></img>
-            <span>箭</span>
+          <Link href="/product/category/2" className="item">
+            <img src="/product/cate2.jpg" alt="img"></img>
+            <span className="text-decoration-none">羽箭</span>
+            <div className="animate-content-circle position-absolute">
+              <ConcentricCircles />
+            </div>
+            <div className="animate-arrow">
+              <AnimatedArrow />
+            </div>
           </Link>
-          <Link href="/product/suit" className="item">
-            <img src="/product/cate3.jpg"></img>
-            <span>道服</span>
+          <Link href="/product/category/3" className="item">
+            <img src="/product/cate3.jpg" alt="img"></img>
+            <span className="text-decoration-none">道服</span>
+            <div className="animate-content-circle position-absolute">
+              <ConcentricCircles />
+            </div>
+            <div className="animate-arrow">
+              <AnimatedArrow />
+            </div>
           </Link>
-          <Link href="/product/other" className="item">
-            <img src="/product/cate4.jpg"></img>
-            <span>其他</span>
+          <Link href="/product/category/4" className="item">
+            <img src="/product/cate4.jpg" alt="img"></img>
+            <span className="text-decoration-none">其他</span>
+            <div className="animate-content-circle position-absolute">
+              <ConcentricCircles />
+            </div>
+            <div className="animate-arrow">
+              <AnimatedArrow />
+            </div>
           </Link>
         </div>
       </div>
@@ -134,7 +347,13 @@ function Product() {
               <p>所有商品</p>
             </div>
             <div className="p-0">
-              <FilterBtns />
+              <FilterBtns
+                limit={limit}
+                setLimit={updateLimit}
+                setSort={updateSort}
+                setAttr={updateAttr}
+                dataLength={dataLength}
+              />
             </div>
           </div>
         </div>
@@ -143,58 +362,72 @@ function Product() {
         <BreadCrumb currentCate="所有商品" />
       </div>
       {/* 所有產品card */}
-
-      {/* <div>
-        {allProduct.map((product) => {
-          return <div key={product.id}>{product.name}</div>;
-        })}
-      </div> */}
-
       <Row className="filter-cards-area">
         <Col md="auto" className="filter-cards">
           <Row className="rows">
-            {allProduct.map((data) => {
-              return <FilterProductCard key={data.id} filterProduct={data} />;
+            {filterProduct.map((data) => {
+              return <FilterProductCard key={data.id} filterProduct={data} is_favorite={isProductFavorited(data.id)} handleTriggerProductFav={handleTriggerProductFav}/>;
             })}
-
-            {/* <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard />
-            <FilterProductCard /> */}
           </Row>
         </Col>
       </Row>
-
       {/* btn */}
-      <LunaPagination />
-
+      <LunaPagination
+        dataLength={dataLength}
+        pageLength={pageLength}
+        setPage={updatePage}
+        page={page}
+        limit={limit}
+      />
+      {/* setPage={updatePage} */}
       {/* 優惠專區 */}
       <div className="product-page-title">
         <p>優惠專區</p>
       </div>
-      <Row className="sales">
-        <Col md="12" xs="8" className="">
-          <Row className="sales-row">
-            <Col md="auto" xs="6" className="card p-0 m-2">
-              <SalesCard />
-            </Col>
-            <Col md="auto" xs="6" className="card p-0 m-2">
-              <SalesCard />
-            </Col>
-            <Col md="auto" xs="6" className="card p-0 m-2">
-              <SalesCard />
-            </Col>
-            <Col md="auto" xs="6" className="card p-0 m-2">
-              <SalesCard />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      <Swiper
+        spaceBetween={10}
+        slidesPerView={2}
+        navigation={true}
+        pagination={true}
+        modules={[Navigation, Pagination, History]}
+        className="mySwiper sale-product-swiper pt-5"
+      >
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <SalesCard />
+        </SwiperSlide>
+      </Swiper>
       {/* 手機板 優惠專區 */}
       <div className="phone-sales">
         <div className="cards">
           <div className="img">
-            <img src=""></img>
+            <img src="" alt="img"></img>
           </div>
           <div className="content">
             <div className="tag tag1">HOT</div>
@@ -206,22 +439,46 @@ function Product() {
       </div>
       {/* inter */}
       <div className="inter-block text-center">真誠面對傳統，超越傳統。</div>
-
       {/* 相關商品推薦 */}
       <div className="product-page-title">
         <p>相關商品推薦</p>
       </div>
-      <Row className="normal-cards-area">
-        <Col className="normal-cards">
-          <Row className="rows">
-           <RecommendedCard/>
-           <RecommendedCard/>
-           <RecommendedCard/>
-           <RecommendedCard/>
-           <RecommendedCard/>
-          </Row>
-        </Col>
-      </Row>
+      <Swiper
+        spaceBetween={10}
+        slidesPerView={6}
+        navigation={true}
+        pagination={true}
+        modules={[Navigation, Pagination]}
+        className="mySwiper recommend-product-swiper"
+      >
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+        <SwiperSlide>
+          <RecommendedCard />
+        </SwiperSlide>
+      </Swiper>
       <div className="product-under-space"></div>
 
       {/* *************TEST**************** */}
