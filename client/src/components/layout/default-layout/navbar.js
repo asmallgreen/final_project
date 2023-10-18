@@ -109,7 +109,7 @@ export default function Navbar() {
             <div className="hover-space position-absolute"></div>
           </li>
           <li className="list-unstyled">
-            <Link href="/course-list" className="titleLi">
+            <Link href="/course" className="titleLi">
               弓道課程
             </Link>
           </li>

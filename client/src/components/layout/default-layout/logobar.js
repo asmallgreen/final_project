@@ -187,21 +187,21 @@ export default function Logobar() {
             />
           </div>
           <Link
-            href=""
+            href="/course/1"
             className={accordion3 ? "fk" : "d-none"}
             onClick={handleHam}
           >
             初探
           </Link>
           <Link
-            href=""
+            href="/course/2"
             className={accordion3 ? "fk" : "d-none"}
             onClick={handleHam}
           >
             進階
           </Link>
           <Link
-            href=""
+            href="/course/3"
             className={accordion3 ? "fk" : "d-none"}
             onClick={handleHam}
           >
