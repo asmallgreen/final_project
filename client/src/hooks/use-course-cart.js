@@ -1,6 +1,7 @@
 import React, { useReducer, useContext, createContext, useEffect } from 'react'
 import { reducer, init } from './cart-reducer'
 import useLocalStorage from './use-localstorage'
+import Swal from "sweetalert2";
 
 const CourseCartContext = createContext(null)
 
@@ -65,9 +66,27 @@ export const CourseCartProvider = ({
     const addCourse = (item) => {
       
       if (isInCourseCart(item.id)) {
-        alert(`課程 ${item.name} 已存在於購物車中`);
+        Swal.fire({
+          icon: "warning",
+          title: "課程已存在購物車中",
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: `rgba(255, 255, 255, 0.55)`,
+          width: "35%",
+          padding: "0 0 3.25em",
+          customClass: {},
+        });
       } else {
-        alert('已加入購物車')
+        Swal.fire({
+          icon: "success",
+          title: "加入購物車成功",
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: `rgba(255, 255, 255, 0.55)`,
+          width: "35%",
+          padding: "0 0 3.25em",
+          customClass: {},
+        });
         dispatch({
           type: 'ADD_ITEM',
           payload: item,
