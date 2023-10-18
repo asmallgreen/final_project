@@ -153,7 +153,7 @@ function Cate(props) {
       if (window.innerWidth <= windowWidth1) {
         setSlidesPerView(2);
       } else if(window.innerWidth <= windowWidth2){
-        setSlidesPerView(3);
+        setSlidesPerView(2);
       }else if(window.innerWidth <= windowWidth3){
         setSlidesPerView(3);
       }else if(window.innerWidth <= windowWidth4){

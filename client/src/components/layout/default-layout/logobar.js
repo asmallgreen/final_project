@@ -59,9 +59,9 @@ export default function Logobar() {
 
       {/* 手機版ham 登入版*/}
       <div className={ham ? "ham-login" : "d-none"}>
-        <div className="opacity-50" onClick={handleHam}></div>
+        <div className="opac" onClick={handleHam}></div>
         <div className="btns p-0">
-          <div className="info d-flex align-items-center justify-content-between">
+          <div className="info">
             {authJWT.isAuth ? (
               <>
                 <Link href="" className="img">

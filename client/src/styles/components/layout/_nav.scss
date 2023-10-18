@@ -264,21 +264,29 @@
     position: fixed;
     height: 104vh;
     // position: sticky;
-    overflow-y: scroll;
+    
     top: 0;
     right: 0; /* 或者你想要的距離頂部的像素值 */
     z-index: 999999;
     display: flex;
-    .opacity-50 {
+    .opac {
       background-color: $secondary;
       width: 75px;
-      opacity: 50%;
+      opacity: 0.5;
+      // height: 100%;
     }
     .btns {
+      // opacity: 1!important;
+      // z-index: 9999999;
       background-color: #fff;
+      overflow-y: scroll;
       border: 0;
       width: 318px;
       .info {
+        // d-flex align-items-center justify-content-between
+        display: flex;
+        align-items: center;
+        justify-content: center;
         height: 78px;
         background-color: $secondary;
         border-left: 1px solid $primary;
@@ -304,7 +312,7 @@
           }
         }
         .text {
-          font-size: 16px;
+          font-size: 12px;
           margin-inline: 10px 30px;
         }
         .edit {
