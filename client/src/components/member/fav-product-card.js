@@ -18,10 +18,10 @@ console.log('product card product:',products);
              {products.map((product)=>(
             <Col key={product.id} lg='6' md='12' className='d-flex justify-content-center mb-3'>
                
-        <Link href='/' className='d-flex position-relative text-center fav-section'>
+        <Link href={`/product/${product.id}`} className='d-flex position-relative text-center fav-section'>
                     <input type='checkbox' onClick={handleInput}/>
                         <div className='me-2'>
-                            <img src='/Duo/avatar01.jpg'></img>
+                            <img src={product.img1}></img>
                         </div>
                         <div>
                         <div>

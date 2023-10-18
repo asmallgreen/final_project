@@ -1,6 +1,8 @@
 import React from 'react'
+import Link from 'next/link';
 
 export default function FavCourseCard({courses}) {
+  console.log(courses);
   const handleInput = (e) => {
     e.stopPropagation()
 }
@@ -10,7 +12,9 @@ export default function FavCourseCard({courses}) {
     <>
     {courses.map((course)=>(
           <div key={course.id} className="course-list-item">
-            <div className="course-list-img"></div>
+            <div className="course-list-img">
+              <img className="course-list-img" src={course.images}></img>
+            </div>
             <div className="course-list-text">
             <input type='checkbox' onClick={handleInput}/>
               <div className="title">{course.name}</div>
@@ -35,7 +39,7 @@ export default function FavCourseCard({courses}) {
               </div>
               <div className="bottom">
                 <h2 className="price">NT${course.price}</h2>
-                <div className="btn moreBtn">詳細資訊</div>
+                <Link href={`/course/${course.id}`} className="btn moreBtn">詳細資訊</Link>
               </div>
             </div>
           </div>

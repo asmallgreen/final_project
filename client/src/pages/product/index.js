@@ -229,6 +229,7 @@ function Product() {
       {/* **************** */}
 
       <Swiper
+        loop={true}
         spaceBetween={0}
         slidesPerView={3}
         centeredSlides={true}

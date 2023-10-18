@@ -158,13 +158,6 @@ export default function Navbar() {
               </Button>
             </li>
           )}
-          {authJWT.isAuth && (
-            <li className="list-unstyled">
-              <Button onClick={handleLogout}>
-                <FiLogOut className="fi-logout" />
-              </Button>
-            </li>
-          )}
         </ul>
       </div>
       {/* 在这里显示搜索结果 */}
