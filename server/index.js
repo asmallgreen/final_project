@@ -18,7 +18,6 @@ const __dirname = path.dirname(__filename);
 // 讓console.log可以呈現檔案與行號
 // import { extendLog } from './utils/tool.js'
 // extendLog() // 執行全域套用
-
 // console.log呈現顏色用 全域套用
 import "colors";
 // 檔案上傳
@@ -38,6 +37,11 @@ import googleLoginRouter from './routes/google-login.js'
 import productRouter from './routes/product.js'
 // // import favoriteRouter from './routes/favorite.js'
 import courseRouter from './routes/course.js'
+import venueRouter from './routes/venue.js'
+import venueReserveRouter from "./routes/venue-reserve.js"
+import teacherRouter from './routes/teacher.js'
+import syllabusRouter from './routes/syllabus.js'
+import cartRouter from './routes/cart.js'
 
 const app = express();
 
@@ -49,9 +53,19 @@ const app = express();
 // app.use(cors())
 app.use(
   cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'],
+    origin: [
+      'http://localhost:3000', 
+      'http://localhost:3001',
+      'http://localhost:3000/product',
+      'https://accounts.google.com',
+      'https://google-login.firebaseapp.com',
+      'https://console.firebase.google.com',
+      'https://login-700a1.firebaseapp.com',
+      'login-700a1.web.app',
+      'https://login-700a1-default-rtdb.firebaseio.com'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization', 'Other-Header'],
   })
 );
 
@@ -59,12 +73,12 @@ app.use(
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'pug')
 
-app.use(logger('dev'))
+// app.use(logger('dev'))
 app.use(express.json())
 
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'uploads')))
 
 // fileStore的選項
 const fileStoreOptions = {};
@@ -108,6 +122,12 @@ app.use('/google-login', googleLoginRouter)
 // app.use('/api/favorite', favoriteRouter)
 app.use('/product', productRouter)
 app.use('/course', courseRouter)
+app.use('/cart', cartRouter)
+app.use('/venue', venueRouter)
+app.use('/venue_reserve', venueReserveRouter)
+
+app.use('/teacher', teacherRouter)
+app.use('/syllabus', syllabusRouter)
 
 app.listen(3005, ()=>{
   console.log("服務已啟動於 http://localhost:3005");
@@ -124,10 +144,16 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
 
+  // 前端取得後端靜態資源
+  app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // 允許前端網站的 URL
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+    next();
+  });
+  
   // render the error page
-  res.status(err.status || 500)
-  // 更改為錯誤訊息預設為JSON格式
-  res.status(500).send({ error: err })
+  res.status(err.status || 500).json({ error: err });
 })
 
 export default app;

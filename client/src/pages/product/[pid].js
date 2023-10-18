@@ -213,33 +213,7 @@ function Pid() {
             </SwiperSlide>
           );
         })}
-        {/* <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide>
-        <SwiperSlide>
-          <RecommendedCard />
-        </SwiperSlide> */}
+      
       </Swiper>
 
       {/* ----------------------- */}

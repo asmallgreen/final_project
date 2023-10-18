@@ -20,7 +20,7 @@ export default function GetAll() {
     fetchData(); // 呼叫包裹的 async 函數
   }, []);
   console.log(AllCourseDate);
-  return AllCourseDate!==null ? <div>{AllCourseDate[0].name}</div> : <div>loading!</div>
+  return AllCourseDate!==null ? <div>{AllCourseDate[0].name}</div> : <div>loading</div>
     
     {/* <div>{AllCourseDate[0].name}</div> */}
   

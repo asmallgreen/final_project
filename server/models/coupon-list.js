@@ -10,12 +10,10 @@ import {
     findOne,
 } from './base.js'
 
-const table = "coupon"
-
-const getCouponList = async () => {
-    const { rows } = await find(table)
-    return rows
+const getLimitCoupon = async (where,order,limit) => {
+    const result = await find("coupon",where,order,limit)
+    return result.rows
 }
 export {
-    getCouponList,
+    getLimitCoupon,
 }

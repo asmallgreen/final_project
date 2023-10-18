@@ -126,74 +126,36 @@
 - [x] 建立屬性中介表、屬性資料表
 - [ ] modal裡面的title和attr-btn用資料庫取值(不同category屬性不同)
 
+#### 分類頁
+- [ ] 麵包屑用useRouter抓當下路由，判斷後面的值
+- [ ] 
+- [ ] 
 
-### 20231012
+
+### 20231011
 
 #### 商品詳情頁
 - [x] 關聯資料庫測試，從product_arrow-length資料表中抓到所有arrow_length_id=1(長度85mm)的product_id
 
-### 20231013
+### 20231012
 
 #### 商品詳情頁
 - [x] 關聯資料庫，從product_attribute資料表中抓到所有category_id=${cate}(路由:cate的值ex:cate1是弓)的name
 - [x] 藉由category_id判斷產品詳請所要的規格，以及規格的值
 
-#### 商品頁
-##### 前端
-- [x] limit
-- [x] sort
-- [x] attr
-- [x] page
-##### 後端
-- [x] alldata
-- [x] filterdata計算出dataLength
-- [x] dataLength資料長度計算pageLength
-- [x] pageLength按鈕數量onclick可以選到page
-- [x] filterdata用limit,sort,attr,page計算出來的值
-- [x] displaydata用filterdata,dataLength,pageLength計算出來的值
-##### 列出下面的值:
-- [x] 所有商品數量alldataLength
-- [x] 篩選後商品數量filterdataLength
-- [x] 顯示畫面上的商品數量displaydataLength
-- [x] 篩選後所有按鈕數量pageLength，用filterdata計算
-- [x] alldata(getAll函式只抓table=product)
-- [x] filterdata(getFilter抓where={attrValue},orderby={sortValue})
-- [x] displaydata(getDisplay抓where={attrValue},orderby={sortValue},limit={limitValue},offset={ (pageValue - 1) * limitValue})
-##### 注意事項:
-- [x] 更新limit,page,attr,sort值時未傳入api給後端product.js，因此資料沒有被更新，重新測試將直送到後端
-- [x] 在改變sort和attr時要重新抓pageLength
-- [x] 先從後端product.js取得alldata(一個陣列物件)，在前端用函式計算出資料長度dataLength，從元件luna-pagiantion傳入limit值，用dataLength和limit計算出pageLength(分頁長度:用來計算buttton數量)
-- [x] 每次篩選商品都可以更新filter-btn上篩選按鈕旁邊的值
+### 20231013
 
-### 20231014
-##### 商品分類頁
-- [x] 點進分類頁會過濾一次category_id=${cate}的資料catedata
-- [x] 定義where當新增篩選條件時，會AND新的條件
-- [ ] 關聯資料表:`SELECT p.*
-FROM product AS p
-JOIN product_arrow_length AS pal ON p.id = pal.product_id
-JOIN arrow_length AS al ON al.id = pal.arrow_length_id;
-`;
-### 20231016
-##### 篩選Modal-Attr
-- [ ] 搜尋商品名稱移到篩選裡面
-- [ ] 搜尋排序切換按鈕刪除
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
 ### 問題
 
-- [x] 重整網頁時luna-pagination無法即時取得pageLength，導致按鈕陣列為空值，改變limit值後可以
-- [x] luna-pagination的handlePrev/handleNext函式中的pageLength無法被及時更新，點選後不變
+- [ ] 重整網頁時luna-pagination無法即時取得pageLength，導致按鈕陣列為空值，改變limit值後可以
+- [ ] luna-pagination的handlePrev/handleNext函式中的pageLength無法被及時更新，點選後不變
 - [ ]
 - [ ]
 
 ### TODO LATER
+- [ ] filter-btn篩選商品(抓dataLength)
 - [ ] modal-attr查看{dataLength}筆結果
-- [ ] luna-pagination點選時依照page頁數有active樣式
-- [ ] 麵包屑用useRouter抓當下路由，判斷後面的值
+- [ ]
 - [ ]
 - [ ]
 - [ ]
