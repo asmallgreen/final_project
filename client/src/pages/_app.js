@@ -16,20 +16,19 @@ function MyApp({ Component, pageProps }) {
  
   const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
-    // 监听路由的变化
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
     const handleRouteChange = (url) => {
       setIsLoading(true);
-
-      // 在两秒后将 isLoading 设置为 false
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 1000);
     };
 
     router.events.on('routeChangeStart', handleRouteChange);
 
     return () => {
       router.events.off('routeChangeStart', handleRouteChange);
+      clearTimeout(loadingTimeout);
     };
   }, [router]);
 
