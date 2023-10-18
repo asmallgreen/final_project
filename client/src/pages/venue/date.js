@@ -129,7 +129,7 @@ async function fetchVenueReserveData() {
     <>
       <Container>
         <div className='my-5 d-flex justify-content-center'>
-          <img className='' src='/images/venue/場地流程ui-日期選擇.png'></img>
+          <img className='reserve-setp' src='/images/venue/場地流程ui-日期選擇.webp'></img>
         </div>
 
         <div className='reserve-text '>
@@ -180,6 +180,7 @@ async function fetchVenueReserveData() {
                   } 
                   router.push(`/venue/reserve`)
                   }} */}
+          <div className='d-flex justify-content-center '>
           <button
             className='mx-4 mt-2 mb-5 reserve-bt2'
             type='submit'
@@ -204,6 +205,7 @@ async function fetchVenueReserveData() {
           >
             下一步
           </button>
+          </div>
 
         </div>
       </Container>

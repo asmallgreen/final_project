@@ -265,8 +265,8 @@ export default function ReserveDate({ formType, setFormType }) {
 
   return (
     <Container>
-      <div className="m-5 d-flex justify-content-center">
-        <img className="" src="/images/venue/場地流程ui-資料填寫.png" alt="Venue" />
+      <div className="my-5 d-flex justify-content-center">
+        <img src="/images/venue/場地流程ui-資料填寫.webp" className="reserve-setp" alt="Venue" />
       </div>
 
       <div className="reserve-text">
@@ -278,14 +278,14 @@ export default function ReserveDate({ formType, setFormType }) {
         <hr />
 
         <Row>
-          <Form.Group as={Col} md="12" controlId="validationCustom01" className="mb-2">
+          <Form.Group md="12" controlId="validationCustom01" className="mb-2">
             <Form.Label className="mb-0">預約人姓名</Form.Label>
             <Form.Control required type="text" name="reserve_name" onChange={handleChange} />
             <Form.Control.Feedback type="invalid">請輸入姓名</Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="12" xs="5" controlId="validationCustom05" className="mb-2">
+          <Form.Group md="12" xs="5" controlId="validationCustom05" className="mb-2">
             <Row>
-              <Form.Group as={Col} md="12" controlId="validationCustom09" className="mb-2">
+              <Form.Group md="12" controlId="validationCustom09" className="mb-2">
                 <Form.Label className="mb-0">Email</Form.Label>
                 <Form.Control
                   required
@@ -298,7 +298,7 @@ export default function ReserveDate({ formType, setFormType }) {
               </Form.Group>
             </Row>
             <Row>
-              <Form.Group as={Col} md="12" controlId="validationCustom10" className="mb-2">
+              <Form.Group md="12" controlId="validationCustom10" className="mb-2">
                 <Form.Label className="mb-0">手機號碼</Form.Label>
                 <Form.Control
                   required
@@ -310,27 +310,26 @@ export default function ReserveDate({ formType, setFormType }) {
                 <Form.Control.Feedback type="invalid">請輸入手機號碼</Form.Control.Feedback>
               </Form.Group>
             </Row>
-            <Row className="mt-3 d-flex justify-content-center align-items-center">
-              <Form.Group as={Col} md="12" xs="12" className="p-0 text-center" >
-                <Link
-                  type="button"
-                  className="mx-4 mt-2 mb-5 text-decoration-none reserve-bt1  "
-                  href={`/venue/date?id=${id}`}
-                >
-                  <div className='text-center reserve-bn-text'>返回上一步</div>
-                </Link>
-                <button
-                  type="submit"
-                  className="mx-4 mt-2 mb-5 reserve-bt2 "
-                  href={`/venue/check`}
-                  onClick={handleReserveSubmit}
-                >
-                  下一步
-                </button>
-              </Form.Group>
-            </Row>
           </Form.Group>
         </Row>
+        <div className='d-flex justify-content-center'>
+          <a href='/venue/date'>
+            <button
+              className='mx-4 mt-2 mb-5 reserve-bt1'>
+              返回上一步
+            </button>
+          </a>
+          <div className='d-flex justify-content-center '>
+          <button
+            className='mx-4 mt-2 mb-5 reserve-bt2'
+            type='submit'
+            onClick={handleReserveSubmit}
+          >
+            下一步
+          </button>
+          </div>
+
+        </div>
       </div>
     </Container>
   );

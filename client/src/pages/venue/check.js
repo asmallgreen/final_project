@@ -29,8 +29,8 @@ export default function ReserveCheck() {
     return (
         <>
             <Container>
-                <div className='m-5 d-flex justify-content-center'>
-                    <img className='' src='/images/venue/場地流程ui-結帳.png'></img>
+                <div className='mt-3 mb-5 d-flex justify-content-center'>
+                    <img className='reserve-setp' src='/images/venue/場地流程ui-結帳.webp'></img>
                 </div>
 
                 <div className='reserve-text '>
@@ -41,13 +41,16 @@ export default function ReserveCheck() {
                     </div>
                     <hr></hr>
 
-                    <div className='my-5'>
-                        <div className='display-6 d-flex justify-content-center check-title'>
+                    <div className='my-5 d-flex flex-column align-items-center justify-content-center'>
+                        <div className='display-6 check-title'>
                             <div>感謝預約</div>
                         </div>
-                        <div className='h4 m-5 d-flex justify-content-center'>
-                            <p>已完成預約，詳情可至會員中心查看</p>
+                        {/* <div className='h4 mt-5'>
+                            <p>已完成預約</p>
                         </div>
+                        <div className='h4'>
+                            <p>詳情可至會員中心查看</p>
+                        </div> */}
                     </div>
 
                 </div>

@@ -1,7 +1,11 @@
 .reserve-text{
-    width: 700px;
-    margin: 0 auto;
-}
+    // width: 700px;
+    // margin: 0 auto;
+    @media (max-width: 768px) {
+        width: 100%;
+    }
+        
+    }
 .reserve-bn-text{
     line-height: 50px;
 }
@@ -15,6 +19,10 @@
         border-style: solid;
         background-color: #FFFCF3;
         border-color: #616153;
+        @media (max-width: 768px) {
+            width: 130px;
+            height: 40px;
+        }
     }
 .reserve-bt2{
         width: 200px;
@@ -24,5 +32,17 @@
         border-style: solid;
         background-color: #616153;
         border-color: #616153;
+        @media (max-width: 768px) {
+            width: 130px;
+            height: 40px;
+        }
         
     }
+
+@media (max-width: 768px) {
+    .reserve-setp {
+        max-width: 100%;
+    }
+}
+
+

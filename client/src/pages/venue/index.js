@@ -30,13 +30,12 @@ export default function Venue() {
                 <h5 className="dojo-name">{venue.venue_name}</h5>
               </div>
               <Link
+                className='in_img'
                 type="button"
                 href={`/venue/date?id=${venue.id}`}
               >
                 <img src={`/images/venue/${venue.venue_img}`}
-                  onLoad={() => {
-                    // 图像已加载，可以执行一些操作，例如重新排列组件
-                  }}
+                  className="responsive-image"
                 />
               </Link>
             </div>
