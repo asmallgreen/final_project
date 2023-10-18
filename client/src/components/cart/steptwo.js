@@ -38,6 +38,9 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
   const detectOnlyCourse = items.filter((item) => item.product_id === null && item.isChecked === true);
   const detectNullProduct = items.filter((item) => item.course_id === null && item.isChecked === true);
 
+  const detectCourse = items.filter((item) => item.course_id != null && item.isChecked === true )
+
+  console.log("detect課程",detectCourse)
 
   const handleNewOrder = async () => {
     try {
@@ -79,10 +82,12 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
             value="cashOn"
             checked={selectedOption === 'cashOn'}
             onChange={handleOptionChange}
-            disabled={detectOnlyCourse.length > 0 && detectNullProduct.length == 0 ? true : false}
-            className={`${detectOnlyCourse.length > 0 && detectNullProduct.length == 0 ? 'opacity50' : ""}`}
+            disabled={ detectCourse.length >0 ? true : false}
+            
           />
-          <span>{` 宅配 貨到付款（限台灣本島）`}</span>
+          <span
+          className={`${detectCourse.length >0 ? 'opacity50' : ""}`}
+          >{` 宅配 貨到付款（限台灣本島）`}</span>
         </label>
         <CreditCard selectedOption={selectedOption} setCardState={setCardState} />
       </div>
