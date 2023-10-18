@@ -1,5 +1,26 @@
+.idh{
+    height: 1100px;
+    @media (max-width: 768px) {
+        .responsive-image {
+            max-width: 100%;
+        }
+        
+    }
+}
+@media (max-width: 768px) {
+    .idh {
+        height: 520px;
+    }
+}
+
 .dojo-name{
     margin-left: 6px;
     margin-bottom: 10px;
 }
 
+
+// @media (max-width: 768px) {
+//     .responsive-image {
+//         max-width: 100%;
+//     }
+// }

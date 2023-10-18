@@ -41,9 +41,6 @@ export const CartProvider = ({
   //state.items = cartList
   // console.log(state)
   const setChecked = async (id,isChecked) => {
-   
-    console.log(id)
-    console.log(isChecked)
     
     dispatch({ type: 'SET_CHECKED', payload: {id,isChecked} })
 
