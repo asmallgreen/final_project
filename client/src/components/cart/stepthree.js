@@ -13,7 +13,7 @@ export default function StepThree({ setstepType, discountPrice, discountAmount, 
 
   const [inputState, setInputState] = useState(false)
 
-  const [accordionState, setAccordionState] = useState(false)
+  const [accordionState, setAccordionState] = useState(true)
 
   const handleSetInputState = () => {
     setInputState(!inputState)

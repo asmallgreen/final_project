@@ -13,14 +13,14 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
 
   const { cart, items } = useCart();
 
-  const [accordionState, setAccordionState] = useState(false)
+  const [accordionState, setAccordionState] = useState(true)
 
   const [cardState, setCardState] = useState([]);
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
 
-    console.log(selectedOption)
+    //console.log(selectedOption)
   };
 
 
@@ -33,7 +33,7 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
 
   };
 
-  console.log(cardState)
+  //console.log(cardState)
 
   const detectOnlyCourse = items.filter((item) => item.product_id === null && item.isChecked === true);
   const detectNullProduct = items.filter((item) => item.course_id === null && item.isChecked === true);
@@ -72,7 +72,7 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
           />
           <span>{` 宅配 信用卡/金融卡付款（購買課程限此付款方式）`}</span>
         </label>
-        <label className='customCheckbox'>
+        <label className="customCheckbox">
           <input
             type="checkbox"
             name="choice"
@@ -80,6 +80,7 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
             checked={selectedOption === 'cashOn'}
             onChange={handleOptionChange}
             disabled={detectOnlyCourse.length > 0 && detectNullProduct.length == 0 ? true : false}
+            className={`${detectOnlyCourse.length > 0 && detectNullProduct.length == 0 ? 'opacity50' : ""}`}
           />
           <span>{` 宅配 貨到付款（限台灣本島）`}</span>
         </label>
@@ -124,7 +125,7 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
           className='nextStepBtn fs-5 d-sm-block d-none'
           onClick={() => {
 
-            if ((selectedOption === 'credit' || !detectCard) == true) {
+            if (selectedOption === 'credit' && detectCard=== true) {
 
               Swal.fire({
                 icon: 'error',

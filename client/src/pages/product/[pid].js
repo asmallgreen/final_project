@@ -55,11 +55,15 @@ function Pid() {
     // // setActiveValues(Values);
     // console.log("調換後"+Values)
 
-
+    if(Values.length<3){
+      setActiveValues("")
+    }else{
     const str = Values.map((obj) => obj).join(',')
-
     setActiveValues(str)
     console.log("activeValues"+activeValues)
+    }
+
+    
   };
 
   // 購物車專用

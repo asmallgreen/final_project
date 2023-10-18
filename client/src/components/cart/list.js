@@ -20,7 +20,7 @@ export default function List({ mode, setCartProductDtl, setCartOriginDtl }) {
 
   const handleSelectChange = (event, productId, index, arr) => {
     const newValue = event.target.value;
-    console.log(arr);
+
     setProductDtl((prevValues) => ({
       ...prevValues,
       [productId]: {
@@ -32,7 +32,7 @@ export default function List({ mode, setCartProductDtl, setCartOriginDtl }) {
 
       }
     }));
-    console.log('productDtL' + productDtl)
+
     setCartProductDtl(productDtl)
   };
 
@@ -41,7 +41,7 @@ export default function List({ mode, setCartProductDtl, setCartOriginDtl }) {
       const { name, product_detail } = v
       const newObject = { name, product_detail };
       setOriginDtl([...originDtl, newObject]);
-      console.log('originDtl' + originDtl) //物件陣列
+      
       setCartOriginDtl(originDtl)
     }
   }
@@ -101,7 +101,7 @@ export default function List({ mode, setCartProductDtl, setCartOriginDtl }) {
           let temArr = aaa.split(',')
           arr = temArr
         }
-        console.log(arr)
+       // console.log(arr)
 
 
         return (

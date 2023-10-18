@@ -201,8 +201,9 @@ router.post('/NewOrder', async (req, res) => {
         const newOrder = result
 
         
-        // const result2 = await executeQuery(`DELETE FROM shopping_cart WHERE member_id = ?`, [row.member_id]);
-        // const deleteCart = result2
+        
+
+
         for (let i = 0; i < items.length; i++) {
 
             items[i].course_id == null ? items[i].course_id = 0 : items[i].course_id = items[i].course_id
@@ -226,6 +227,10 @@ router.post('/NewOrder', async (req, res) => {
             const newOrderDtl = result3
 
         }
+
+        const result2 = await executeQuery(`DELETE FROM shopping_cart WHERE member_id = ?`, [row.member_id]);
+        const deleteCart = result2
+        
         return res.json({
             message: "search success",
             code: "200",

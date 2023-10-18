@@ -35,7 +35,7 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
       axios.post('http://localhost:3005/cart/MemberCoupon', { memberId })
         .then((res) => {
           setMemberCoupon(res.data.memberCoupon)
-          console.log(res.data.memberCoupon)
+          //console.log(res.data.memberCoupon)
           // console.log('這是res', res.data)
 
         })
@@ -60,22 +60,21 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
 
   const handleSelectChange = (event) => {
     const selectedOptionValue = event.target.value; // 获取选中的<option>的值
-    console.log("這是最外層",selectedOptionValue)
+
     setCouponId(selectedOptionValue); // 更新状态变量的值
 
 
     if (selectedOptionValue != 0) {
       const newCouponId = memberCoupon.find((v) => Number(v.coupon_id) == selectedOptionValue)
 
-      console.log("if外面",newCouponId)
+
       // // const newCouponId = memberCoupon.find((v) => Number(v.coupon_id) == selectedOptionValue
       // )
 
       if (newCouponId.type == 1 ) {
-        console.log("if李面",newCouponId)
+
         setSelectedValue(newCouponId.discount / 10);
-        console.log("這是status",newCouponId.status)
-        console.log(selectedValue)
+       
       } else if (newCouponId.type == 2 ) {
         setSelectedValue(newCouponId.discount);
       }

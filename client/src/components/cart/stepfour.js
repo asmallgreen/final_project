@@ -20,7 +20,7 @@ export default function StepThree({ setstepType, discountPrice, payment, discoun
 
   const { authJWT, setAuthJWT } = useAuthJWT()
 
-  const [accordionState, setAccordionState] = useState(false)
+  const [accordionState, setAccordionState] = useState(true)
 
   const handleSummit = () => {
     axios.post('http://localhost:3005/cart/NewOrder/',
@@ -60,16 +60,19 @@ export default function StepThree({ setstepType, discountPrice, payment, discoun
         confirmButton: 'custom-confirm-button-class'
       },
       confirmButtonText: '關閉',
+      
 
     });
     handleSummit()
 
   }
   function didSwalClose() {
-    setSwalProps({
-      show: false,
-    })
+    const didClose = () => {
+      window.location.href = 'http://localhost:3000/product';
+    };
+    didClose();
   }
+  
 
 
   // const [smShow, setSmShow] = useState(false);
