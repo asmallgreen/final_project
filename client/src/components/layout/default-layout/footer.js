@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useProductCart } from "@/hooks/use-product-cart";
+import { useCourseCart } from "@/hooks/use-course-cart";
 
 //fontawesome
 import { FaLocationDot, FaCopyright } from "react-icons/fa6";
@@ -11,6 +13,22 @@ import {
   faHeart,
 } from "@fortawesome/free-solid-svg-icons";
 export default function Footer() {
+  const { productCart } = useProductCart();
+  const { courseCart } = useCourseCart();
+  const [cartItems, setCartItems] = useState(0);
+
+  const badge =
+    cartItems > 0 ? (
+      <span className="notify position-absolute top-0 rounded-circle">
+        {cartItems}
+      </span>
+    ) : null;
+
+  useEffect(() => {
+    const totalItems = productCart.totalItems + courseCart.totalItems;
+    setCartItems(totalItems);
+  }, [productCart.totalItems, courseCart.totalItems]);
+
   return (
     <>
       {/* 電腦footer */}
@@ -52,9 +70,7 @@ export default function Footer() {
             icon={faShoppingCart}
             className="fa-solid fa-2xl fa-cart-shopping"
           ></FontAwesomeIcon>
-          <span className="notify position-absolute top-0 rounded-circle">
-            5
-          </span>
+          {badge}
           購物車
         </div>
 

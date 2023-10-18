@@ -62,6 +62,7 @@ export default function StepTwo({ setstepType, setNetTotal }) {
             value="宅配貨到付款"
             checked={selectedOption === "宅配貨到付款"}
             onChange={handleOptionChange}
+            disabled={courseCart.totalItems > 0}
           />
           <span>{` 宅配 貨到付款（限台灣本島）`}</span>
         </label>

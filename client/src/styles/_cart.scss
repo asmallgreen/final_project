@@ -784,6 +784,11 @@
     background: url("/Ciro/checked.png") no-repeat left top;
 }
 
+.customCheckbox input[disabled] + span {
+    color: #dbdbdb;
+    cursor: not-allowed; 
+  }
+
 .order {
     display: flex;
     flex-direction: column;
