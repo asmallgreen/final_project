@@ -39,10 +39,20 @@
         
     }
 
-@media (max-width: 768px) {
-    .reserve-setp {
-        max-width: 100%;
+.reserve-setp {
+    @media (max-width: 768px) {
+    
+        display: none;
     }
+    
+}
+.setp-m {
+    display: none; /* 默认情况下显示元素 */
 }
 
-
+@media (max-width: 768px) {
+    .setp-m {
+        max-width: 100%;
+        display: block; /* 当屏幕宽度小于768px时隐藏元素 */
+    }
+}

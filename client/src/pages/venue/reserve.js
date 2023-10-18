@@ -161,6 +161,13 @@ export default function ReserveDate({ formType, setFormType }) {
   //     history.push('/venue/date');
   // };
 
+  const handleReserveGoback = () => {
+    localStorage.setItem('selectedDates', selectedDates);
+    localStorage.setItem('venuePosition', venuePosition);
+    localStorage.setItem('venueName', venueName);
+
+    router.push(`/venue/date`);
+  }
 
   // 表單提交時檢查input並用try catch寫入資料庫
   const handleReserveSubmit = async (e) => {
@@ -266,7 +273,8 @@ export default function ReserveDate({ formType, setFormType }) {
   return (
     <Container>
       <div className="my-5 d-flex justify-content-center">
-        <img src="/images/venue/場地流程ui-資料填寫.webp" className="reserve-setp" alt="Venue" />
+        <img src="/images/venue/場地流程ui-2.webp" className="reserve-setp" alt="Venue" />
+        <img className='reserve-setp setp-m' src='/images/venue/場地流程ui-2-m.webp'></img>
       </div>
 
       <div className="reserve-text">
@@ -315,7 +323,9 @@ export default function ReserveDate({ formType, setFormType }) {
         <div className='d-flex justify-content-center'>
           <a href='/venue/date'>
             <button
-              className='mx-4 mt-2 mb-5 reserve-bt1'>
+              className='mx-4 mt-2 mb-5 reserve-bt1'
+              onClick={handleReserveGoback}
+              >
               返回上一步
             </button>
           </a>
@@ -328,7 +338,6 @@ export default function ReserveDate({ formType, setFormType }) {
             下一步
           </button>
           </div>
-
         </div>
       </div>
     </Container>

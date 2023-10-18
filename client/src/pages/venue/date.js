@@ -129,7 +129,8 @@ async function fetchVenueReserveData() {
     <>
       <Container>
         <div className='my-5 d-flex justify-content-center'>
-          <img className='reserve-setp' src='/images/venue/場地流程ui-日期選擇.webp'></img>
+          <img className='reserve-setp' src='/images/venue/場地流程ui-1.webp'></img>
+          <img className='reserve-setp setp-m' src='/images/venue/場地流程ui-1-m.webp'></img>
         </div>
 
         <div className='reserve-text '>
@@ -193,8 +194,6 @@ async function fetchVenueReserveData() {
                 localStorage.setItem('id', id);
                 localStorage.setItem('venuePosition', VenueData.venue_position);
                 localStorage.setItem('venueName', VenueData.venue_name);
-
-
 
                 router.push(`/venue/reserve`);
               } else {

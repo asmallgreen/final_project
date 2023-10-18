@@ -12,16 +12,13 @@ export default function ReserveCheck() {
 
 
     useEffect(() => {
-        const sd = localStorage.getItem('selectedDates');
-        const id = localStorage.getItem('id');
         const venuePosition = localStorage.getItem('venuePosition');
         const venueName = localStorage.getItem('venueName');
         const selectedDatesString = localStorage.getItem('selectedDates');
         const selectedDatesArray = selectedDatesString.split(',');
         console.log(selectedDatesArray);
     
-        setSelectedDates(sd)
-        // setId(id)
+
         setVenuePosition(venuePosition)
         setVenueName(venueName)
       }, [])
@@ -30,7 +27,8 @@ export default function ReserveCheck() {
         <>
             <Container>
                 <div className='mt-3 mb-5 d-flex justify-content-center'>
-                    <img className='reserve-setp' src='/images/venue/場地流程ui-結帳.webp'></img>
+                    <img className='reserve-setp setp-3' src='/images/venue/場地流程ui-3.webp'></img>
+                    <img className='reserve-setp setp-m' src='/images/venue/場地流程ui-3-m.webp'></img>
                 </div>
 
                 <div className='reserve-text '>
