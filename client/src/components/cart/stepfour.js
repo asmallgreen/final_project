@@ -57,15 +57,12 @@ export default function StepThree({ setstepType, discountPrice, payment, discoun
       text: '訂購已完成 感謝您的訂購',
       imageUrl: 'Ciro/modalImg.png',
       customClass: {
-      customClass: {
         confirmButton: 'custom-confirm-button-class'
       },
       confirmButtonText: '關閉',
       
 
     });
-    handleSummit()
-
     handleSummit()
 
   }
@@ -116,26 +113,20 @@ export default function StepThree({ setstepType, discountPrice, payment, discoun
           <Form className='orderInfo'>
             <div className='payTypeInput m-2'>
               <Form.Control type='text' value={payment === 'cashON' ? '宅配 貨到付款（限台灣本島）' : '金融卡付款（購買課程限此付款方式）'} disabled />
-              <Form.Control type='text' value={payment === 'cashON' ? '宅配 貨到付款（限台灣本島）' : '金融卡付款（購買課程限此付款方式）'} disabled />
             </div>
             <div className='m-2'>
-              <Form.Control type='text' value={authJWT.memberData.address} disabled />
               <Form.Control type='text' value={authJWT.memberData.address} disabled />
             </div>
           </Form>
         </div>
-        <div>
         <div>
           <p className='ordererTitle'>收件人資訊</p>
           <Form className='orderInfo'>
             <div className='cartMemberInfo'>
               <Form.Control type='text' value={orderName} disabled />
               <Form.Control type='text' value={orderPhone} disabled />
-              <Form.Control type='text' value={orderName} disabled />
-              <Form.Control type='text' value={orderPhone} disabled />
             </div>
             <div className='m-2'>
-              <Form.Control type='text' value={orderAddress} disabled />
               <Form.Control type='text' value={orderAddress} disabled />
             </div>
           </Form>

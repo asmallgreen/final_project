@@ -6,7 +6,7 @@ import CreditCard from './creditCard'
 import OrderList from './orderList'
 import Swal from "sweetalert2";
 
-export default function StepTwo({ setstepType, discountPrice, discountAmount, setPayment  , discountPrice ,discountAmount, setPayment }) {
+export default function StepTwo({ setstepType, discountPrice, discountAmount, setPayment }) {
   const [selectedOption, setSelectedOption] = useState('');
 
   const [cardSelectedOption, setCardSelectedOption] = useState('')
@@ -16,8 +16,6 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
   const [accordionState, setAccordionState] = useState(true)
 
   const [cardState, setCardState] = useState([]);
-
-
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
@@ -72,7 +70,6 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
             name="choice"
             value="credit"
             checked={selectedOption === 'credit'}
-            
             onChange={handleOptionChange}
 
           />
@@ -84,7 +81,6 @@ export default function StepTwo({ setstepType, discountPrice, discountAmount, se
             name="choice"
             value="cashOn"
             checked={selectedOption === 'cashOn'}
-           
             onChange={handleOptionChange}
             disabled={ detectCourse.length >0 ? true : false}
             
