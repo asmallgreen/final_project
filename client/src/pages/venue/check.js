@@ -12,13 +12,15 @@ export default function ReserveCheck() {
 
 
     useEffect(() => {
+    const sd = localStorage.getItem('selectedDates');
+
         const venuePosition = localStorage.getItem('venuePosition');
         const venueName = localStorage.getItem('venueName');
         const selectedDatesString = localStorage.getItem('selectedDates');
         const selectedDatesArray = selectedDatesString.split(',');
         console.log(selectedDatesArray);
     
-
+        setSelectedDates(sd)
         setVenuePosition(venuePosition)
         setVenueName(venueName)
       }, [])
