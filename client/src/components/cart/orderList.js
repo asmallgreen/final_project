@@ -24,9 +24,9 @@ export default function OrderList({ discountPrice, discountAmount, accordionStat
                         .sort((a, b) => a.product_price - b.product_price)
                         .map((item, index) => (
                             <div key={index} className='py-2 itemDetail d-flex align-items-center'>
-                                <div className='orderItem d-flex justify-content-around w-100' >
-                                    <Col className='orderItemImg'>
-                                        <img src={item.product_img} alt="" />
+                                <div className='orderItem d-flex justify-content-around w-100 align-items-center' >
+                                    <Col className='orderItemImg d-flex justify-content-center'>
+                                        <img src={item.image} alt="" className='w-25 text-center  ' />
                                     </Col>
                                     <Col className='orderItemName d-flex justify-content-center'>{item.name}&nbsp;</Col>
                                     <Col className='orderItemPrice d-flex justify-content-center'>$ {item.price}</Col>

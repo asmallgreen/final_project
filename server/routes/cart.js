@@ -193,7 +193,7 @@ router.post('/NewOrder', async (req, res) => {
     const row = req.body
     const sql = `INSERT INTO order_list (member_id,order_id,payment,order_date,subtotal,receive_name,receive_phone,receive_add,coupon_id) VALUES (?,?,?,?,?,?,?,?,?)`
 
-    const sql2 = `INSERT INTO order_detail (order_id,product_id,course_id,quantity,price,product_detail1,product_detail2,product_detail3) VALUES (?,?,?,?,?,?,?,?)`
+    const sql2 = `INSERT INTO order_detail (order_id,product_id,course_id,quantity,price,product_detail1,product_detail2,product_detail3,img,name) VALUES (?,?,?,?,?,?,?,?,?,?)`
 
     const items = req.body.items
     try {
@@ -222,7 +222,7 @@ router.post('/NewOrder', async (req, res) => {
             }
 
 
-            const result3 = await pool.query(sql2, [row.order_id, items[i].product_id, items[i].course_id, items[i].quantity, items[i].price , prodDtl1, prodDtl2, prodDtl3])
+            const result3 = await pool.query(sql2, [row.order_id, items[i].product_id, items[i].course_id, items[i].quantity, items[i].price , prodDtl1, prodDtl2, prodDtl3,items[i].image,items[i].name])
 
             const newOrderDtl = result3
 
