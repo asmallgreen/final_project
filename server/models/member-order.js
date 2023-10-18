@@ -38,4 +38,9 @@ import {
       return result.rows;
     }
 
-    export { getMemberOrder,getSepcOrder,getProductOrder,getCourseOrder };
+    const getDetailOrder = async (where) => {
+      const  result  = await find("order_detail", where);
+      return result.rows;
+    }
+
+    export { getMemberOrder,getSepcOrder,getProductOrder,getCourseOrder,getDetailOrder };

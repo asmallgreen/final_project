@@ -40,24 +40,42 @@ export default function OrderDetail() {
     });
   },[oid])
 
-  //訂單細節資料
-  useEffect(() => {
-      axios
-      .get(`http://localhost:3005/memberDashboard/FindOrderDetail?orderId=${oid}`)
-      .then((response) => {
-        const orderDetail = response.data;
-        const productOrderDetail = response.data.productOrderDetail;
-        const courseOrderDetail = response.data.courseOrderDetail
-        setDetailData(orderDetail);
-        setProductDetail(productOrderDetail);
-        setCourseDetail(courseOrderDetail);
-        // console.log(productDetail)
-      })
-      .catch((error) => {
-        console.error("前端請求訂單詳情錯誤:", error);
-      });
-    },[oid])
+  // //舊訂單細節資料
+  // useEffect(() => {
+  //     axios
+  //     .get(`http://localhost:3005/memberDashboard/FindOrderDetail?orderId=${oid}`)
+  //     .then((response) => {
+  //       const orderDetail = response.data;
+  //       const productOrderDetail = response.data.productOrderDetail;
+  //       const courseOrderDetail = response.data.courseOrderDetail
+  //       setDetailData(orderDetail);
+  //       setProductDetail(productOrderDetail);
+  //       setCourseDetail(courseOrderDetail);
+  //       // console.log(productDetail)
+  //     })
+  //     .catch((error) => {
+  //       console.error("前端請求訂單詳情錯誤:", error);
+  //     });
+  //   },[oid])
 
+  //新訂單細節資料
+    useEffect(() => {
+      axios
+      .get(`http://localhost:3005/memberDashboard/FindDetailOrder?orderId=${oid}`)
+      .then((response) => {
+      const detailOrder = response.data.detailOrder;
+
+      const productOrderDetail = detailOrder.filter((detail) => detail.product_id !== "0");
+      const courseOrderDetail = detailOrder.filter((detail) => detail.course_id !== "0");
+
+      setDetailData(detailOrder);
+      setProductDetail(productOrderDetail);
+      setCourseDetail(courseOrderDetail);
+
+      console.log(productOrderDetail)
+      console.log(courseOrderDetail)
+      })
+    },[oid])
   return (
     <>
       <Row className="member-order-detail">
@@ -120,17 +138,17 @@ export default function OrderDetail() {
                           <div>
                             <div className="row text-center align-items-center">
                               <div className="col">
-                              <img src={order.product_img} 
-                                alt={order.product_img} 
+                              <img src={order.img} 
+                                alt={order.img} 
                               />
                               </div>
-                              <div className="col">{order.product_name}</div>
+                              <div className="col">{order.name}</div>
                               <div className="col">{order.price}</div>
                               <div className="col">{order.quantity}</div>
                               <div className="col">
-                                <div>{order.detail_1}</div>
-                                <div>{order.detail_2}</div>
-                                <div>{order.detail_3}</div>
+                                <div>{order.product_detail1}</div>
+                                <div>{order.product_detail2}</div>
+                                <div>{order.product_detail3}</div>
                               </div>
                               <div className="col">{order.price * order.quantity}</div>
                             </div>
@@ -160,10 +178,10 @@ export default function OrderDetail() {
                   {productDetail.map((order, index) => (
                     <div className="row align-items-center py-3">
                       <div className="col-4 text-center">
-                        <img src={order.product_img} alt={order.product_img}/>
+                        <img src={order.img} alt={order.img}/>
                       </div>
                       <div className="col-5">
-                        <div className="order-title">{order.product_name}</div>
+                        <div className="order-title">{order.name}</div>
                         <div className="order-contain">{order.price}</div>
                       </div>
                       <div className="col-3">{order.quantity}</div>
@@ -208,9 +226,9 @@ export default function OrderDetail() {
                         header={(
                           <div>
                             <div className="row text-center align-items-center">
-                              <div className="col-4"><img src={order.course_img} alt={order.course_img}/>
+                              <div className="col-4"><img src={order.img} alt={order.mg}/>
                               </div>
-                              <div className="col-4">{order.course_name}</div>
+                              <div className="col-4">{order.name}</div>
                               <div className="col-4">{order.price}</div>
                             </div>
                           </div>
@@ -239,10 +257,10 @@ export default function OrderDetail() {
                 {courseDetail.map((order, index) => (
                     <div className="row align-items-center py-3">
                       <div className="col-4 text-center">
-                        <img src={order.course_img} alt={order.course_img} />
+                        <img src={order.course_img} alt={order.mg} />
                       </div>
                       <div className="col-5">
-                        <div className="order-title">{order.course_name}</div>
+                        <div className="order-title">{order.name}</div>
                         <div className="order-contain">{order.price}</div>
                       </div>
                     </div>

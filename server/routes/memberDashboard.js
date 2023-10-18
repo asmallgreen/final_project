@@ -5,7 +5,7 @@ import pool from '../config/db.js';
 
 import moment from 'moment';
 
-import { getMemberOrder,getSepcOrder,getProductOrder,getCourseOrder } from '../models/member-order.js'
+import { getMemberOrder,getSepcOrder,getProductOrder,getCourseOrder,getDetailOrder } from '../models/member-order.js'
 import { getLimitCoupon } from '../models/coupon-list.js'
 
 //測試路由
@@ -319,6 +319,27 @@ router.get('/FindOrderDetail', async (req, res) => {
     }
 
 })
+
+router.get('/FindDetailOrder', async (req, res) => {
+    const where = {order_id:req.query.orderId};
+    const detailOrder = await getDetailOrder(where);
+
+    try{
+        return res.json({
+            message: `Find order detail ${req.query.orderId} success`,
+            code: "200",
+            detailOrder
+        });
+    }catch (error){
+        console.error('DB搜尋訂單詳情錯誤', error);
+        return res.status(500).json({
+            message: "Find order detail error",
+            code: "500"
+        });
+    }
+
+})
+
 
 
 export default router
