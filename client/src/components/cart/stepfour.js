@@ -1,28 +1,78 @@
 import React, { useState } from 'react';
 import { Col, Form } from 'react-bootstrap';
 import SweetAlert2 from 'react-sweetalert2';
+import { useCart } from '@/hooks/use-cart';
+import { useAuthJWT } from '@/hooks/use-auth-jwt';
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment';
+import OrderList from './orderList'
 
-export default function StepThree({ setstepType }) {
+
+export default function StepThree({ setstepType, discountPrice, payment, discountAmount, orderName, orderPhone, orderAddress, cartCouponId, cartOriginDtl, cartProductDtl }) {
+
+
+  const currentDate = moment().format('YYYY-MM-DD HH:mm:ss');
+
+  const { cart, items } = useCart();
 
   const [swalProps, setSwalProps] = useState({});
+
+  const { authJWT, setAuthJWT } = useAuthJWT()
+
+  const [accordionState, setAccordionState] = useState(true)
+
+  const handleSummit = () => {
+    axios.post('http://localhost:3005/cart/NewOrder/',
+      {
+        member_id: authJWT.memberData.id,
+        order_id: uuidv4(),
+        payment: payment,
+        subtotal: discountPrice + cart.courseTotal,
+        receive_name: orderName,
+        receive_phone: orderPhone,
+        receive_add: orderAddress,
+        order_date: currentDate,
+        // course_id:items.course_id,
+        // product_id:items.product_id,
+        // quantity:items.quantity,
+        // price:items.price,
+        // itemTotal:items.itemTotal,
+        // itemName:items.name,
+        items: items,
+        coupon_id: cartCouponId,
+
+      })
+      .then(response => {
+        console.log(response);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
 
   function handleClick() {
     setSwalProps({
       show: true,
       text: '訂購已完成 感謝您的訂購',
       imageUrl: 'Ciro/modalImg.png',
-      customClass:{
+      customClass: {
         confirmButton: 'custom-confirm-button-class'
       },
-      confirmButtonText:'關閉',
+      confirmButtonText: '關閉',
+      
 
     });
+    handleSummit()
+
   }
   function didSwalClose() {
-    setSwalProps({
-      show:false,
-    })
+    const didClose = () => {
+      window.location.href = 'http://localhost:3000/product';
+    };
+    didClose();
   }
+  
 
 
   // const [smShow, setSmShow] = useState(false);
@@ -62,70 +112,75 @@ export default function StepThree({ setstepType }) {
           <p className='ordererTitle'>付款資訊</p>
           <Form className='orderInfo'>
             <div className='payTypeInput m-2'>
-              <Form.Control type='text' placeholder='付款方式' disabled />
+              <Form.Control type='text' value={payment === 'cashON' ? '宅配 貨到付款（限台灣本島）' : '金融卡付款（購買課程限此付款方式）'} disabled />
             </div>
             <div className='m-2'>
-              <Form.Control type='text' placeholder='地址' />
+              <Form.Control type='text' value={authJWT.memberData.address} disabled />
             </div>
           </Form>
         </div>
-        <div className='mb-5'>
+        <div>
           <p className='ordererTitle'>收件人資訊</p>
           <Form className='orderInfo'>
             <div className='cartMemberInfo'>
-              <Form.Control type='text' placeholder='姓名*' disabled />
-              <Form.Control type='text' placeholder='手機*' disabled />
+              <Form.Control type='text' value={orderName} disabled />
+              <Form.Control type='text' value={orderPhone} disabled />
             </div>
             <div className='m-2'>
-              <Form.Control type='text' placeholder='配送地址' disabled />
+              <Form.Control type='text' value={orderAddress} disabled />
             </div>
           </Form>
         </div>
-        <div className="orderTitle">
-          <Col xs={1} ><span>+</span></Col>
-          <Col xs={10} className='fs-4'>訂單明細</Col>
-          <Col xs={1}><span>+</span></Col>
-        </div>
-        <div>
-          <div className='order'>
-            <div className='fs-5'>{`共 件商品`}&nbsp;{`$`}</div>
-            <div className='fs-5'>{`共 堂課程`}&nbsp;{`$`}</div>
-            <br />
-            <div className='fs-5'>{`優惠券折抵`}&nbsp;{`-$`}</div>
-          </div>
-          <div className='line'></div>
-          <div className='orderTotal fs-5'>
-            {`金額總計 `}&nbsp;<span>{`$ `}{` `}</span>
-          </div>
-        </div>
-        <div className='stepBtnGroup'>
-          <button
-            className='nextStepBtn fs-5 opacity-50 d-lg-block d-none'
-            onClick={() => {
-              sendData(3);
 
-            }}>返回訂單資料</button>
 
-          <button
-            className='nextStepBtn fs-5 opacity-50 d-sm-none d-block'
-            onClick={() => {
-              sendData(3);
+      </div>
+      <div
+        className="orderTitle"
 
-            }}>上一步</button>
-
-          <button
-            className='nextStepBtn fs-5 d-sm-block d-none'
-            onClick={handleClick
-            }>確認送出</button>
-
-          <button
-            className='nextStepBtn fs-5 d-sm-none d-block'
-            onClick={handleClick
-            }>
-            確認送出
+      >
+        <Col className=''>
+          <button 
+          className='btn d-flex justify-content-between w-100'
+          onClick={()=>{
+            setAccordionState(!accordionState)
+          }}
+          >
+            <span>+</span>
+            <span>訂單明細</span>
+            <span>+</span>
           </button>
-          <SweetAlert2 {...swalProps} didClose={didSwalClose} />
-        </div>
+        </Col>
+
+      </div>
+      
+      <OrderList discountPrice={discountPrice} discountAmount={discountAmount} accordionState={accordionState}/>
+      <div className='stepBtnGroup'>
+        <button
+          className='nextStepBtn fs-5 opacity-50 d-lg-block d-none'
+          onClick={() => {
+            sendData(3);
+
+          }}>返回訂單資料</button>
+
+        <button
+          className='nextStepBtn fs-5 opacity-50 d-sm-none d-block'
+          onClick={() => {
+            sendData(3);
+
+          }}>上一步</button>
+
+        <button
+          className='nextStepBtn fs-5 d-sm-block d-none'
+          onClick={handleClick
+          }>確認送出</button>
+
+        <button
+          className='nextStepBtn fs-5 d-sm-none d-block'
+          onClick={handleClick
+          }>
+          確認送出
+        </button>
+        <SweetAlert2 {...swalProps} didClose={didSwalClose} />
       </div>
     </div>
   )

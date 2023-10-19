@@ -14,9 +14,13 @@ export default function FilterProductCard(props) {
     <>
       <div className="card">
         <div className="img position-relative">
-          <img src={filterProduct.img1}></img>
+          <img src={filterProduct.img1}  alt=""></img>
           <div className="tag position-absolute">NEW</div>
-          <button className="p-0 position-absolute">
+          <button className="p-0 position-absolute"
+          >
+          {/* {is_favorite  ? */}
+          {/* <FontAwesomeIcon icon={faHeart} className="fa-heart" />:
+          <FontAwesomeIcon icon={farHeart} className="far-heart" />} */}
             <FontAwesomeIcon icon={faHeart} className="fa-heart" />
             <FontAwesomeIcon icon={farHeart} className="far-heart" />
           </button>

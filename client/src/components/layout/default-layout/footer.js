@@ -1,5 +1,5 @@
 import React from "react";
-
+import Link from "next/link";
 //fontawesome
 import { FaLocationDot, FaCopyright } from "react-icons/fa6";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -40,14 +40,14 @@ export default function Footer() {
       </div>
       {/* 手機bottom */}
       <div className="bottom-btn">
-        <div className="btn home d-flex justify-content-center">
+        <Link href='/' className="btn home d-flex justify-content-center">
           <div>
             <img className="logo-img2" src="/layout/logo2-img-green.svg" />
             <img className="logo-img " src="/layout/logo-img.svg" />
           </div>
           <div>首頁</div>
-        </div>
-        <div className="btn position-relative">
+        </Link>
+        <Link href='/cart' className="btn position-relative">
           <FontAwesomeIcon
             icon={faShoppingCart}
             className="fa-solid fa-2xl fa-cart-shopping"
@@ -56,9 +56,9 @@ export default function Footer() {
             5
           </span>
           購物車
-        </div>
+        </Link>
 
-        <div className="btn fav position-relative">
+        <Link href='/member/fav-product' className="btn fav position-relative">
           <FontAwesomeIcon
             icon={faHeart}
             className="fa-solid fa-2xl fa-heart"
@@ -67,21 +67,21 @@ export default function Footer() {
             3
           </span>
           收藏
-        </div>
-        <div className="btn search">
+        </Link>
+        <Link href='/member/order-list' className="btn search">
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
             className="fa-solid fa-2xl fa-magnifying-glass"
           ></FontAwesomeIcon>
-          搜尋
-        </div>
-        <div className="btn member">
+          訂單
+        </Link>
+        <Link href='/member' className="btn member">
           <FontAwesomeIcon
             icon={faUser}
             className="fa-solid fa-2xl fa-user"
           ></FontAwesomeIcon>
           會員
-        </div>
+        </Link>
       </div>
     </>
   );

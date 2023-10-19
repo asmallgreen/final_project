@@ -21,7 +21,7 @@
   padding: 10px 0 10px 25px !important;
   color: $secondary !important;
   border-bottom: 1px solid $secondary !important;
-  font-size: 30px !important;
+  font-size: 25px !important;
   &[aria-expanded="true"] {
     border-bottom: 1px dashed $secondary !important;
     font-weight: bold;
@@ -30,11 +30,11 @@
   }
   ::after {
     color: #fcfaf2;
-    font-size: 30px;
+    font-size: 25px;
   }
 }
 .accordion-header {
-  margin-top: 30px;
+  margin-top: 25px;
   border-bottom: transparent;
   // background-color: #616153;
   color: #fcfaf2;
@@ -44,7 +44,7 @@
   max-width: 1220px;
   margin: 0 auto;
   background-color: #ffffff;
-  font-size: 25px;
+  font-size: 20px;
   color: $secondary;
   padding-left: 20px;
   ol {

@@ -14,7 +14,7 @@ export default function MemberCoupon() {
 
   const [allCouponData, setAllCouponData] = useState([]);
   const [showValidCoupon, setShowValidCoupon] = useState(false);
-
+  const [UsedCoupon, setUsedCoupon] = useState([]);
 
   // 過濾checkbox切換
   const handleValidCoupon = () => {
@@ -25,17 +25,17 @@ export default function MemberCoupon() {
     try {
       const response = await axios.get(
         `http://localhost:3005/memberDashboard//DeleteUnvalidCoupon?memberId=${memberId}`
-      )
+      );
       if (response.data.code === "200") {
-        alert('刪除失效優惠券成功');
-        showAllCouponData()
+        alert("刪除失效優惠券成功");
+        showAllCouponData();
       } else {
-        alert('刪除失效優惠券失敗')
+        alert("刪除失效優惠券失敗");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
   //讀取member-coupon & 過濾失效coupon
   const showAllCouponData = async () => {
     try {
@@ -49,21 +49,35 @@ export default function MemberCoupon() {
           const deadlineDate = new Date(coupon.deadline);
           const currentDate = new Date();
           return deadlineDate >= currentDate;
-        })
-        setAllCouponData(validCoupon)
+        });
+        setAllCouponData(validCoupon);
       } else {
-        setAllCouponData(allCoupon)
+        setAllCouponData(allCoupon);
       }
+    } catch (error) {
+      console.log(error);
     }
-    catch (error) {
-      console.log(error)
+  };
+
+  //讀取訂單已使用coupon
+  const showUsedCouponData = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3005/memberDashboard//FindOrderCoupon?memberId=${memberId}`
+      );
+      const UsedCoupon = response.data.UsedCoupons;
+      setUsedCoupon(UsedCoupon);
+      console.log(UsedCoupon);
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
 
   useEffect(() => {
-    showAllCouponData()
+    showAllCouponData();
+    showUsedCouponData();
   }, [showValidCoupon, memberId]);
-  
+
   return (
     <>
       <Row>
@@ -80,7 +94,7 @@ export default function MemberCoupon() {
                 className="mb-3 fav-header"
               >
                 <Tab eventKey="product" title="擁有的優惠券">
-                  <div className="container">
+                  <div className="container mb-5 pb-5">
                     <div className="row p-3 fs-5 fw-bold">
                       <div className="col-12 col-lg-6 text-center align-self-center py-1 coupon-check">
                         <label>
@@ -94,19 +108,23 @@ export default function MemberCoupon() {
                           <span>僅顯示可使用的優惠券</span>
                         </label>
                       </div>
-                      <div className="col-12 col-lg-6 text-center py-1 coupon-clear" onClick={handleClearInvalidCoupon}>
+                      <div
+                        className="col-12 col-lg-6 text-center py-1 coupon-clear"
+                        onClick={handleClearInvalidCoupon}
+                      >
                         一鍵清空失效的優惠券
                       </div>
                     </div>
                     <div className="row">
                       {allCouponData.map((coupon, index) => (
-                        <div className="col-12 col-lg-6" key={index}>
+                        <div className="col-12 col-lg-6 " key={index}>
                           <CouponCard
                             key={index}
                             name={coupon.name}
                             type={coupon.type}
                             discount={coupon.discount}
                             deadline={coupon.deadline}
+                            isExpired={new Date(coupon.deadline) < new Date()}
                           />
                         </div>
                       ))}
@@ -114,42 +132,75 @@ export default function MemberCoupon() {
                   </div>
                 </Tab>
                 <Tab eventKey="course" title="優惠券使用紀錄">
-                  <table className="coupon-table text-center">
-                    <thead>
-                      <tr>
-                        <th>已使用優惠券</th>
-                        <th>訂單編號</th>
-                        <th>折扣金額</th>
-                        <th>訂單折扣後金額</th>
-                        <th>使用日期</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <CouponCard type={1} />
-                        </td>
-                        <td>
-                          <Link href="/">A123456</Link>
-                        </td>
-                        <td>$500</td>
-                        <td>$1000</td>
-                        <td>2023-09-12</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <CouponCard type={2} />
-                        </td>
-                        <td>A123456</td>
-                        <td>$500</td>
-                        <td>$1000</td>
-                        <td>2023-09-12</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                  <div className="coupon-table text-center">
+                    <div className="thead d-none d-xl-block">
+                      <div className="row">
+                        <div className="col-5">已使用優惠券</div>
+                        <div className="col-3">訂單編號</div>
+                        {/* <th>折扣金額</th> */}
+                        <div className="col-2">折扣後金額</div>
+                        <div className="col-2">使用日期</div>
+                      </div>
+                    </div>
+                    <div className="tbody d-none d-lg-block">
+                      {UsedCoupon.map((coupon, index) => (
+                        <div className="row align-items-center" key={index}>
+                          <div className="col-lg-5 col-12">
+                            <CouponCard
+                              name={coupon.coupon_name}
+                              type={coupon.coupon_type}
+                              discount={coupon.coupon_discount}
+                              deadline={coupon.coupon_deadline}
+                            />
+                          </div>
+                          <div className="col-lg-3 col-4">
+                            <Link
+                              href={`/member/order-detail/${coupon.order_id}`}
+                            >
+                              {coupon.order_id}
+                            </Link>
+                          </div>
+                          {/* <td>$ {coupon.discount}</td> */}
+                          <div className="col-lg-2 col-4">
+                            $ {coupon.subtotal}
+                          </div>
+                          <div className="col-lg-2 col-4">
+                            {coupon.order_date}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="tbody mobile d-lg-none">
+                      {UsedCoupon.map((coupon, index) => (
+                        <div className="row align-items-center" key={index}>
+                          <div className="col-12">
+                            <CouponCard
+                              name={coupon.coupon_name}
+                              type={coupon.coupon_type}
+                              discount={coupon.coupon_discount}
+                              deadline={coupon.coupon_deadline}
+                            />
+                          </div>
+                          <div className="text-start border-bottom p-2 ">
+                            <div className="p-2">
+                            訂單編號：
+                            <Link
+                              href={`/member/order-detail/${coupon.order_id}`}
+                            >
+                              {coupon.order_id}
+                            </Link>
+                          </div>
+                          <div className="p-2">訂單金額：$ {coupon.subtotal}</div>
+                          <div className="p-2">使用時間：{coupon.order_date}</div>
+                          </div>
+                          
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </Tab>
               </Tabs>
-              <Pagination />
+              {/* <Pagination /> */}
             </div>
           </Container>
         </Col>

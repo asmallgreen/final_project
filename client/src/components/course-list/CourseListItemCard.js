@@ -71,7 +71,7 @@ export default function CourseListItemCard(props) {
           </div>
         </div>
         <div className="course-rating">
-          <Rate disabled defaultValue={4} className="rating-star" />
+          <Rate disabled defaultValue={CourseData.rating} className="rating-star" />
           <div className="counting">
             {/* <small>XXX人已評價</small> */}
           </div>

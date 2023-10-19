@@ -65,7 +65,7 @@ export default function CommentCard(props) {
               disabled
               defaultValue={rating_score}
               className="comment-rating"
-              key={70}
+              key={rating_score}
             />
           </div>
         </div>
