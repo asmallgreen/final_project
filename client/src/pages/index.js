@@ -24,6 +24,9 @@ import Welfare from "../components/homepage/Welfare"
 //引入圖片
 // import CourseSlider1 from "../../../public/images/homepage/course-image1.png";
 
+// 視差滾動效果
+import { useParallax } from "react-scroll-parallax";
+
 // slider卡片內容
 const courseParagraph1 = `
 <p>
@@ -101,6 +104,29 @@ const items = [
 
 export default function Homepage() {
   
+  const { ref:refFirst,style } = useParallax({ speed: -32,opacity:[0.3,1], scale:[2] });
+  const { ref:refsecond } = useParallax({ translateX: [-600, 250], });
+  const { ref:refthird } = useParallax({ translateX: [-500, 200], });
+  const { ref:reffourth } = useParallax({ translateX: [30, 0], });
+  const { ref:firstPic} = useParallax({   translateY: [-5, 5, 'easeIn'],opacity: [0, 1], });
+  const { ref:reffifth  } = useParallax({ translateY: [0, 85, 'easeIn'],opacity:[0.8,1] });
+  const { ref:refsixth  } = useParallax({ translateY: [-80, 220, 'easeIn'],opacity:[0.8,1] });
+  const { ref:refseventh  } = useParallax({ translateY: [-10, 90, 'easeIn'],opacity:[0.8,1] });
+  const { ref:refeight } = useParallax({ translateX: [-15, 0], });
+  const { ref:refnine } = useParallax({ translateX: [15, 0], });
+  const { ref:reften } = useParallax({ translateX: [-15, 0], });
+  const { ref:refeleven } = useParallax({ translateX: [15, 0], });
+  const { ref:reftwelve  } = useParallax({ translateY: [-80, 220, 'easeIn'],opacity:[0.8,1] });
+  const { ref:refthirteen  } = useParallax({ translateY: [-10,220] });
+  const { ref:secondPic } = useParallax({   translateY: [-5, 5, 'easeIn'],opacity: [0, 1], });
+  const { ref:reffourteen  } = useParallax({ translateY: [-10,250] });
+  const { ref:reffifteen  } = useParallax({ translateY: [-10,30] });
+  const { ref:refsixteen } = useParallax({ translateX: [-5, 5], });
+  const { ref:refseventeen } = useParallax({ translateY: [-5, 35], });
+  const { ref:refeighteen } = useParallax({ translateY: [-5, 200], });
+  const { ref:thirdPic } = useParallax({  opacity: [0, 1] });
+
+
   return (
     <>
       <div className="homepage-body">
@@ -117,15 +143,15 @@ export default function Homepage() {
           ></video>
         </div>
         <div className="homepageHero2">
-          <p className="">探求弓道的本質</p>
+          <p ref={refFirst}  style={style} className="">探求弓道的本質</p>
         </div>
         <div className="aboutUs">
           <div className="aboutUs-container">
             <div className="left">
-              <div className="p1">關於</div>
-              <div className="p2">良弓制販所</div>
+              <div ref={refsecond} className="p1">關於</div>
+              <div ref={refthird} className="p2">良弓制販所</div>
             </div>
-            <div className="right">
+            <div ref={reffourth} className="right">
               <p>
                 弓具並沒有絕對的答案。這是我們的信念。
                 <br />
@@ -152,9 +178,9 @@ export default function Homepage() {
             </div>
           </div>
         </div>
-        <div className="hr homepage-hr1"></div>
-        <div className="textarea">
-          <h1>良物優選</h1>
+        <div ref={firstPic} className="hr homepage-hr1"></div>
+        <div ref={reffifth} className="textarea">
+          <h1 ref={reftwelve}>良物優選</h1>
           <p>
             良工匯聚，優質無慮
             <br />
@@ -192,8 +218,8 @@ export default function Homepage() {
             />
           </ConfigProvider>
         </div>
-        <div className="textarea">
-          <h1>商品介紹</h1>
+        <div className="textarea" ref={refseventh}>
+          <h1 ref={refsixth}>商品介紹</h1>
           <p>
             讓我們介紹一下由工匠們一個接一個地手工製作的弓具。
             <br />
@@ -204,30 +230,39 @@ export default function Homepage() {
         </div>
         <div className="introduction">
           <div className="container">
-          <IntroCard
+          <div ref={refeight}>
+           <IntroCard
               introImg="images/homepage/product_intro_1.png"
               introTitle="弓"
               introCat="竹弓｜合成弓"
           />
-          <IntroCard
+          </div>
+          <div ref={refnine}>
+           <IntroCard
               introImg="images/homepage/product_intro_2.png"
               introTitle="箭"
               introCat="鋁箭｜合成箭"
           />
+          </div>
+          <div ref={reften}>
           <IntroCard
               introImg="images/homepage/product_intro_3.png"
               introTitle="道服"
               introCat=""
           />
+          </div>
+          <div ref={refeleven}>
           <IntroCard
               introImg="images/homepage/product_intro_4.png"
               introTitle="其他"
               introCat="箭頭｜箭筒｜粉容器｜弦卷"
           />
           </div>
+
+          </div>
         </div>
         <div className="textarea">
-          <h1>弓道良物盡在良弓制販所</h1>
+          <h1 ref={refthirteen}>弓道良物盡在良弓制販所</h1>
           <p>
             我們備有弓道所需的各種物品
             <br />
@@ -235,9 +270,9 @@ export default function Homepage() {
           </p>
           <div className="btn">前往網路商店</div>
         </div>
-        <div className="hr homepage-hr2"></div>
-        <div className="textarea">
-          <h1>課程介紹</h1>
+        <div ref={secondPic} className="hr homepage-hr2"></div>
+        <div ref={reffifteen} className="textarea">
+          <h1 ref={reffourteen}>課程介紹</h1>
           <p>
             弓道以弓和箭鍛練身心。
             <br />
@@ -249,7 +284,7 @@ export default function Homepage() {
             透過弓道的修練，揭示真、善、美的最高目標。
           </p>
         </div>
-        <div className="course-slider">
+        <div ref={refsixteen} className="course-slider">
           <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
             <SwiperSlide>
               <CourseSlider
@@ -274,8 +309,8 @@ export default function Homepage() {
             </SwiperSlide>
           </Swiper>
         </div>
-        <div className="textarea">
-          <h1>全然一身，正射必中</h1>
+        <div ref={refseventeen} className="textarea">
+          <h1 ref={refeighteen}>全然一身，正射必中</h1>
           <p>
             我們串聯臺灣北、中、南三地的弓道場
             <br />
@@ -287,7 +322,7 @@ export default function Homepage() {
             隨時啟程
           </p>
         </div>
-        <div className="hr homepage-hr3"></div>
+        <div ref={thirdPic} className="hr homepage-hr3"></div>
       </div>
     </>
   );

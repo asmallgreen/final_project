@@ -35,11 +35,16 @@
     text-align: center;
     p {
       letter-spacing: 0.1rem;
-      padding-top: 311px;
+      padding-top: 480px;
       font-weight: 400;
       font-size: 32px;
+      transition: font-size 0.2s;
+      &.react-scroll-parallax--active{
+        font-size: 50px;
+      }
+      }
     }
-  }
+  
 
   .aboutUs {
     width: 100%;
@@ -94,7 +99,7 @@
   }
   .homepage-hr3 {
     background-image: url(../../../public/images/homepage/hr_3.png);
-    margin-bottom: 100px;
+    // margin-bottom: 100px;
   }
 
   .textarea {

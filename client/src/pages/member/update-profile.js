@@ -32,7 +32,7 @@ const { name, value } = e.target
     }));
   };
   useEffect(()=>{
-      console.log('this is profileInput',profileInput);
+      // console.log('this is profileInput',profileInput);
   },[profileInput])
   // 抓到生日的 Date 寫入 member 物件
   const handleBirthdateChange = (date) => {

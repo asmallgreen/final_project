@@ -6,6 +6,7 @@ import { ProductProvider } from "@/hooks/use-product-context";
 import Loading from "@/components/loading";
 import { useRouter } from "next/router";
 import FlareCursor from "@/components/mouse-icon2";
+import { ParallaxProvider } from "react-scroll-parallax";
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
@@ -51,6 +52,7 @@ function MyApp({ Component, pageProps }) {
   }
     return (
     <>
+    <ParallaxProvider>
       <AuthProviderJWT>
         <ProductProvider>
         <FlareCursor/>
@@ -59,6 +61,8 @@ function MyApp({ Component, pageProps }) {
         {getLayout(<Component {...pageProps} />)}
         </ProductProvider>
       </AuthProviderJWT>
+    </ParallaxProvider>
+
     </>
   );
 }
