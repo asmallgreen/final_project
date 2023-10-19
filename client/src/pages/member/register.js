@@ -149,7 +149,21 @@ export default function Login({ formType, setFormType }) {
   const handleRegisterSubmit = async (e) => {
     const form = e.currentTarget;
     e.preventDefault();
-
+    if(member.account === ''){
+      await Swal.fire({
+        icon: 'error',
+        title: '請輸入帳號',
+        showConfirmButton: false,
+        timer: 1500,
+        backdrop: `rgba(255, 255, 255, 0.55)`,
+        width: '35%',
+        padding: '0 0 3.25em',
+        customClass: {
+          popup: 'shadow-sm',
+        },
+      })
+      return
+    }
     if (form.checkValidity() === false) {
       // 先檢查是否有填寫必填欄位
       e.stopPropagation();

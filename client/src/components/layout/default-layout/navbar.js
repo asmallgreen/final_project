@@ -171,7 +171,7 @@ export default function Navbar() {
             <Link href="/product">商店</Link>
           </li>
           <li>
-            <Link href="/course-list">課程</Link>
+            <Link href="/course">課程</Link>
           </li>
           <li>
             <Link href="/venue">場地</Link>
