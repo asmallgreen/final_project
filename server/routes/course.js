@@ -115,7 +115,7 @@ router.get("/searchCourse", async (req, res) => {
 });
 
 router.put("/ratingPush/:cid", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const { cid } = req.params;
     const { rating } = req.body;

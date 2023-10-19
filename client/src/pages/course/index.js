@@ -335,10 +335,6 @@ function CourseList() {
                     value={sortOrder}
                   >
                     <option value="default">
-                      <FontAwesomeIcon
-                        icon={faSort}
-                        className="fa-solid fa-sort"
-                      />
                       預設排序
                     </option>
                     <option value="highToLow">價格由高至低</option>

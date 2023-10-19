@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function CourseListItemCard(props) {
   const { CourseData } = props;
-  console.log(CourseData);
+  // console.log(CourseData);
   return (
     <>
       <div className="course-list-info-desktop">
