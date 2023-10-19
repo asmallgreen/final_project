@@ -114,16 +114,18 @@ router.get("/searchCourse", async (req, res) => {
   return res.json(searchResult);
 });
 
-router.put("/ratingPush/:cid", async (req, res) => {
+router.put("/ratingPush/", async (req, res) => {
   // console.log(req.body);
   try {
-    const { cid } = req.params;
-    const { rating } = req.body;
+    // const { cid } = req.params;
+    const { rating, cid } = req.body;
     const sql = `UPDATE course SET rating = ${rating} WHERE id = ${cid}`;
+    // if(cid)
     const result = await executeQuery(sql)
     const newRating = {
       rating,
     };
+    
     if (result) {
       return res.json({
         message: "評分更新成功",

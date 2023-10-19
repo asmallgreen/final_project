@@ -11,13 +11,36 @@ import TeacherDescription from "../../components/course-detail/TeacherDescriptio
 import Syllabus from "../../components/course-detail/Syllabus";
 import Faq from "../../components/course-detail/Faq";
 import Review from "../../components/course-detail/Review";
-import { set } from "lodash";
+import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import Swal from "sweetalert2";
 
 const onChange = (key) => {
   // console.log(key);
 };
 
 export default function CourseDetail() {
+  // addCart
+  const handleCartClick = () => {
+    axios.post('http://localhost:3005/cart/addCartCourse/', { course_id: cid, quantity: 1, member_id: authJWT.memberData.id })
+      .then(response => {
+        // console.log('加入購物車成功');
+        Swal.fire({
+          icon: 'success',
+          title: '加入購物車成功',
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: `rgba(255, 255, 255, 0.55)`,
+          width: '35%',
+          padding: '0 0 3.25em',
+          customClass: {
+          }
+        })
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   //處理antd的tabBar的sticky效果
   const renderTabBar = (props, DefaultTabBar) => (
     <StickyBox
@@ -46,13 +69,13 @@ export default function CourseDetail() {
   const [TeacherDateById, setTeacherDateById] = useState(null);
   const [SyllabusDateByCourseId, setSyllabusDateByCourseId] = useState(null);
   const [RatingCourseDateByCourseId, setRatingCourseDateByCourseId] =
-    useState(null);
+    useState([]);
   const [MemberDataByCourseId, setMemberDataByCourseId] = useState(null);
   const [items, setItems] = useState([]);
   const [scoreAverageFromRatingCourse, setScoreAverageFromRatingCourse] =
     useState(0);
   const [ratingNumber, setRatingNumber] = useState(0);
-
+  console.log(RatingCourseDateByCourseId)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -88,7 +111,7 @@ export default function CourseDetail() {
           setMemberDataByCourseId(memberResponse.data);
         }
       } catch (error) {
-        console.error("錯誤，請確認API", error);
+        console.error("錯誤，請確認fetchData", error);
       }
       // console.log(RatingCourseDateByCourseId)
     };
@@ -98,24 +121,28 @@ export default function CourseDetail() {
   // console.log(MemberDataByCourseId)
   // console.log(scoreAverageFromRatingCourse);
   // 將取得的scoreAverageFromRatingCourse更新push至course的後端路由進行資料庫操作
-useEffect(() => {
-  const updateScoreAverageFromRatingCourse = async () => {
-    try {
-      const Response = await axios.put(
-        `http://localhost:3005/course/ratingPush/${cid}`,
-        { rating: scoreAverageFromRatingCourse }
-      );
-      if (Response.data.code === "200") {
-        console.log(Response.data.message);
-      } else {
-        console.error("錯誤，請確認API");
+  useEffect(() => {
+    const updateScoreAverageFromRatingCourse = async () => {
+      try {
+        const Response = await axios.put(
+          `http://localhost:3005/course/ratingPush/`,
+          {
+            rating: scoreAverageFromRatingCourse,
+            cid: cid
+          }
+        );
+        if (Response.data.code === "200") {
+          console.log(Response.data.message);
+          }
+        // } else {
+        //   console.error("沒有錯誤");
+        // }
+      } catch (error) {
+        console.error("錯誤，請確認upafrcAPI", error);
       }
-    } catch (error) {
-      console.error("錯誤，請確認API", error);
-    }
-  };
-  updateScoreAverageFromRatingCourse();
-})
+    };
+    updateScoreAverageFromRatingCourse();
+  })
 
   useEffect(() => {
     const fetchData = async () => {
@@ -164,9 +191,9 @@ useEffect(() => {
           const newScoreAverageFromRatingCourse =
             RatingCourseDateByCourseId && RatingCourseDateByCourseId.length > 0
               ? RatingCourseDateByCourseId.reduce(
-                  (acc, cur) => acc + cur.score,
-                  0
-                ) / RatingCourseDateByCourseId.length
+                (acc, cur) => acc + cur.score,
+                0
+              ) / RatingCourseDateByCourseId.length
               : 0;
           const newRatingNumber = RatingCourseDateByCourseId.length;
           // console.log(ratingNumber);
@@ -175,7 +202,7 @@ useEffect(() => {
           setRatingNumber(newRatingNumber);
         }
       } catch (error) {
-        console.error("錯誤，請確認API", error);
+        console.error("請確認newItems", error);
       }
     };
     // console.log(RatingCourseDateByCourseId)
@@ -193,7 +220,94 @@ useEffect(() => {
   //   ? RatingCourseDateByCourseId.reduce((acc, cur) => acc + cur.score, 0) /
   //     RatingCourseDateByCourseId.length
   //   : 0;
-  // console.log(scoreAverageFromRatingCourse)
+  // console.log(scoreAverageFromRatingCourse)// 會員收藏課程
+  const { authJWT, favoriteCourses, setFavoriteCourses } = useAuthJWT()
+  const memberId = authJWT.memberData.id
+  //  console.log('cid:',cid);
+  // 拿出會員收藏的所有課程id
+  //  console.log(favoriteCourses);
+  const cidNum = parseInt(cid, 10)
+  // const [products, setProducts] = useState([])
+  // 判斷是否該課程id有在收藏資料表，有代表已收藏
+  function isCourseFavorited(courseId) {
+    return favoriteCourses.includes(courseId);
+  }
+
+  const handleTriggerCourseFav = async (id) => {
+    if (!authJWT.isAuth) {
+      Swal.fire({
+        icon: 'error',
+        title: '請先登入',
+        showConfirmButton: false,
+        timer: 1500,
+        backdrop: `rgba(255, 255, 255, 0.55)`,
+        // width: '35%',
+        padding: '0 0 3.25em',
+        customClass: {
+          width: 'shadow-sm'
+        }
+      })
+      return
+    }
+    // 在陣列中->移出，不在陣列中加入
+    //  console.log('cid=',cid);
+    if (favoriteCourses.includes(id)) {
+      // 如果在陣列中，執行移除收藏
+      try {
+        const res = await axios.delete(`http://localhost:3005/member/course/${cid}`,
+          {
+            data: { memberId },
+            withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
+          })
+        // console.log(res.data);
+        if (res.data.message === '已取消收藏') {
+          await Swal.fire({
+            icon: 'success',
+            title: '課程已取消收藏',
+            showConfirmButton: false,
+            timer: 1500,
+            backdrop: `rgba(255, 255, 255, 0.55)`,
+            //  width: '35%',
+            padding: '0 0 3.25em',
+            customClass: {
+              width: 'shadow-sm'
+            }
+          })
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      setFavoriteCourses(favoriteCourses.filter((v) => v !== id))
+    } else {
+      // 如果不在陣列中，執行加入收藏
+      try {
+        const res = await axios.put(`http://localhost:3005/member/course/${cid}`,
+          { memberId },
+          {
+            withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
+          })
+        // console.log(res.data);
+
+        if (res.data.message === '課程收藏成功') {
+          await Swal.fire({
+            icon: 'success',
+            title: '課程收藏成功',
+            showConfirmButton: false,
+            timer: 1500,
+            backdrop: `rgba(255, 255, 255, 0.55)`,
+            //  width: '35%',
+            padding: '0 0 3.25em',
+            customClass: {
+              width: 'shadow-sm'
+            }
+          })
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      setFavoriteCourses([...favoriteCourses, id])
+    }
+  }
 
   return CourseDateById !== null && TeacherDateById !== null ? (
     <div className="course-detail-body">
@@ -247,8 +361,8 @@ useEffect(() => {
               </div>
             </div>
             <div className="btns">
-              <div className="btn course-detail-btn like-btn">加入收藏</div>
-              <div className="btn course-detail-btn cart-btn">加入購物車</div>
+              <div onClick={() => handleTriggerCourseFav(cidNum)} className="btn course-detail-btn like-btn">{isCourseFavorited(cidNum) ? '取消收藏' : '加入收藏'}</div>
+              <div className="btn course-detail-btn cart-btn" onClick={handleCartClick}>加入購物車</div>
             </div>
           </div>
         </div>
@@ -309,6 +423,6 @@ useEffect(() => {
       </div>
     </div>
   ) : (
-    <h1>loading</h1>
+    ""
   );
 }

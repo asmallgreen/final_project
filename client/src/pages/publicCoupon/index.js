@@ -2,42 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Container, Row, Button } from "react-bootstrap";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import Swal from "sweetalert2";
 
 export default function Index() {
   const { authJWT } = useAuthJWT();
-  const [couponList, setCouponList] = useState([]); //優惠券列表
+  const [couponList, setCouponList] = useState([]);
   const { memberCoupon } = useAuthJWT();
-  // console.log(memberCoupon)
-
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [isDisabledTwo, setIsDisabledTwo] = useState(false);
-
-  const handleClickOne = () => {
-    setIsDisabled(true);
-  };
-
-  const handleClickTwo = () => {
-    setIsDisabledTwo(true);
-  };
-
-  const sendAddCoupon = (addCoupon) => {
-    if (authJWT.memberData.id === undefined) return alert("請先登入會員");
-    axios
-      .post(`http://localhost:3005/memberDashboard/addMemberCoupon`, addCoupon)
-      .then((response) => {
-        console.log("前端新增優惠券成功:", response.data);
-      })
-      .catch((error) => {
-        console.error("前端新增優惠券錯誤:", error);
-      });
-  };
-  const handleSendCoupon = (couponId) => {
-    const addCoupon = {
-      member_id: authJWT.memberData.id,
-      coupon_id: couponId,
-    };
-    sendAddCoupon(addCoupon);
-  };
 
   useEffect(() => {
     axios
@@ -51,16 +21,45 @@ export default function Index() {
       });
   }, []);
 
+  const handleSendCoupon = (couponId) => {
+    if (authJWT.memberData.id === undefined) return alert("請先登入會員");
+
+    const updatedCouponList = [...couponList];
+    const updatedCoupon = updatedCouponList.find((coupon) => coupon.id === couponId);
+
+    if (updatedCoupon) {
+      updatedCoupon.isDisabled = true;
+      updatedCoupon.text = "已領取"
+    }
+
+    // 更新優惠券列表
+    setCouponList(updatedCouponList);
+
+    const addCoupon = {
+      member_id: authJWT.memberData.id,
+      coupon_id: couponId,
+    };
+
+    axios
+      .post(`http://localhost:3005/memberDashboard/addMemberCoupon`, addCoupon)
+      .then((response) => {
+        console.log("前端新增優惠券成功:", response.data);
+      })
+      .catch((error) => {
+        console.error("前端新增優惠券錯誤:", error);
+      });
+  };
+
   return (
     <>
       <div className="couponBg">
-        <div className="ruleMain">
+        <div className="ruleMain pb-4">
           <div className="ruleTitle mb-5">會員累積消費說明</div>
           <div className="ruleImg mb-5" />
           <div className="ruleTitle mb-5">限時促銷</div>
           <div className="flashRule d-sm-block d-none">
             {couponList.map((coupon, index) => (
-              <div className="couponFlashSales border-bottom" key={index}>
+              <div className="couponFlashSales border-bottom d-flex" key={index}>
                 <div className="">
                   <div className="fs-5">{coupon.name}</div>
                   <div className="fs-5">
@@ -69,21 +68,30 @@ export default function Index() {
                       : `商品 ${coupon.discount} 折券`}
                   </div>
                 </div>
-                {memberCoupon.some(
-                  (memberCoupon) => memberCoupon.id === coupon.id
-                ) ? (
+                {memberCoupon.some((memberCoupon) => memberCoupon.id === coupon.id) ? (
                   <button className="btn clickTake" disabled>
                     已領取
                   </button>
                 ) : (
                   <button
+                    disabled={coupon.isDisabled || false}
                     className="btn clickTake"
                     onClick={() => {
                       handleSendCoupon(coupon.id);
-                      alert(`已領取優惠券 ${coupon.name}`);
+                      Swal.fire({
+                        icon: 'success',
+                        title: '領取優惠券成功',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        backdrop: `rgba(255, 255, 255, 0.55)`,
+                        width: '35%',
+                        padding: '0 0 3.25em',
+                        customClass: {
+                        }
+                      })
                     }}
                   >
-                    點擊領取
+                    {coupon.text || "點擊領取"}
                   </button>
                 )}
               </div>
@@ -91,8 +99,8 @@ export default function Index() {
           </div>
           <div className="flashRule d-sm-none">
             {couponList.map((coupon, index) => (
-              <div className="flashRule border-bottom" key={index}>
-                <div className="couponFlashSales">
+              <div className="couponFlashSales border-bottom" key={index}>
+                <div className="text-center pb-3">
                   <div className="fs-5">{coupon.name}</div>
                   <div className="fs-5">
                     {coupon.type === 2
@@ -100,81 +108,35 @@ export default function Index() {
                       : `商品 ${coupon.discount} 折券`}
                   </div>
                 </div>
-                <div className="couponFlashSales">
-                  {memberCoupon.some(
-                  (memberCoupon) => memberCoupon.id === coupon.id
-                ) ? (
-                  <button className="btn clickTake" disabled>
+                {memberCoupon.some((memberCoupon) => memberCoupon.id === coupon.id) ? (
+                  <button className="btn clickTake align-items-center" disabled>
                     已領取
                   </button>
                 ) : (
                   <button
+                    disabled={coupon.isDisabled || false}
                     className="btn clickTake"
                     onClick={() => {
                       handleSendCoupon(coupon.id);
-                      alert(`已領取優惠券 ${coupon.name}`);
+                      Swal.fire({
+                        icon: 'success',
+                        title: '領取優惠券成功',
+                        showConfirmButton: false,
+                        timer: 1500,
+                        backdrop: `rgba(255, 255, 255, 0.55)`,
+                        width: '35%',
+                        padding: '0 0 3.25em',
+                        customClass: {
+                        }
+                      })
                     }}
                   >
-                    點擊領取
+                    {coupon.text || "點擊領取"}
                   </button>
                 )}
-                </div>
-                
               </div>
             ))}
           </div>
-          {/* <div className="flashRule mb-1">
-            <div className="couponFlashSales fs-4 d-lg-flex d-none">
-              <span>中秋節全館商品&nbsp;8折</span>
-              <Button
-                className="clickTake"
-                onClick={handleClickOne}
-                disabled={isDisabled}
-              >
-                點擊領取
-              </Button>
-            </div>
-            <div className="couponLine d-lg-flex d-none" />
-            <div className="couponFlashSales fs-4 d-lg-flex d-none">
-              <span>雙十節全館商品&nbsp;滿千折百</span>
-              <Button
-                className="clickTake"
-                onClick={handleClickTwo}
-                disabled={isDisabledTwo}
-              >
-                點擊領取
-              </Button>
-            </div>
-            <div className="couponFlashSales fs-4 d-sm-none d-flex">
-              <span>中秋節全館商品&nbsp;8折</span>
-            </div>
-            <div className="couponLine d-sm-none d-flex" />
-            <div className="couponFlashSales fs-4 d-sm-none d-flex">
-              <Button
-                className="clickTake"
-                onClick={handleClickOne}
-                disabled={isDisabled}
-              >
-                點擊領取
-              </Button>
-            </div>
-          </div> */}
-          {/* ------------phone------------ */}
-          {/* <div className="flashRule">
-            <div className="couponFlashSales fs-4 d-sm-none d-flex">
-              <span>雙十節全館商品&nbsp;滿千折百</span>
-            </div>
-            <div className="couponLine d-sm-none d-flex" />
-            <div className="couponFlashSales fs-4 d-sm-none d-flex">
-              <Button
-                className="clickTake"
-                onClick={handleClickTwo}
-                disabled={isDisabledTwo}
-              >
-                點擊領取
-              </Button>
-            </div>
-          </div> */}
           <div className="rulePoint">*優惠券僅可使用一次&nbsp;且限用於商品</div>
         </div>
       </div>

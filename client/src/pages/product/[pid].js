@@ -377,8 +377,8 @@ function Pid() {
       >
         {randomProducts.map((data) => {
           return (
-            <SwiperSlide>
-              <RecommendedCard key={data.id} filterRecommendProduct={data} />
+            <SwiperSlide key={data.id}>
+              <RecommendedCard filterRecommendProduct={data} />
             </SwiperSlide>
           );
         })}

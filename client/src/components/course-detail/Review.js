@@ -14,9 +14,10 @@ export default function Review(props) {
   //排序
   const [sortOrder, setSortOrder] = useState("default");
   //  console.log(filteredCourses);
-
+  // console.log(ratingCourseData)
   // 整合課程資料與會員資料，並使用useEffect控制無限迴圈
   useEffect(() => {
+    // console.log(ratingCourseData);
     const integratedData = ratingCourseData.map((rating) => {
       const member = memberData.rows.find((m) => m.id === rating.member_id);
       const createdDate = rating.created_at.split(" ")[0]; // 提取年月日部分
@@ -71,7 +72,7 @@ export default function Review(props) {
     setSortOrder(event.target.value);
   };
 
-  console.log(filteredCourses);
+  // console.log(filteredCourses);
   return (
     <>
       <div className="review-container container">
@@ -84,7 +85,6 @@ export default function Review(props) {
             value={sortOrder}
           >
             <option value="default">
-              <FontAwesomeIcon icon={faSort} className="fa-solid fa-sort" />
               預設排序
             </option>
             <option value="highToLow">評分最高</option>
@@ -106,16 +106,23 @@ export default function Review(props) {
             </Form.Select>
           </div>
         </div>
-        {currentItems.map((item) => (
-          <CommentCard
-            Key={item.id}
-            member_avatar={item.member_img}
-            member_name={item.name}
-            rating_score={item.score}
-            comment_time={item.created_at}
-            comment_content={item.comment}
-          />
-        ))}
+        {
+          currentItems && currentItems.length > 0 ? (
+            currentItems.map((item) => (
+              <CommentCard
+                key={item.id}
+                member_avatar={item.member_img}
+                member_name={item.name}
+                rating_score={item.score}
+                comment_time={item.created_at}
+                comment_content={item.comment}
+              />
+            ))
+          ) : (
+            <div className="no-comment text-center py-5 my-3">目前沒有評論</div>
+          )
+        }
+
         {/* 把luna-pagination拆進來 */}
         {/* btn */}
         <div className=" page-btns d-flex justify-content-end">

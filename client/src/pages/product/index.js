@@ -193,7 +193,7 @@ function Product() {
     // console.log(search);
   }, [search]);
   useEffect(() => {
-    // console.log(newProduct);
+    console.log(newProduct);
   }, [newProduct]);
   useEffect(() => {
     // console.log(saleProduct);

@@ -13,7 +13,7 @@ import axios from 'axios';
 
 
 
-export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmount, setCartCouponId ,setCartOriginDtl, setCartProductDtl}) {
+export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmount, setCartCouponId, setCartOriginDtl, setCartProductDtl }) {
 
 
   const [memberCoupon, setMemberCoupon] = useState([])
@@ -24,11 +24,11 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
 
   const [couponId, setCouponId] = useState(0)
 
-  const [discountType ,setDiscountType] = useState(0)
+  const [discountType, setDiscountType] = useState(0)
 
   const { authJWT, setAuthJWT } = useAuthJWT()
 
- 
+
   let memberId = authJWT.memberData.id;
   useEffect(() => {
     if (memberId > 0) {
@@ -71,11 +71,11 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
       // // const newCouponId = memberCoupon.find((v) => Number(v.coupon_id) == selectedOptionValue
       // )
 
-      if (newCouponId.type == 1 ) {
+      if (newCouponId.type == 1) {
 
         setSelectedValue(newCouponId.discount / 10);
-       
-      } else if (newCouponId.type == 2 ) {
+
+      } else if (newCouponId.type == 2) {
         setSelectedValue(newCouponId.discount);
       }
 
@@ -85,7 +85,7 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
     } else {
       setSelectedValue(0)
     }
-    
+
 
 
   };
@@ -116,24 +116,24 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
     <Container>
       <div className="listTitle">
 
-        <Col  xs={1} >
-          
-            <input
-              type='checkbox'
-              id="selectAll"
-              className='expand pcDNone m1 '
-              onChange={(event) => {
-                let thisChk = event.target
+        <Col xs={1} >
 
-                document.querySelectorAll('.productList .cartChk').forEach(function (element) {
+          <input
+            type='checkbox'
+            id="selectAll"
+            className='expand pcDNone m1 '
+            onChange={(event) => {
+              let thisChk = event.target
 
-                  element.checked = thisChk.checked
-                  setChecked(+element.getAttribute("data-itemid"), thisChk.checked)
+              document.querySelectorAll('.productList .cartChk').forEach(function (element) {
 
-                })
-                
-              }}
-            />
+                element.checked = thisChk.checked
+                setChecked(+element.getAttribute("data-itemid"), thisChk.checked)
+
+              })
+
+            }}
+          />
 
         </Col>
         <Col xs={10}>商品</Col>
@@ -167,7 +167,7 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
 
       </div>
       <div>
-        <List mode={'product'}  setCartOriginDtl={setCartOriginDtl} setCartProductDtl={setCartProductDtl}/>
+        <List mode={'product'} setCartOriginDtl={setCartOriginDtl} setCartProductDtl={setCartProductDtl} />
       </div>
 
 
@@ -192,7 +192,9 @@ export default function StepOne({ setstepType, setDiscountPrice, setDiscountAmou
               {memberCoupon.map((coupon) => (
                 <option value={Number(coupon.id)} key={coupon.id}
 
-                >{coupon.name}</option>
+                >{coupon.name}
+                  {coupon.type === 1 ? `  ${coupon.discount}折` : ""}
+                  {coupon.type === 2 ? `  現抵${coupon.discount}元` : ""}</option>
 
               ))}
             </select>

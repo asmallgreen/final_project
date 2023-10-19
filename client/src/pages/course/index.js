@@ -16,6 +16,7 @@ import { faFilter, faSort } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 import Collapse from "react-bootstrap/Collapse";
+import Link from "next/link";
 
 function CourseList() {
   const [allCourse, setAllCourse] = useState([]);
@@ -144,9 +145,11 @@ function CourseList() {
 
   return (
     <>
-      <Swiper
+
+<Swiper
+        loop={true}
         spaceBetween={0}
-        slidesPerView={1}
+        slidesPerView={3}
         centeredSlides={true}
         autoplay={{
           delay: 2500,
@@ -155,75 +158,82 @@ function CourseList() {
         pagination={{
           clickable: true,
         }}
+        initialSlide={1}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper ad-swiper"
       >
-        <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="top1.jpg" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
-        </SwiperSlide>
+      {/* <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top1.jpg" alt="img" />
+        <img src="/product/top2.jpg" alt="img" />
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+      </div>
+      </Link>
+      </SwiperSlide> */}
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top2.jpg" alt="img" />
+        </div>
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+        </div>   
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top1.jpg" alt="img" />
+        </div>
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+         <div className="ads">
+        <div className="ad">
+        <img src="/product/top2.jpg" alt="img" />
+        </div>
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+        </div>  
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top4.jpg" alt="img" />
+        </div>
+        </div>  
+      </Link>
+      </SwiperSlide>
       </Swiper>
       <div className="phone-ad">
+      <Link href='/publicCoupon'>
         <img src="/product/top1.jpg" alt="img"></img>
+      </Link>
       </div>
-      <Swiper
-        spaceBetween={10}
-        slidesPerView={4}
-        navigation={true}
-        pagination={true}
-        modules={[Navigation, Pagination]}
-        className="mySwiper launched-product-swiper"
-      ></Swiper>
-
       <div className="filter-area container-fluid">
         <div className="container">
           <div className="all-product all-course">

@@ -10,6 +10,7 @@ import { Button } from "react-bootstrap";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import axios from "axios";
 import { useRouter } from "next/router";
+import { set } from "lodash";
 
 export default function Navbar() {
   const { authJWT, setAuthJWT } = useAuthJWT();
@@ -53,75 +54,92 @@ export default function Navbar() {
           router.push(homeRoute);
         }
       }
-    } catch (error) {}
+    } catch (error) { }
   };
 
-  
-  return (
-    <>
-    
+  // // 滾動
+  // const handleToAboutUs = () => {
+  //   router.push("/");
+  //   console.log("123")
+  //   handleScrollToSection()
+  // }
+  // const handleScrollToSection = () => {
+  //   const section = document.getElementById("aboutUs");
+  //   if (section) {
+  //     setTimeout(() => {
+  //       window.scrollTo({
+  //         top: section.offsetTop,
+  //         behavior: "smooth",
+  //       });
+  //     }, 1000);
+  //   };
+  // }
 
-      {/* 桌機版nav */}
-      <div className="table-nav">
-        <ul className="nav">
-          <li className="list-unstyled">
-            <Link href="/product" className="titleLi">關於良弓</Link>
-          </li>
-          <li className="list-unstyled product-page">
-            <Link href="/product">商品介紹</Link>
-            <div className="hover-type">
-              <Link href="/product/category/1">
-                <div className="box">
-                  <img src="/layout/type1.png" />
-                  <div className="text">
-                    <span className="text-bottom">弓</span>
-                  </div>
-                </div>
-              </Link>
-              <Link href="/product/category/2">
-                <div className="box">
-                  <img src="/layout/type2.png" />
-                  <div className="text">
-                    <span className="text-bottom">箭</span>
-                  </div>
-                </div>
-              </Link>
-              <Link href="/product/category/3">
-                <div className="box">
-                  <img src="/layout/type3.png" />
-                  <div className="text">
-                    <span className="text-bottom">道服</span>
-                  </div>
-                </div>
-              </Link>
-              <Link href="/product/category/4">
-                <div className="box">
-                  <img src="/layout/type4.png" />
-                  <div className="text">
-                    <span className="text-bottom">其他</span>
-                  </div>
-                </div>
-              </Link>
-            </div>
-            <div className="hover-space position-absolute"></div>
-          </li>
-          <li className="list-unstyled">
-            <Link href="/course" className="titleLi">
-              弓道課程
-            </Link>
-          </li>
-          <li className="list-unstyled">
-            <Link href="/venue" className="titleLi">場地租借</Link>
-          </li>
-          <li className="list-unstyled">
-            <Link href="/product" className="titleLi">
-              聯絡我們
-            </Link>
-          </li>
-        </ul>
+    return (
+      <>
 
-        <ul className="nav-fk">
-          {/* <Form className="list-unstyled search-form">
+
+        {/* 桌機版nav */}
+        <div className="table-nav">
+          <ul className="nav">
+            <li className="list-unstyled">
+              <Link href="/#aboutUs" className="titleLi" onClick={(e) => handleToAboutUs(e, "/")}>關於良弓</Link>
+            </li>
+            <li className="list-unstyled product-page">
+              <Link href="/product">商品介紹</Link>
+              <div className="hover-type">
+                <Link href="/product/category/1">
+                  <div className="box">
+                    <img src="/layout/type1.png" />
+                    <div className="text">
+                      <span className="text-bottom">弓</span>
+                    </div>
+                  </div>
+                </Link>
+                <Link href="/product/category/2">
+                  <div className="box">
+                    <img src="/layout/type2.png" />
+                    <div className="text">
+                      <span className="text-bottom">箭</span>
+                    </div>
+                  </div>
+                </Link>
+                <Link href="/product/category/3">
+                  <div className="box">
+                    <img src="/layout/type3.png" />
+                    <div className="text">
+                      <span className="text-bottom">道服</span>
+                    </div>
+                  </div>
+                </Link>
+                <Link href="/product/category/4">
+                  <div className="box">
+                    <img src="/layout/type4.png" />
+                    <div className="text">
+                      <span className="text-bottom">其他</span>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+              <div className="hover-space position-absolute"></div>
+            </li>
+            <li className="list-unstyled">
+              <Link href="/course" className="titleLi">
+                弓道課程
+              </Link>
+            </li>
+            <li className="list-unstyled">
+              <Link href="/venue" className="titleLi">場地租借</Link>
+            </li>
+            <li className="list-unstyled">
+              <Link href="/product" className="titleLi">
+                聯絡我們
+              </Link>
+            </li>
+          </ul>
+
+          <ul className="nav-fk">
+            {/* <Form className="list-unstyled search-form">
             <div className="position-relative">
               <Form.Control
                 type="text"
@@ -136,48 +154,48 @@ export default function Navbar() {
               />
             </div>
           </Form> */}
-          <li className="list-unstyled">
-            <Link href="/cart">
-              <FaShoppingCart className="fa-cart-shopping" />
-            </Link>
-          </li>
-          <li className="list-unstyled">
-            <Link href="/member" className="text-decoreation-none">
-              <FaUser className="fa-user" />
-            </Link>
-          </li>
-          {authJWT.isAuth && (
             <li className="list-unstyled">
-              <Button onClick={handleLogout}>
-                <FiLogOut className="fi-logout" />
-              </Button>
+              <Link href="/cart">
+                <FaShoppingCart className="fa-cart-shopping" />
+              </Link>
             </li>
-          )}
-        </ul>
-      </div>
-      {/* 在这里显示搜索结果 */}
-      {/* <div>
+            <li className="list-unstyled">
+              <Link href="/member" className="text-decoreation-none">
+                <FaUser className="fa-user" />
+              </Link>
+            </li>
+            {authJWT.isAuth && (
+              <li className="list-unstyled">
+                <Button onClick={handleLogout}>
+                  <FiLogOut className="fi-logout" />
+                </Button>
+              </li>
+            )}
+          </ul>
+        </div>
+        {/* 在这里显示搜索结果 */}
+        {/* <div>
         {searchResults.map((result) => (
           <div key={result.id}>{result.name}</div>
         ))}
       </div> */}
-      {/* 手機版nav */}
-      <div className="phone-nav">
-        <ul className="nav">
-          <li>
-            <Link href="/">首頁</Link>
-          </li>
-          <li>
-            <Link href="/product">商店</Link>
-          </li>
-          <li>
-            <Link href="/course">課程</Link>
-          </li>
-          <li>
-            <Link href="/venue">場地</Link>
-          </li>
-        </ul>
-      </div>
-    </>
-  );
-}
+        {/* 手機版nav */}
+        <div className="phone-nav">
+          <ul className="nav">
+            <li>
+              <Link href="/">首頁</Link>
+            </li>
+            <li>
+              <Link href="/product">商店</Link>
+            </li>
+            <li>
+              <Link href="/course">課程</Link>
+            </li>
+            <li>
+              <Link href="/venue">場地</Link>
+            </li>
+          </ul>
+        </div>
+      </>
+    );
+  }

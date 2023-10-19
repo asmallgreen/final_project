@@ -274,53 +274,64 @@ function Cate(props) {
         className="mySwiper ad-swiper"
       >
       <SwiperSlide>
-      <div className="ads">
-        <div className="ad">
-        <img src="/product/top1.jpg" alt="img" />
-        <img src="/product/top2.jpg" alt="img" />
-        <img src="/product/top3.jpg" alt="img" />
-        </div>
-      </div>
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+      <Link href='/publicCoupon'>
+        <div className="ads">
         <div className="ad">
         <img src="/product/top2.jpg" alt="img" />
         </div>
-      </div>
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
         <div className="ad">
         <img src="/product/top3.jpg" alt="img" />
         </div>
-      </div>          
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+        </div>   
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
         <div className="ad">
         <img src="/product/top1.jpg" alt="img" />
         </div>
-      </div>
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+         <div className="ads">
         <div className="ad">
         <img src="/product/top2.jpg" alt="img" />
         </div>
-      </div>
-        </SwiperSlide>
-        <SwiperSlide>
-      <div className="ads">
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
         <div className="ad">
         <img src="/product/top3.jpg" alt="img" />
         </div>
-      </div>          
-        </SwiperSlide>
-       
+        </div>  
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top4.jpg" alt="img" />
+        </div>
+        </div>  
+      </Link>
+      </SwiperSlide>
       </Swiper>
       <div className="phone-ad">
+      <Link href='/publicCoupon'>
         <img src="/product/top1.jpg" alt="img"></img>
+      </Link>
       </div>
       {/* 新品上架 */}
       <div className="product-page-title">

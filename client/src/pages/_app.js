@@ -3,6 +3,7 @@ import "@/styles/index.scss";
 import { useEffect, useState } from "react";
 import { AuthProviderJWT } from "@/hooks/use-auth-jwt";
 import { ProductProvider } from "@/hooks/use-product-context";
+import { ParallaxProvider } from "react-scroll-parallax";
 import Loading from "@/components/loading";
 import { useRouter } from "next/router";
 import FlareCursor from "@/components/mouse-icon2";
@@ -14,7 +15,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap");
   }, []);
- 
+
   const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     const loadingTimeout = setTimeout(() => {
@@ -49,16 +50,18 @@ function MyApp({ Component, pageProps }) {
     // Returns null on first render, so the client and server match
     return null;
   }
-    return (
+  return (
     <>
-      <AuthProviderJWT>
-        <ProductProvider>
-        <FlareCursor/>
-        {/* <MouseIcon/> */}
-        {isLoading && <Loading />}
-        {getLayout(<Component {...pageProps} />)}
-        </ProductProvider>
-      </AuthProviderJWT>
+      <ParallaxProvider>
+        <AuthProviderJWT>
+          <ProductProvider>
+            <FlareCursor />
+            {/* <MouseIcon/> */}
+            {isLoading && <Loading />}
+            {getLayout(<Component {...pageProps} />)}
+          </ProductProvider>
+        </AuthProviderJWT>
+      </ParallaxProvider>
     </>
   );
 }

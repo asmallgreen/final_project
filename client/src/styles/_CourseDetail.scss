@@ -1,0 +1,516 @@
+.course-detail-body {
+  // font-family: inter;
+  background: $primary;
+  color: $font;
+  .course-detail-info {
+    // background: lightgray;
+    display: flex;
+    align-items: center;
+    .left {
+      .course-detail-img {
+        // background-image: url(https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image1.png?raw=true);
+        // background-size: cover;
+        max-width: 621px;
+        height: 670px;
+        overflow: hidden;
+      }
+    }
+  }
+  .right {
+    // background: lightpink;
+    width: calc(100% - 621px - 80px);
+    // min-height: 673px;
+    margin-left: 80px;
+    // 處理btns的位置
+    display: flex;
+    flex-direction: column;
+    .course-detail-text {
+      // background: lightgoldenrodyellow;
+
+      .title {
+        margin-top: -10px;
+        font-size: 30px;
+        font-weight: 800;
+      }
+      .intro {
+        font-size: 16px;
+        margin-top: 30px;
+        margin-bottom: 60px;
+        // 固定高度暫時方案
+        min-height: 250px;
+        max-height: 250px;
+      }
+    }
+    .course-detail-items {
+      font-weight: 800;
+      font-size: 16px;
+      line-height: 30px;
+    }
+    .course-rating {
+      display: flex;
+      align-items: first baseline;
+      justify-content: space-between;
+      .price {
+        font-size: 35px;
+        color: $accent;
+        letter-spacing: 0.1em;
+        margin: 0;
+      }
+      .stars {
+        display: flex;
+        margin-block: 20px;
+        .star {
+          font-size: 22.5px;
+          letter-spacing: 5px;
+        }
+      }
+
+      .counting-mobile {
+        display: none;
+      }
+      .counting-desktop {
+        font-style: 14px;
+        margin-left: 14px;
+      }
+    }
+    .btns {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      .course-detail-btn {
+        letter-spacing: 0.1em;
+        padding: 12px 0px;
+        width: 290px;
+        font: 800 14px inter;
+        background: $secondary;
+        color: $primary;
+        border-radius: 0%;
+        &:hover {
+          color: $secondary;
+          background-color: $primary;
+        }
+      }
+    }
+  }
+}
+
+// tabs邊距
+.course-detail-tabs-mobile {
+  display: none;
+}
+.course-detail-tabs-desktop {
+  margin-top: 60px;
+  margin-bottom: 100px;
+  padding-inline: 100px;
+  // 評論陳列區 按鈕群樣式
+  .review-container {
+    .funtion-btns {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: flex-end;
+      // justify-content: space-between;
+      // align-items: center;
+      margin-bottom: 20px;
+      .btn {
+        margin-inline-start: 10px;
+        padding: 5px 0px;
+        width: 100px;
+        font: 14px inter;
+        background: $secondary;
+        color: $primary;
+      }
+    }
+  }
+
+  // 評價卡片樣式
+  .comment-card {
+    background-color: rgba(224, 224, 217, 0.5);
+    border-radius: 10px;
+    .comment-card-header {
+      display: flex;
+      align-items: center;
+      // justify-content: space-between;
+      .comment-card-info {
+        // display: flex;
+        // justify-content: space-between;
+        margin-left: 20px;
+        .comment-card-info-text {
+          display: flex;
+          align-items: baseline;
+          .member-name {
+            font-size: 20px;
+            font-weight: 800;
+          }
+          .comment-time {
+            font-size: 14px;
+            margin-left: 18px;
+          }
+        }
+        .comment-rating {
+          color: $secondary;
+          font-size: 20px;
+          // margin-left: 50px;
+          margin-top: 8px;
+        }
+      }
+    }
+    .comment-card-content {
+    }
+    .btn {
+      // margin-left: 80px;
+      margin-top: 20px;
+      padding: 5px 0px;
+      width: 60px;
+      font: 14px inter;
+      background: $secondary;
+      color: $primary;
+    }
+  }
+  // .close {
+  //   max-height: 200px;
+  //   overflow: hidden;
+  //   transition: height 0.3s ease-in-out 0s;
+  // }
+
+  // 課程大綱樣式
+  .syllabus-container-desktop {
+    .row > * {
+      padding: 0;
+    }
+    .syllabus-container-desktop {
+      margin-top: 20px;
+    }
+
+    .table-header {
+      font-weight: bold;
+      background-color: rgba(224, 224, 217, 0.5);
+      padding: 10px;
+      text-align: center;
+    }
+
+    .table-data {
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #ddd;
+    }
+
+    // 課程大綱表格 RWD
+    @media (max-width: 768px) {
+      .table-header,
+      .table-data {
+        padding: 5px;
+      }
+    }
+  }
+
+  .syllabus-container-mobile {
+    display: none;
+  }
+
+  // 教師介紹樣式
+  .teacher-description-container {
+    display: flex;
+    padding: 0;
+    height: 300px;
+    background: rgba(224, 224, 217, 0.5);
+    border-radius: 10px;
+    .teacher-avatar {
+      position: relative;
+      margin: 15px;
+      height: 270px;
+      width: 300px;
+      border-radius: 10px;
+      overflow: hidden;
+      img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: scale-down;
+      }
+    }
+    .teacher-intro {
+      margin-inline: 30px;
+      margin-block: 15px;
+      height: 270px;
+      width: calc(100% - 300px - 30px);
+      .teacher-rank {
+        font-size: 14px;
+        color: #999;
+        margin-bottom: 10px;
+      }
+      .teacher-paragraph {
+        font-size: 16px;
+        line-height: 30px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 8;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+}
+
+// 手機版
+@media screen and (max-width: 393px) {
+  .course-detail-body {
+    background: $primary;
+    color: $font;
+    .course-detail-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .left {
+        .course-detail-img {
+          max-width: 390px;
+          height: 375px;
+          overflow: hidden;
+          img {
+            margin-top: -120px;
+            margin-left: -120px;
+          }
+        }
+      }
+    }
+    .right {
+      width: 390px;
+      margin-left: 0px;
+      // 處理btns的位置
+      display: flex;
+      flex-direction: column;
+      .course-detail-text {
+        margin-left: 10px;
+        .title {
+          // margin-top: -10px;
+          margin-block: 10px;
+          font-size: 25px;
+          font-weight: 800;
+        }
+        .intro {
+          display: none;
+          // font-size: 14px;
+          // margin-top: 30px;
+          // margin-bottom: 60px;
+          // // 固定高度暫時方案
+          // min-height: 250px;
+          // max-height: 250px;
+        }
+      }
+      .course-detail-items {
+        font-weight: 800;
+        font-size: 14px;
+        line-height: 25px;
+      }
+      .course-rating {
+        display: flex;
+        justify-content: space-between;
+        align-items: last baseline;
+        margin-top: -30px;
+        .price {
+          font-size: 25px;
+          font-weight: 800;
+          color: $accent;
+          letter-spacing: 0.1em;
+          margin: 0;
+        }
+        .stars {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-block: 20px;
+          margin-right: 10px;
+          .counting-mobile {
+            display: block;
+          }
+          .star {
+            font-size: 22.5px;
+            letter-spacing: 5px;
+          }
+          .counting-desktop {
+            display: none;
+            font-style: 14px;
+            margin-left: 0px;
+          }
+        }
+      }
+      .btns {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        .course-detail-btn {
+          letter-spacing: 0.1em;
+          padding: 12px 0px;
+          // margin: 5px;
+          // width: 193px;
+          font: 800 14px inter;
+          background: $secondary;
+          color: $primary;
+          border-radius: 0%;
+        }
+      }
+    }
+  }
+
+  .course-detail-tabs-desktop {
+    display: none;
+  }
+
+  .course-detail-tabs-mobile {
+    display: block;
+    // margin-top: 30px;
+    margin-bottom: 100px;
+    // padding-inline: 10px;
+    // 評論陳列區 按鈕群樣式
+    .review-container {
+      .funtion-btns {
+        display: flex;
+        // flex-direction: column-reverse;
+        // align-items: flex-end;
+        justify-content:space-between;
+        // align-items: center;
+        margin-bottom: 20px;
+        .btn {
+          // margin-inline-start: 10px;
+          padding: 5px 0px;
+          width: 100px;
+          font: 14px inter;
+          background: $secondary;
+          color: $primary;
+        }
+      }
+    }
+    // 評價卡片樣式
+    .comment-card {
+      background-color: rgba(224, 224, 217, 0.5);
+      border-radius: 10px;
+      .comment-card-header {
+        display: flex;
+        align-items: center;
+        // justify-content: space-between;
+        .comment-card-info {
+          display: flex;
+          justify-content: space-between;
+          margin-left: 20px;
+          .comment-card-info-text {
+            // display: flex;
+            // align-items: baseline;
+            .member-name {
+              font-size: 16px;
+              font-weight: 800;
+            }
+            .comment-time {
+            }
+          }
+          .comment-rating {
+            color: $secondary;
+            font-size: 16px;
+            margin-left: 50px;
+            margin-top: 3px;
+          }
+        }
+      }
+      .comment-card-content {
+      }
+      .btn {
+        margin-left: 215px;
+        margin-top: 20px;
+        padding: 5px 0px;
+        width: 80px;
+        font: 14px inter;
+        background: $secondary;
+        color: $primary;
+      }
+    }
+    // .close {
+    //   max-height: 90px;
+    //   overflow: hidden;
+    //   transition: height 0.3s ease-in-out 0s;
+    // }
+
+    // 課程大綱樣式
+    .syllabus-container-mobile {
+      .row > * {
+        padding: 0;
+      }
+      .syllabus-container {
+        margin-top: 20px;
+      }
+
+      .table-header {
+        font-weight: bold;
+        background-color: rgba(224, 224, 217, 0.5);
+        padding: 0px;
+        text-align: center;
+      }
+
+      .table-data {
+        padding: 0px;
+        text-align: center;
+        border: 1px solid #ddd;
+      }
+
+      // // 課程大綱表格 RWD
+      // @media (max-width: 768px) {
+      //   .table-header,
+      //   .table-data {
+      //     padding: 5px;
+      //   }
+      // }
+    }
+
+    .syllabus-container-desktop {
+      display: none;
+    }
+
+    // 教師介紹樣式
+    .teacher-description-container {
+      background-color: rgba(224, 224, 217, 0.5);
+      padding: 3px 10px;
+      border-radius: 10px;
+      .teacher-avatar {
+        // position: relative;
+        margin-block: 15px;
+        height: 200px;
+        // width: 300px;
+        min-width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        img {
+          min-width: 100%;
+          // position: absolute;
+          // top: 65%;
+          // left: 50%;
+          // transform: translate(-50%, -50%);
+          // object-fit: scale-down;
+        }
+      }
+      .teacher-intro {
+        margin-inline: 10px;
+        margin-block: 15px;
+        // height: 270px;
+        // width: calc(100% - 300px - 30px);
+        .teacher-rank {
+          font-size: 14px;
+          color: #999;
+          margin-bottom: 10px;
+        }
+        .teacher-paragraph {
+          font-size: 15px;
+          line-height: 30px;
+          // overflow: hidden;
+          // text-overflow: ellipsis;
+          // display: -webkit-box;
+          // -webkit-line-clamp: 8;
+          // -webkit-box-orient: vertical;
+        }
+      }
+    }
+    .faq {
+      //常見問題樣式
+    }
+    .reiveiw {
+      //評價樣式
+    }
+  }
+}

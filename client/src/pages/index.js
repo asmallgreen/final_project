@@ -3,6 +3,7 @@ import Collapse from "@mui/material/Collapse";
 import { ConfigProvider, Tabs } from "antd";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import Link from "next/link";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Import Swiper styles
@@ -21,7 +22,6 @@ import Season from "../components/homepage/Season";
 import Hot from "../components/homepage/Hot";
 import Beginner from "../components/homepage/Beginner";
 import Welfare from "../components/homepage/Welfare";
-import Link from "next/link";
 
 // slider卡片內容
 const courseParagraph1 = `
@@ -81,21 +81,21 @@ const items = [
     label: "熱銷",
     children: <Hot />,
   },
-  {
-    key: "3",
-    label: "季節",
-    children: <Season />,
-  },
+  // {
+  //   key: "3",
+  //   label: "季節",
+  //   children: <Season />,
+  // },
   {
     key: "4",
     label: "初學",
     children: <Beginner />,
   },
-  {
-    key: "5",
-    label: "福利品",
-    children: <Welfare />,
-  },
+  // {
+  //   key: "5",
+  //   label: "福利品",
+  //   children: <Welfare />,
+  // },
 ];
 
 export default function Homepage() {
@@ -127,7 +127,7 @@ export default function Homepage() {
         <div className="homepageHero2">
           <p className="">探求弓道的本質</p>
         </div>
-        <div className="aboutUs">
+        <div className="aboutUs" id="aboutUs">
           <div className="aboutUs-container">
             <div className="left-desktop">
               <div className="p1">關於</div>

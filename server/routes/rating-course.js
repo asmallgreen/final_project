@@ -22,16 +22,26 @@ router.get("/:id", async (req, res) => {
         return res.json( ratingCourse )
     }
     else {
-        return res.json({})
+        return res.json([])
     }
 })
 
 router.get('/member/:id', async (req, res) => {
     const courseId = req.params.id
+    const memberId = `SELECT member_id FROM rating_course WHERE course_id = ${courseId}`
     const sql = `SELECT * FROM member WHERE id IN (SELECT member_id FROM rating_course WHERE course_id = ${courseId})`
-    const { rows } = await executeQuery(sql)
 
-    res.json({ rows })
+    if(memberId) {
+        const { rows } = await executeQuery(sql)
+        console.log(rows)
+        res.json({ rows }) 
+    }else{
+        res.json([])
+    }
+
+    // const { rows } = await executeQuery(sql2)
+    // console.logr(rows)
+    // res.json({ rows })
 })
 
 router.post('/add', async (req, res) => {

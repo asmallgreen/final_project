@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import { Container, Row, Col, Tabs, Tab } from "react-bootstrap";
 import { useRouter } from 'next/router';
 import Link from "next/link";
 import { FaAngleLeft } from "react-icons/fa6";
-import { Rate, Collapse } from 'antd';
+import { Rate, Collapse, Input, ConfigProvider } from 'antd';
+const { TextArea } = Input;
 import axios from "axios";
-
+import { useAuthJWT } from "@/hooks/use-auth-jwt";
 import SideBar from "@/components/member/side-bar";
+import Swal from "sweetalert2";
 // import orderDetails from "@/data/order-detail.json";
 
 export default function OrderDetail() {
@@ -19,26 +21,37 @@ export default function OrderDetail() {
   const toggleRatingSection = () => {
     setIsRatingSectionOpen(!isRatingSectionOpen);
   };
-
+  //取得會員資料member_id
+  const { authJWT, favoriteCourses, setFavoriteCourses } = useAuthJWT()
+  const memberId = authJWT.memberData.id
   //OrderDetail
-  const [order,setOrder]=useState("");
+  const [order, setOrder] = useState("");
   const [detailData, setDetailData] = useState([]);
   const [productDetail, setProductDetail] = useState([]);
   const [courseDetail, setCourseDetail] = useState([]);
-  
-
+  const [ratingCourse, setRatingCourse] = useState([]);
+  const [scoreCourse, setScoreCourse] = useState(0);
+  const [commentCourse, setCommentCourse] = useState('');
+  const [ratingCourseData, setRatingCourseData] = useState({
+    order_id: '',
+    member_id: memberId,
+    // course_id: '',
+    score: '',
+    comment: ''
+  })
+  console.log(courseDetail)
   //該筆訂單資料
   useEffect(() => {
     axios
-    .get(`http://localhost:3005/memberDashboard//FindOrder?orderId=${oid}`)
-    .then((response) => {
-      const order = response.data.order;
-      setOrder(order);
-    })
-    .catch((error) => {
-      console.error("前端請求該筆訂單錯誤:", error);
-    });
-  },[oid])
+      .get(`http://localhost:3005/memberDashboard//FindOrder?orderId=${oid}`)
+      .then((response) => {
+        const order = response.data.order;
+        setOrder(order);
+      })
+      .catch((error) => {
+        console.error("前端請求該筆訂單錯誤:", error);
+      });
+  }, [oid])
 
   // //舊訂單細節資料
   // useEffect(() => {
@@ -59,23 +72,106 @@ export default function OrderDetail() {
   //   },[oid])
 
   //新訂單細節資料
-    useEffect(() => {
-      axios
+  useEffect(() => {
+    axios
       .get(`http://localhost:3005/memberDashboard/FindDetailOrder?orderId=${oid}`)
       .then((response) => {
-      const detailOrder = response.data.detailOrder;
+        const detailOrder = response.data.detailOrder;
 
-      const productOrderDetail = detailOrder.filter((detail) => detail.product_id !== "0");
-      const courseOrderDetail = detailOrder.filter((detail) => detail.course_id !== "0");
+        const productOrderDetail = detailOrder.filter((detail) => detail.product_id !== "0");
+        const courseOrderDetail = detailOrder.filter((detail) => detail.course_id !== "0");
 
-      setDetailData(detailOrder);
-      setProductDetail(productOrderDetail);
-      setCourseDetail(courseOrderDetail);
+        setDetailData(detailOrder);
+        setProductDetail(productOrderDetail);
+        setCourseDetail(courseOrderDetail);
 
-      console.log(productOrderDetail)
-      console.log(courseOrderDetail)
+        // console.log(productOrderDetail)
+        // console.log(courseOrderDetail)
       })
-    },[oid])
+  }, [oid])
+
+  //取得評價留言，並存入state
+  const commentCourseCurrent = (e) => {
+    setRatingCourseData({
+      ...ratingCourseData,
+      comment: e.target.value
+    })
+  }
+  //取得評價星星數，並存入state
+  const scoreCourseCurrent = (value) => {
+    setRatingCourseData({
+      ...ratingCourseData,
+      score: value,
+    })
+  }
+  //取得會員id，並存入state
+  // useEffect(() => {
+  //   setRatingCourseData({
+  //     ...ratingCourseData,
+  //     member_id: memberId
+  //   })
+  // }, [memberId])
+  // 取得訂單id，並存入state
+  useEffect(() => {
+    setRatingCourseData({
+      ...ratingCourseData,
+      order_id: oid
+    })
+  }, [oid])
+
+  // console.log(memberId)
+  // console.log(scoreCourse)
+  // console.log(commentCourse)
+
+  // console.log('送出前', ratingCourseData)
+  //接新增評價的後端路由
+
+  const handleRatingCourse = async (courseId) => {
+    console.log(courseId)
+    // 取得課程id，並存入state
+    // setRatingCourseData({
+    //   ...ratingCourseData,
+    //   course_id: courseId
+    // });
+    const newRatingCourseData = {
+      ...ratingCourseData,
+      course_id: courseId
+    }
+
+    try {
+      const res = await axios.post(`http://localhost:3005/rating-course/add`, newRatingCourseData)
+      // console.log(res)
+      if (res.data.code === '200') {
+        Swal.fire({
+          icon: 'success',
+          title: '評價成功',
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: `rgba(255, 255, 255, 0.55)`,
+          width: '35%',
+          padding: '0 0 3.25em',
+          customClass: {
+          }
+        })
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: '評價失敗',
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: `rgba(255, 255, 255, 0.55)`,
+          width: '35%',
+          padding: '0 0 3.25em',
+          customClass: {
+          }
+        })
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  console.log(ratingCourseData)
   return (
     <>
       <Row className="member-order-detail">
@@ -97,7 +193,7 @@ export default function OrderDetail() {
             <div className="row align-items-center py-2">
               <div className="row col-md-10 col-lg-6 text-start">
                 <div className="col-6">訂單編號：{oid}</div>
-                <div className="col-6">訂單時間：<br/>{order[0] ? order[0].order_date : '載入中...'}</div>
+                <div className="col-6">訂單時間：<br />{order[0] ? order[0].order_date : '載入中...'}</div>
               </div>
               <div className="col text-end d-none d-md-block">
                 <Link href="/member/order-list">
@@ -138,9 +234,9 @@ export default function OrderDetail() {
                           <div>
                             <div className="row text-center align-items-center">
                               <div className="col">
-                              <img src={order.img} 
-                                alt={order.img} 
-                              />
+                                <img src={order.img}
+                                  alt={order.img}
+                                />
                               </div>
                               <div className="col">{order.name}</div>
                               <div className="col">{order.price}</div>
@@ -156,20 +252,54 @@ export default function OrderDetail() {
                         )}
                       >
                         <div>
-                        <div className="comment-wrapper">
-                          <div className="star-area d-flex">
-                            <div>評價</div>
-                            <div className="star-component">
-                              <Rate allowHalf defaultValue={2.5} />
+                          {/* 課程評價UI */}
+                          <div className="comment-wrapper mx-auto">
+                            <div className="star-area d-flex align-items-center">
+                              <div className="fs-5">評價</div>
+                              <div className="star-component ms-3 mt-1">
+                                <Rate allowHalf
+                                  defaultValue={5}
+                                // onChange={scoreCourseCurrent}
+                                />
+                              </div>
                             </div>
+                            <div className="text-area">
+                              <div className="fs-5">留言</div>
+                              <ConfigProvider
+                                theme={{
+                                  components: {
+                                    Input: {
+                                      hoverBorderColor: '#B16464',
+                                      activeBorderColor: '#B16464',
+                                    },
+                                  },
+                                }}
+                              >
+                                <TextArea
+                                  maxLength={500}
+                                  placeholder="請留下您的評價(限500字)"
+                                  className="mt-3"
+                                  autoSize={{ minRows: 7, maxRows: 7 }}
+
+                                // onChange={commentCourseCurrent}
+                                ></TextArea>
+                              </ConfigProvider>
+                              {/* <textarea
+                                required
+                                placeholder="請留下您的評價(限500字)"
+                                className="mt-3 d-md-block d-none"
+                                maxLength={500}
+                                rows={7}
+                                cols={157}
+                                onChange={commentCourseCurrent}
+                                >
+                                </textarea> */}
+                            </div>
+                            <button className="btn mt-3"
+                            // onClick={() => handleRatingCourse(order.course_id)}
+                            >送出</button>
                           </div>
-                          <div className="text-area">
-                            <div>留言</div>
-                            <textarea placeholder="請留下您的評價"></textarea>
-                          </div>
-                          <button className="btn">送出</button>
                         </div>
-                      </div>
                       </Collapse.Panel>
                     ))}
                   </Collapse>
@@ -178,7 +308,7 @@ export default function OrderDetail() {
                   {productDetail.map((order, index) => (
                     <div className="row align-items-center py-3">
                       <div className="col-4 text-center">
-                        <img src={order.img} alt={order.img}/>
+                        <img src={order.img} alt={order.img} />
                       </div>
                       <div className="col-5">
                         <div className="order-title">{order.name}</div>
@@ -203,7 +333,7 @@ export default function OrderDetail() {
                 </div>
               </Tab>
               <Tab eventKey="course" title="課程">
-              <div className="order-table-pc d-none d-md-block">
+                <div className="order-table-pc d-none d-md-block">
                   <div className="thead text-center py-2 row">
                     <div className="col-4">#</div>
                     <div className="col-3">名稱</div>
@@ -226,7 +356,7 @@ export default function OrderDetail() {
                         header={(
                           <div>
                             <div className="row text-center align-items-center">
-                              <div className="col-4"><img src={order.img} alt={order.img}/>
+                              <div className="col-4"><img src={order.img} alt={order.img} />
                               </div>
                               <div className="col-4">{order.name}</div>
                               <div className="col-4">{order.price}</div>
@@ -235,26 +365,59 @@ export default function OrderDetail() {
                         )}
                       >
                         <div>
-                        <div className="comment-wrapper">
-                          <div className="star-area d-flex">
-                            <div>評價</div>
-                            <div className="star-component">
-                              <Rate allowHalf defaultValue={2.5} />
+                          {/* 課程評價UI */}
+                          <div className="comment-wrapper mx-auto">
+                            <div className="star-area d-flex align-items-center">
+                              <div className="fs-5">評價</div>
+                              <div className="star-component ms-3 mt-1">
+                                <Rate allowHalf
+                                  defaultValue={5}
+                                  onChange={scoreCourseCurrent} />
+                              </div>
                             </div>
+                            <div className="text-area">
+                              <div className="fs-5">留言</div>
+                              <ConfigProvider
+                                theme={{
+                                  components: {
+                                    Input: {
+                                      hoverBorderColor: '#B16464',
+                                      activeBorderColor: '#B16464',
+                                    },
+                                  },
+                                }}
+                              >
+                                <TextArea
+                                  maxLength={500}
+                                  placeholder="請留下您的評價(限500字)"
+                                  className="mt-3"
+                                  autoSize={{ minRows: 7, maxRows: 7 }}
+
+                                  onChange={commentCourseCurrent}
+                                ></TextArea>
+                              </ConfigProvider>
+                              {/* <textarea
+                                required
+                                placeholder="請留下您的評價(限500字)"
+                                className="mt-3 d-md-block d-none"
+                                maxLength={500}
+                                rows={7}
+                                cols={157}
+                                onChange={commentCourseCurrent}
+                                >
+                                </textarea> */}
+                            </div>
+                            <div>課程編號: {order.course_id}</div>
+                            <button className="btn mt-3"
+                              onClick={() => handleRatingCourse(order.course_id)}>送出</button>
                           </div>
-                          <div className="text-area">
-                            <div>留言</div>
-                            <textarea placeholder="請留下您的評價"></textarea>
-                          </div>
-                          <button className="btn">送出</button>
                         </div>
-                      </div>
                       </Collapse.Panel>
                     ))}
                   </Collapse>
-                </div>       
+                </div>
                 <div className="order-table-mobile d-md-none">
-                {courseDetail.map((order, index) => (
+                  {courseDetail.map((order, index) => (
                     <div className="row align-items-center py-3">
                       <div className="col-4 text-center">
                         <img src={order.img} alt={order.img} />

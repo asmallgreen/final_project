@@ -18,15 +18,15 @@ export default function IntroCard(props) {
         <div className="intro-card-text">
           <div className="intro-card-title">{introTitle}</div>
           <div className="intro-card-content">{introCat}</div>
-          <Link
-          href={introHref}
+          <div
+          // href={introHref}
           className="intro-card-btn text-decoration-none">
             <div className="arrow-line"></div>
             <div className="text-btn">商城</div>
             <div className="icon">
               <FaShop />
             </div>
-          </Link>
+          </div>
         </div>
       </div>
     </Link>
