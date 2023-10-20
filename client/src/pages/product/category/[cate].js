@@ -262,55 +262,76 @@ function Cate(props) {
         pagination={{
           clickable: true,
         }}
-        initialSlide={2}
+        initialSlide={1}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper ad-swiper"
       >
-        <SwiperSlide>
-          <div className="ads">
-            <div className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-              <img src="/product/top2.jpg" alt="img" />
-              <img src="/product/top3.jpg" alt="img" />
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="ads">
-            <div className="ad">
-              <img src="/product/top2.jpg" alt="img" />
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="ads">
-            <div className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="ads">
-            <div className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="ads">
-            <div className="ad">
-              <img src="/product/top2.jpg" alt="img" />
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="ads">
-            <div className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </div>
-          </div>
-        </SwiperSlide>
+      {/* <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top1.jpg" alt="img" />
+        <img src="/product/top2.jpg" alt="img" />
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+      </div>
+      </Link>
+      </SwiperSlide> */}
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top2.jpg" alt="img" />
+        </div>
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+        </div>   
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top1.jpg" alt="img" />
+        </div>
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+         <div className="ads">
+        <div className="ad">
+        <img src="/product/top2.jpg" alt="img" />
+        </div>
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+        </div>  
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top4.jpg" alt="img" />
+        </div>
+        </div>  
+      </Link>
+      </SwiperSlide>
       </Swiper>
       <div className="phone-ad">
         <img src="/product/top1.jpg" alt="img"></img>
@@ -319,7 +340,6 @@ function Cate(props) {
       <div className="product-page-title">
         <p>新品上架</p>
       </div>
-      {/* <Router> */}
       <Swiper
         spaceBetween={0}
         slidesPerView={slidesPerView}
@@ -328,13 +348,16 @@ function Cate(props) {
         modules={[Navigation, Pagination]}
         className="mySwiper launched-product-swiper"
       >
-        {newProduct.map((data) => (
-          <SwiperSlide key={data.id}>
-            <LaunchedCard filterNewProduct={data} />
-          </SwiperSlide>
-        ))}
+        {newProduct.map((data) => {
+          return (
+            <SwiperSlide>
+              <LaunchedCard key={data.id} filterNewProduct={data} />
+            </SwiperSlide>
+          );
+        })}
       </Swiper>
-      {/* </Router> */}
+   
+     
 
       {/* 分類 */}
       <div className="category position-relative">
