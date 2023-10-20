@@ -158,7 +158,7 @@ export default function OrderDetail() {
         })
         setTimeout(() => {
           window.location.href = `/course/${courseId}`;
-        }, 1500);
+        }, 1);
         
       } else {
         Swal.fire({
@@ -323,7 +323,53 @@ export default function OrderDetail() {
                           <div className="order-contain">{order.price}</div>
                         </div>
                         <div className="col-3">{order.quantity}</div>
+                        <div className="comment-wrapper mx-auto pt-4">
+                            <div className="star-area d-flex align-items-center">
+                              <div className="fs-5">評價</div>
+                              <div className="star-component ms-3 mt-1">
+                                <Rate allowHalf
+                                  defaultValue={5}
+                                  onChange={scoreCourseCurrent} />
+                              </div>
+                            </div>
+                            <div className="text-area">
+                              <div className="fs-5">留言</div>
+                              <ConfigProvider
+                                theme={{
+                                  components: {
+                                    Input: {
+                                      hoverBorderColor: '#B16464',
+                                      activeBorderColor: '#B16464',
+                                    },
+                                  },
+                                }}
+                              >
+                                <TextArea
+                                  maxLength={500}
+                                  placeholder="請留下您的評價(限500字)"
+                                  className="mt-3"
+                                  autoSize={{ minRows: 7, maxRows: 7 }}
+
+                                  onChange={commentCourseCurrent}
+                                ></TextArea>
+                              </ConfigProvider>
+                              {/* <textarea
+                                required
+                                placeholder="請留下您的評價(限500字)"
+                                className="mt-3 d-md-block d-none"
+                                maxLength={500}
+                                rows={7}
+                                cols={157}
+                                onChange={commentCourseCurrent}
+                                >
+                                </textarea> */}
+                            </div>
+                            {/* <div>課程編號: {order.course_id}</div> */}
+                            <button className="btn mt-3"
+                              >送出</button>
+                          </div>
                       </div>
+                      
                     ))}
                     <div className="row align-items-center py-3">
                     </div>
@@ -426,14 +472,60 @@ export default function OrderDetail() {
                   <div className="order-table-mobile d-md-none">
                     {courseDetail.map((order, index) => (
                       <div className="row align-items-center py-3" key={index}>
-                        <div className="col-4 text-center">
+                        <div className="col-5 text-center">
                           <img src={order.img} alt={order.img} />
                         </div>
-                        <div className="col-5">
+                        <div className="col-7">
                           <div className="order-title">{order.name}</div>
                           <div className="order-contain">{order.price}</div>
                         </div>
+                        <div className="comment-wrapper mx-auto pt-4">
+                            <div className="star-area d-flex align-items-center">
+                              <div className="fs-5">評價</div>
+                              <div className="star-component ms-3 mt-1">
+                                <Rate allowHalf
+                                  defaultValue={5}
+                                  onChange={scoreCourseCurrent} />
+                              </div>
+                            </div>
+                            <div className="text-area">
+                              <div className="fs-5">留言</div>
+                              <ConfigProvider
+                                theme={{
+                                  components: {
+                                    Input: {
+                                      hoverBorderColor: '#B16464',
+                                      activeBorderColor: '#B16464',
+                                    },
+                                  },
+                                }}
+                              >
+                                <TextArea
+                                  maxLength={500}
+                                  placeholder="請留下您的評價(限500字)"
+                                  className="mt-3"
+                                  autoSize={{ minRows: 7, maxRows: 7 }}
+
+                                  onChange={commentCourseCurrent}
+                                ></TextArea>
+                              </ConfigProvider>
+                              {/* <textarea
+                                required
+                                placeholder="請留下您的評價(限500字)"
+                                className="mt-3 d-md-block d-none"
+                                maxLength={500}
+                                rows={7}
+                                cols={157}
+                                onChange={commentCourseCurrent}
+                                >
+                                </textarea> */}
+                            </div>
+                            {/* <div>課程編號: {order.course_id}</div> */}
+                            <button className="btn mt-3"
+                              onClick={() => handleRatingCourse(order.course_id)}>送出</button>
+                          </div>
                       </div>
+                      
                     ))}
                     <div className="container p-3">
                       <div className="order-info">

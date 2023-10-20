@@ -348,8 +348,8 @@ function Cate(props) {
       >
         {newProduct.map((data) => {
           return (
-            <SwiperSlide>
-              <LaunchedCard key={data.id} filterNewProduct={data} />
+            <SwiperSlide key={data.id}>
+              <LaunchedCard filterNewProduct={data} />
             </SwiperSlide>
           );
         })}
@@ -461,8 +461,8 @@ function Cate(props) {
       >
         {saleProduct.map((data) => {
           return (
-            <SwiperSlide>
-              <SalesCard key={data.id} filterSaleProduct={data} />
+            <SwiperSlide key={data.id}>
+              <SalesCard filterSaleProduct={data} />
             </SwiperSlide>
           );
         })}
@@ -497,8 +497,8 @@ function Cate(props) {
       >
         {randomProducts.map((data) => {
           return (
-            <SwiperSlide>
-              <RecommendedCard key={data.id} filterRecommendProduct={data} />
+            <SwiperSlide key={data.id}>
+              <RecommendedCard filterRecommendProduct={data} />
             </SwiperSlide>
           );
         })}

@@ -8,6 +8,8 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import { useRouter } from "next/router";
+import axios from "axios";
 //fontawesome
 export default function Logobar() {
   const [ham, setHam] = useState(false);
@@ -42,7 +44,49 @@ export default function Logobar() {
     // console.log(accordion);
   };
 
-  const { authJWT } = useAuthJWT();
+  const { authJWT, setAuthJWT } = useAuthJWT();
+  const router = useRouter();
+  // 首頁路由
+
+  const homeRoute = "/";
+  // 隱私頁面路由，登出時會，檢查後跳轉至首頁
+
+  const protectedRoutes = [
+    "/member",
+    "/member/update-profile",
+    "member/update-pwd",
+    "/member/order-list",
+    "/member/coupon",
+    "/member/fav-product",
+    "/cart",
+  ];
+  const handleLogout = async () => {
+    try {
+      const res = await axios.post(
+        "http://localhost:3005/member/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      if (res.data.message === "success") {
+        setAuthJWT({
+          isAuth: false,
+          memberData: {
+            id: 0,
+            account: "",
+            name: "",
+            email: "",
+            level: "",
+            created_date: "",
+          },
+        });
+        if (protectedRoutes.includes(router.pathname)) {
+          router.push(homeRoute);
+        }
+      }
+    } catch (error) { }
+  };
   return (
     <>
       <div className="logo-bar">
@@ -64,9 +108,9 @@ export default function Logobar() {
           <div className="info">
             {authJWT.isAuth ? (
               <>
-                <Link href="" className="img">
-                  <img src="" alt="" className="img-edit opacity-50"></img>
-                </Link>
+                <div className="img">
+                  <img src={authJWT.memberData.member_img === 'avatar01.jpg'?'/Duo/avatar01.jpg':`http://localhost:3005/${authJWT.memberData.member_img}`} alt="" className="img-edit opacity-50"></img>
+                </div>
               </>
             ) : (
               ""
@@ -244,7 +288,7 @@ export default function Logobar() {
           <Link href="" className="type d-block">
             關於良弓制販所
           </Link>
-          <div className="type d-flex justify-content-between">
+          {/* <div className="type d-flex justify-content-between">
             聯絡我們
             <FontAwesomeIcon
               icon={accordion5 ? faChevronDown : faChevronRight}
@@ -256,13 +300,13 @@ export default function Logobar() {
           </Link>
           <Link href="" className={accordion5 ? "fk" : "d-none"}>
             聯絡線上客服
-          </Link>
+          </Link> */}
           {authJWT.isAuth ? (
             <>
               {" "}
-              <Link href="/member/logout" className="logout">
-                登出
-              </Link>
+              <Link href="#" className="logout" onClick={handleLogout}>
+                  登出
+                </Link>
             </>
           ) : (
             <>
