@@ -350,8 +350,8 @@ function Cate(props) {
       >
         {newProduct.map((data) => {
           return (
-            <SwiperSlide>
-              <LaunchedCard key={data.id} filterNewProduct={data} />
+            <SwiperSlide key={data.id}>
+              <LaunchedCard  filterNewProduct={data} />
             </SwiperSlide>
           );
         })}

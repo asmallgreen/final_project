@@ -336,8 +336,8 @@ function Product() {
       >
         {newProduct.map((data) => {
           return (
-            <SwiperSlide>
-              <LaunchedCard key={data.id} filterNewProduct={data} />
+            <SwiperSlide key={data.id}>
+              <LaunchedCard filterNewProduct={data} />
             </SwiperSlide>
           );
         })}
@@ -451,7 +451,7 @@ function Product() {
         {saleProduct.map((data) => {
           return (
             <SwiperSlide key={data.id}>
-              <SalesCard key={data.id} filterSaleProduct={data} />
+              <SalesCard  filterSaleProduct={data} />
             </SwiperSlide>
           );
         })}
@@ -487,7 +487,7 @@ function Product() {
         {randomProducts.map((data) => {
           return (
             <SwiperSlide key={data.id}>
-              <RecommendedCard key={data.id} filterRecommendProduct={data} />
+              <RecommendedCard filterRecommendProduct={data} />
             </SwiperSlide>
           );
         })}
