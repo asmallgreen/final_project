@@ -116,10 +116,10 @@ export default function Logobar() {
         <div className="opac" onClick={handleHam}></div>
         <div className="btns p-0">
           <div className="info">
-            {authJWT.isAuth ? (
+          {authJWT.isAuth ? (
               <>
-                <Link href="" className="img">
-                  <img src="" alt="" className="img-edit opacity-50"></img>
+                <Link href='/member/update-profile' className="img">
+                  <img src={authJWT.memberData.member_img === 'avatar01.jpg'?'/Duo/avatar01.jpg':`http://localhost:3005/${authJWT.memberData.member_img}`} alt="" className="img-edit "></img>
                 </Link>
               </>
             ) : (
