@@ -267,7 +267,7 @@ function Product() {
           data:{memberId},
           withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
         })
-        console.log(res.data);
+        // console.log(res.data);
         if(res.data.message === '已取消收藏'){
           await Swal.fire({
             icon: 'success',
@@ -294,7 +294,7 @@ function Product() {
         {
           withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
         })
-        console.log(res.data);
+        // console.log(res.data);
 
         if(res.data.message === '商品收藏成功'){
           await Swal.fire({

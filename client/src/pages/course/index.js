@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Row, Col } from "react-bootstrap";
 import CourseListItemCard from "@/components/course-list/CourseListItemCard";
-import BreadCrumbCourse from "@/components/bread-crumb/bread-crumb-course.js";
+import BreadCrumbCourse from "@/components/bread-crumb/bread-crumb-course";
 import { Container } from "react-bootstrap";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
@@ -16,6 +16,7 @@ import { faFilter, faSort } from "@fortawesome/free-solid-svg-icons";
 import { faArrowLeft, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Button from "react-bootstrap/Button";
 import Collapse from "react-bootstrap/Collapse";
+import Link from "next/link";
 
 function CourseList() {
   const [allCourse, setAllCourse] = useState([]);
@@ -55,7 +56,7 @@ function CourseList() {
       setFilteredCourses(allCourse);
     }
   }, [allCourse]);
-
+  // console.log(allCourse);
   // 使用useEffect來監聽篩選條件的變化並應用篩選
   useEffect(() => {
     applyFilters();
@@ -99,8 +100,8 @@ function CourseList() {
     setSortOrder(event.target.value);
   };
 
-  //   篩選
-  //   抓取篩選條件更新的事件
+  // 篩選
+  // 抓取篩選條件更新的事件
   // 處理篩選條件改變
   const handleFilterChange = (event) => {
     const { name, value, checked } = event.target;
@@ -144,9 +145,11 @@ function CourseList() {
 
   return (
     <>
-      <Swiper
+
+<Swiper
+        loop={true}
         spaceBetween={0}
-        slidesPerView={1}
+        slidesPerView={3}
         centeredSlides={true}
         autoplay={{
           delay: 2500,
@@ -155,77 +158,82 @@ function CourseList() {
         pagination={{
           clickable: true,
         }}
+        initialSlide={1}
         navigation={true}
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper ad-swiper"
       >
-        <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="top1.jpg" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
-        </SwiperSlide>
-        <SwiperSlide>
-          <Row className="ads">
-            <Col md="3" className="ad">
-              <img src="/product/top1.jpg" alt="img" />
-            </Col>
-            <Col md="6" className="ad main">
-              <img src="/product/top2.jpg" alt="img" />
-            </Col>
-            <Col md="3" className="ad">
-              <img src="/product/top3.jpg" alt="img" />
-            </Col>
-          </Row>
-        </SwiperSlide>
+      {/* <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top1.jpg" alt="img" />
+        <img src="/product/top2.jpg" alt="img" />
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+      </div>
+      </Link>
+      </SwiperSlide> */}
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top2.jpg" alt="img" />
+        </div>
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+        </div>   
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top1.jpg" alt="img" />
+        </div>
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+         <div className="ads">
+        <div className="ad">
+        <img src="/product/top2.jpg" alt="img" />
+        </div>
+        </div>
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top3.jpg" alt="img" />
+        </div>
+        </div>  
+      </Link>
+      </SwiperSlide>
+      <SwiperSlide>
+      <Link href='/publicCoupon'>
+        <div className="ads">
+        <div className="ad">
+        <img src="/product/top4.jpg" alt="img" />
+        </div>
+        </div>  
+      </Link>
+      </SwiperSlide>
       </Swiper>
       <div className="phone-ad">
+      <Link href='/publicCoupon'>
         <img src="/product/top1.jpg" alt="img"></img>
+      </Link>
       </div>
-      <Swiper
-        spaceBetween={10}
-        slidesPerView={4}
-        navigation={true}
-        pagination={true}
-        modules={[Navigation, Pagination]}
-        className="mySwiper launched-product-swiper"
-      >
-      </Swiper>
-     
-
       <div className="filter-area container-fluid">
         <div className="container">
           <div className="all-product all-course">
@@ -337,10 +345,6 @@ function CourseList() {
                     value={sortOrder}
                   >
                     <option value="default">
-                      <FontAwesomeIcon
-                        icon={faSort}
-                        className="fa-solid fa-sort"
-                      />
                       預設排序
                     </option>
                     <option value="highToLow">價格由高至低</option>
@@ -383,7 +387,7 @@ function CourseList() {
       </div>
       {/* 把luna-pagination拆進來 */}
       {/* btn */}
-      <div className=" page-btns d-flex justify-content-end">
+      <div className=" page-btns d-flex justify-content-end mb-3">
         <div className="btn-group me-2 rounded-0" role="group">
           <button className="btn">
             <FontAwesomeIcon
