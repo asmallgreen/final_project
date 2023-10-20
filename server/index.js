@@ -16,8 +16,8 @@ const __dirname = path.dirname(__filename);
 // end 修正 __dirname
 
 // 讓console.log可以呈現檔案與行號
-// import { extendLog } from './utils/tool.js'
-// extendLog() // 執行全域套用
+import { extendLog } from './utils/tool.js'
+extendLog() // 執行全域套用
 // console.log呈現顏色用 全域套用
 import "colors";
 // 檔案上傳
@@ -39,9 +39,10 @@ import productRouter from './routes/product.js'
 import courseRouter from './routes/course.js'
 import venueRouter from './routes/venue.js'
 import venueReserveRouter from "./routes/venue-reserve.js"
+import cartRouter from './routes/cart.js'
 import teacherRouter from './routes/teacher.js'
 import syllabusRouter from './routes/syllabus.js'
-import cartRouter from './routes/cart.js'
+import ratingCourseRouter from './routes/rating-course.js'
 
 const app = express();
 
@@ -128,6 +129,7 @@ app.use('/venue_reserve', venueReserveRouter)
 
 app.use('/teacher', teacherRouter)
 app.use('/syllabus', syllabusRouter)
+app.use('/rating-course', ratingCourseRouter)
 
 app.listen(3005, ()=>{
   console.log("服務已啟動於 http://localhost:3005");

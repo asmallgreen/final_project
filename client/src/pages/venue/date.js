@@ -73,12 +73,12 @@ async function fetchVenueReserveData() {
     reserve.date_4,
     reserve.date_5,
   ]).flat().map(date => date ? date.replace('-', ', ') : null); // 将 null 替换为 null
-  console.log(reservedDates);
+  // console.log(reservedDates);
 
     // 在日期选择器中禁用已被预定的日期
     const disabledDates = reservedDates;
     setDisabledDates(disabledDates);
-    console.log(disabledDates);
+    // console.log(disabledDates);
   
 
       // 将已被预定的日期添加到disabledDates数组中

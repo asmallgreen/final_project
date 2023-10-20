@@ -52,7 +52,7 @@ export default function Syllabus(props) {
 
       <div className="syllabus-container-mobile container">
         {syllabusData.map((item, index) => (
-          <div className="pb-4" key={item.id}>
+          <div className="pb-4" key={index}> 
             <div className="row ">
               <div className="col-2">
                 <div className="table-header">週次</div>

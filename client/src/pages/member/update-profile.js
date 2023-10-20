@@ -207,7 +207,7 @@ const { name, value } = e.target
                showConfirmButton: false,
                timer: 1500,
                backdrop: `rgba(255, 255, 255, 0.55)`,
-               width: "35%",
+              //  width: "35%",
                padding: "0 0 3.25em",
                customClass: {
                  popup: "shadow-sm",
@@ -226,7 +226,7 @@ const { name, value } = e.target
           <SideBar />
         </Col>
         <Col md="7" className="p-3">
-          <Container className="my-5">
+          <Container className="mobile-member-update-container">
             <div className="fs-2 mb-5">會員資料設定</div>
             <div className="d-flex justify-content-center align-items-center member-profile-img mb-5">
               <div>

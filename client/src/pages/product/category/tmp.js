@@ -26,7 +26,7 @@ function Tmp() {
     // 取得當前網頁的網址
     const currentUrl = router.asPath;
     // setCurrentUrl(currentUrl);
-    console.log(currentUrl);
+    // console.log(currentUrl);
     let newCate = category;
     // let newCate
     switch (currentUrl) {
@@ -53,13 +53,13 @@ function Tmp() {
     (async () => {
       try {
         const currentUrl = router.asPath;
-        console.log(currentUrl);
+        // console.log(currentUrl);
         const res = await axios.get(`http://localhost:3005/product/category${currentUrl}`, []);
-        console.log(res.data);
+        // console.log(res.data);
         // console.log(res.data.products);
         setCateProduct(res.data.catedata);
         setNewProduct(res.data.launchedData);
-        console.log(cateProduct);
+        // console.log(cateProduct);
       } catch (error) {
         console.log(error);
       }
@@ -67,8 +67,8 @@ function Tmp() {
   }, [router.asPath]);
 
   useEffect(() => {
-    console.log(newProduct);
-    console.log(cateProduct);
+    // console.log(newProduct);
+    // console.log(cateProduct);
   }, [cateProduct, newProduct]);
 
   return (

@@ -1,0 +1,56 @@
+/* components/Loading.module.css */
+.loading-block{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+
+}
+.loadingContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(244, 245, 236);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+
+  &.loaded{
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.loadingContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loadingContent img {
+  max-width: 200px; /* 調整你的logo大小 */
+  transition: transform 0.5s ease-in-out;
+}
+
+
+.expand {
+  transform: scaleY(1) rotate(90deg); /* 初始状态，保持垂直方向不变 */
+  animation: expand 0.8s forwards;
+}
+
+@keyframes expand {
+  0% {
+    transform: scaleY(1) rotate(180deg); /* 在垂直方向上从0开始 */
+  }
+  100% {
+    transform: scaleY(1) rotate(0deg); /* 在垂直方向上展开到1 */
+  }
+}
+

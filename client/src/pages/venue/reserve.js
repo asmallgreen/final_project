@@ -55,7 +55,7 @@ export default function ReserveDate({ formType, setFormType }) {
     const venueName = localStorage.getItem('venueName');
     const selectedDatesString = localStorage.getItem('selectedDates');
     const selectedDatesArray = selectedDatesString.split(',');
-    console.log(selectedDatesArray);
+    // console.log(selectedDatesArray);
 
     setDateObj({
       date_1: selectedDatesArray[0],
