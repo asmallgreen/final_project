@@ -75,7 +75,7 @@ export default function CourseDetail() {
   const [scoreAverageFromRatingCourse, setScoreAverageFromRatingCourse] =
     useState(0);
   const [ratingNumber, setRatingNumber] = useState(0);
-  console.log(RatingCourseDateByCourseId)
+  // console.log(RatingCourseDateByCourseId)
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -132,7 +132,7 @@ export default function CourseDetail() {
           }
         );
         if (Response.data.code === "200") {
-          console.log(Response.data.message);
+          // console.log(Response.data.message);
           }
         // } else {
         //   console.error("沒有錯誤");

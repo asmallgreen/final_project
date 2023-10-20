@@ -50,7 +50,7 @@ export default function CommentCard(props) {
         <div className="comment-card-header d-flex mb-2">
           <Avatar
             className=""
-            src={`/Duo/${member_avatar}`}
+            src={`http://localhost:3005/${member_avatar}`}
             size={{
               xs: 40,
               xl: 65,

@@ -1,3 +1,5 @@
+// @import "global.scss";
+
 .homepage-body {
   font-family: NSimSun;
   background: $primary;
@@ -29,15 +31,20 @@
 
   .homepageHero2 {
     width: 100%;
-    height: 350px;
+    height: 950px;
     text-align: center;
     p {
       letter-spacing: 0.1rem;
-      padding-top: 311px;
+      padding-top: 480px;
       font-weight: 400;
       font-size: 32px;
+      transition: font-size 0.2s;
+      &.react-scroll-parallax--active{
+        font-size: 50px;
+      }
+      }
     }
-  }
+  
 
   .aboutUs {
     width: 100%;
@@ -68,7 +75,7 @@
           margin-left: 20px;
         }
       }
-      .right-mobile {
+      .right-mobile{
         display: none;
       }
       .right-desktop {
@@ -95,7 +102,7 @@
   }
   .homepage-hr3 {
     background-image: url(../../../public/images/homepage/hr_3.webp);
-    margin-bottom: 100px;
+    // margin-bottom: 100px;
   }
 
   .textarea {
@@ -136,35 +143,36 @@
     width: 100%;
     height: 700px;
   }
-  .cards {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
-    flex-wrap: wrap;
+    .cards {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: center;
+      flex-wrap: wrap;
 
-    .card {
-      flex: 0 0 auto;
-      max-width: 300px;
-      margin: 20px;
-      .card-img {
-        width: 250px;
-        height: 300px;
-        background: lightblue;
-      }
-      .card-title {
-        font-weight: 400;
-        font-size: 18px;
-        letter-spacing: 0.05em;
-      }
-      .card-price {
-        font-weight: 400;
-        font-size: 18px;
-        letter-spacing: 0.05em;
+      .card {
+        flex: 0 0 auto;
+        max-width: 300px;
+        margin: 20px;
+        .card-img {
+          width: 250px;
+          height: 300px;
+          background: lightblue;
+        }
+        .card-title {
+          font-weight: 400;
+          font-size: 18px;
+          letter-spacing: 0.05em;
+        }
+        .card-price {
+          font-weight: 400;
+          font-size: 18px;
+          letter-spacing: 0.05em;
+        }
       }
     }
   }
-
+ 
   .introduction {
     width: 100%;
     height: 1350px;
@@ -213,15 +221,11 @@
           font-weight: 400;
           font-size: 20px;
           letter-spacing: 0.05em;
-
           color: black;
           // margin-left: 100px;
           .text-btn {
             margin-inline: 20px;
           }
-          // .icon{
-          //   padding-bottom: 10px;
-          // }
         }
       }
     }
@@ -285,7 +289,6 @@
       }
     }
   }
-}
 
 //手機版
 @media screen and (max-width: 393px) {
@@ -294,8 +297,20 @@
     background: $primary;
     color: $font;
     padding: 0;
-    margin: 0 0 100px 0;
-
+    margin: 0 0 62px 0;
+    transform: none !important;
+    .textarea{
+      transform: none !important;
+      h1{
+        transform: none !important;
+      }
+      p{
+        transform: none !important;
+      }
+      img{
+        transform: none !important;
+      }
+    }
     .arrow-line {
       display: none;
       width: 318px;
@@ -328,6 +343,7 @@
       width: 100%;
       height: 300px;
       text-align: center;
+      transform: none !important;
       p {
         letter-spacing: 0.1rem;
         padding-top: 311px;
@@ -340,6 +356,10 @@
       width: 100%;
       height: 100%;
       padding: 0px;
+      transform: none !important;
+      img{
+        transform: none !important;
+      }
       .aboutUs-container {
         display: block;
         flex: 0 0 auto;
@@ -354,6 +374,7 @@
           align-items: flex-start;
           justify-content: center;
           width: 100%;
+          transform: none !important;
           font: 400 25px NSimSun;
           letter-spacing: 0.2rem;
           max-width: 300px;
@@ -386,6 +407,13 @@
           padding-bottom: -200px;
           .textarea {
             height: 100%;
+            transform: none !important;
+            h1{
+              transform: none !important;
+            }
+            p{
+              transform: none !important;
+            }
           }
           .btn {
             align-self: flex-end;
@@ -396,16 +424,20 @@
     .hr {
       width: 100%;
       height: 120px;
+      transform: none !important;
     }
     .homepage-hr1 {
       background-image: url(../../../public/images/homepage/hr_1.webp);
+      transform: none !important;
     }
     .homepage-hr2 {
       background-image: url(../../../public/images/homepage/hr_2.webp);
+      transform: none !important;
     }
     .homepage-hr3 {
       background-image: url(../../../public/images/homepage/hr_3.webp);
-      margin-bottom: 100px;
+      transform: none !important;
+      // margin-bottom: 100px;
     }
 
     .textarea {
@@ -413,12 +445,13 @@
       height: 100%;
       padding: 36px 0;
       text-align: center;
-
+      transform: none !important;
       h1 {
         font-weight: 400;
         font-size: 26px;
         letter-spacing: 0.05em;
         margin-bottom: 20px;
+        transform: none !important;
       }
       p {
         font-weight: 400;
@@ -426,6 +459,7 @@
         letter-spacing: 0.2em;
         line-height: 30px;
         padding-block: 5px;
+        transform: none !important;
       }
       .btn {
         letter-spacing: 0.2em;
@@ -440,6 +474,9 @@
         //   color: $secondary;
         //   background-color: $primary;
         // }
+      }
+      img{
+        transform: none !important;
       }
     }
 
@@ -480,11 +517,17 @@
     .introduction {
       width: 100%;
       height: 100%;
+      .container{
+        div{
+          transform: none !important;
+        }
+      }
       .intro-card {
         display: block;
         .intro-card-img {
           width: 100%;
           height: 67px;
+          transform: none !important;
         }
         .ic-img1 {
           background-image: url(../../../public/images/homepage/product_intro_1.webp);
@@ -547,6 +590,7 @@
     .course-slider {
       width: 100%;
       height: 400px;
+      transform: none !important;
       .swiper-pagination-bullet {
         background: #ffffff;
       }
@@ -560,9 +604,11 @@
         align-items: flex-start;
         justify-content: center;
         height: 100%;
+        transform: none !important;
         .course-img {
           width: 100%;
           height: 280px;
+          transform: none !important;
         }
         .course-text {
           background-color: rgb(242, 242, 242, 0.75);
@@ -571,6 +617,7 @@
           margin-top: 0px;
           margin-left: 0px;
           padding: 20px;
+          transform: none !important;
           h1 {
             font-weight: 400;
             font-size: 26px;

@@ -24,7 +24,7 @@ export default function Syllabus(props) {
 
         {syllabusData.map((item) => (
           <TableBody
-            Key={item.id}
+            key={item.id}
             week_number={item.times}
             course_date={item.date}
             course_topic={item.topic}

@@ -387,7 +387,7 @@ function CourseList() {
       </div>
       {/* 把luna-pagination拆進來 */}
       {/* btn */}
-      <div className=" page-btns d-flex justify-content-end">
+      <div className=" page-btns d-flex justify-content-end mb-3">
         <div className="btn-group me-2 rounded-0" role="group">
           <button className="btn">
             <FontAwesomeIcon

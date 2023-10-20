@@ -56,7 +56,7 @@ function Pid() {
     // // setActiveValues(Values);
     // console.log("調換後"+Values)
 
-    console.log("value長度 ",Values.length)
+    // console.log("value長度 ",Values.length)
 
     if(Values.length<limitLength.length){
       setActiveValues("")
@@ -64,7 +64,7 @@ function Pid() {
     }else{
     const str = Values.map((obj) => obj).join(',')
     setActiveValues(str)
-    console.log("activeValues"+activeValues)
+    // console.log("activeValues"+activeValues)
     }
 
     
@@ -226,7 +226,7 @@ function Pid() {
           data:{memberId},
           withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
         })
-        console.log(res.data);
+        // console.log(res.data);
         if(res.data.message === '已取消收藏'){
           await Swal.fire({
             icon: 'success',
@@ -253,7 +253,7 @@ function Pid() {
         {
           withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
         })
-        console.log(res.data);
+        // console.log(res.data);
 
         if(res.data.message === '商品收藏成功'){
           await Swal.fire({

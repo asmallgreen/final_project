@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React , { useState }from "react";
 import Collapse from "@mui/material/Collapse";
 import { ConfigProvider, Tabs } from "antd";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -17,52 +17,55 @@ import CourseSlider from "../components/homepage/CourseSlider";
 import IntroCard from "../components/homepage/IntroCard";
 
 // Tabs分頁內容
-import New from "../components/homepage/New";
-import Season from "../components/homepage/Season";
-import Hot from "../components/homepage/Hot";
-import Beginner from "../components/homepage/Beginner";
-import Welfare from "../components/homepage/Welfare";
+import New from "../components/homepage/New"
+import Season from "../components/homepage/Season"
+import Hot from "../components/homepage/Hot"
+import Beginner from "../components/homepage/Beginner"
+import Welfare from "../components/homepage/Welfare"
+
+// 視差滾動效果
+import { useParallax } from "react-scroll-parallax";
 
 // slider卡片內容
 const courseParagraph1 = `
 <p>
-初生嬰兒打開眼睛所見看到的畫面，<br class="d-sm-none"/>決定了他如何看待世界。
+初生嬰兒打開眼睛所見看到的畫面，決定了他如何看待世界。
 <br/><br/>
-弓道亦如此，<br class="d-sm-none"/>弓道初體驗彌足珍貴，是無可取代的經驗。
+弓道亦如此，弓道初體驗彌足珍貴，是無可取代的經驗。
 <br/>
-我們非常重視初探弓道的活動，<br class="d-sm-none"/>竭盡全力傳達弓道精神和弓道之美。
+我們非常重視初探弓道的活動，竭盡全力傳達弓道精神和弓道之美。
 <br/>
-透過道場的空間、物件、伙伴們，<br class="d-sm-none"/>到自己親歷引弓放箭，累積對於弓道的感受。
+透過道場的空間、物件、伙伴們，到自己親歷引弓放箭，累積對於弓道的感受。
 <br/>
-期盼曾感動過我們的弓道，<br class="d-sm-none"/>能夠在這裡與你們分享。
+期盼曾感動過我們的弓道，能夠在這裡與你們分享。
 <br/>
 <p/>
 `;
 const courseParagraph2 = `
 <p>
-當你已經踏入弓道的門檻，<br class="d-sm-none"/>你將進入一個更深刻的世界。
+當你已經踏入弓道的門檻，你將進入一個更深刻的世界。
 <br/><br/>
-我們繼續傳遞弓道的精髓，<br class="d-sm-none"/>引導你深入體驗這項古老的藝術。
+我們繼續傳遞弓道的精髓，引導你深入體驗這項古老的藝術。
 <br/>
 不僅是技術的提升，更是心靈的成長。
 <br/>
-透過經驗豐富的導師，<br class="d-sm-none"/>你將掌握更高級的技巧，提高專注力。
+透過經驗豐富的導師，你將掌握更高級的技巧，提高專注力。
 <br/>
-無論你是追求競技，<br class="d-sm-none"/>還是追求更深層次的平靜
+無論你是追求競技，還是追求更深層次的平靜
 <br/>
-進階弓道課程將為你打開新的可能性，<br class="d-sm-none"/>讓你更深刻地理解自己和這個世界。
+進階弓道課程將為你打開新的可能性，讓你更深刻地理解自己和這個世界。
 `;
 const courseParagraph3 = `
 <p>
-專業弓道，極致的藝術。<br class="d-sm-none"/>狹隘崎嶇的山徑，只為堅韌者開啟。
+專業弓道，極致的藝術。狹隘崎嶇的山徑，只為堅韌者開啟。
 <br/><br/>
-這是一個完全沉浸式的旅程，<br class="d-sm-none"/>要求你的心、身、靈全然奉獻。
+這是一個完全沉浸式的旅程，要求你的心、身、靈全然奉獻。
 <br/>
-在這裡，你將學會掌握各種優美的射擊技巧，<br class="d-sm-none"/>還將深入理解弓道的哲學和歷史。
+在這裡，你將學會掌握各種優美的射擊技巧，還將深入理解弓道的哲學和歷史。
 <br/>
-我們將透過嚴格的訓練和深度的內省，<br class="d-sm-none"/>引導你達到專業弓道的頂峰。
+我們將透過嚴格的訓練和深度的內省，引導你達到專業弓道的頂峰。
 <br/>
-這不僅是一門技藝，更是一種生活方式，<br class="d-sm-none"/>一種尋找心靈平靜的方式。
+這不僅是一門技藝，更是一種生活方式，一種尋找心靈平靜的方式。
 `;
 
 // Tabs Index
@@ -99,20 +102,39 @@ const items = [
 ];
 
 export default function Homepage() {
+  
+  const { ref:refFirst,style } = useParallax({ speed: -32,opacity:[0.3,1], scale:[2] });
+  const { ref:refsecond } = useParallax({ translateX: [-500, -100], });
+  const { ref:refthird } = useParallax({ translateX: [-500, -100], });
+  const { ref:reffourth } = useParallax({ translateX: [90, 50], });
+  const { ref:firstPic} = useParallax({   translateY: [-5, 5, 'easeIn'],opacity: [0, 1], });
+  const { ref:reffifth  } = useParallax({ translateY: [0, 85, 'easeIn'],opacity:[0.8,1] });
+  const { ref:refsixth  } = useParallax({ translateY: [-80, 220, 'easeIn'],opacity:[0.8,1] });
+  const { ref:refseventh  } = useParallax({ translateY: [-10, 90, 'easeIn'],opacity:[0.8,1] });
+  const { ref:refeight } = useParallax({ translateX: [-15, 0], });
+  const { ref:refnine } = useParallax({ translateX: [15, 0], });
+  const { ref:reften } = useParallax({ translateX: [-15, 0], });
+  const { ref:refeleven } = useParallax({ translateX: [15, 0], });
+  const { ref:reftwelve  } = useParallax({ translateY: [-80, 220, 'easeIn'],opacity:[0.8,1] });
+  const { ref:refthirteen  } = useParallax({ translateY: [-10,220] });
+  const { ref:secondPic } = useParallax({   translateY: [-5, 5, 'easeIn'],opacity: [0, 1], });
+  const { ref:reffourteen  } = useParallax({ translateY: [-10,250] });
+  const { ref:reffifteen  } = useParallax({ translateY: [-10,30] });
+  const { ref:refsixteen } = useParallax({ translateX: [-5, 5], });
+  const { ref:refseventeen } = useParallax({ translateY: [-5, 35], });
+  const { ref:refeighteen } = useParallax({ translateY: [-5, 200], });
+  const { ref:thirdPic } = useParallax({  opacity: [0, 1] });
+
   const [checked, setChecked] = useState(false);
   const handleChange = () => {
     setChecked((prev) => !prev);
   };
 
-  // const [showFullContent, setShowFullContent] = useState(false);
-  // const toggleContent = () => {
-  //   setShowFullContent(!showFullContent);
-  // };
   return (
     <>
       <div className="homepage-body">
         <div className="homepageHero1">
-          <video
+        <video
             className="homepage-video"
             autoPlay={true}
             muted={true}
@@ -125,15 +147,15 @@ export default function Homepage() {
           ></video>
         </div>
         <div className="homepageHero2">
-          <p className="">探求弓道的本質</p>
+          <p ref={refFirst}  style={style} className="">探求弓道的本質</p>
         </div>
         <div className="aboutUs" id="aboutUs">
           <div className="aboutUs-container">
             <div className="left-desktop">
-              <div className="p1">關於</div>
-              <div className="p2">良弓制販所</div>
+              <div ref={refsecond} className="p1">關於</div>
+              <div ref={refthird} className="p2">良弓制販所</div>
             </div>
-            <div className="right-desktop">
+            <div ref={reffourth} className="right-desktop">
               <p>
                 弓具並沒有絕對的答案。這是我們的信念。
                 <br />
@@ -214,9 +236,9 @@ export default function Homepage() {
             </div>
           </div>
         </div>
-        <img className="hr" src="images/homepage/hr_1.webp" alt=""></img>
-        <div className="textarea">
-          <h1>良物優選</h1>
+        <img ref={firstPic}  className="hr" src="images/homepage/hr_1.webp" ></img>
+        <div ref={reffifth} className="textarea">
+          <h1 ref={reftwelve}>良物優選</h1>
           <p>
             良工匯聚，優質無慮
             <br />
@@ -254,8 +276,8 @@ export default function Homepage() {
             />
           </ConfigProvider>
         </div>
-        <div className="textarea">
-          <h1>商品介紹</h1>
+        <div className="textarea" ref={refseventh}>
+          <h1 ref={refsixth}>商品介紹</h1>
           <p>
             讓我們介紹由工匠們手工製作的弓具。
             <br />
@@ -266,46 +288,53 @@ export default function Homepage() {
         </div>
         <div className="introduction">
           <div className="container">
-            <IntroCard
+          <div ref={refeight}>
+           <IntroCard
               introImg="images/homepage/product_intro_1.webp"
               introTitle="弓"
               introCat="竹弓｜合成弓"
               introHref="/product/category/bow"
-            />
-            <IntroCard
+          />
+          </div>
+          <div ref={refnine}>
+           <IntroCard
               introImg="images/homepage/product_intro_2.webp"
               introTitle="箭"
               introCat="鋁箭｜合成箭"
               introHref="/product/category/arrow"
-            />
-            <IntroCard
+          />
+          </div>
+          <div ref={reften}>
+          <IntroCard
               introImg="images/homepage/product_intro_3.webp"
               introTitle="道服"
               introCat=""
               introHref="/product/category/suit"
-            />
-            <IntroCard
+          />
+          </div>
+          <div ref={refeleven}>
+          <IntroCard
               introImg="images/homepage/product_intro_4.webp"
               introTitle="其他"
               introCat="箭頭｜箭筒｜粉容器｜弦卷"
               introHref="/product/category/other"
-            />
+          />
+          </div>
+
           </div>
         </div>
         <div className="textarea">
-          <h1>弓道良物盡在良弓制販所</h1>
+          <h1 ref={refthirteen}>弓道良物盡在良弓制販所</h1>
           <p>
             我們備有弓道所需的各種物品
             <br />
             滿心期待您的光臨
           </p>
-          <Link href="/product" className="btn">
-            前往網路商店
-          </Link>
+          <Link href="/product"className="btn">前往網路商店</Link>
         </div>
-        <img className="hr" src="images/homepage/hr_2.webp" alt=""></img>
-        <div className="textarea">
-          <h1>課程介紹</h1>
+        <img ref={secondPic} className="hr" src="images/homepage/hr_2.webp" alt=""></img>
+        <div ref={reffifteen} className="textarea">
+          <h1 ref={reffourteen}>課程介紹</h1>
           <p>
             弓道以弓和箭鍛練身心。
             <br />
@@ -323,10 +352,10 @@ export default function Homepage() {
             揭示真、善、美的最高目標。
           </p>
         </div>
-        <div className="course-slider">
+        <div ref={refsixteen} className="course-slider">
           <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
             <SwiperSlide>
-              <CourseSlider
+            <CourseSlider
                 courseImg="images/homepage/course-image1.webp"
                 courseTitle="初探弓道"
                 courseParagraph={courseParagraph1}
@@ -354,14 +383,14 @@ export default function Homepage() {
             更多課程介紹
           </Link>
         </div>
-        <div className="textarea mt-5">
+        <div ref={refseventeen} className="textarea">
           <br className="d-sm-none" />
           <br className="d-sm-none" />
           <br className="d-sm-none" />
           <br className="d-sm-none" />
           <br className="d-sm-none" />
           <br className="d-sm-none" />
-          <h1>全然一身，正射必中</h1>
+          <h1 ref={refeighteen}>全然一身，正射必中</h1>
           <p>
             我們串聯臺灣北、中、南三地的弓道場
             <br />
@@ -373,7 +402,7 @@ export default function Homepage() {
             隨時啟程
           </p>
         </div>
-        <img className="hr" src="images/homepage/hr_3.webp" alt=""></img>
+        <img ref={thirdPic} className="hr" src="images/homepage/hr_3.webp" alt=""></img>
       </div>
     </>
   );

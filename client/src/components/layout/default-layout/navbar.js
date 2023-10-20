@@ -60,7 +60,7 @@ export default function Navbar() {
   // // 滾動
   // const handleToAboutUs = () => {
   //   router.push("/");
-  //   console.log("123")
+  //   // console.log("123")
   //   handleScrollToSection()
   // }
   // const handleScrollToSection = () => {
@@ -83,7 +83,7 @@ export default function Navbar() {
         <div className="table-nav">
           <ul className="nav">
             <li className="list-unstyled">
-              <Link href="/#aboutUs" className="titleLi" onClick={(e) => handleToAboutUs(e, "/")}>關於良弓</Link>
+              <Link href="/#aboutUs" className="titleLi" >關於良弓</Link>
             </li>
             <li className="list-unstyled product-page">
               <Link href="/product">商品介紹</Link>
@@ -131,11 +131,11 @@ export default function Navbar() {
             <li className="list-unstyled">
               <Link href="/venue" className="titleLi">場地租借</Link>
             </li>
-            <li className="list-unstyled">
+            {/* <li className="list-unstyled">
               <Link href="/product" className="titleLi">
                 聯絡我們
               </Link>
-            </li>
+            </li> */}
           </ul>
 
           <ul className="nav-fk">

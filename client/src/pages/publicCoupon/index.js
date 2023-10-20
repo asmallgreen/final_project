@@ -13,7 +13,7 @@ export default function Index() {
     axios
       .get(`http://localhost:3005/memberDashboard/findLimitCoupon`)
       .then((response) => {
-        console.log(response.data.couponList);
+        // console.log(response.data.couponList);
         setCouponList(response.data.couponList);
       })
       .catch((error) => {
@@ -43,7 +43,7 @@ export default function Index() {
     axios
       .post(`http://localhost:3005/memberDashboard/addMemberCoupon`, addCoupon)
       .then((response) => {
-        console.log("前端新增優惠券成功:", response.data);
+        // console.log("前端新增優惠券成功:", response.data);
       })
       .catch((error) => {
         console.error("前端新增優惠券錯誤:", error);
