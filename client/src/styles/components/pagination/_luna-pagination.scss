@@ -19,13 +19,18 @@
       font-size: 20px;
       color: $secondary;
       border-radius: 0;
-
+      
       &:hover {
         color: $primary;
         background-color: $secondary;
         border: 1px solid $primary;
         opacity: 0.7;
       }
+    }
+    .active {
+      color: $primary;
+      background-color: $secondary;
+      // border: 1px solid $primary;
     }
   }
 }

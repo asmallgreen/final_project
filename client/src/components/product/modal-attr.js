@@ -149,7 +149,7 @@ export default function ModalAttr(props) {
           </div>
           <div className="fk-area">
             <div className="confirm-btn pick" onClick={handleSend}>
-              查看個結果
+              查看結果
             </div>
             <div className="clear-btn pick" onClick={handleClear}>
               清除選項

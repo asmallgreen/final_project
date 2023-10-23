@@ -33,7 +33,7 @@ function CourseList() {
   });
   const [filteredData, setFilteredData] = useState(allCourse);
   const [open, setOpen] = useState(false);
-
+console.log(currentPage);
   //取得資料
   useEffect(() => {
     const fetchData = async () => {
@@ -399,7 +399,8 @@ function CourseList() {
           </button>
           {Array.from({ length: totalPages }, (_, index) => (
             <li className="list-unstyled" key={index}>
-              <button className="btn" onClick={() => paginate(index + 1)}>
+              <button className="btn" 
+              onClick={() => paginate(index + 1)}>
                 {index + 1}
               </button>
             </li>
