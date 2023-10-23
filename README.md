@@ -1,72 +1,35 @@
-# Todo
-## 個人；
-### 20230926
-### 使用JWT(Json web token)進行會員登入驗證
+![index picture](image.png)
+This is a project with [Next.js](https://nextjs.org/) as front-end framework and [node.js](https://nodejs.org/zh-tw) as back-end environvent.
 
- - [x] 建立登入表單收集使用者登入資訊(帳號、密碼)
- - [x] 提交表單時，建立handleLogin函數，使用axios執行post請求，並使用try catch來處理可能錯誤的情況，傳送帳號密碼到後端API處理 (點擊登入時會呼叫此函數發送post請求)
-  
- - [x] 建立登入表單收集使用者登入資訊(帳號、密碼)
- - [x] 提交表單時，建立handleLogin函數，使用axios執行post請求，並使用try catch來處理可能錯誤的情況，傳送帳號密碼到後端API處理 (點擊登入時會呼叫此函數發送post請求)
-  
+# Getting Started
+First, install all the modules:
 
-### 2023/10/03
-### 串接資料庫、串接Google第三方登入API
- - [x] 收藏的課程手機板RWD (中間過程視情況回來調整)
- - [x] 串接資料庫拿到登入後的會員資料
- - [x] 將資料庫的會員資料放到前端網頁UI
-#### 註冊
- - [x] 檢查帳號/信箱使否已有人使用
- - [x] 抓註冊資料寫入資料庫(使用Argon2加密)
- - [x] 註冊成功後抓到資料直接改為登入狀態
+```bash
+npm i
+```
 
-### 2023/10/06
- - [x] 先寫修改資料(用formData)
- - [x] 寫上傳照片
+Second, run the terminal of the development client side:
 
-### 2023/10/08
- - [x] 前端抓到上傳的圖片供預覽
- - [x] 會員按下確定上傳才寫入資料庫(前端ＵＩ路徑調整)
- - [x] 修改密碼
- - [x] 忘記密碼(改UI只用信箱)改用OTP驗證
- - [x] Google 第三方登入串接API
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+```
 
-### 2023/10/12
- - [x] 重新檢查一次ＵＩ，確定input樣式都改好
+Third, also run the terminal of the server side:
 
-### 收藏商品
- - [x] 修改收藏商品UI，拿掉加入購物車
- - [x] 做一個fav-product的hook或context
- - [x] 前端使用useEffect、寫後端/favorite來接，去資料表抓會員收藏商品
- - [x] 去資料表抓會員收藏課程
- - [ ] 商品card的愛心跟詳情頁的加入收藏觸發收藏函式(抓到商品id並與會員id一起寫入fav-product資料表)
- - [ ] 課程詳情頁的加入收藏觸發收藏函式(抓到商品id並與會員id一起寫入fav-course資料表)
- - [ ] is_favorite來決定UI顯示實心愛心或空心愛心
- - [ ] 收藏頁可取消收藏商品
- - [ ] 收藏頁可全選
- - [ ] 收藏頁可點擊進入商品詳情頁
- - [ ] 收藏頁可點擊進入課程詳情頁
+```bash
+npm start
+```
 
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
 
-## 全組：
-### css切版進度 - 2023/10/03：
- - [x] Duo
- - [x] Kuan
- - [X] Jim
- - [x] Luna
- - [x] Ciro
- - [x] Kwa
+The server side is at http://localhost:3005.
 
-### 串接資料庫成功 - 2023/10/03：
- - [x] Duo
- - [x] Kuan
- - [x] Jim
- - [x] Luna
- - [x] Ciro
- - [x] Kwa
+You can test the routes by postman using the URL.
 
-
-### 404 Not Found Page
- - [ ] 做一頁好看的404 Not Found Page
- - [ ] Loading 畫面
+## MFEE42_05-final-project

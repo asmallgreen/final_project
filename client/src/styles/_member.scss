@@ -431,7 +431,9 @@ body{
   }
   .forgot-pwd-text{
     border: 1px dashed $secondary-light;
-    
+    @media (max-width:393px){
+      background: #ffffff7e;
+    }
   }
   .forgot-pwd-back{
     text-decoration: none;

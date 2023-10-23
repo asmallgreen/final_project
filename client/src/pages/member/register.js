@@ -62,10 +62,11 @@ export default function Login({ formType, setFormType }) {
       showConfirmButton: false,
       timer: 1500,
       backdrop: `rgba(255, 255, 255, 0.55)`,
-      width: "35%",
+      // width: "35%",
       padding: "0 0 3.25em",
       customClass: {
         popup: "shadow-sm",
+        width:'shadow-sm'
       },
     });;}
   }
@@ -79,10 +80,11 @@ export default function Login({ formType, setFormType }) {
       showConfirmButton: false,
       timer: 1500,
       backdrop: `rgba(255, 255, 255, 0.55)`,
-      width: "35%",
+      // width: "35%",
       padding: "0 0 3.25em",
       customClass: {
         popup: "shadow-sm",
+        width:'shadow-sm'
       },
     });}
   }
@@ -96,10 +98,11 @@ export default function Login({ formType, setFormType }) {
       showConfirmButton: false,
       timer: 1500,
       backdrop: `rgba(255, 255, 255, 0.55)`,
-      width: "35%",
+      // width: "35%",
       padding: "0 0 3.25em",
       customClass: {
         popup: "shadow-sm",
+        width:'shadow-sm'
       },
     });}
   }
@@ -156,10 +159,11 @@ export default function Login({ formType, setFormType }) {
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: '35%',
+        // width: '35%',
         padding: '0 0 3.25em',
         customClass: {
           popup: 'shadow-sm',
+          width:'shadow-sm'
         },
       })
       return
@@ -178,10 +182,11 @@ export default function Login({ formType, setFormType }) {
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: "35%",
+        // width: "35%",
         padding: "0 0 3.25em",
         customClass: {
           popup: "shadow-sm",
+          width:'shadow-sm'
         },
       });
       return;
@@ -204,10 +209,11 @@ export default function Login({ formType, setFormType }) {
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: '35%',
+        // width: '35%',
         padding: '0 0 3.25em',
         customClass: {
           popup: 'shadow-sm',
+          width:'shadow-sm'
         },
       })
       return
@@ -219,10 +225,11 @@ export default function Login({ formType, setFormType }) {
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: '35%',
+        // width: '35%',
         padding: '0 0 3.25em',
         customClass: {
           popup: 'shadow-sm',
+          width:'shadow-sm'
         },
       })
       return
@@ -238,10 +245,11 @@ export default function Login({ formType, setFormType }) {
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: '35%',
+        // width: '35%',
         padding: '0 0 3.25em',
         customClass: {
           popup: 'shadow-sm',
+          width:'shadow-sm'
         },
       })
         router.push(process.env.BASE_URL || '/')

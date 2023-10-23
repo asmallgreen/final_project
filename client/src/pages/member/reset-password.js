@@ -41,6 +41,21 @@ export default function ResetPassword( {formType, setFormType} ) {
         withCredentials:true,
       })
       console.log(res.data);
+      if(res.data.message === '請輸入正確註冊信箱'){
+        await Swal.fire({
+          icon: 'error',
+          title: '請輸入正確註冊信箱',
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: `rgba(255, 255, 255, 0.55)`,
+          // width: '35%',
+          padding: '0 0 3.25em',
+          customClass: {
+            width:'shadow-sm'
+          }
+        })
+        return
+      }
       if(res.data.message === '此信箱並未註冊過'){
         await Swal.fire({
           icon: 'error',
@@ -48,9 +63,10 @@ export default function ResetPassword( {formType, setFormType} ) {
           showConfirmButton: false,
           timer: 1500,
           backdrop: `rgba(255, 255, 255, 0.55)`,
-          width: '35%',
+          // width: '35%',
           padding: '0 0 3.25em',
           customClass: {
+            width:'shadow-sm'
           }
         })
         return
@@ -62,9 +78,10 @@ export default function ResetPassword( {formType, setFormType} ) {
           showConfirmButton: false,
           timer: 1500,
           backdrop: `rgba(255, 255, 255, 0.55)`,
-          width: '35%',
+          // width: '35%',
           padding: '0 0 3.25em',
           customClass: {
+            width:'shadow-sm'
           }
         })
         return
@@ -78,9 +95,10 @@ export default function ResetPassword( {formType, setFormType} ) {
           showConfirmButton: false,
           timer: 1500,
           backdrop: `rgba(255, 255, 255, 0.55)`,
-          width: '35%',
+          // width: '35%',
           padding: '0 0 3.25em',
           customClass: {
+            width:'shadow-sm'
           }
         })
       }
@@ -118,9 +136,10 @@ export default function ResetPassword( {formType, setFormType} ) {
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: '35%',
+        // width: '35%',
         padding: '0 0 3.25em',
         customClass: {
+          width:'shadow-sm'
         }
       })
       return
@@ -141,9 +160,10 @@ export default function ResetPassword( {formType, setFormType} ) {
           showConfirmButton: false,
           timer: 1500,
           backdrop: `rgba(255, 255, 255, 0.55)`,
-          width: '35%',
+          // width: '35%',
           padding: '0 0 3.25em',
           customClass: {
+            width:'shadow-sm'
           }
         })
         return
@@ -156,9 +176,10 @@ export default function ResetPassword( {formType, setFormType} ) {
           showConfirmButton: false,
           timer: 1500,
           backdrop: `rgba(255, 255, 255, 0.55)`,
-          width: '35%',
+          // width: '35%',
           padding: '0 0 3.25em',
           customClass: {
+            width:'shadow-sm'
           }
         })
         return
@@ -170,9 +191,10 @@ export default function ResetPassword( {formType, setFormType} ) {
           showConfirmButton: false,
           timer: 2500,
           backdrop: `rgba(255, 255, 255, 0.55)`,
-          width: '35%',
+          // width: '35%',
           padding: '0 0 3.25em',
           customClass: {
+            width:'shadow-sm'
           }
         })
       }

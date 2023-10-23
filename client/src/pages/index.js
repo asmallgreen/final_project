@@ -1,7 +1,9 @@
-import React from "react";
+import React , { useState }from "react";
+import Collapse from "@mui/material/Collapse";
 import { ConfigProvider, Tabs } from "antd";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
+import Link from "next/link";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Import Swiper styles
@@ -21,8 +23,8 @@ import Hot from "../components/homepage/Hot"
 import Beginner from "../components/homepage/Beginner"
 import Welfare from "../components/homepage/Welfare"
 
-//引入圖片
-// import CourseSlider1 from "../../../public/images/homepage/course-image1.png";
+// 視差滾動效果
+import { useParallax } from "react-scroll-parallax";
 
 // slider卡片內容
 const courseParagraph1 = `
@@ -82,30 +84,58 @@ const items = [
     label: "熱銷",
     children: <Hot />,
   },
-  {
-    key: "3",
-    label: "季節",
-    children: <Season />,
-  },
+  // {
+  //   key: "3",
+  //   label: "季節",
+  //   children: <Season />,
+  // },
   {
     key: "4",
     label: "初學",
     children: <Beginner />,
   },
-  {
-    key: "5",
-    label: "福利品",
-    children: <Welfare />,
-  },
+  // {
+  //   key: "5",
+  //   label: "福利品",
+  //   children: <Welfare />,
+  // },
 ];
 
 export default function Homepage() {
   
+  const { ref:refFirst,style } = useParallax({ speed: -32,opacity:[0.3,1], scale:[2] });
+  const { ref:refsecond } = useParallax({ translateX: [-500, -100], });
+  const { ref:refthird } = useParallax({ translateX: [-500, -100], });
+  const { ref:reffourth } = useParallax({ translateX: [90, 50], });
+  const { ref:firstPic} = useParallax({   translateY: [-5, 5, 'easeIn'],opacity: [0, 1], });
+  const { ref:reffifth  } = useParallax({ translateY: [0, 85, 'easeIn'],opacity:[0.8,1] });
+  const { ref:refsixth  } = useParallax({ translateY: [-80, 220, 'easeIn'],opacity:[0.8,1] });
+  const { ref:refseventh  } = useParallax({ translateY: [-10, 90, 'easeIn'],opacity:[0.8,1] });
+  const { ref:refeight } = useParallax({ translateX: [-15, 0], });
+  const { ref:refnine } = useParallax({ translateX: [15, 0], });
+  const { ref:reften } = useParallax({ translateX: [-15, 0], });
+  const { ref:refeleven } = useParallax({ translateX: [15, 0], });
+  const { ref:reftwelve  } = useParallax({ translateY: [-80, 220, 'easeIn'],opacity:[0.8,1] });
+  const { ref:refthirteen  } = useParallax({ translateY: [-10,220] });
+  const { ref:secondPic } = useParallax({   translateY: [-5, 5, 'easeIn'],opacity: [0, 1], });
+  const { ref:reffourteen  } = useParallax({ translateY: [-10,250] });
+  const { ref:reffifteen  } = useParallax({ translateY: [-10,30] });
+  const { ref:refsixteen } = useParallax({ translateX: [-5, 5], });
+  const { ref:refseventeen } = useParallax({ translateY: [-5, 35], });
+  const { ref:refeighteen } = useParallax({ translateY: [-5, 200], });
+  const { ref:thirdPic } = useParallax({  opacity: [0, 1] });
+
+  const [checked, setChecked] = useState(false);
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
+
   return (
     <>
       <div className="homepage-body">
         <div className="homepageHero1">
         <video
+            className="homepage-video"
             autoPlay={true}
             muted={true}
             loop={true}
@@ -117,15 +147,15 @@ export default function Homepage() {
           ></video>
         </div>
         <div className="homepageHero2">
-          <p className="">探求弓道的本質</p>
+          <p ref={refFirst}  style={style} className="">探求弓道的本質</p>
         </div>
-        <div className="aboutUs">
+        <div className="aboutUs" id="aboutUs">
           <div className="aboutUs-container">
-            <div className="left">
-              <div className="p1">關於</div>
-              <div className="p2">良弓制販所</div>
+            <div className="left-desktop">
+              <div ref={refsecond} className="p1">關於</div>
+              <div ref={refthird} className="p2">良弓制販所</div>
             </div>
-            <div className="right">
+            <div ref={reffourth} className="right-desktop">
               <p>
                 弓具並沒有絕對的答案。這是我們的信念。
                 <br />
@@ -150,11 +180,65 @@ export default function Homepage() {
                 因為，我們相信，弓道的可能性，將與時俱進，永不止步。
               </p>
             </div>
+            <div className="right-mobile">
+              <div className="textarea">
+                <h1>關於良弓制販所</h1>
+                <Collapse collapsedSize={150} in={checked}>
+                  <p>
+                    弓具並沒有絕對的答案。這是我們的信念。
+                    <br />
+                    在重新審視材質、耐久性和技術的同時，
+                    <br />
+                    弓具一直在默默的，卻穩步地發展著。
+                    <br />
+                    我們不願被傳統所局限，
+                    <br />
+                    而是要勇敢地走在傳統的前線。
+                    <br />
+                    <br />
+                    想像一下，世界上第一支採用玻璃纖維的弓
+                    <br />
+                    「直心」、「練心」，
+                    <br />
+                    還有結合碳纖維與竹子的弓「清芳」等……
+                    <br />
+                    這些創新性的弓具已經問世，
+                    <br />
+                    正是我們態度的一種體現。
+                    <br />
+                    而如今，我們更榮幸的提供弓道的課程。
+                    <br />
+                    這是一次了解這門古老藝術、
+                    <br />
+                    深入探索其精髓的機會。
+                    <br />
+                    當展望弓道的未來一百年，
+                    <br />
+                    什麼樣的工具更能配得上這個時代呢？
+                    <br />
+                    這個問題，我們將不斷追求探索。
+                    <br />
+                    因為，我們相信，弓道的可能性，
+                    <br />
+                    將與時俱進，永不止步。
+                  </p>
+                </Collapse>
+              </div>
+              {checked ? (
+                <button className="btn" onClick={handleChange}>
+                  收起內容
+                </button>
+              ) : (
+                <button className="btn" onClick={handleChange}>
+                  ...繼續閱讀
+                </button>
+              )}
+            </div>
           </div>
         </div>
-        <div className="hr homepage-hr1"></div>
-        <div className="textarea">
-          <h1>良物優選</h1>
+        <img ref={firstPic}  className="hr" src="images/homepage/hr_1.webp" ></img>
+        <div ref={reffifth} className="textarea">
+          <h1 ref={reftwelve}>良物優選</h1>
           <p>
             良工匯聚，優質無慮
             <br />
@@ -192,90 +276,121 @@ export default function Homepage() {
             />
           </ConfigProvider>
         </div>
-        <div className="textarea">
-          <h1>商品介紹</h1>
+        <div className="textarea" ref={refseventh}>
+          <h1 ref={refsixth}>商品介紹</h1>
           <p>
-            讓我們介紹一下由工匠們一個接一個地手工製作的弓具。
+            讓我們介紹由工匠們手工製作的弓具。
             <br />
-            我們在自家工廠擁有高度技術的工匠團隊，他們負責製作弓具。
+            我們在自家工廠擁有高度技術的工匠團隊，
             <br />
-            請看看優質的「弓」「箭」「弦」「衣」「良物」。
+            請看看優質的「弓」「箭」「弦」「衣」。
           </p>
         </div>
         <div className="introduction">
           <div className="container">
-          <IntroCard
-              introImg="images/homepage/product_intro_1.png"
+          <div ref={refeight}>
+           <IntroCard
+              introImg="images/homepage/product_intro_1.webp"
               introTitle="弓"
               introCat="竹弓｜合成弓"
+              introHref="/product/category/bow"
           />
-          <IntroCard
-              introImg="images/homepage/product_intro_2.png"
+          </div>
+          <div ref={refnine}>
+           <IntroCard
+              introImg="images/homepage/product_intro_2.webp"
               introTitle="箭"
               introCat="鋁箭｜合成箭"
+              introHref="/product/category/arrow"
           />
+          </div>
+          <div ref={reften}>
           <IntroCard
-              introImg="images/homepage/product_intro_3.png"
+              introImg="images/homepage/product_intro_3.webp"
               introTitle="道服"
               introCat=""
+              introHref="/product/category/suit"
           />
+          </div>
+          <div ref={refeleven}>
           <IntroCard
-              introImg="images/homepage/product_intro_4.png"
+              introImg="images/homepage/product_intro_4.webp"
               introTitle="其他"
               introCat="箭頭｜箭筒｜粉容器｜弦卷"
+              introHref="/product/category/other"
           />
+          </div>
+
           </div>
         </div>
         <div className="textarea">
-          <h1>弓道良物盡在良弓制販所</h1>
+          <h1 ref={refthirteen}>弓道良物盡在良弓制販所</h1>
           <p>
             我們備有弓道所需的各種物品
             <br />
             滿心期待您的光臨
           </p>
-          <div className="btn">前往網路商店</div>
+          <Link href="/product"className="btn">前往網路商店</Link>
         </div>
-        <div className="hr homepage-hr2"></div>
-        <div className="textarea">
-          <h1>課程介紹</h1>
+        <img ref={secondPic} className="hr" src="images/homepage/hr_2.webp" alt=""></img>
+        <div ref={reffifteen} className="textarea">
+          <h1 ref={reffourteen}>課程介紹</h1>
           <p>
             弓道以弓和箭鍛練身心。
             <br />
             <br />
-            在學習弓道的過程中，我們追求射法、射技的精進，
+            在學習弓道的過程中，
+            <br className="d-sm-none" />
+            我們追求射法、射技的精進，
             <br />
-            以禮為基石的儀態養成，射手品格的鍛練，心技一體、群體和諧，深化豐富人生，
+            以禮為基石的儀態養成，射手品格的鍛練，
+            <br className="d-sm-none" />
+            心技一體、群體和諧，深化豐富人生，
             <br />
-            透過弓道的修練，揭示真、善、美的最高目標。
+            透過弓道的修練，
+            <br className="d-sm-none" />
+            揭示真、善、美的最高目標。
           </p>
         </div>
-        <div className="course-slider">
+        <div ref={refsixteen} className="course-slider">
           <Swiper pagination={true} modules={[Pagination]} className="mySwiper">
             <SwiperSlide>
-              <CourseSlider
-                courseImg="https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image1.png?raw=true"
+            <CourseSlider
+                courseImg="images/homepage/course-image1.webp"
                 courseTitle="初探弓道"
                 courseParagraph={courseParagraph1}
+                courseHref="/course"
               />
             </SwiperSlide>
             <SwiperSlide>
               <CourseSlider
-                courseImg="https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image2.jpg?raw=true"
+                courseImg="images/homepage/course-image2.webp"
                 courseTitle="進階弓道"
                 courseParagraph={courseParagraph2}
+                courseHref="/course"
               />
             </SwiperSlide>
             <SwiperSlide>
               <CourseSlider
-                courseImg="https://github.com/asmallgreen/final_project/blob/Jim/client/public/images/homepage/course-image3.jpg?raw=true"
+                courseImg="images/homepage/course-image3.webp"
                 courseTitle="專業弓道"
                 courseParagraph={courseParagraph3}
+                courseHref="/course"
               />
             </SwiperSlide>
           </Swiper>
+          <Link href="/product" className="btn d-sm-none">
+            更多課程介紹
+          </Link>
         </div>
-        <div className="textarea">
-          <h1>全然一身，正射必中</h1>
+        <div ref={refseventeen} className="textarea">
+          <br className="d-sm-none" />
+          <br className="d-sm-none" />
+          <br className="d-sm-none" />
+          <br className="d-sm-none" />
+          <br className="d-sm-none" />
+          <br className="d-sm-none" />
+          <h1 ref={refeighteen}>全然一身，正射必中</h1>
           <p>
             我們串聯臺灣北、中、南三地的弓道場
             <br />
@@ -287,7 +402,7 @@ export default function Homepage() {
             隨時啟程
           </p>
         </div>
-        <div className="hr homepage-hr3"></div>
+        <img ref={thirdPic} className="hr" src="images/homepage/hr_3.webp" alt=""></img>
       </div>
     </>
   );
