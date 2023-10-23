@@ -9,6 +9,9 @@
   z-index: 999999999 !important ;
   // transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
   cursor: none !important; /* Let's hide the default cursor so it looks way better */
+  @media (max-width:393px){
+  display: none !important;
+}
 }
 
 /* We need to remove this custom cursor in mobile devices */
@@ -16,7 +19,6 @@
   .flare {
     width: 0;
     height: 0;
-    display: none;
     // transition: width 0.2s ease-in-out, height 0.2s ease-in-out,
   }
 }

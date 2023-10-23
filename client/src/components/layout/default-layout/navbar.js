@@ -56,11 +56,8 @@ export default function Navbar() {
     } catch (error) {}
   };
 
-  
   return (
     <>
-    
-
       {/* 桌機版nav */}
       <div className="table-nav">
         <ul className="nav">
@@ -121,31 +118,55 @@ export default function Navbar() {
         </ul>
 
         <ul className="nav-fk">
-          {/* <Form className="list-unstyled search-form">
-            <div className="position-relative">
-              <Form.Control
-                type="text"
-                placeholder="請輸入商品名稱"
-                className="search-product-name"
-                value={keyword}
-                onChange={(e) => setKeyword(e.target.value)}
-              />
-              <FaSearch
-                className="fa-magnifying-glass position-absolute"
-                onClick={handleSearch}
-              />
-            </div>
-          </Form> */}
+          <li className="list-unstyled">
+            {authJWT.isAuth ? (
+              <>
+                <Link href="/member/update-profile" className="avatar">
+                  <img
+                    src={
+                      authJWT.memberData.member_img === "avatar01.jpg"
+                        ? "/Duo/avatar01.jpg"
+                        : `http://localhost:3005/${authJWT.memberData.member_img}`
+                    }
+                    alt=""
+                    className="img-edit "
+                  ></img>
+                </Link>
+              </>
+            ) : (
+              ""
+            )}
+            {authJWT.isAuth ? (
+              <>
+                <Link href="/member" className="user-name">
+                  Hi, {authJWT.memberData.name}
+                </Link>
+              </>
+            ) : (
+              <>
+                <div className="user-name">Hi, 訪客</div>
+              </>
+            )}
+          </li>
+          {authJWT.isAuth ? (
+            <></>
+          ) : (
+            <>
+              <li className="list-unstyled">
+                <Link href="/member" className="text-decoreation-none">
+                  <FaUser className="fa-user" />
+                </Link>
+              </li>
+            </>
+          )}
+
           <li className="list-unstyled">
             <Link href="/cart">
               <FaShoppingCart className="fa-cart-shopping" />
             </Link>
           </li>
-          <li className="list-unstyled">
-            <Link href="/member" className="text-decoreation-none">
-              <FaUser className="fa-user" />
-            </Link>
-          </li>
+
+          {/* {authJWT.isAuth ? (<><li>嗨</li></>):(<></>)} */}
           {authJWT.isAuth && (
             <li className="list-unstyled">
               <Button onClick={handleLogout}>
@@ -155,12 +176,6 @@ export default function Navbar() {
           )}
         </ul>
       </div>
-      {/* 在这里显示搜索结果 */}
-      {/* <div>
-        {searchResults.map((result) => (
-          <div key={result.id}>{result.name}</div>
-        ))}
-      </div> */}
       {/* 手機版nav */}
       <div className="phone-nav">
         <ul className="nav">

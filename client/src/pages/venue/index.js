@@ -18,7 +18,7 @@ export default function Venue() {
     }
     fetchVenueData();
   }, [])
-  console.log(VenueData)
+  // console.log(VenueData)
   return (
     <div className='idh'>
       <Container>

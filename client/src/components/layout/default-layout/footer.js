@@ -52,9 +52,9 @@ export default function Footer() {
             icon={faShoppingCart}
             className="fa-solid fa-2xl fa-cart-shopping"
           ></FontAwesomeIcon>
-          <span className="notify position-absolute top-0 rounded-circle">
+          {/* <span className="notify position-absolute top-0 rounded-circle">
             5
-          </span>
+          </span> */}
           購物車
         </Link>
 
@@ -63,9 +63,9 @@ export default function Footer() {
             icon={faHeart}
             className="fa-solid fa-2xl fa-heart"
           ></FontAwesomeIcon>
-          <span className="notify position-absolute top-0 rounded-circle">
+          {/* <span className="notify position-absolute top-0 rounded-circle">
             3
-          </span>
+          </span> */}
           收藏
         </Link>
         <Link href='/member/order-list' className="btn search">

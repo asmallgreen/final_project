@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 export default function RecommendedCard(props) {
   const { filterRecommendProduct } = props;
-  // const idData = filterRecommendProduct.id;
+  const idData = filterRecommendProduct.id;
   useEffect(() => {
     // console.log(filterRecommendProduct);
   }, [filterRecommendProduct]);
@@ -13,7 +13,7 @@ export default function RecommendedCard(props) {
         <div className="recommend-cards">
           <div className="rows">
             <div className="card">
-              <Link href={`/product/${123}`} className="img position-relative">
+              <Link href={`/product/${idData}`} className="img position-relative">
                 <img src={filterRecommendProduct.img1} alt=""></img>
                 <div className="tags d-flex">
                   <div

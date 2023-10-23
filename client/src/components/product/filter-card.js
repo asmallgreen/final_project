@@ -12,23 +12,10 @@ import {
 export default function FilterProductCard(props) {
   // const [filterProduct, setFilterProduct]= useState;
   const { filterProduct, id, is_favorite, handleTriggerProductFav } = props;
-  console.log(filterProduct);
   //取得卡片id
   const idData = filterProduct.id;
 
-  const handleAddCart = () => {
-    // 發送get請求道後端，獲得filterProduct.id
-    fetch(`product/getProductId/id=${filterProduct.id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const productId = data.productId;
-        // 在这里使用productId进行其他操作
-        console.log(productId);
-      })
-      .catch((error) => {
-        console.error("Error fetching product ID:", error);
-      });
-  };
+
   return (
     <>
       <div className="card">
