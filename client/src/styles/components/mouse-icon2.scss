@@ -1,0 +1,27 @@
+.flare {
+  font-size: 18px;
+  position: fixed;
+  border-radius: 50%;
+  // mix-blend-mode: screen;
+  pointer-events: none;
+  color: $accent;
+  transform: translate(-35%, -5%) rotate(250deg);
+  z-index: 999999999 !important ;
+  // transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+  cursor: none !important; /* Let's hide the default cursor so it looks way better */
+  @media (max-width:393px){
+  display: none !important;
+}
+}
+
+/* We need to remove this custom cursor in mobile devices */
+@media screen and (max-width: 768px) {
+  .flare {
+    width: 0;
+    height: 0;
+    // transition: width 0.2s ease-in-out, height 0.2s ease-in-out,
+  }
+}
+.flare.pointer {
+  // transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
+}

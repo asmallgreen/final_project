@@ -13,6 +13,9 @@
     select{
         background-color: #fff;
     }
+    select{
+        background-color: #fff;
+    }
     .password-eye{
         position: relative;
         .password-eye2{
@@ -27,11 +30,23 @@
 
         }
     }
-
+    input::placeholder{
+        color:transparent
+    }
+    @media (max-width:393px){
+        background-color: transparent;
+        .login-account-table{
+            color: transparent;
+        }
+        input::placeholder{
+            color: $secondary;
+        }
+    }
 }
 .login-block-container{
     padding-top: 30px;
     padding-inline: 100px;
+    margin-bottom: 30px;
 
     .login-link{
         border-bottom: 5px solid #B16464;
@@ -39,6 +54,13 @@
     @media (max-width: 393px) {
         padding-top: 30px;
         padding-inline: 50px;
+    }
+    input{
+        background-color: #fff;
+        &:focus{
+            background-color: #fff;
+            border: 1px solid $secondary;
+        }
     }
     input{
         background-color: #fff;
@@ -60,11 +82,13 @@
 .google-login-btn{
     width: 60%;
     border: 0;
+    margin-bottom: 20px;
     background-color:#fff!important;
     position: relative;
     img{
         width: 6%;
         position: absolute;
+        top: 10px;
         top: 10px;
         left: 5%;
     }

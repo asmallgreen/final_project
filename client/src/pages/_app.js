@@ -1,13 +1,38 @@
 import DefaultLayout from "@/components/layout/default-layout/index.js";
 import "@/styles/index.scss";
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthProviderJWT } from "@/hooks/use-auth-jwt";
 
+import { ParallaxProvider } from "react-scroll-parallax";
+import Loading from "@/components/loading";
+import { useRouter } from "next/router";
+import FlareCursor from "@/components/mouse-icon2";
+
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+
   // 導入bootstrap的JS函式庫
   useEffect(() => {
-    import('bootstrap/dist/js/bootstrap')
-  }, [])
+    import("bootstrap/dist/js/bootstrap");
+  }, []);
+
+  const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    const loadingTimeout = setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+
+    const handleRouteChange = (url) => {
+      setIsLoading(true);
+    };
+
+    router.events.on('routeChangeStart', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange);
+      clearTimeout(loadingTimeout);
+    };
+  }, [router]);
 
 
   const getLayout =
@@ -25,13 +50,15 @@ function MyApp({ Component, pageProps }) {
     // Returns null on first render, so the client and server match
     return null;
   }
-    return (
+  return (
     <>
-      <AuthProviderJWT>
-        
-          {getLayout(<Component {...pageProps} />)}
-        
-      </AuthProviderJWT>
+      <ParallaxProvider>
+        <AuthProviderJWT>
+            <FlareCursor />
+            {isLoading && <Loading />}
+            {getLayout(<Component {...pageProps} />)}
+        </AuthProviderJWT>
+      </ParallaxProvider>
     </>
   );
 }

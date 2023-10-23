@@ -8,6 +8,7 @@ export default function LunaPagination(props) {
   const { dataLength, pageLength, limit } = props;
   const [pageIndex, setPageIndex] = useState([]);
   const [localPage, setLocalPage] = useState();
+  // const [pageStyle, setPageStyle] = useState()
   const getCurrentPage = (page) => {
     setLocalPage(page);
     props.setPage(page);
@@ -26,10 +27,13 @@ export default function LunaPagination(props) {
   useEffect(() => {
     setPageIndex(Array.from({ length: pageLength }, (_, index) => index + 1));
     setLocalPage(1);
+    console.log(localPage);
   }, [limit, pageLength]);
 
   useEffect(() => {
     props.setPage(localPage);
+    console.log(localPage);
+    // setPageStyle()
   }, [localPage]);
 
   return (
@@ -47,7 +51,7 @@ export default function LunaPagination(props) {
           {pageIndex.map((page) => {
             return (
               <button
-                className="btn"
+               className={`btn ${localPage === page ? "active" : "btn"}`}
                 key={page}
                 onClick={() => getCurrentPage(page)}
               >

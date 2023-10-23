@@ -19,7 +19,9 @@ $nav-tabs-border-radius:0;
 $link-color:$secondary;
 // Bootstrap 基本字體樣式
 $font-family-base:NSimSun;
-
+.row{
+  --bs-gutter-x:0!important;
+}
 // ↑↑↑  變數覆蓋(Variable overrides) 要寫在這行"上面"  ↑↑↑
 
 // google Inter,   ABeeZee 字體
@@ -39,8 +41,8 @@ body{
   margin: 0  !important ;
   padding: 0 !important;
   box-sizing: border-box;
+  cursor: none;
 }
-
 //手機端
 @media (max-width: 393px) {
 }

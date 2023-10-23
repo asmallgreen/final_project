@@ -25,6 +25,7 @@ const storage = multer.diskStorage({
   }
 })
 const upload = multer({storage:storage})
+
 import {
   verifyUser,
   getUser,
@@ -66,6 +67,7 @@ router.get("/check-login", authenticate, async (req, res) => {
 router.post("/login", async (req, res) => {
   // res.send("後端登入頁")
   const { account, password } = req.body
+  
   try {
     // 先檢查資料庫有沒有這個帳號
     const user = await checkAccount({ account });
@@ -110,52 +112,31 @@ router.post("/login", async (req, res) => {
     console.error('登入錯誤：', error);
     return res.status(500).json({ message: '伺服器出現錯誤', code: '500' });
   }
-  // // 先查詢資料庫是否有同member account/password的資料
-  // const isMember = await verifyUser({
-  //   account,
-  //   password,
-  // })
-
-  // console.log(isMember)
-
-  // if (!isMember) {
-  //   return res.json({ message: 'fail', code: '400' })
-  // }
-
-// // 會員存在，將會員的資料取出
-// const member = {
-//   id: 1,
-//   account,
-//   password,
-//   name: '怡君',
-//   email: 'luna@gmail.com',
-//   level: '2',
-//   created_date: '2023-08-21',
-// }
-
-// // console.log(member)
-
-  // // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
-  // delete member.password
-
-  // // // 產生存取令牌(access token)，其中包含會員資料
-  // // const accessToken = jsonwebtoken.sign({ ...member }, accessTokenSecret, {
-  // //   expiresIn: '24h',
-  // // })
-
-  // // // 使用httpOnly cookie來讓瀏覽器端儲存access token
-  // // res.cookie('accessToken', accessToken, { httpOnly: true })
-
-  // // // 傳送access token回應(react可以儲存在state中使用)
-  // // res.json({
-  // //   message: 'success',
-  // //   code: '200',
-  // //   accessToken,
-  // // })
   })
 
 
 // 登出 -------------------------------------------------------
+  router.post('/logout', authenticate, (req, res) => {
+    // 清除cookie
+    cookieParser()(req, res, ()=>{
+    res.clearCookie('accessToken', { httpOnly: true })
+  
+    res.json({ message: 'success', code: '200' })      
+    })
+
+  })
+  
+  router.post('/logout-ssl-proxy', authenticate, (req, res) => {
+    // 清除cookie
+    res.clearCookie('accessToken', {
+      httpOnly: true,
+      sameSite: 'none',
+      secure: true,
+    })
+  
+    res.json({ message: 'success', code: '200' })
+  })
+  
   router.post('/logout', authenticate, (req, res) => {
     // 清除cookie
     cookieParser()(req, res, ()=>{
@@ -224,6 +205,7 @@ router.post("/register", async (req, res) => {
     if (!createNewMember.insertId) {
       return res.json({ message: "fail", code: "400" });
     }
+    
     const newMember = await getUserByAccount({account})
     // 如果沒必要，member的password資料不應該，也不需要回應給瀏覽器
     delete newMember.password;
@@ -345,18 +327,18 @@ router.put('/update-profile-img-confirm', async(req, res)=>{
 })
 // 修改會員頭像(選擇檔案並預覽)
 router.put('/update-profile-img', upload.single('avatar'), async (req, res)=>{
-  console.log('step 3: entering router');
+  // console.log('step 3: entering router');
   console.log((req.file, req.body));
 
   if(req.file){
-    console.log('step 4: file upload successfully');
+    // console.log('step 4: file upload successfully');
     console.log('req.file',req.file);
     // console.log('req.body',req.body);
     const filename = req.file.filename
     
     return res.json({message:'圖片成功傳入後端指定資料夾', code:'200', filename})
   } else {
-    console.log('step 5: file upload failed');
+    // console.log('step 5: file upload failed');
     console.log('檔案傳入失敗');
     return res.json({message:'檔案傳入失敗', code:'409'})
   }
@@ -448,24 +430,25 @@ ORDER BY p.id ASC`
 
   const { rows } = await executeQuery(sql)
 
-  console.log(rows)
+  // console.log(rows)
 
   res.json({ products: rows })
 })
 // 刪除收藏的商品
 router.delete('/:pid', authenticate, async (req, res, next) => {
   const pid = req.params.pid
+  // console.log('pid:',pid);
   const memberId = req.body.memberId
-  console.log('這是memberId',memberId);
+  // console.log('這是memberId',memberId);
   // console.log('刪除收藏商品的 res.body',res.body);
   // console.log('刪除收藏商品的 res.params',res.params);
 
   // return res.json({ message: '刪除點擊後有傳到後端', code: '200' })
-  const sql = `DELETE FROM fav_product WHERE product_id=${pid} AND member_id=${memberId}; `
+  const sql = `DELETE FROM fav_product WHERE product_id IN (${pid}) AND member_id=${memberId}; `
 
   const { rows } = await executeQuery(sql)
 
-  console.log(rows.affectedRows)
+  // console.log(rows.affectedRows)
 
   if (rows.affectedRows) {
     return res.json({ message: '已取消收藏', code: '200' })
@@ -486,7 +469,7 @@ router.put('/:pid', authenticate, async (req, res, next) => {
 
   const { rows } = await executeQuery(sql)
 
-  console.log(rows.affectedRows)
+  // console.log(rows.affectedRows)
 
   if (rows.affectedRows) {
     return res.json({ message: '商品收藏成功', code: '200' })
@@ -521,7 +504,7 @@ ORDER BY c.id ASC`
 
   const { rows } = await executeQuery(sql)
 
-  console.log(rows)
+  // console.log(rows)
 
   res.json({ courses: rows })
 })
@@ -529,16 +512,16 @@ ORDER BY c.id ASC`
 router.delete('/course/:cid', authenticate, async (req, res, next) => {
   const cid = req.params.cid
   const memberId = req.body.memberId
-  console.log('這是memberId',memberId);
+  // console.log('這是memberId',memberId);
   // console.log('刪除收藏課程的 res.body',res.body);
   // console.log('刪除收藏課程的 res.params',res.params);
 
   // return res.json({ message: '刪除課程收藏點擊後有傳到後端', code: '200' })
-  const sql = `DELETE FROM fav_course WHERE course_id=${cid} AND member_id=${memberId}; `
+  const sql = `DELETE FROM fav_course WHERE course_id IN (${cid}) AND member_id=${memberId}; `
 
   const { rows } = await executeQuery(sql)
 
-  console.log(rows.affectedRows)
+  // console.log(rows.affectedRows)
 
   if (rows.affectedRows) {
     return res.json({ message: '已取消收藏', code: '200' })
@@ -550,16 +533,16 @@ router.delete('/course/:cid', authenticate, async (req, res, next) => {
 router.put('/course/:cid', authenticate, async (req, res, next) => {
   const cid = req.params.cid
   const memberId = req.body.memberId
-  console.log('這是memberId',memberId);
+  // console.log('這是memberId',memberId);
   // const member = req.member
   // const mid = member.id
-  console.log('新增課程req.params:',req.params);
+  // console.log('新增課程req.params:',req.params);
   // return res.json({ message: '新增課程收藏點擊後有傳到後端', code: '200' })
   const sql = `INSERT INTO fav_course (member_id, course_id) VALUES (${memberId}, ${cid})`
 
   const { rows } = await executeQuery(sql)
 
-  console.log(rows.affectedRows)
+  // console.log(rows.affectedRows)
 
   if (rows.affectedRows) {
     return res.json({ message: '課程收藏成功', code: '200' })

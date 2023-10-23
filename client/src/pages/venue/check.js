@@ -18,7 +18,7 @@ export default function ReserveCheck() {
         const venueName = localStorage.getItem('venueName');
         const selectedDatesString = localStorage.getItem('selectedDates');
         const selectedDatesArray = selectedDatesString.split(',');
-        console.log(selectedDatesArray);
+        // console.log(selectedDatesArray);
     
         setSelectedDates(sd)
         setVenuePosition(venuePosition)

@@ -80,10 +80,14 @@
           font-weight: bold;
         }
         .attr-buttons {
+          // overflow-wrap: break-word;
           display: flex;
-          justify-content: left;
+          // width: 40%;
+          // justify-content: left;
           margin-block: 10px;
-          .attr-button {
+          // height: 90px;
+            width: 100%;
+            .attr-button {
             height: 45px;
             cursor: pointer;
             padding: 5px 10px;
@@ -124,6 +128,8 @@
               color: $secondary;
             }
           }
+          
+          
         }
       }
     }

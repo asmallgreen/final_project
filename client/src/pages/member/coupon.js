@@ -94,7 +94,7 @@ export default function MemberCoupon() {
                 className="mb-3 fav-header"
               >
                 <Tab eventKey="product" title="擁有的優惠券">
-                  <div className="container">
+                  <div className="container mb-5 pb-5">
                     <div className="row p-3 fs-5 fw-bold">
                       <div className="col-12 col-lg-6 text-center align-self-center py-1 coupon-check">
                         <label>

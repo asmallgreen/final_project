@@ -28,7 +28,7 @@ export default function ModalSort(props) {
   };
   // 選項切換
   const [sortSelect, setSortSelect] = useState({
-    hot: false,
+    hot: true,
     launched: false,
     priceAsc: false,
     priceDesc: false,

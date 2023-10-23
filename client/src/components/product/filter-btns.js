@@ -56,15 +56,24 @@ export default function FilterBtns(props) {
   const handleClick = useCallback((e) => {
     const limitValue = e.target.value;
     setLocalLimit(limitValue);
-  }, []);
+    props.setLimit(limitValue);  // 在這裡即時更新父級組件
+  }, [props]);
 
   useEffect(() => {
     // console.log(searchName);
   }, [searchName]);
-  //每次進入網站都要回傳值給父元件index
+  
   useEffect(() => {
-    props.setLimit(localLimit);
-  }, [handleClick, localLimit, props]);
+    // 在這裡即時更新父級組件，但避免初次渲染時執行
+    if (localLimit !== props.limit) {
+      // 使用異步操作以確保在渲染階段結束後執行狀態更新
+      setTimeout(() => {
+        props.setLimit(localLimit);
+      }, 0);
+    }
+  }, [localLimit, props.limit, props.setLimit]);
+
+  
 
   return (
     <>
