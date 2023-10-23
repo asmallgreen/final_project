@@ -80,7 +80,7 @@ export default function UpdatePwd() {
                             新密碼
                         </Form.Label>
                         <Col sm="9">
-                            <Form.Control type="text" placeholder="新密碼" name='newPassword' onChange={handleInputChange}/>
+                            <Form.Control type="password" placeholder="新密碼" name='newPassword' onChange={handleInputChange}/>
                         </Col>
                     </Form.Group>
                     <Form.Group
@@ -92,7 +92,7 @@ export default function UpdatePwd() {
                             再次輸入新密碼
                         </Form.Label>
                         <Col sm="9">
-                            <Form.Control type="text" placeholder="再次輸入新密碼" name="reNewPassword" onChange={handleInputChange}/>
+                            <Form.Control type="password" placeholder="再次輸入新密碼" name="reNewPassword" onChange={handleInputChange}/>
                         </Col>
                     </Form.Group>
                     

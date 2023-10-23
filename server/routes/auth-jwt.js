@@ -70,6 +70,9 @@ router.post("/login", async (req, res) => {
   
   try {
     // 先檢查資料庫有沒有這個帳號
+    if(!account){
+      return res.json({ message: '請輸入帳號', code: '400' });
+    }
     const user = await checkAccount({ account });
 
     if (!user) {
