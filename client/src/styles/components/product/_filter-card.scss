@@ -16,7 +16,7 @@
     border: 1px solid $secondary 0.5;
     // height: 400px;
     background-color: #fff;
-    margin: 10px 5px;
+    margin: 10px 15px;
     padding: 0;
     .img {
       height: 220px;
@@ -146,14 +146,14 @@
             color: $accent;
           }
           .far-heart {
-            // display: none;
+            display: none;
           }
           &:hover {
             .fa-heart {
-              // display: none;
+              display: none;
             }
             .far-heart {
-              // display: block;
+              display: block;
               width: 26px;
               height: 26px;
               color: $accent;

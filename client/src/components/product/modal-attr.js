@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FaX } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
-import { Form } from "react-bootstrap";
+import { Form, Row, Col } from "react-bootstrap";
 
 export default function ModalAttr(props) {
   const [open, setOpen] = useState(true);
@@ -9,8 +9,8 @@ export default function ModalAttr(props) {
   const [searchName, setSearchName] = useState();
   const [attrState, setAttrState] = useState("");
   const [attrSend, setAttrSend] = useState(attrState);
-  const [searchSend, setSearchSend] = useState(searchName)
-  
+  const [searchSend, setSearchSend] = useState(searchName);
+
   props.attrChange(attrSend);
   props.searchName(searchSend);
 
@@ -41,10 +41,20 @@ export default function ModalAttr(props) {
   };
   const handleSend = () => {
     setAttrSend(attrState);
-    setSearchSend(searchName)
+    setSearchSend(searchName);
+    props.attrChange(attrState); // 使用 props.attrChange 來更新父級組件狀態
+    props.searchName(searchName); // 使用 props.searchName 來更新父級組件狀態
     setOpen(false);
+    // setOpen(false);
   };
-  
+  useEffect(() => {
+    if (attrSend !== undefined && searchSend !== undefined) {
+      props.attrChange(attrSend);
+      props.searchName(searchSend);
+      setOpen(false);
+    }
+  }, [attrSend, searchSend, props]);
+
   useEffect(() => {
     // console.log(searchName);
   }, [searchName]);
@@ -65,6 +75,7 @@ export default function ModalAttr(props) {
             {/* 篩選button */}
             <div className="select-attr-area ">
               <div className="attr-title">價格：</div>
+
               <div className="attr-buttons">
                 <div
                   className="attr-button"
@@ -74,7 +85,7 @@ export default function ModalAttr(props) {
                     onChange={handleAttrToggle}
                     className={arrtSelect.attr1 ? "attr-checked" : "attr-check"}
                   ></div>
-                  <span className="attr-text">低於NT$4,000</span>
+                  <span className="attr-text">低於NT$1,000</span>
                 </div>
                 <div
                   className="attr-button"
@@ -84,8 +95,10 @@ export default function ModalAttr(props) {
                     onChange={handleAttrToggle}
                     className={arrtSelect.attr2 ? "attr-checked" : "attr-check"}
                   ></div>
-                  <span className="attr-text">NT4000-NT$6000</span>
+                  <span className="attr-text">NT1000-NT$2000</span>
                 </div>
+              </div>
+              <div className="attr-buttons">
                 <div
                   className="attr-button"
                   onClick={() => handleAttrToggle("attr3")}
@@ -94,7 +107,27 @@ export default function ModalAttr(props) {
                     onChange={handleAttrToggle}
                     className={arrtSelect.attr3 ? "attr-checked" : "attr-check"}
                   ></div>
-                  <span className="attr-text">大於NT6,000</span>
+                  <span className="attr-text">NT2000-NT$4000</span>
+                </div>
+                <div
+                  className="attr-button"
+                  onClick={() => handleAttrToggle("attr4")}
+                >
+                  <div
+                    onChange={handleAttrToggle}
+                    className={arrtSelect.attr4 ? "attr-checked" : "attr-check"}
+                  ></div>
+                  <span className="attr-text">NT4000-NT$6000</span>
+                </div>
+                <div
+                  className="attr-button"
+                  onClick={() => handleAttrToggle("attr5")}
+                >
+                  <div
+                    onChange={handleAttrToggle}
+                    className={arrtSelect.attr5 ? "attr-checked" : "attr-check"}
+                  ></div>
+                  <span className="attr-text">高於NT$6000</span>
                 </div>
               </div>
             </div>
@@ -116,7 +149,7 @@ export default function ModalAttr(props) {
           </div>
           <div className="fk-area">
             <div className="confirm-btn pick" onClick={handleSend}>
-              查看個結果
+              查看結果
             </div>
             <div className="clear-btn pick" onClick={handleClear}>
               清除選項

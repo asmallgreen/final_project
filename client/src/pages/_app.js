@@ -2,7 +2,7 @@ import DefaultLayout from "@/components/layout/default-layout/index.js";
 import "@/styles/index.scss";
 import { useEffect, useState } from "react";
 import { AuthProviderJWT } from "@/hooks/use-auth-jwt";
-import { ProductProvider } from "@/hooks/use-product-context";
+
 import { ParallaxProvider } from "react-scroll-parallax";
 import Loading from "@/components/loading";
 import { useRouter } from "next/router";
@@ -54,12 +54,12 @@ function MyApp({ Component, pageProps }) {
     <>
       <ParallaxProvider>
         <AuthProviderJWT>
-          <ProductProvider>
+          
             <FlareCursor />
             {/* <MouseIcon/> */}
             {isLoading && <Loading />}
             {getLayout(<Component {...pageProps} />)}
-          </ProductProvider>
+          
         </AuthProviderJWT>
       </ParallaxProvider>
     </>

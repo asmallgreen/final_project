@@ -1,6 +1,7 @@
 .product-info-button {
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
     // height: 55px;
     .quantity-btn {
       width: 100%;
@@ -12,6 +13,8 @@
       text-align: center;
       color: $secondary;
       .symbol {
+        height: 60px;
+        padding-top: 8px;
         // font-size: 35px;
         border: 1px solid $secondary;
         border-radius: 0;
@@ -22,6 +25,8 @@
         }
       }
       .quantity {
+        padding-top: 8px;
+        height: 60px;
         // font-size: 25px;
         border-top: 1px solid $secondary;
         border-bottom: 1px solid $secondary;

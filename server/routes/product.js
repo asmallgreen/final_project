@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
   const {
     limit = 20,
     page = 1,
-    sort,
+    sort='',
     attr = "default",
     search = "",
   } = req.query;
@@ -29,7 +29,7 @@ router.get("/", async (req, res) => {
   let sortValue;
   switch (sort) {
     case "default":
-      sortValue = { id: "ASC" };
+      sortValue = '';
     case "hot":
       sortValue = { hot: "desc" };
       break;
@@ -53,12 +53,18 @@ router.get("/", async (req, res) => {
       attrValue = "";
       break;
     case "attr1":
-      attrValue = "price<4000";
+      attrValue = "price<1000";
       break;
     case "attr2":
-      attrValue = "price BETWEEN 4000 AND 6000";
+      attrValue = "price BETWEEN 1000 AND 2000";
       break;
     case "attr3":
+      attrValue = "price BETWEEN 2000 AND 4000";
+      break;
+    case "attr4":
+      attrValue = "price BETWEEN 4000 AND 6000";
+      break;
+    case "attr5":
       attrValue = "price>6000";
       break;
   }
@@ -176,7 +182,7 @@ router.get("/:pid", async (req, res) => {
 });
 
 router.get("/category/:cate", async (req, res) => {
-  const { sort, attr, limit = 20, page = 1, cate, search = "" } = req.query;
+  const { sort='', attr, limit = 20, page = 1, cate, search = "" } = req.query;
   const limitValue = parseInt(limit);
   const pageValue = parseInt(page);
   const offset = (pageValue - 1) * limitValue;
@@ -223,12 +229,18 @@ router.get("/category/:cate", async (req, res) => {
       attrValue = "";
       break;
     case "attr1":
-      attrValue = "price<4000";
+      attrValue = "price<1000";
       break;
     case "attr2":
-      attrValue = "price BETWEEN 4000 AND 6000";
+      attrValue = "price BETWEEN 1000 AND 2000";
       break;
     case "attr3":
+      attrValue = "price BETWEEN 2000 AND 4000";
+      break;
+    case "attr4":
+      attrValue = "price BETWEEN 4000 AND 6000";
+      break;
+    case "attr5":
       attrValue = "price>6000";
       break;
   }
@@ -256,7 +268,7 @@ router.get("/category/:cate", async (req, res) => {
     where += ` AND ${searchValue}`;
   } else if (cateValue && attrValue) {
     where += ` AND ${attrValue}`;
-  } 
+  }
   console.log(where);
 
   console.log(where);
@@ -318,7 +330,7 @@ router.get("/searchProduct", async (req, res) => {
   const searchKeyword = {
     name: `%${keyword}%`,
   };
-  //從資料庫中使用searchProduct函式(查詢產品名稱)f
+  //從資料庫中使用searchProduct函式(查詢產品名稱)
   const searchProducts = await searchProduct(searchKeyword);
   console.log(searchProducts);
   return res.json({ searchProducts });

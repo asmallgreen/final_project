@@ -1,5 +1,17 @@
-import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+
+import { Form } from "react-bootstrap";
+//fontawesome
+import { FaShoppingCart, FaUser, FaSearch } from "react-icons/fa";
+// 登入後才會顯示登出按鈕
+
+import { FiLogOut } from "react-icons/fi";
+import { Button } from "react-bootstrap";
+import { useAuthJWT } from "@/hooks/use-auth-jwt";
+import axios from "axios";
+import { useRouter } from "next/router";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //fontawesome
 import {
@@ -7,9 +19,6 @@ import {
   faChevronRight,
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
-import { useAuthJWT } from "@/hooks/use-auth-jwt";
-import { useRouter } from "next/router";
-import axios from "axios";
 //fontawesome
 export default function Logobar() {
   const [ham, setHam] = useState(false);
@@ -44,7 +53,9 @@ export default function Logobar() {
     // console.log(accordion);
   };
 
+  // const { authJWT } = useAuthJWT();
   const { authJWT, setAuthJWT } = useAuthJWT();
+
   const router = useRouter();
   // 首頁路由
 
@@ -81,11 +92,10 @@ export default function Logobar() {
             created_date: "",
           },
         });
-        if (protectedRoutes.includes(router.pathname)) {
-          router.push(homeRoute);
-        }
+        router.push(process.env.BASE_URL || '/')
       }
-    } catch (error) { }
+      setHam((prevState) => !prevState);
+    } catch (error) {}
   };
   return (
     <>
@@ -106,11 +116,11 @@ export default function Logobar() {
         <div className="opac" onClick={handleHam}></div>
         <div className="btns p-0">
           <div className="info">
-            {authJWT.isAuth ? (
+          {authJWT.isAuth ? (
               <>
-                <div className="img">
-                  <img src={authJWT.memberData.member_img === 'avatar01.jpg'?'/Duo/avatar01.jpg':`http://localhost:3005/${authJWT.memberData.member_img}`} alt="" className="img-edit opacity-50"></img>
-                </div>
+                <Link href='/member/update-profile' className="img">
+                  <img src={authJWT.memberData.member_img === 'avatar01.jpg'?'/Duo/avatar01.jpg':`http://localhost:3005/${authJWT.memberData.member_img}`} alt="" className="img-edit "></img>
+                </Link>
               </>
             ) : (
               ""
@@ -139,6 +149,7 @@ export default function Logobar() {
                 <Link
                   href="/member/register"
                   className="edit align-items-center d-flex justify-content-center rounded-2"
+                  onClick={handleHam}
                 >
                   註冊會員資料
                 </Link>
@@ -303,15 +314,13 @@ export default function Logobar() {
           </Link> */}
           {authJWT.isAuth ? (
             <>
-              {" "}
-              <Link href="#" className="logout" onClick={handleLogout}>
-                  登出
-                </Link>
+              <div href="/member/logout" className="logout" onClick={handleLogout}>
+                登出
+              </div>
             </>
           ) : (
             <>
-              {" "}
-              <Link href="/member/login" className="logout">
+              <Link href="/member/login" className="logout" onClick={handleHam}>
                 登入
               </Link>
             </>

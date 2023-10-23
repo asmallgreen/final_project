@@ -7,13 +7,13 @@ import Swal from "sweetalert2";
 
 export default function AddCartProduct({cartQuantity , prodId,activeValues}) {
   
-  console.log(activeValues)
+  
   const {authJWT, setAuthJWT} = useAuthJWT()
   
   
     const handleAddCartClick = () => {
 
-        if(cartQuantity>0 && activeValues!=""){
+        if(cartQuantity>0 && activeValues!="" && authJWT.memberData.id!=0){
         axios.post('http://localhost:3005/cart/addCartProduct/',{product_id:prodId,quantity:cartQuantity,member_id:authJWT.memberData.id,product_detail:activeValues})
             .then(response => {
                 console.log('加入購物車成功');
@@ -36,6 +36,18 @@ export default function AddCartProduct({cartQuantity , prodId,activeValues}) {
             Swal.fire({
               icon: 'error',
               title: '請完整選取細節',
+              showConfirmButton: false,
+              timer: 1500,
+              backdrop: `rgba(255, 255, 255, 0.55)`,
+              width: '35%',
+              padding: '0 0 3.25em',
+              customClass: {
+              }
+            })
+          }else if(authJWT.memberData.id==0){
+            Swal.fire({
+              icon: 'error',
+              title: '請先登入會員',
               showConfirmButton: false,
               timer: 1500,
               backdrop: `rgba(255, 255, 255, 0.55)`,
