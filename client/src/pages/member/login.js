@@ -57,6 +57,21 @@ export default function Login() {
 
       console.log(res.data);
       // console.log(parseJwt(res.data.accessToken));
+      if(res.data.message === '請輸入帳號'){
+        await Swal.fire({
+          icon: 'error',
+          title: '請輸入帳號',
+          showConfirmButton: false,
+          timer: 1500,
+          backdrop: `rgba(255, 255, 255, 0.55)`,
+          // width: '35%',
+          padding: '0 0 3.25em',
+          customClass: {
+            width:'shadow-sm'
+          }
+        })
+        return
+      }
       if(res.data.message === '帳號不存在'){
         await Swal.fire({
           icon: 'error',
@@ -64,9 +79,10 @@ export default function Login() {
           showConfirmButton: false,
           timer: 1500,
           backdrop: `rgba(255, 255, 255, 0.55)`,
-          width: '35%',
+          // width: '35%',
           padding: '0 0 3.25em',
           customClass: {
+            width:'shadow-sm'
           }
         })
         return
@@ -78,9 +94,10 @@ export default function Login() {
           showConfirmButton: false,
           timer: 1500,
           backdrop: `rgba(255, 255, 255, 0.55)`,
-          width: '35%',
+          // width: '35%',
           padding: '0 0 3.25em',
           customClass: {
+            width:'shadow-sm'
           }
         })
         return

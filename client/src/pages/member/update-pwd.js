@@ -31,10 +31,11 @@ export default function UpdatePwd() {
                 showConfirmButton: false,
                 timer: 1500,
                 backdrop: `rgba(255, 255, 255, 0.55)`,
-                width: '35%',
+                // width: '35%',
                 padding: '0 0 3.25em',
                 customClass: {
-                }
+                    width:'shadow-sm'
+                  }
               })
               return
         }
@@ -48,10 +49,11 @@ export default function UpdatePwd() {
                     showConfirmButton: false,
                     timer: 1500,
                     backdrop: `rgba(255, 255, 255, 0.55)`,
-                    width: '35%',
+                    // width: '35%',
                     padding: '0 0 3.25em',
                     customClass: {
-                    }
+                        width:'shadow-sm'
+                      }
                   })
             }
         }catch(error){
@@ -78,7 +80,7 @@ export default function UpdatePwd() {
                             新密碼
                         </Form.Label>
                         <Col sm="9">
-                            <Form.Control type="text" placeholder="新密碼" name='newPassword' onChange={handleInputChange}/>
+                            <Form.Control type="password" placeholder="新密碼" name='newPassword' onChange={handleInputChange}/>
                         </Col>
                     </Form.Group>
                     <Form.Group
@@ -90,7 +92,7 @@ export default function UpdatePwd() {
                             再次輸入新密碼
                         </Form.Label>
                         <Col sm="9">
-                            <Form.Control type="text" placeholder="再次輸入新密碼" name="reNewPassword" onChange={handleInputChange}/>
+                            <Form.Control type="password" placeholder="再次輸入新密碼" name="reNewPassword" onChange={handleInputChange}/>
                         </Col>
                     </Form.Group>
                     

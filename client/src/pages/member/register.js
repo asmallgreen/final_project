@@ -62,12 +62,13 @@ export default function Login({ formType, setFormType }) {
       showConfirmButton: false,
       timer: 1500,
       backdrop: `rgba(255, 255, 255, 0.55)`,
-      width: "35%",
+      // width: "35%",
       padding: "0 0 3.25em",
       customClass: {
         popup: "shadow-sm",
+        width:'shadow-sm'
       },
-    });;}
+    })}
   }
   // 驗證 email 的正規表達式
   const handleEmailReg =(e)=>{
@@ -79,10 +80,11 @@ export default function Login({ formType, setFormType }) {
       showConfirmButton: false,
       timer: 1500,
       backdrop: `rgba(255, 255, 255, 0.55)`,
-      width: "35%",
+      // width: "35%",
       padding: "0 0 3.25em",
       customClass: {
         popup: "shadow-sm",
+        width:'shadow-sm'
       },
     });}
   }
@@ -96,10 +98,11 @@ export default function Login({ formType, setFormType }) {
       showConfirmButton: false,
       timer: 1500,
       backdrop: `rgba(255, 255, 255, 0.55)`,
-      width: "35%",
+      // width: "35%",
       padding: "0 0 3.25em",
       customClass: {
         popup: "shadow-sm",
+        width:'shadow-sm'
       },
     });}
   }
@@ -149,11 +152,42 @@ export default function Login({ formType, setFormType }) {
   const handleRegisterSubmit = async (e) => {
     const form = e.currentTarget;
     e.preventDefault();
-
+    if(member.account === ''){
+      await Swal.fire({
+        icon: 'error',
+        title: '請輸入帳號',
+        showConfirmButton: false,
+        timer: 1500,
+        backdrop: `rgba(255, 255, 255, 0.55)`,
+        // width: '35%',
+        padding: '0 0 3.25em',
+        customClass: {
+          popup: 'shadow-sm',
+          width:'shadow-sm'
+        },
+      })
+      return
+    }
+    
     if (form.checkValidity() === false) {
       // 先檢查是否有填寫必填欄位
       e.stopPropagation();
-    } else if (member.password !== member.repassword) {
+    } else if(member.password === ''){
+        Swal.fire({
+        icon: "error",
+        title: "請輸入至少6位英文大小寫及數字",
+        showConfirmButton: false,
+        timer: 1500,
+        backdrop: `rgba(255, 255, 255, 0.55)`,
+        // width: "35%",
+        padding: "0 0 3.25em",
+        customClass: {
+          popup: "shadow-sm",
+          width:'shadow-sm'
+        },
+      })
+      return;
+    }else if (member.password !== member.repassword) {
       // 這裡檢查密碼是否填寫一致
       e.preventDefault();
       e.stopPropagation();
@@ -164,10 +198,11 @@ export default function Login({ formType, setFormType }) {
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: "35%",
+        // width: "35%",
         padding: "0 0 3.25em",
         customClass: {
           popup: "shadow-sm",
+          width:'shadow-sm'
         },
       });
       return;
@@ -190,10 +225,27 @@ export default function Login({ formType, setFormType }) {
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: '35%',
+        // width: '35%',
         padding: '0 0 3.25em',
         customClass: {
           popup: 'shadow-sm',
+          width:'shadow-sm'
+        },
+      })
+      return
+      }
+      if(member.email === ""){
+        await Swal.fire({
+        icon: 'error',
+        title: '請輸入信箱',
+        showConfirmButton: false,
+        timer: 1500,
+        backdrop: `rgba(255, 255, 255, 0.55)`,
+        // width: '35%',
+        padding: '0 0 3.25em',
+        customClass: {
+          popup: 'shadow-sm',
+          width:'shadow-sm'
         },
       })
       return
@@ -205,10 +257,11 @@ export default function Login({ formType, setFormType }) {
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: '35%',
+        // width: '35%',
         padding: '0 0 3.25em',
         customClass: {
           popup: 'shadow-sm',
+          width:'shadow-sm'
         },
       })
       return
@@ -224,10 +277,11 @@ export default function Login({ formType, setFormType }) {
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: '35%',
+        // width: '35%',
         padding: '0 0 3.25em',
         customClass: {
           popup: 'shadow-sm',
+          width:'shadow-sm'
         },
       })
         router.push(process.env.BASE_URL || '/')
