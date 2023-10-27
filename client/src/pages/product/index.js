@@ -85,6 +85,156 @@ function Product() {
     setPage(1);
     // console.log(newAttr);
   };
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await axios.get("http://localhost:3005/product", {
+          params: { limit, page, sort, attr, search },
+        });
+        //用來篩選出新上架商品
+        // console.log(res.data.alldata);
+        setAllProduct(res.data.alldata);
+        setFilterProduct(res.data.filterdata);
+        setDisplayProduct(res.data.displaydata);
+        setAlldataLength(res.data.alldataLength);
+        setFilterdataLength(res.data.filterdataLength);
+        setDisplaydataLength(res.data.displaydataLength);
+        setPageLength(res.data.pageLength);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (typeof window !== "undefined") {
+      fetchData();
+    }
+  }, [limit, page, sort, attr, search]);
+
+  // ****************************
+  const [slidesPerView, setSlidesPerView] = useState(7);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // 在這裡設置你的視窗寬度閾值
+      const windowWidth5 = 1650;
+      const windowWidth4 = 1140;
+      const windowWidth3 = 768;
+      const windowWidth2 = 500;
+      const windowWidth1 = 393;
+
+      // 根據視窗寬度動態設定 slidesPerView
+      if (window.innerWidth <= windowWidth1) {
+        setSlidesPerView(2);
+      } else if(window.innerWidth <= windowWidth2){
+        setSlidesPerView(2);
+      }else if(window.innerWidth <= windowWidth3){
+        setSlidesPerView(3);
+      }else if(window.innerWidth <= windowWidth4){
+        setSlidesPerView(3);
+      }else if(window.innerWidth <= windowWidth5){
+        setSlidesPerView(5);
+      }else{
+        setSlidesPerView(7);
+      }
+    };
+
+    // 初始加載時設定一次
+    handleResize();
+
+    // 添加視窗大小變化監聽器
+    window.addEventListener('resize', handleResize);
+
+    // 清理事件監聽器以避免內存洩漏
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // 空的依賴數組表示僅在第一次渲染時運行
+
+
+  const [slidesPerView2, setSlidesPerView2] = useState(7);
+
+  useEffect(() => {
+    const handleResize = () => {
+      // 在這裡設置你的視窗寬度閾值
+      const windowWidth5 = 1650;
+      const windowWidth4 = 1140;
+      const windowWidth3 = 768;
+      const windowWidth2 = 500;
+      const windowWidth1 = 393;
+
+      // 根據視窗寬度動態設定 slidesPerView
+      if (window.innerWidth <= windowWidth1) {
+        setSlidesPerView2(1);
+      } else if(window.innerWidth <= windowWidth2){
+        setSlidesPerView2(1);
+      }else if(window.innerWidth <= windowWidth3){
+        setSlidesPerView2(1);
+      }else if(window.innerWidth <= windowWidth4){
+        setSlidesPerView2(2);
+      }else if(window.innerWidth <= windowWidth5){
+        setSlidesPerView2(3);
+      }else{
+        setSlidesPerView2(3);
+      }
+    };
+
+    // 初始加載時設定一次
+    handleResize();
+
+    // 添加視窗大小變化監聽器
+    window.addEventListener('resize', handleResize);
+
+    // 清理事件監聽器以避免內存洩漏
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []); // 空的依賴數組表示僅在第一次渲染時運行
+
+
+
+
+  // ****************************
+  useEffect(() => {
+    // console.log(search);
+  }, [search]);
+  useEffect(() => {
+    // console.log(newProduct);
+  }, [newProduct]);
+  useEffect(() => {
+    // console.log(saleProduct);
+  }, [saleProduct]);
+  useEffect(() => {
+    // console.log(randomProducts);
+  }, [randomProducts]);
+  useEffect(() => {
+    // console.log(allProduct);
+  }, [allProduct]);
+  useEffect(() => {
+    // console.log(filterProduct);
+  }, [filterProduct]);
+  useEffect(() => {
+    // console.log(displayProduct);
+  }, [displayProduct]);
+  useEffect(() => {
+    // console.log(alldataLength);
+  }, [alldataLength]);
+  useEffect(() => {
+    // console.log(filterdataLength);
+  }, [filterdataLength]);
+  useEffect(() => {
+    // console.log(displaydataLength);
+  }, [displaydataLength]);
+  useEffect(() => {
+    // console.log(pageLength);
+  }, [pageLength]);
+  useEffect(() => {
+    // console.log(page);
+  }, [page]);
+
+  // const router = useRouter();
+
+  // 會員收藏商品
   const { authJWT,favoriteProducts, setFavoriteProducts } = useAuthJWT()
   const memberId = authJWT.memberData.id
   // 拿出會員收藏的所有商品id
@@ -123,7 +273,7 @@ function Product() {
           data:{memberId},
           withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
         })
-        // console.log(res.data);
+        console.log(res.data);
         if(res.data.message === '已取消收藏'){
           await Swal.fire({
             icon: 'success',
@@ -150,7 +300,7 @@ function Product() {
         {
           withCredentials: true, // 注意: 必要的，儲存 cookie 在瀏覽器中
         })
-        // console.log(res.data);
+        console.log(res.data);
 
         if(res.data.message === '商品收藏成功'){
           await Swal.fire({

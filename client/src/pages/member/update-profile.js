@@ -32,7 +32,7 @@ const { name, value } = e.target
     }));
   };
   useEffect(()=>{
-      console.log('this is profileInput',profileInput);
+      // console.log('this is profileInput',profileInput);
   },[profileInput])
   // 抓到生日的 Date 寫入 member 物件
   const handleBirthdateChange = (date) => {
@@ -60,11 +60,11 @@ const { name, value } = e.target
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: "35%",
+        // width: "35%",
         padding: "0 0 3.25em",
         customClass: {
-          popup: "shadow-sm",
-        },
+          width:'shadow-sm'
+        }
       });
     }
   };
@@ -78,11 +78,11 @@ const { name, value } = e.target
         showConfirmButton: false,
         timer: 1500,
         backdrop: `rgba(255, 255, 255, 0.55)`,
-        width: "35%",
+        // width: "35%",
         padding: "0 0 3.25em",
         customClass: {
-          popup: "shadow-sm",
-        },
+          width:'shadow-sm'
+        }
       });
     }
   };
@@ -123,11 +123,11 @@ const { name, value } = e.target
           showConfirmButton: false,
           timer: 1500,
           backdrop: `rgba(255, 255, 255, 0.55)`,
-          width: "35%",
+          // width: "35%",
           padding: "0 0 3.25em",
           customClass: {
-            popup: "shadow-sm",
-          },
+            width:'shadow-sm'
+          }
         });
       }
 
@@ -210,8 +210,8 @@ const { name, value } = e.target
               //  width: "35%",
                padding: "0 0 3.25em",
                customClass: {
-                 popup: "shadow-sm",
-               },
+                width:'shadow-sm'
+              }
              });
       }
     }catch(error){

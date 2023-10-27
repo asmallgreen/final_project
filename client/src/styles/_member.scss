@@ -1,19 +1,16 @@
-body {
+body{
   color: $secondary;
   font-family: NSimSun;
 }
-
-body {
+body{
   color: $secondary;
   font-family: NSimSun;
 }
-
 .login-bg {
   height: 100%;
   width: 100%;
   background: url(../image/bow1.jpg) center/cover no-repeat fixed;
   position: relative;
-
   /* 背景透明度 */
   &::before {
     content: "";
@@ -22,8 +19,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.6);
-    /* 调整透明度的背景颜色 */
+    background: rgba(255, 255, 255, 0.6); /* 调整透明度的背景颜色 */
   }
 }
 
@@ -32,21 +28,18 @@ body {
   @media (max-width: 400px) {
     display: flex;
     align-items: center;
-
     img {
       border-radius: 0;
       width: 50px;
       height: 50px;
       margin-right: 30px;
     }
-
     p {
       margin-block: auto;
       margin-right: 10px;
     }
   }
 }
-
 .side-nav-d-none {
   @media (max-width: 400px) {
     // display: none;
@@ -58,12 +51,10 @@ body {
 
 .nav-item {
   border-left: 7px solid transparent;
-
   &:hover {
     border-left: 7px solid $accent;
   }
 }
-
 .update-profile-btn,
 .update-profile-btn:hover {
   background-color: $secondary;
@@ -71,7 +62,6 @@ body {
   color: #fff;
   font-size: 16px;
 }
-
 .bgc-primary {
   background-color: $secondary;
   color: #fff;
@@ -80,29 +70,23 @@ body {
 // 收藏的商品 含bootstrap樣式覆蓋
 .fav-header {
   justify-content: space-around;
-
   ul {
     border-radius: 0;
   }
-
   li {
     width: calc(180px + 0.2 * (100vw - 770px));
     border-left: 0;
     border-bottom: 7px solid transparent;
-
     &:hover {
       border-left: 0;
-
       #uncontrolled-tab-example-tab-product,
       #uncontrolled-tab-example-tab-course {
         border-bottom: 7px solid $accent;
       }
     }
-
     #uncontrolled-tab-example-tab-product,
     #uncontrolled-tab-example-tab-course {
       width: 100%;
-
       &.active {
         color: $accent;
         border-left: 0;
@@ -111,27 +95,23 @@ body {
     }
   }
 }
-
-.fav-product-cards {
-  .fav-product-card-div {
-    padding: 20px;
+.fav-product-cards{
+  .fav-product-card-div{
+  padding:20px;
   }
-
-  .product-name {
+  .product-name{
     font-size: 24px;
     font-weight: 600;
     margin-bottom: 0;
     // padding:20px,0,0,10px;
   }
-
-  .product-price {
+  .product-price{
     font-size: 18px;
     font-weight: 600;
     color: #b61c1c;
   }
-
-  @media (max-width:393px) {
-    .product-name {
+  @media (max-width:393px){
+    .product-name{
       font-size: 14px;
       font-weight: 600;
       margin-bottom: 0;
@@ -145,7 +125,6 @@ body {
     border-left: solid 7px transparent;
     padding: 0;
     margin: 3px;
-
     a {
       padding: 10px 10px;
       color: $secondary;
@@ -159,7 +138,6 @@ body {
       height: 100%;
     }
   }
-
   li:hover,
   .active {
     border-left: solid 7px $accent;
@@ -172,14 +150,12 @@ body {
       height: 100px;
     }
   }
-
   @media (max-width: 768px) {
     img {
       width: 80px;
       height: 80px;
       border-radius: 0;
     }
-
     p {
       font-size: 1rem;
       font-weight: bold;
@@ -188,7 +164,6 @@ body {
     }
   }
 }
-
 .side-bar-border-right {
   border-right: 3px solid $secondary-light;
 }
@@ -210,15 +185,12 @@ body {
   img {
     height: 100%;
   }
-
   p {
     font-size: 16px;
-
     @media (max-width: 1250px) {
       font-size: 14px;
     }
   }
-
   input {
     position: absolute;
     top: 5px;
@@ -233,42 +205,33 @@ body {
   .course-list-item {
     display: flex;
     margin: 40px;
-
     .course-list-img {
+      background: lightblue;
       width: 420px;
-      height: 180px;
-
-      img {
-        object-fit: cover;
-      }
+      height: 280px;
     }
-
     .course-list-text {
       position: relative;
-      width: calc(100% - 420px - 40px);
-      // height: 180px;
-      padding-inline: 20px;
-
-      input {
+      input{
         position: absolute;
-        right: 15px;
+        right:15px;
         top: 10px;
       }
-
       position: relative;
-
-      input {
+      input{
         position: absolute;
-        right: 15px;
+        right:15px;
         top: 10px;
       }
-
+      background: lightyellow;
+      width: 560px;
+      height: 280px;
+      padding-inline: 40px;
       .title {
         font-size: 22px;
         padding: 12px 0px;
         font-weight: 600;
       }
-
       .intro {
         height: 25px;
         font-size: 14px;
@@ -277,12 +240,10 @@ body {
         overflow: hidden; // 隐藏溢出的文本
         text-overflow: ellipsis; // 使用省略号来表示溢出的文本
       }
-
       .items {
         font-style: 14px;
         letter-spacing: 0.1em;
       }
-
       .course-rating {
         display: flex;
         align-items: first baseline;
@@ -290,31 +251,26 @@ body {
         .stars {
           display: flex;
           margin-block: 10px;
-
           .star {
             font-size: 22.5px;
             letter-spacing: 5px;
           }
         }
-
         .counting {
           font-style: 14px;
           margin-left: 14px;
         }
       }
-
       .bottom {
         display: flex;
         align-items: flex-end;
         justify-content: space-between;
-
         .price {
           font-size: 28px;
           color: $accent;
           letter-spacing: 0.1em;
           margin: 0;
         }
-
         .moreBtn {
           letter-spacing: 0.1em;
           padding: 12px 0px;
@@ -323,7 +279,6 @@ body {
           background: $secondary;
           color: $primary;
           border-radius: 0%;
-
           &:hover {
             color: $secondary;
             background-color: $primary;
@@ -331,32 +286,27 @@ body {
         }
       }
     }
-
-    @media (max-width:393px) {
-      display: block;
-      margin: 10px;
-
-      .course-list-img {
-        // background: lightblue;
-        width: 336px;
-        height: 224px;
-        
-      }
-
-      .course-list-text {
-        // background: lightyellow;
-        width: 336px;
-        height: 280px;
-        padding-inline: 20px;
-
-        .title {
-          font-size: 22px;
-          padding: 2px 0px;
-          font-weight: 600;
-          height: 40px;
-        }
+  @media (max-width:393px){
+    display: block;
+    margin: 10px;
+    .course-list-img {
+      background: lightblue;
+      width: 336px;
+      height: 224px;
+    }
+    .course-list-text {
+      background: lightyellow;
+      width: 336px;
+      height: 280px;
+      padding-inline: 20px;
+      .title {
+        font-size: 22px;
+        padding: 2px 0px;
+        font-weight: 600;
+        height: 40px;
       }
     }
+  }
   }
 }
 
@@ -368,7 +318,6 @@ body {
   padding-inline: 40px;
   color: #fff;
   margin-bottom: 30px;
-
   &:hover {
     background-color: $secondary;
     color: #fff;
@@ -381,117 +330,98 @@ body {
 
 // 會員中心修改會員資料
 // 頭像
-.member-profile-img {
-  button {
-    color: #fff;
-    background-color: $secondary;
-    border-radius: 0;
-
-    &:hover {
-      background-color: $accent;
+  .member-profile-img{
+    button{
       color: #fff;
+      background-color:$secondary;
+      border-radius: 0;
+      &:hover{
+        background-color: $accent;
+        color: #fff;
+      }
+    }
+    input{
+      padding-left:140px;
     }
   }
-
-  input {
-    padding-left: 140px;
-  }
+  .img-object-fit{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    overflow: hidden;
+    .avatar{
+      max-width: 300px;
+      max-height: 300px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+     @media (max-width: 764px) {
+      width: 130px;
+      height: 130px;
 }
-
-.img-object-fit {
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  overflow: hidden;
-
-  .avatar {
-    max-width: 300px;
-    max-height: 300px;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
   }
-
-  @media (max-width: 764px) {
-    width: 130px;
-    height: 130px;
-  }
-}
-
 // 會員資料內容
-.mobile-member-update-container {
+.mobile-member-update-container{
   width: 100%;
   margin-bottom: 100px;
 
-  @media (max-width:393px) {
+  @media (max-width:393px){
     width: 100%;
     margin-bottom: 80px;
   }
 }
 
-.shadow-sm {
-  width: 400px;
-
-  @media (max-width:393px) {
-    width: 80%;
+  .shadow-sm{
+    width: 400px;
+    @media (max-width:393px){
+      width: 80%;
+    }
   }
-}
-
-.upload-profile-form {
+.upload-profile-form{
   color: $secondary;
   font-family: NSimSun;
-
-  input {
+  input{
     background-color: #fff;
     border: 1px solid rgba(204, 197, 197, 0.6);
-
-    &:focus {
+    &:focus{
       background-color: #fff;
       border: 1px solid $secondary;
     }
-
-    &:focus::placeholder {
+    &:focus::placeholder{
       color: transparent;
     }
   }
-
-  button {
+  button{
     color: #fff;
-    background-color: $secondary;
+    background-color:$secondary;
     border-radius: 0;
-
-    &:hover {
+    &:hover{
       background-color: $accent;
       color: #fff;
     }
   }
 }
-
 // 會員中心修改密碼
-.update-pwd-form {
-  input {
+.update-pwd-form{
+  input{
     background-color: #fff;
-
-    &:focus {
+    &:focus{
       background-color: #fff;
       border: 1px solid $secondary;
     }
   }
 }
-
-.forgot-pwd-container {
-  .forget-pwd-header {
+.forgot-pwd-container{
+  .forget-pwd-header{
     font-size: 24px;
   }
-
-  input {
+  input{
     background-color: #fff;
   }
-
-  .otp-position-relative {
+  .otp-position-relative{
     position: relative;
-
-    .otp-button {
+    .otp-button{
       position: absolute;
       background-color: $accent;
       color: #fff;
@@ -499,23 +429,21 @@ body {
       top: 32px;
     }
   }
-
-  .forgot-pwd-text {
+  .forgot-pwd-text{
     border: 1px dashed $secondary-light;
-
+    @media (max-width:393px){
+      background: #ffffff7e;
+    }
   }
-
-  .forgot-pwd-back {
+  .forgot-pwd-back{
     text-decoration: none;
     display: flex;
     align-items: center;
   }
 }
-
-.shadow-sm {
+.shadow-sm{
   width: 400px;
-
-  @media (max-width:393px) {
+  @media (max-width:393px){
     width: 350px;
   }
 }

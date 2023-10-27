@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }) {
   useEffect(() => {
     import("bootstrap/dist/js/bootstrap");
   }, []);
-
+ 
   const [isLoading, setIsLoading] = useState(true)
   useEffect(() => {
     const loadingTimeout = setTimeout(() => {
@@ -54,12 +54,9 @@ function MyApp({ Component, pageProps }) {
     <>
       <ParallaxProvider>
         <AuthProviderJWT>
-          
             <FlareCursor />
-            {/* <MouseIcon/> */}
             {isLoading && <Loading />}
             {getLayout(<Component {...pageProps} />)}
-          
         </AuthProviderJWT>
       </ParallaxProvider>
     </>

@@ -11,18 +11,9 @@ import {
 
 export default function FilterProductCard(props) {
   // const [filterProduct, setFilterProduct]= useState;
-  const { filterProduct, id, is_favorite, handleTriggerProductFav } = props;  // console.log(filterProduct);
+  const { filterProduct, id, is_favorite, handleTriggerProductFav } = props;
   //取得卡片id
   const idData = filterProduct.id;
-
-  // 切換愛心的實心和空心狀態
-  // const [isSolidHeart, setIsSolidHeart] = useState(true);
-  // Toggle切換
-  // const handleToggle = (e) => {
-  //   e.stopPropagation();
-  //   setIsSolidHeart((prevState) => !prevState);
-  // };
-
 
 
   return (

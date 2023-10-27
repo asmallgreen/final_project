@@ -70,6 +70,9 @@ router.post("/login", async (req, res) => {
   
   try {
     // 先檢查資料庫有沒有這個帳號
+    if(!account){
+      return res.json({ message: '請輸入帳號', code: '400' });
+    }
     const user = await checkAccount({ account });
 
     if (!user) {
@@ -253,7 +256,9 @@ ${otpToken}
 router.post('/otp', async (req, res) => {
   const { email } = req.body
 
-  if (!email) return res.json({ message: '此信箱並未註冊過', code: '400' })
+  if (!email) return res.json({ message: '請輸入正確註冊信箱', code: '400' })
+  const member = await checkEmail({ email })
+  if (!member) return res.json({ message: '此信箱並未註冊過', code: '400' })
 
   // 建立otp資料表記錄，成功回傳otp記錄物件，失敗為空物件{}
   const otp = await createOtp(email)

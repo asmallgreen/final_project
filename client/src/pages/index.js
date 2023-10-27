@@ -104,9 +104,9 @@ const items = [
 export default function Homepage() {
   
   const { ref:refFirst,style } = useParallax({ speed: -32,opacity:[0.3,1], scale:[2] });
-  const { ref:refsecond } = useParallax({ translateX: [-500, -100], });
-  const { ref:refthird } = useParallax({ translateX: [-500, -100], });
-  const { ref:reffourth } = useParallax({ translateX: [90, 50], });
+  const { ref:refsecond } = useParallax({ translateX: [-300, 150], });
+  const { ref:refthird } = useParallax({ translateX: [-300, 150], });
+  const { ref:reffourth } = useParallax({ translateX: [60, 0], });
   const { ref:firstPic} = useParallax({   translateY: [-5, 5, 'easeIn'],opacity: [0, 1], });
   const { ref:reffifth  } = useParallax({ translateY: [0, 85, 'easeIn'],opacity:[0.8,1] });
   const { ref:refsixth  } = useParallax({ translateY: [-80, 220, 'easeIn'],opacity:[0.8,1] });
